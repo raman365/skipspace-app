@@ -1,24 +1,16 @@
-import { StyleSheet, ActivityIndicator, View } from 'react-native';
-import React from 'react';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { Header, Icon, Input, Button, Image, Text } from '@rneui/themed';
+import { StyleSheet, View } from 'react-native';
+import { Input, Button, Text } from '@rneui/themed';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { theme, COLORS } from '../../../constants/theme';
-import HeaderComponent from '../../component/Header';
-
-// const SKIPSPACE_LOGO =
-// 	'/Users/bbb/ContractProjects/skipspace-app/assets/images';
+import { COLORS } from '../../../constants/theme';
+import HeaderComponent from '../../components/Header';
+import ScreenTitle from '../../components/ScreenTitle';
 
 const AuthDashboard = () => {
 	return (
 		<SafeAreaProvider>
 			<HeaderComponent />
+			<ScreenTitle title={'Sign In'} />
 
-			<View style={{ paddingTop: 50 }}>
-				<Text h3 h3Style={{ fontWeight: 'bold', textAlign: 'center' }}>
-					Sign In
-				</Text>
-			</View>
 			<View style={styles.centerContainer}>
 				<View>
 					<View>

@@ -2,18 +2,14 @@ import { View, StyleSheet } from 'react-native';
 import { Text, Button, Input } from '@rneui/themed';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { COLORS } from '../../../constants/theme';
-import HeaderComponent from '../../component/Header';
+import HeaderComponent from '../../components/Header';
+import ScreenTitle from '../../components/ScreenTitle';
 
 const ForgotDetails = () => {
 	return (
 		<SafeAreaProvider>
 			<HeaderComponent />
-
-			<View style={{ paddingTop: 30 }}>
-				<Text h3 h3Style={{ fontWeight: 'bold', textAlign: 'center' }}>
-					Forgot Password?
-				</Text>
-			</View>
+			<ScreenTitle title={'Forgot Password?'} />
 
 			<View style={styles.centerContainer}>
 				<View>

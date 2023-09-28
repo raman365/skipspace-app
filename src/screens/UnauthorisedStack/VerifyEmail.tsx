@@ -2,19 +2,15 @@ import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { COLORS } from '../../../constants/theme';
-import HeaderComponent from '../../component/Header';
+import HeaderComponent from '../../components/Header';
 import { Input, Text, Button } from '@rneui/themed';
+import ScreenTitle from '../../components/ScreenTitle';
 
 const VerifyEmail = () => {
 	return (
 		<SafeAreaProvider>
 			<HeaderComponent />
-
-			<View style={{ paddingTop: 30 }}>
-				<Text h3 h3Style={{ fontWeight: 'bold', textAlign: 'center' }}>
-					Verify your email{' '}
-				</Text>
-			</View>
+			<ScreenTitle title={'Verify your email'} />
 
 			<View style={styles.centerContainer}>
 				<View>

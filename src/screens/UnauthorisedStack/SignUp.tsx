@@ -4,7 +4,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Header, Icon, Input, Button, Image, Text } from '@rneui/themed';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { theme, COLORS } from '../../../constants/theme';
-import HeaderComponent from '../../component/Header';
+import HeaderComponent from '../../components/Header';
+import ScreenTitle from '../../components/ScreenTitle';
 
 // const SKIPSPACE_LOGO =
 // 	'/Users/bbb/ContractProjects/skipspace-app/assets/images';
@@ -17,12 +18,8 @@ const SignUp = () => {
 	return (
 		<SafeAreaProvider>
 			<HeaderComponent />
+			<ScreenTitle title={'Register'} />
 
-			<View style={{ paddingTop: 30 }}>
-				<Text h3 h3Style={{ fontWeight: 'bold', textAlign: 'center' }}>
-					Register{' '}
-				</Text>
-			</View>
 			<View style={styles.centerContainer}>
 				<View>
 					<View>

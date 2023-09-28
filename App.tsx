@@ -1,6 +1,6 @@
 import React from 'react';
 import { ThemeProvider } from '@rneui/themed';
-import Component from './components/MyComponent';
+import Component from './src/components/MyComponent';
 
 import { theme } from './constants/theme';
 import RootNavigation from './src/navigation';

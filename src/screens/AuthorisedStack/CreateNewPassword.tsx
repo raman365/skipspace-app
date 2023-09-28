@@ -4,7 +4,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Header, Icon, Input, Button, Image, Text } from '@rneui/themed';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { theme, COLORS } from '../../../constants/theme';
-import HeaderComponent from '../../component/Header';
+import HeaderComponent from '../../components/Header';
 
 // const SKIPSPACE_LOGO =
 // 	'/Users/bbb/ContractProjects/skipspace-app/assets/images';
