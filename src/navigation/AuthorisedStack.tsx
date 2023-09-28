@@ -26,7 +26,7 @@ export const AuthorisedStack = () => {
 				<Stack.Screen
 					name='SignedInDashboard'
 					component={SignedInDashboard}
-					// options={}
+					options={{ headerShown: false }}
 				/>
 				<Stack.Screen name='SelectCouncil' component={SelectCouncil} />
 				<Stack.Screen name='SelectedSkipSpace' component={SelectedSkipSpace} />

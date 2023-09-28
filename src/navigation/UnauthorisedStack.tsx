@@ -26,18 +26,19 @@ export const UnauthorisedStack = () => {
 	return (
 		<NavigationContainer>
 			<Stack.Navigator>
-				{/* 5 Forgot details */}
+				{/* 1 Welcome/how to */}
 				<Stack.Screen
-					name='ForgotDetails'
-					component={ForgotDetails}
+					name='WelcomeHowTo'
+					component={WelcomeHowTo}
 					options={{ headerShown: false }}
 				/>
-
-				{/*  4 Verify Email */}
+				{/* 2 SignIn */}
 				<Stack.Screen
-					name='VerifyEmail'
-					component={VerifyEmail}
-					options={{ headerShown: false }}
+					name='AuthDashboard'
+					component={AuthDashboard}
+					options={{
+						headerShown: false,
+					}}
 				/>
 
 				{/* 3 Register */}
@@ -49,19 +50,16 @@ export const UnauthorisedStack = () => {
 					}}
 				/>
 
-				{/* 2 SignIn */}
+				{/*  4 Verify Email */}
 				<Stack.Screen
-					name='AuthDashboard'
-					component={AuthDashboard}
-					options={{
-						headerShown: false,
-					}}
+					name='VerifyEmail'
+					component={VerifyEmail}
+					options={{ headerShown: false }}
 				/>
-
-				{/* 1 Welcome/how to */}
+				{/* 5 Forgot details */}
 				<Stack.Screen
-					name='WelcomeHowTo'
-					component={WelcomeHowTo}
+					name='ForgotDetails'
+					component={ForgotDetails}
 					options={{ headerShown: false }}
 				/>
 			</Stack.Navigator>
