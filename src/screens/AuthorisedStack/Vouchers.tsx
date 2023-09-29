@@ -26,8 +26,8 @@ const Vouchers = ({ navigation }: any) => {
 			{/* <ScreenTitle title={'Vouchers'} /> */}
 			<View style={{ paddingTop: 30 }}>
 				<Text
-					h3
-					h3Style={{
+					h4
+					h4Style={{
 						fontWeight: 'bold',
 						textAlign: 'center',
 						color: COLORS.bgBlue,

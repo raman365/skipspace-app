@@ -2,8 +2,6 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 import React from 'react';
 import { COLORS } from '../../../constants/theme';
 import { Button, Icon } from '@rneui/themed';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-// import {  } from '@rneui/base';
 
 interface IHeaderComponentProps {
 	authorised: Boolean;

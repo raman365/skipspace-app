@@ -151,13 +151,7 @@ const CustomDrawer = () => {
 							drawerItemStyle: { display: 'none' },
 						}}
 					/>
-					<Drawer.Screen
-						name={'createNewPassword'}
-						component={CreateNewPassword}
-						options={{
-							drawerItemStyle: { display: 'none' },
-						}}
-					/>
+
 					<Drawer.Screen
 						name={'selectedSkipSpace'}
 						component={SelectedSkipSpace}
@@ -173,6 +167,13 @@ const CustomDrawer = () => {
 							headerShown: false,
 							title: 'Vouchers',
 							drawerLabelStyle: { fontSize: 20 },
+						}}
+					/>
+					<Drawer.Screen
+						name={'createNewPassword'}
+						component={CreateNewPassword}
+						options={{
+							drawerItemStyle: { display: 'none' },
 						}}
 					/>
 					<Drawer.Screen
