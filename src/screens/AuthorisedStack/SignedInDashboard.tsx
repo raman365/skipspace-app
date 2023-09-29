@@ -51,6 +51,7 @@ const SignedInDashboard = () => {
 
 const styles = StyleSheet.create({
 	centerContainer: {
+		paddingTop: 50,
 		paddingHorizontal: 20,
 		display: 'flex',
 		justifyContent: 'center',
