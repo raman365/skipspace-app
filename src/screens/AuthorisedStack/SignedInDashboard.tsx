@@ -5,10 +5,15 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
 import { Button } from '@rneui/themed';
 
-const SignedInDashboard = () => {
+const SignedInDashboard = ({ navigation }: any) => {
 	return (
 		<SafeAreaProvider style={{ backgroundColor: COLORS.bgBlue }}>
-			<HeaderComponent authorised={true} />
+			<HeaderComponent
+				authorised={true}
+				onPress={() => {
+					navigation.toggleDrawer();
+				}}
+			/>
 			<View style={styles.centerContainer}>
 				{/* <Text>SignedInDashboard</Text> */}
 
@@ -25,7 +30,7 @@ const SignedInDashboard = () => {
 							fontSize: 16,
 							color: COLORS.bgBlue,
 						}}
-						onPress={() => console.log('aye')}
+						onPress={() => navigation.navigate('selectCouncil')}
 					/>
 				</View>
 				<View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>
@@ -41,7 +46,7 @@ const SignedInDashboard = () => {
 							fontSize: 16,
 							color: COLORS.bgBlue,
 						}}
-						onPress={() => console.log('aye')}
+						onPress={() => navigation.navigate('vouchers')}
 					/>
 				</View>
 			</View>

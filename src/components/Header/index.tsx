@@ -22,7 +22,7 @@ const HeaderComponent: React.FC<IHeaderComponentProps> = ({
 						height: 100,
 						alignSelf: 'center',
 						justifyContent: 'center',
-						paddingTop: 20,
+						paddingTop: 0,
 					}}
 				>
 					<Button onPress={onPress}>

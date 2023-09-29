@@ -3,7 +3,7 @@ import {
 	DrawerContentScrollView,
 	DrawerItemList,
 } from '@react-navigation/drawer';
-import { View, Image } from 'react-native';
+import { View, Image, StyleSheet } from 'react-native';
 
 import {
 	CreateNewPassword,
@@ -12,6 +12,8 @@ import {
 	SignedInDashboard,
 	SkipSpaceResults,
 	UserAccount,
+	Vouchers,
+	Help,
 } from '../screens/index';
 import { COLORS, theme } from '../../constants/theme';
 import { Button, Icon, ThemeProvider } from '@rneui/themed';
@@ -23,7 +25,9 @@ export type DrawerStackParamsList = {
 	skipSpaceResults: undefined;
 	selectedSkipSpace: undefined;
 	userAccount: undefined;
+	vouchers: undefined;
 	createNewPassword: undefined;
+	help: undefined;
 };
 const Drawer = createDrawerNavigator<DrawerStackParamsList>();
 
@@ -33,13 +37,13 @@ const CustomDrawerContent = (props: any) => {
 
 	return (
 		<DrawerContentScrollView {...props} safeArea>
-			<View>
+			{/* <View>
 				<Image
-					source={require('../../assets/images/sslogo.png')}
+					source={require('../../assets/ss.png')}
 					height={50}
-					resizeMode='contain'
+					resizeMode='center'
 				/>
-			</View>
+			</View> */}
 			<View>
 				<DrawerItemList state={newState} {...rest} />
 			</View>
@@ -52,7 +56,7 @@ const CustomDrawer = () => {
 			<View style={{ flex: 1 }}>
 				<Drawer.Navigator
 					initialRouteName={'signedInDashboard'}
-					screenOptions={({ navigation }) => ({
+					screenOptions={() => ({
 						drawerActiveBackgroundColor: COLORS.bgBlue,
 						drawerLabelStyle: { fontWeight: 'bold' },
 						drawerActiveTintColor: COLORS.bgGreen,
@@ -81,14 +85,44 @@ const CustomDrawer = () => {
 							top: 0,
 						},
 						// headerLeft: () => {
-						// 	<View style={{ backgroundColor: COLORS.bgBlue }}>
-						// 		<Button
-						// 			onPress={navigation.toggleDrawer}
-						// 			// background={'transparent'}
+						// 	<View style={styles.imageContainer}>
+						// 		<View
+						// 			style={{
+						// 				width: 100,
+						// 				height: 100,
+						// 				alignSelf: 'center',
+						// 				justifyContent: 'center',
+						// 				paddingTop: 0,
+						// 			}}
 						// 		>
-						// 			<Icon name='menu' color='white' />
-						// 		</Button>
+						// 			<Button onPress={navigation.toggleDrawer}>
+						// 				<Icon
+						// 					name='menu'
+						// 					type='feather'
+						// 					color={COLORS.bgGreen}
+						// 					size={30}
+						// 				/>
+						// 			</Button>
+						// 		</View>
+
+						// 		<View style={styles.innerContainer}>
+						// 			<Image
+						// 				// style={styles.logoImage}
+						// 				height={50}
+						// 				source={require('../../assets/ss.png')}
+						// 				resizeMode='contain'
+						// 			/>
+						// 		</View>
+						// 		<View style={{ width: 100, alignSelf: 'center' }}></View>
 						// 	</View>;
+						// 	// 	<View style={{ backgroundColor: COLORS.bgBlue }}>
+						// 	// 		<Button
+						// 	// 			onPress={navigation.toggleDrawer}
+						// 	// 			// background={'transparent'}
+						// 	// 		>
+						// 	// 			<Icon name='menu' color='white' />
+						// 	// 		</Button>
+						// 	// 	</View>;
 						// },
 					})}
 					drawerContent={(props) => <CustomDrawerContent {...props} />}
@@ -98,6 +132,7 @@ const CustomDrawer = () => {
 						component={SignedInDashboard}
 						options={{
 							headerShown: false,
+							drawerItemStyle: { display: 'none' },
 						}}
 					/>
 					<Drawer.Screen
@@ -105,6 +140,7 @@ const CustomDrawer = () => {
 						component={SelectCouncil}
 						options={{
 							headerShown: false,
+							drawerItemStyle: { display: 'none' },
 						}}
 					/>
 					<Drawer.Screen
@@ -112,6 +148,14 @@ const CustomDrawer = () => {
 						component={SkipSpaceResults}
 						options={{
 							headerShown: false,
+							drawerItemStyle: { display: 'none' },
+						}}
+					/>
+					<Drawer.Screen
+						name={'createNewPassword'}
+						component={CreateNewPassword}
+						options={{
+							drawerItemStyle: { display: 'none' },
 						}}
 					/>
 					<Drawer.Screen
@@ -119,6 +163,16 @@ const CustomDrawer = () => {
 						component={SelectedSkipSpace}
 						options={{
 							headerShown: false,
+							drawerItemStyle: { display: 'none' },
+						}}
+					/>
+					<Drawer.Screen
+						name={'vouchers'}
+						component={Vouchers}
+						options={{
+							headerShown: false,
+							title: 'Vouchers',
+							drawerLabelStyle: { fontSize: 20 },
 						}}
 					/>
 					<Drawer.Screen
@@ -126,11 +180,18 @@ const CustomDrawer = () => {
 						component={UserAccount}
 						options={{
 							headerShown: false,
+							title: 'Account details',
+							drawerLabelStyle: { fontSize: 20 },
 						}}
 					/>
 					<Drawer.Screen
-						name={'createNewPassword'}
-						component={CreateNewPassword}
+						name={'help'}
+						component={Help}
+						options={{
+							headerShown: false,
+							title: 'Help',
+							drawerLabelStyle: { fontSize: 20 },
+						}}
 					/>
 				</Drawer.Navigator>
 			</View>
@@ -146,3 +207,24 @@ export const AuthorisedStack = () => {
 	);
 };
 export default AuthorisedStack;
+
+const styles = StyleSheet.create({
+	imageContainer: {
+		backgroundColor: COLORS.bgBlue,
+		height: 150,
+		paddingTop: 20,
+		paddingBottom: 30,
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+	},
+	innerContainer: {
+		paddingTop: 40,
+		alignSelf: 'center',
+	},
+	logoImage: {
+		width: 100,
+		height: 100,
+		paddingTop: 30,
+	},
+});
