@@ -26,15 +26,12 @@ export const UnauthorisedStack = () => {
 	return (
 		<NavigationContainer>
 			<Stack.Navigator>
-				{/* 3 Register */}
+				{/* 1 Welcome/how to */}
 				<Stack.Screen
-					name='SignUp'
-					component={SignUp}
-					options={{
-						headerShown: false,
-					}}
+					name='WelcomeHowTo'
+					component={WelcomeHowTo}
+					options={{ headerShown: false }}
 				/>
-
 				{/* 2 SignIn */}
 				<Stack.Screen
 					name='AuthDashboard'
@@ -44,11 +41,13 @@ export const UnauthorisedStack = () => {
 					}}
 				/>
 
-				{/* 1 Welcome/how to */}
+				{/* 3 Register */}
 				<Stack.Screen
-					name='WelcomeHowTo'
-					component={WelcomeHowTo}
-					options={{ headerShown: false }}
+					name='SignUp'
+					component={SignUp}
+					options={{
+						headerShown: false,
+					}}
 				/>
 
 				{/*  4 Verify Email */}
