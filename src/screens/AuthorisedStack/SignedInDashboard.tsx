@@ -8,7 +8,7 @@ import { Button } from '@rneui/themed';
 const SignedInDashboard = () => {
 	return (
 		<SafeAreaProvider style={{ backgroundColor: COLORS.bgBlue }}>
-			<HeaderComponent />
+			<HeaderComponent authorised={true} />
 			<View style={styles.centerContainer}>
 				{/* <Text>SignedInDashboard</Text> */}
 
