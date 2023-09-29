@@ -3,13 +3,16 @@ import React from 'react';
 import { COLORS } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
-import { Button } from '@rneui/themed';
+import { Button, Icon } from '@rneui/themed';
 
 const SignedInDashboard = ({ navigation }: any) => {
 	return (
 		<SafeAreaProvider style={{ backgroundColor: COLORS.bgBlue }}>
 			<HeaderComponent
 				authorised={true}
+				icon={
+					<Icon name='menu' type='feather' color={COLORS.bgGreen} size={30} />
+				}
 				onPress={() => {
 					navigation.toggleDrawer();
 				}}

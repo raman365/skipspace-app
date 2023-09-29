@@ -8,9 +8,11 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 interface IHeaderComponentProps {
 	authorised: Boolean;
 	onPress?: () => void;
+	icon?: React.ReactElement;
 }
 const HeaderComponent: React.FC<IHeaderComponentProps> = ({
 	authorised,
+	icon,
 	onPress,
 }) => {
 	return (
@@ -25,9 +27,7 @@ const HeaderComponent: React.FC<IHeaderComponentProps> = ({
 						paddingTop: 0,
 					}}
 				>
-					<Button onPress={onPress}>
-						<Icon name='menu' type='feather' color={COLORS.bgGreen} size={30} />
-					</Button>
+					<Button onPress={onPress}>{icon}</Button>
 				</View>
 			) : null}
 			<View style={styles.innerContainer}>
