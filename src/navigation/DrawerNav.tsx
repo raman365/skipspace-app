@@ -1,18 +1,28 @@
 import {
 	createDrawerNavigator,
 	DrawerContentScrollView,
+	DrawerItemList,
 } from '@react-navigation/drawer';
 import { View, Image } from 'react-native';
 
-import {} from '../screens/index';
+import {
+	CreateNewPassword,
+	SelectCouncil,
+	SelectedSkipSpace,
+	SignedInDashboard,
+	SkipSpaceResults,
+	UserAccount,
+} from '../screens/index';
+import { COLORS } from '../../constants/theme';
+import { Button, Icon } from '@rneui/themed';
 
 export type DrawerStackParamsList = {
-	createNewPassword: undefined;
-	selectCouncil: undefined;
-	selectedSkipSpace: undefined;
 	signedInDashboard: undefined;
+	selectCouncil: undefined;
 	skipSpaceResults: undefined;
+	selectedSkipSpace: undefined;
 	userAccount: undefined;
+	createNewPassword: undefined;
 };
 const Drawer = createDrawerNavigator<DrawerStackParamsList>();
 
@@ -30,7 +40,93 @@ const CustomDrawerContent = (props: any) => {
 					resizeMode='contain'
 				/>
 			</View>
-			<View>{/* <DrawerItemsList state={newState} {...rest} /> */}</View>
+			<View>
+				<DrawerItemList state={newState} {...rest} />
+			</View>
 		</DrawerContentScrollView>
 	);
+};
+const CustomDrawer = () => {
+	<View style={{ flex: 1 }}>
+		<Drawer.Navigator
+			initialRouteName={'signedInDashboard'}
+			screenOptions={({ navigation }) => ({
+				drawerActiveBackgroundColor: COLORS.bgBlue,
+				drawerLabelStyle: { fontWeight: 'bold' },
+				drawerActiveTintColor: COLORS.bgGreen,
+				drawerInactiveBackgroundColor: COLORS.white,
+
+				headerStyle: {
+					backgroundColor: COLORS.bgGreen,
+					height: 50,
+					borderBottomColor: COLORS.bgGreen,
+					borderBottomWidth: 2,
+				},
+				headerTintColor: COLORS.white,
+				headerTitleContainerStyle: {
+					height: 0,
+					paddingTop: 10,
+					paddingBottom: 10,
+					marginTop: 10,
+					marginLeft: 2,
+				},
+				headerTitleAlign: 'left',
+				headerTitleStyle: {
+					fontWeight: 'bold',
+					fontSize: 24,
+					color: COLORS.white,
+					position: 'absolute',
+					top: 0,
+				},
+				headerLeft: () => {
+					<View style={{ backgroundColor: COLORS.bgBlue }}>
+						<Button
+							onPress={navigation.toggleDrawer}
+							// background={'transparent'}
+						>
+							<Icon name='menu' color='white' />
+						</Button>
+					</View>;
+				},
+			})}
+			drawerContent={(props) => <CustomDrawerContent {...props} />}
+		>
+			<Drawer.Screen
+				name={'signedInDashboard'}
+				component={SignedInDashboard}
+				options={{
+					headerShown: false,
+				}}
+			/>
+			<Drawer.Screen
+				name={'selectCouncil'}
+				component={SelectCouncil}
+				options={{
+					headerShown: false,
+				}}
+			/>
+			<Drawer.Screen
+				name={'skipSpaceResults'}
+				component={SkipSpaceResults}
+				options={{
+					headerShown: false,
+				}}
+			/>
+			<Drawer.Screen
+				name={'selectedSkipSpace'}
+				component={SelectedSkipSpace}
+				options={{
+					headerShown: false,
+				}}
+			/>
+			<Drawer.Screen
+				name={'userAccount'}
+				component={UserAccount}
+				options={{
+					headerShown: false,
+				}}
+			/>
+			<Drawer.Screen name={'createNewPassword'} component={CreateNewPassword} />
+		</Drawer.Navigator>
+	</View>;
 };
