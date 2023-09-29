@@ -4,7 +4,6 @@ import { COLORS } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
 import { Button, Icon, Text } from '@rneui/themed';
-import ScreenTitle from '../../components/ScreenTitle';
 
 const SelectCouncil = ({ navigation }: any) => {
 	return (

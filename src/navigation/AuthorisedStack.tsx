@@ -44,7 +44,7 @@ const CustomDrawerContent = (props: any) => {
 					resizeMode='center'
 				/>
 			</View> */}
-			<View>
+			<View style={{ paddingVertical: 50 }}>
 				<DrawerItemList state={newState} {...rest} />
 			</View>
 		</DrawerContentScrollView>
@@ -57,10 +57,23 @@ const CustomDrawer = () => {
 				<Drawer.Navigator
 					initialRouteName={'signedInDashboard'}
 					screenOptions={() => ({
-						drawerActiveBackgroundColor: COLORS.bgBlue,
-						drawerLabelStyle: { fontWeight: 'bold' },
-						drawerActiveTintColor: COLORS.bgGreen,
+						drawerActiveBackgroundColor: COLORS.white,
+						// drawerActiveTintColor: COLORS.bgGreen,
+						drawerActiveTintColor: COLORS.white,
+
+						drawerLabelStyle: {
+							fontWeight: 'bold',
+							color: COLORS.bgBlue,
+							fontSize: 20,
+						},
+						drawerInactiveTintColor: COLORS.white,
 						drawerInactiveBackgroundColor: COLORS.white,
+						headerTintColor: COLORS.white,
+						// 	drawerActiveBackgroundColor: COLORS.darkModOrange,
+						// drawerLabelStyle: { fontWeight: 'bold', fontSize: 14 },
+						// drawerInactiveTintColor: COLORS.darkBlue,
+						// drawerInactiveBackgroundColor: COLORS.white,
+						// drawerActiveTintColor: COLORS.white,
 
 						headerStyle: {
 							backgroundColor: COLORS.bgGreen,
@@ -68,7 +81,6 @@ const CustomDrawer = () => {
 							borderBottomColor: COLORS.bgGreen,
 							borderBottomWidth: 2,
 						},
-						headerTintColor: COLORS.white,
 						headerTitleContainerStyle: {
 							height: 0,
 							paddingTop: 10,
@@ -128,6 +140,55 @@ const CustomDrawer = () => {
 					drawerContent={(props) => <CustomDrawerContent {...props} />}
 				>
 					<Drawer.Screen
+						name={'vouchers'}
+						component={Vouchers}
+						options={{
+							headerShown: false,
+							title: 'Vouchers',
+							// drawerLabelStyle: {
+							// 	fontSize: 20,
+							// 	color: COLORS.bgBlue,
+							// 	fontWeight: '600',
+							// },
+						}}
+					/>
+
+					<Drawer.Screen
+						name={'userAccount'}
+						component={UserAccount}
+						options={{
+							headerShown: false,
+							title: 'Account details',
+							// drawerLabelStyle: {
+							// 	fontSize: 20,
+							// 	color: COLORS.bgBlue,
+							// 	fontWeight: '600',
+							// },
+						}}
+					/>
+					<Drawer.Screen
+						name={'help'}
+						component={Help}
+						options={{
+							headerShown: false,
+							title: 'Help',
+							// drawerLabelStyle: {
+							// 	fontSize: 20,
+							// 	color: COLORS.bgBlue,
+							// 	fontWeight: '600',
+							// },
+						}}
+					/>
+
+					<Drawer.Screen
+						name={'createNewPassword'}
+						component={CreateNewPassword}
+						options={{
+							drawerItemStyle: { display: 'none' },
+						}}
+					/>
+
+					<Drawer.Screen
 						name={'signedInDashboard'}
 						component={SignedInDashboard}
 						options={{
@@ -158,40 +219,6 @@ const CustomDrawer = () => {
 						options={{
 							headerShown: false,
 							drawerItemStyle: { display: 'none' },
-						}}
-					/>
-					<Drawer.Screen
-						name={'vouchers'}
-						component={Vouchers}
-						options={{
-							headerShown: false,
-							title: 'Vouchers',
-							drawerLabelStyle: { fontSize: 20 },
-						}}
-					/>
-					<Drawer.Screen
-						name={'createNewPassword'}
-						component={CreateNewPassword}
-						options={{
-							drawerItemStyle: { display: 'none' },
-						}}
-					/>
-					<Drawer.Screen
-						name={'userAccount'}
-						component={UserAccount}
-						options={{
-							headerShown: false,
-							title: 'Account details',
-							drawerLabelStyle: { fontSize: 20 },
-						}}
-					/>
-					<Drawer.Screen
-						name={'help'}
-						component={Help}
-						options={{
-							headerShown: false,
-							title: 'Help',
-							drawerLabelStyle: { fontSize: 20 },
 						}}
 					/>
 				</Drawer.Navigator>

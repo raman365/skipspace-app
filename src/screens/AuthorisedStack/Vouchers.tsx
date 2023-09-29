@@ -12,15 +12,10 @@ const Vouchers = ({ navigation }: any) => {
 			<HeaderComponent
 				authorised={true}
 				icon={
-					<Icon
-						name='arrow-left'
-						type='feather'
-						color={COLORS.bgGreen}
-						size={40}
-					/>
+					<Icon name='menu' type='feather' color={COLORS.bgGreen} size={40} />
 				}
 				onPress={() => {
-					navigation.navigate('signedInDashboard');
+					navigation.toggleDrawer();
 				}}
 			/>
 			{/* <ScreenTitle title={'Vouchers'} /> */}

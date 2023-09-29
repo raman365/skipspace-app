@@ -15,5 +15,6 @@ export const theme = createTheme({
 export const COLORS = {
     bgBlue: '#003b49',
     bgGreen: '#7acc00',
+    lightBlue: '#d0e6e8',
     white: '#fff'
 }
