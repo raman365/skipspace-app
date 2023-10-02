@@ -11,15 +11,10 @@ const SelectCouncil = ({ navigation }: any) => {
 			<HeaderComponent
 				authorised={true}
 				icon={
-					<Icon
-						name='arrow-left'
-						type='feather'
-						color={COLORS.bgGreen}
-						size={40}
-					/>
+					<Icon name='menu' type='feather' color={COLORS.bgGreen} size={40} />
 				}
 				onPress={() => {
-					navigation.navigate('signedInDashboard');
+					navigation.toggleDrawer();
 				}}
 			/>
 			{/* <ScreenTitle title={'Vouchers'} /> */}
@@ -30,6 +25,8 @@ const SelectCouncil = ({ navigation }: any) => {
 						fontWeight: 'bold',
 						textAlign: 'center',
 						color: COLORS.bgBlue,
+						fontFamily: 'Tungsten-SemiBold',
+						fontSize: 30,
 					}}
 				>
 					Search for SkipSpace
@@ -41,7 +38,7 @@ const SelectCouncil = ({ navigation }: any) => {
 						textAlign: 'center',
 					}}
 				>
-					Tap on your local borough below to find SkipSpace in your area
+					Tap on your local borough to find SkipSpace in your area
 				</Text>
 			</View>
 			<View style={styles.centerContainer}>

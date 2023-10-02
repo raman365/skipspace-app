@@ -30,10 +30,11 @@ const SignedInDashboard = ({ navigation }: any) => {
 						}}
 						titleStyle={{
 							fontWeight: '700',
-							fontSize: 20,
+							fontSize: 30,
 							color: COLORS.bgBlue,
+							fontFamily: 'Tungsten-SemiBold',
 						}}
-						onPress={() => navigation.navigate('selectCouncil')}
+						onPress={() => navigation.navigate('searchSelectCouncil')}
 					/>
 				</View>
 				<View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>
@@ -46,8 +47,9 @@ const SignedInDashboard = ({ navigation }: any) => {
 						}}
 						titleStyle={{
 							fontWeight: '700',
-							fontSize: 20,
+							fontSize: 30,
 							color: COLORS.bgBlue,
+							fontFamily: 'Tungsten-SemiBold',
 						}}
 						onPress={() => navigation.navigate('vouchers')}
 					/>

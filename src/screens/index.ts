@@ -9,7 +9,7 @@ export { default as VerifyEmail } from './UnauthorisedStack/VerifyEmail'
 
 // Authorised stack
 export { default as SignedInDashboard } from './AuthorisedStack/SignedInDashboard'
-export { default as SelectCouncil } from './AuthorisedStack/SelectCouncil'
+export { default as SearchSelectCouncil } from './AuthorisedStack/SearchSelectCouncil'
 export { default as SkipSpaceResults } from './AuthorisedStack/SkipSpaceResults'
 export { default as SelectedSkipSpace } from './AuthorisedStack/SelectedSkipSpace'
 export { default as Vouchers } from './AuthorisedStack/Vouchers'

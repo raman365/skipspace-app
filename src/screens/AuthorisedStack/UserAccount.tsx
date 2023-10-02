@@ -28,6 +28,8 @@ const UserAccount = ({ navigation }: any) => {
 						fontWeight: 'bold',
 						textAlign: 'center',
 						color: COLORS.bgBlue,
+						fontSize: 30,
+						fontFamily: 'Tungsten-SemiBold',
 					}}
 				>
 					Your Account

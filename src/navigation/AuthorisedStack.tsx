@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import {
 	createDrawerNavigator,
 	DrawerContentScrollView,
@@ -7,7 +8,7 @@ import { View, Image, StyleSheet } from 'react-native';
 
 import {
 	CreateNewPassword,
-	SelectCouncil,
+	SearchSelectCouncil,
 	SelectedSkipSpace,
 	SignedInDashboard,
 	SkipSpaceResults,
@@ -19,9 +20,12 @@ import { COLORS, theme } from '../../constants/theme';
 import { Button, Icon, ThemeProvider } from '@rneui/themed';
 import { NavigationContainer } from '@react-navigation/native';
 
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+
 export type DrawerStackParamsList = {
 	signedInDashboard: undefined;
-	selectCouncil: undefined;
+	searchSelectCouncil: undefined;
 	skipSpaceResults: undefined;
 	selectedSkipSpace: undefined;
 	userAccount: undefined;
@@ -29,6 +33,9 @@ export type DrawerStackParamsList = {
 	createNewPassword: undefined;
 	help: undefined;
 };
+
+SplashScreen.preventAutoHideAsync();
+
 const Drawer = createDrawerNavigator<DrawerStackParamsList>();
 
 const CustomDrawerContent = (props: any) => {
@@ -52,8 +59,26 @@ const CustomDrawerContent = (props: any) => {
 	);
 };
 const CustomDrawer = () => {
+	const [fontsLoaded, fontError] = useFonts({
+		// 'Inter-Black': require('./assets/fonts/Inter-Black.otf'),
+		'Open-Sans': require('../../assets/fonts/OpenSans/OpenSans-Regular.ttf'),
+		'Open-Sans-Cond-SemiBold': require('../../assets/fonts/OpenSans/OpenSans_Condensed-SemiBold.ttf'),
+		'Open-Sans-SemiCond-Reg': require('../../assets/fonts/OpenSans/OpenSans_SemiCondensed-Regular.ttf'),
+		'Tungsten-Bold': require('../../assets/fonts/Tungsten/Tungsten-Bold.ttf'),
+		'Tungsten-SemiBold': require('../../assets/fonts/Tungsten/Tungsten-Semibold.ttf'),
+	});
+
+	const onLayoutRootView = useCallback(async () => {
+		if (fontsLoaded || fontError) {
+			await SplashScreen.hideAsync();
+		}
+	}, [fontsLoaded, fontError]);
+
+	if (!fontsLoaded && !fontError) {
+		return null;
+	}
 	return (
-		<NavigationContainer>
+		<NavigationContainer onReady={onLayoutRootView}>
 			<View style={{ flex: 1 }}>
 				<Drawer.Navigator
 					initialRouteName={'signedInDashboard'}
@@ -65,7 +90,8 @@ const CustomDrawer = () => {
 						drawerLabelStyle: {
 							fontWeight: 'bold',
 							color: COLORS.bgBlue,
-							fontSize: 20,
+							fontSize: 30,
+							fontFamily: 'Tungsten-SemiBold',
 						},
 						drawerInactiveTintColor: COLORS.white,
 						drawerInactiveBackgroundColor: COLORS.white,
@@ -141,8 +167,8 @@ const CustomDrawer = () => {
 					drawerContent={(props) => <CustomDrawerContent {...props} />}
 				>
 					<Drawer.Screen
-						name={'selectCouncil'}
-						component={SelectCouncil}
+						name={'searchSelectCouncil'}
+						component={SearchSelectCouncil}
 						options={{
 							headerShown: false,
 							title: 'Search',
