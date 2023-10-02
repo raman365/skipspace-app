@@ -16,7 +16,7 @@ export const LogoImage = () => {
 const CreateNewPassword = () => {
 	return (
 		<SafeAreaProvider>
-			<HeaderComponent />
+			<HeaderComponent authorised={false} />
 
 			<View style={{ paddingTop: 30 }}>
 				<Text h3 h3Style={{ fontWeight: 'bold', textAlign: 'center' }}>

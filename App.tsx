@@ -10,10 +10,7 @@ import { View } from 'react-native';
 export default function App() {
 	return (
 		<ThemeProvider theme={theme}>
-			{/* <View style={{ backgroundColor: COLORS.bgGreen, height: 10 }}> */}
-			<StatusBar style='light' translucent={true} />
-			{/* </View> */}
-
+			<StatusBar style='dark' translucent={true} />
 			<RootNavigation />
 		</ThemeProvider>
 	);

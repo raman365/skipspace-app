@@ -15,11 +15,11 @@ import { COLORS } from '../../constants/theme';
 const Stack = createStackNavigator();
 
 export type UnauthorisedStackParamsLists = {
-	Welcome: undefined;
-	SignUp: undefined;
-	AuthDashboard: undefined;
-	ForgotDetails: undefined;
-	VerifyEmail: undefined;
+	welcome: undefined;
+	signUp: undefined;
+	authDashboard: undefined;
+	forgotDetails: undefined;
+	verifyEmail: undefined;
 };
 
 export const UnauthorisedStack = () => {

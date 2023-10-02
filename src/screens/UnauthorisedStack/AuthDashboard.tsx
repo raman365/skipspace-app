@@ -8,7 +8,8 @@ import ScreenTitle from '../../components/ScreenTitle';
 const AuthDashboard = () => {
 	return (
 		<SafeAreaProvider>
-			<HeaderComponent />
+			<HeaderComponent authorised={true} />
+
 			<ScreenTitle title={'Sign In'} />
 
 			<View style={styles.centerContainer}>

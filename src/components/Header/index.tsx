@@ -22,7 +22,7 @@ const HeaderComponent: React.FC<IHeaderComponentProps> = ({
 						height: 100,
 						alignSelf: 'center',
 						justifyContent: 'center',
-						paddingTop: 0,
+						// paddingTop: 0,
 					}}
 				>
 					<Button onPress={onPress}>{icon}</Button>
@@ -35,7 +35,9 @@ const HeaderComponent: React.FC<IHeaderComponentProps> = ({
 					resizeMode='contain'
 				/>
 			</View>
-			<View style={{ width: 100, alignSelf: 'center' }}></View>
+			{authorised ? (
+				<View style={{ width: 100, alignSelf: 'center' }}></View>
+			) : null}
 		</View>
 	);
 };
@@ -46,7 +48,7 @@ const styles = StyleSheet.create({
 	imageContainer: {
 		backgroundColor: COLORS.bgBlue,
 		height: 150,
-		paddingTop: 20,
+		paddingTop: 30,
 		paddingBottom: 30,
 		display: 'flex',
 		flexDirection: 'row',
@@ -59,6 +61,6 @@ const styles = StyleSheet.create({
 	logoImage: {
 		width: 100,
 		height: 100,
-		paddingTop: 30,
+		paddingTop: 20,
 	},
 });
