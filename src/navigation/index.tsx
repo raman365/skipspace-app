@@ -5,6 +5,6 @@ import { View } from 'react-native';
 export default function RootNavigation() {
 	// const { user } = useAuthentication();
 
-	return <AuthorisedStack />;
+	return <UnauthorisedStack />;
 	// return user ? <AuthorisedStack /> : <UnauthorisedStack />;
 }

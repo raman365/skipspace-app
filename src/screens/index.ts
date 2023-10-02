@@ -18,3 +18,6 @@ export { default as UserAccount } from './AuthorisedStack/UserAccount'
 
 export { default as Help } from './AuthorisedStack/Help'
 
+// Vouchers
+
+export { default as VoucherConfirmation } from './AuthorisedStack/Vouchers/VoucherConfirmation'

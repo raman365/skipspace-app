@@ -31,6 +31,8 @@ const SelectedSkipSpace = ({ navigation }: any) => {
 						fontWeight: 'bold',
 						textAlign: 'center',
 						color: COLORS.bgBlue,
+						fontSize: 30,
+						fontFamily: 'Tungsten-SemiBold',
 					}}
 				>
 					Selected SkipSpace
@@ -42,11 +44,53 @@ const SelectedSkipSpace = ({ navigation }: any) => {
 						h4
 						h4Style={{
 							fontWeight: '600',
+							color: COLORS.bgBlue,
+							fontFamily: 'Tungsten-SemiBold',
 						}}
 					>
 						Council:
 					</Text>
 					<Text></Text>
+				</View>
+				<View>
+					<Text
+						h4
+						h4Style={{
+							fontWeight: '600',
+							color: COLORS.bgBlue,
+							fontFamily: 'Tungsten-SemiBold',
+						}}
+					>
+						Name of skip company:
+					</Text>
+					<Text></Text>
+				</View>
+				<View>
+					<Text
+						h4
+						h4Style={{
+							fontWeight: '600',
+							color: COLORS.bgBlue,
+							fontFamily: 'Tungsten-SemiBold',
+						}}
+					>
+						Address:
+					</Text>
+					<Text></Text>
+				</View>
+				<View>
+					<Text
+						style={{
+							fontSize: 18,
+							fontWeight: '700',
+							color: COLORS.bgBlue,
+							textAlign: 'center',
+							textDecorationLine: 'underline',
+							fontFamily: 'Open-Sans-SemiCond-Reg',
+						}}
+					>
+						View on Maps
+					</Text>
 				</View>
 			</View>
 			<View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>
@@ -87,7 +131,7 @@ const SelectedSkipSpace = ({ navigation }: any) => {
 const styles = StyleSheet.create({
 	centerContainer: {
 		paddingTop: 50,
-		paddingHorizontal: 20,
+		paddingHorizontal: 40,
 		display: 'flex',
 		justifyContent: 'center',
 		flex: 1,

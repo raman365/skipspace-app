@@ -171,7 +171,7 @@ const CustomDrawer = () => {
 						component={SearchSelectCouncil}
 						options={{
 							headerShown: false,
-							title: 'Search',
+							title: 'Search for SkipSpace',
 							// drawerItemStyle: { display: 'none' },
 						}}
 					/>
