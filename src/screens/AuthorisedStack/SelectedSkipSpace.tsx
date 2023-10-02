@@ -33,51 +33,52 @@ const SelectedSkipSpace = ({ navigation }: any) => {
 						color: COLORS.bgBlue,
 					}}
 				>
-					Search for SkipSpace
-				</Text>
-				<Text
-					style={{
-						color: COLORS.bgBlue,
-						padding: 20,
-						textAlign: 'center',
-					}}
-				>
-					Tap on your local borough below to find SkipSpace in your area
+					Selected SkipSpace
 				</Text>
 			</View>
 			<View style={styles.centerContainer}>
-				{/* <View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>
-					<Button
-						title='Search for SkipSpace'
-						buttonStyle={{
-							backgroundColor: COLORS.bgGreen,
-							borderRadius: 5,
-							paddingVertical: 15,
+				<View>
+					<Text
+						h4
+						h4Style={{
+							fontWeight: '600',
 						}}
-						titleStyle={{
-							fontWeight: '700',
-							fontSize: 16,
-							color: COLORS.bgBlue,
-						}}
-						onPress={() => navigation.navigate('selectCouncil')}
-					/>
-				</View> */}
-				{/* <View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>
-					<Button
-						title='View active vouchers'
-						buttonStyle={{
-							backgroundColor: COLORS.bgGreen,
-							borderRadius: 5,
-							paddingVertical: 15,
-						}}
-						titleStyle={{
-							fontWeight: '700',
-							fontSize: 16,
-							color: COLORS.bgBlue,
-						}}
-						onPress={() => navigation.navigate('vouchers')}
-					/>
-				</View> */}
+					>
+						Council:
+					</Text>
+					<Text></Text>
+				</View>
+			</View>
+			<View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>
+				<View
+					style={{
+						paddingVertical: 10,
+						paddingHorizontal: 10,
+						borderColor: COLORS.bgBlue,
+						borderWidth: 1,
+						marginTop: 10,
+						marginBottom: 20,
+					}}
+				>
+					<Text style={{ textAlign: 'center', fontWeight: '400' }}>
+						After confirming, you'll receive a one-time voucher to use at your
+						selected SkipSpace site.
+					</Text>
+				</View>
+				<Button
+					title='Confirm Voucher'
+					buttonStyle={{
+						backgroundColor: COLORS.bgGreen,
+						borderRadius: 5,
+						paddingVertical: 15,
+					}}
+					titleStyle={{
+						fontWeight: '700',
+						fontSize: 16,
+						color: COLORS.bgBlue,
+					}}
+					onPress={() => navigation.navigate('vouchers')}
+				/>
 			</View>
 		</SafeAreaProvider>
 	);
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 20,
 		display: 'flex',
 		justifyContent: 'center',
-		// flex: 1,
+		flex: 1,
 	},
 });
 

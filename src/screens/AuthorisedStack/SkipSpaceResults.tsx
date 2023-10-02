@@ -42,26 +42,26 @@ const SkipSpaceResults = ({ navigation }: any) => {
 						textAlign: 'center',
 					}}
 				>
-					Select a SkipSpace below. Tap to see more information
+					Choose a SkipSpace below. Tap to see more information
 				</Text>
 			</View>
 			<View style={styles.centerContainer}>
-				{/* <View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>
-					<Button
-						title='Search for SkipSpace'
-						buttonStyle={{
-							backgroundColor: COLORS.bgGreen,
-							borderRadius: 5,
-							paddingVertical: 15,
-						}}
-						titleStyle={{
-							fontWeight: '700',
-							fontSize: 16,
-							color: COLORS.bgBlue,
-						}}
-						onPress={() => navigation.navigate('selectCouncil')}
-					/>
-				</View> */}
+				{/* <View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>*/}
+				<Button
+					title='SkipSpace result'
+					buttonStyle={{
+						backgroundColor: COLORS.bgGreen,
+						borderRadius: 5,
+						paddingVertical: 15,
+					}}
+					titleStyle={{
+						fontWeight: '700',
+						fontSize: 16,
+						color: COLORS.bgBlue,
+					}}
+					onPress={() => navigation.navigate('selectedSkipSpace')}
+				/>
+				{/*</View> */}
 				{/* <View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>
 					<Button
 						title='View active vouchers'

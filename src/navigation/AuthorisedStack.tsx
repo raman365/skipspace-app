@@ -37,14 +37,15 @@ const CustomDrawerContent = (props: any) => {
 
 	return (
 		<DrawerContentScrollView {...props} safeArea>
-			{/* <View>
+			<View style={{ marginTop: -45, marginBottom: -30 }}>
 				<Image
-					source={require('../../assets/ss.png')}
-					height={50}
+					source={require('../../assets/images/menulogogreen.png')}
+					height={10}
 					resizeMode='center'
+					resizeMethod='scale'
 				/>
-			</View> */}
-			<View style={{ paddingVertical: 50 }}>
+			</View>
+			<View style={{ paddingVertical: 10 }}>
 				<DrawerItemList state={newState} {...rest} />
 			</View>
 		</DrawerContentScrollView>
@@ -140,16 +141,20 @@ const CustomDrawer = () => {
 					drawerContent={(props) => <CustomDrawerContent {...props} />}
 				>
 					<Drawer.Screen
+						name={'selectCouncil'}
+						component={SelectCouncil}
+						options={{
+							headerShown: false,
+							title: 'Search',
+							// drawerItemStyle: { display: 'none' },
+						}}
+					/>
+					<Drawer.Screen
 						name={'vouchers'}
 						component={Vouchers}
 						options={{
 							headerShown: false,
 							title: 'Vouchers',
-							// drawerLabelStyle: {
-							// 	fontSize: 20,
-							// 	color: COLORS.bgBlue,
-							// 	fontWeight: '600',
-							// },
 						}}
 					/>
 
@@ -158,12 +163,7 @@ const CustomDrawer = () => {
 						component={UserAccount}
 						options={{
 							headerShown: false,
-							title: 'Account details',
-							// drawerLabelStyle: {
-							// 	fontSize: 20,
-							// 	color: COLORS.bgBlue,
-							// 	fontWeight: '600',
-							// },
+							title: 'Your account',
 						}}
 					/>
 					<Drawer.Screen
@@ -172,11 +172,6 @@ const CustomDrawer = () => {
 						options={{
 							headerShown: false,
 							title: 'Help',
-							// drawerLabelStyle: {
-							// 	fontSize: 20,
-							// 	color: COLORS.bgBlue,
-							// 	fontWeight: '600',
-							// },
 						}}
 					/>
 
@@ -196,14 +191,7 @@ const CustomDrawer = () => {
 							drawerItemStyle: { display: 'none' },
 						}}
 					/>
-					<Drawer.Screen
-						name={'selectCouncil'}
-						component={SelectCouncil}
-						options={{
-							headerShown: false,
-							drawerItemStyle: { display: 'none' },
-						}}
-					/>
+
 					<Drawer.Screen
 						name={'skipSpaceResults'}
 						component={SkipSpaceResults}

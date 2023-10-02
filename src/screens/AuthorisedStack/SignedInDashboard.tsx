@@ -30,7 +30,7 @@ const SignedInDashboard = ({ navigation }: any) => {
 						}}
 						titleStyle={{
 							fontWeight: '700',
-							fontSize: 16,
+							fontSize: 20,
 							color: COLORS.bgBlue,
 						}}
 						onPress={() => navigation.navigate('selectCouncil')}
@@ -46,7 +46,7 @@ const SignedInDashboard = ({ navigation }: any) => {
 						}}
 						titleStyle={{
 							fontWeight: '700',
-							fontSize: 16,
+							fontSize: 20,
 							color: COLORS.bgBlue,
 						}}
 						onPress={() => navigation.navigate('vouchers')}
