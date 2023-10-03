@@ -4,7 +4,7 @@ import { COLORS } from '../../../constants/theme';
 import { Button, Icon } from '@rneui/themed';
 
 interface IHeaderComponentProps {
-	authorised: Boolean;
+	authorised: boolean;
 	onPress?: () => void;
 	icon?: React.ReactElement;
 }

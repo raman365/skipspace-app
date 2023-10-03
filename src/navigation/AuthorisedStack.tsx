@@ -36,6 +36,9 @@ export type DrawerStackParamsList = {
 
 SplashScreen.preventAutoHideAsync();
 
+// const Drawer = createDrawerNavigator<DrawerStackParamsList>({
+// 	UnauthorisedStack: { screen: 'SignedInDashboard' }
+// });
 const Drawer = createDrawerNavigator<DrawerStackParamsList>();
 
 const CustomDrawerContent = (props: any) => {
@@ -79,166 +82,160 @@ const CustomDrawer = () => {
 		return null;
 	}
 	return (
-		<NavigationContainer onReady={onLayoutRootView}>
-			<View style={{ flex: 1 }}>
-				<Drawer.Navigator
-					initialRouteName={'signedInDashboard'}
-					screenOptions={() => ({
-						drawerActiveBackgroundColor: COLORS.white,
-						// drawerActiveTintColor: COLORS.bgGreen,
-						drawerActiveTintColor: COLORS.white,
+		// <NavigationContainer onReady={onLayoutRootView}>
+		<View style={{ flex: 1 }}>
+			<Drawer.Navigator
+				initialRouteName={'signedInDashboard'}
+				screenOptions={() => ({
+					drawerActiveBackgroundColor: COLORS.white,
+					// drawerActiveTintColor: COLORS.bgGreen,
+					drawerActiveTintColor: COLORS.white,
 
-						drawerLabelStyle: {
-							fontWeight: 'bold',
-							color: COLORS.bgBlue,
-							fontSize: 30,
-							fontFamily: 'Tungsten-SemiBold',
-						},
-						drawerInactiveTintColor: COLORS.white,
-						drawerInactiveBackgroundColor: COLORS.white,
-						headerTintColor: COLORS.white,
-						// 	drawerActiveBackgroundColor: COLORS.darkModOrange,
-						// drawerLabelStyle: { fontWeight: 'bold', fontSize: 14 },
-						// drawerInactiveTintColor: COLORS.darkBlue,
-						// drawerInactiveBackgroundColor: COLORS.white,
-						// drawerActiveTintColor: COLORS.white,
+					drawerLabelStyle: {
+						fontWeight: 'bold',
+						color: COLORS.bgBlue,
+						fontSize: 30,
+						fontFamily: 'Tungsten-SemiBold',
+					},
+					drawerInactiveTintColor: COLORS.white,
+					drawerInactiveBackgroundColor: COLORS.white,
+					headerTintColor: COLORS.white,
 
-						headerStyle: {
-							backgroundColor: COLORS.bgGreen,
-							height: 50,
-							borderBottomColor: COLORS.bgGreen,
-							borderBottomWidth: 2,
-						},
-						headerTitleContainerStyle: {
-							height: 0,
-							paddingTop: 10,
-							paddingBottom: 10,
-							marginTop: 10,
-							marginLeft: 2,
-						},
-						headerTitleAlign: 'left',
-						headerTitleStyle: {
-							fontWeight: 'bold',
-							fontSize: 24,
-							color: COLORS.white,
-							position: 'absolute',
-							top: 0,
-						},
-						// headerLeft: () => {
-						// 	<View style={styles.imageContainer}>
-						// 		<View
-						// 			style={{
-						// 				width: 100,
-						// 				height: 100,
-						// 				alignSelf: 'center',
-						// 				justifyContent: 'center',
-						// 				paddingTop: 0,
-						// 			}}
-						// 		>
-						// 			<Button onPress={navigation.toggleDrawer}>
-						// 				<Icon
-						// 					name='menu'
-						// 					type='feather'
-						// 					color={COLORS.bgGreen}
-						// 					size={30}
-						// 				/>
-						// 			</Button>
-						// 		</View>
+					headerStyle: {
+						backgroundColor: COLORS.bgGreen,
+						height: 50,
+						borderBottomColor: COLORS.bgGreen,
+						borderBottomWidth: 2,
+					},
+					headerTitleContainerStyle: {
+						height: 0,
+						paddingTop: 10,
+						paddingBottom: 10,
+						marginTop: 10,
+						marginLeft: 2,
+					},
+					headerTitleAlign: 'left',
+					headerTitleStyle: {
+						fontWeight: 'bold',
+						fontSize: 24,
+						color: COLORS.white,
+						position: 'absolute',
+						top: 0,
+					},
+					// headerLeft: () => {
+					// 	<View style={styles.imageContainer}>
+					// 		<View
+					// 			style={{
+					// 				width: 100,
+					// 				height: 100,
+					// 				alignSelf: 'center',
+					// 				justifyContent: 'center',
+					// 				paddingTop: 0,
+					// 			}}
+					// 		>
+					// 			<Button onPress={navigation.toggleDrawer}>
+					// 				<Icon
+					// 					name='menu'
+					// 					type='feather'
+					// 					color={COLORS.bgGreen}
+					// 					size={30}
+					// 				/>
+					// 			</Button>
+					// 		</View>
 
-						// 		<View style={styles.innerContainer}>
-						// 			<Image
-						// 				// style={styles.logoImage}
-						// 				height={50}
-						// 				source={require('../../assets/ss.png')}
-						// 				resizeMode='contain'
-						// 			/>
-						// 		</View>
-						// 		<View style={{ width: 100, alignSelf: 'center' }}></View>
-						// 	</View>;
-						// 	// 	<View style={{ backgroundColor: COLORS.bgBlue }}>
-						// 	// 		<Button
-						// 	// 			onPress={navigation.toggleDrawer}
-						// 	// 			// background={'transparent'}
-						// 	// 		>
-						// 	// 			<Icon name='menu' color='white' />
-						// 	// 		</Button>
-						// 	// 	</View>;
-						// },
-					})}
-					drawerContent={(props) => <CustomDrawerContent {...props} />}
-				>
-					<Drawer.Screen
-						name={'searchSelectCouncil'}
-						component={SearchSelectCouncil}
-						options={{
-							headerShown: false,
-							title: 'Search for SkipSpace',
-							// drawerItemStyle: { display: 'none' },
-						}}
-					/>
-					<Drawer.Screen
-						name={'vouchers'}
-						component={Vouchers}
-						options={{
-							headerShown: false,
-							title: 'Vouchers',
-						}}
-					/>
+					// 		<View style={styles.innerContainer}>
+					// 			<Image
+					// 				// style={styles.logoImage}
+					// 				height={50}
+					// 				source={require('../../assets/ss.png')}
+					// 				resizeMode='contain'
+					// 			/>
+					// 		</View>
+					// 		<View style={{ width: 100, alignSelf: 'center' }}></View>
+					// 	</View>;
+					// 	// 	<View style={{ backgroundColor: COLORS.bgBlue }}>
+					// 	// 		<Button
+					// 	// 			onPress={navigation.toggleDrawer}
+					// 	// 			// background={'transparent'}
+					// 	// 		>
+					// 	// 			<Icon name='menu' color='white' />
+					// 	// 		</Button>
+					// 	// 	</View>;
+					// },
+				})}
+				drawerContent={(props) => <CustomDrawerContent {...props} />}
+			>
+				<Drawer.Screen
+					name={'searchSelectCouncil'}
+					component={SearchSelectCouncil}
+					options={{
+						headerShown: false,
+						title: 'Search for SkipSpace',
+					}}
+				/>
+				<Drawer.Screen
+					name={'vouchers'}
+					component={Vouchers}
+					options={{
+						headerShown: false,
+						title: 'Vouchers',
+					}}
+				/>
 
-					<Drawer.Screen
-						name={'userAccount'}
-						component={UserAccount}
-						options={{
-							headerShown: false,
-							title: 'Your account',
-						}}
-					/>
-					<Drawer.Screen
-						name={'help'}
-						component={Help}
-						options={{
-							headerShown: false,
-							title: 'Help',
-						}}
-					/>
+				<Drawer.Screen
+					name={'userAccount'}
+					component={UserAccount}
+					options={{
+						headerShown: false,
+						title: 'Your account',
+					}}
+				/>
+				<Drawer.Screen
+					name={'help'}
+					component={Help}
+					options={{
+						headerShown: false,
+						title: 'Help',
+					}}
+				/>
 
-					<Drawer.Screen
-						name={'createNewPassword'}
-						component={CreateNewPassword}
-						options={{
-							drawerItemStyle: { display: 'none' },
-						}}
-					/>
+				<Drawer.Screen
+					name={'createNewPassword'}
+					component={CreateNewPassword}
+					options={{
+						drawerItemStyle: { display: 'none' },
+					}}
+				/>
 
-					<Drawer.Screen
-						name={'signedInDashboard'}
-						component={SignedInDashboard}
-						options={{
-							headerShown: false,
-							drawerItemStyle: { display: 'none' },
-						}}
-					/>
+				<Drawer.Screen
+					name={'signedInDashboard'}
+					component={SignedInDashboard}
+					options={{
+						headerShown: false,
+						drawerItemStyle: { display: 'none' },
+					}}
+				/>
 
-					<Drawer.Screen
-						name={'skipSpaceResults'}
-						component={SkipSpaceResults}
-						options={{
-							headerShown: false,
-							drawerItemStyle: { display: 'none' },
-						}}
-					/>
+				<Drawer.Screen
+					name={'skipSpaceResults'}
+					component={SkipSpaceResults}
+					options={{
+						headerShown: false,
+						drawerItemStyle: { display: 'none' },
+					}}
+				/>
 
-					<Drawer.Screen
-						name={'selectedSkipSpace'}
-						component={SelectedSkipSpace}
-						options={{
-							headerShown: false,
-							drawerItemStyle: { display: 'none' },
-						}}
-					/>
-				</Drawer.Navigator>
-			</View>
-		</NavigationContainer>
+				<Drawer.Screen
+					name={'selectedSkipSpace'}
+					component={SelectedSkipSpace}
+					options={{
+						headerShown: false,
+						drawerItemStyle: { display: 'none' },
+					}}
+				/>
+			</Drawer.Navigator>
+		</View>
+		// </NavigationContainer>
 	);
 };
 

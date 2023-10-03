@@ -5,6 +5,7 @@ import {
 	AuthDashboard,
 	ForgotDetails,
 	VerifyEmail,
+	SignedInDashboard,
 } from '../screens/index';
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -13,6 +14,7 @@ import { Component, useCallback } from 'react';
 import { COLORS } from '../../constants/theme';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import AuthorisedStack from './AuthorisedStack';
 
 const Stack = createStackNavigator();
 
@@ -46,7 +48,7 @@ export const UnauthorisedStack = () => {
 		return null;
 	}
 	return (
-		<NavigationContainer onReady={onLayoutRootView}>
+		<NavigationContainer onReady={onLayoutRootView} independent={true}>
 			<Stack.Navigator>
 				{/* 1 Welcome/how to */}
 				<Stack.Screen
@@ -78,11 +80,29 @@ export const UnauthorisedStack = () => {
 					component={VerifyEmail}
 					options={{ headerShown: false }}
 				/>
+
+				{/* SignedInDashboard */}
+				{/* <Stack.Screen
+					name='SignedInDashboard'
+					component={SignedInDashboard}
+					options={{
+						headerShown: false,
+					}}
+				/> */}
+
 				{/* 5 Forgot details */}
 				<Stack.Screen
 					name='ForgotDetails'
 					component={ForgotDetails}
 					options={{ headerShown: false }}
+				/>
+				{/* DRAWER NAVIGATOR NESTED INTO THE STACK NAVIGATOR */}
+				<Stack.Screen
+					name='AuthorisedStack'
+					component={AuthorisedStack}
+					options={{
+						headerShown: false,
+					}}
 				/>
 			</Stack.Navigator>
 		</NavigationContainer>

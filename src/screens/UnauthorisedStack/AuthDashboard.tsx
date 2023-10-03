@@ -6,6 +6,13 @@ import HeaderComponent from '../../components/Header';
 import ScreenTitle from '../../components/ScreenTitle';
 
 const AuthDashboard = ({ navigation }: any) => {
+	const handleSignIn = () => {
+		console.log('handleSignIn');
+	};
+
+	const handleForgotPasswordLink = () => {
+		navigation.navigate('ForgotDetails');
+	};
 	return (
 		<SafeAreaProvider>
 			<HeaderComponent authorised={true} />
@@ -23,7 +30,24 @@ const AuthDashboard = ({ navigation }: any) => {
 						<Input placeholder='********' secureTextEntry={true} />
 					</View>
 					<View>
-						<Text style={styles.textStyle}>Forgot Password?</Text>
+						<Button
+							title={'Forgot Password?'}
+							type='clear'
+							titleStyle={{
+								fontWeight: '700',
+								fontSize: 16,
+								color: COLORS.bgGreen,
+								textAlign: 'left',
+							}}
+							buttonStyle={{
+								display: 'flex',
+								alignItems: 'flex-start',
+								justifyContent: 'flex-start',
+								paddingBottom: 20,
+							}}
+							onPress={handleForgotPasswordLink}
+						/>
+						{/* <Text style={styles.textStyle}>Forgot Password?</Text> */}
 					</View>
 
 					<View style={{ paddingVertical: 40 }}>
@@ -38,7 +62,7 @@ const AuthDashboard = ({ navigation }: any) => {
 								fontSize: 16,
 								color: COLORS.white,
 							}}
-							onPress={() => console.log('aye')}
+							onPress={handleSignIn}
 						/>
 					</View>
 				</View>

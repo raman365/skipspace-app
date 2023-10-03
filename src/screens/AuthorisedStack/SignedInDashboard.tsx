@@ -4,6 +4,7 @@ import { COLORS } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
 import { Button, Icon } from '@rneui/themed';
+import { DrawerActions } from '@react-navigation/native';
 
 const SignedInDashboard = ({ navigation }: any) => {
 	return (
@@ -14,7 +15,8 @@ const SignedInDashboard = ({ navigation }: any) => {
 					<Icon name='menu' type='feather' color={COLORS.bgGreen} size={30} />
 				}
 				onPress={() => {
-					navigation.toggleDrawer();
+					// navigation.toggleDrawer();
+					navigation.dispatch(DrawerActions.toggleDrawer());
 				}}
 			/>
 			<View style={styles.centerContainer}>

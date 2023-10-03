@@ -1,14 +1,52 @@
 import { View, StyleSheet } from 'react-native';
-import { Text, Button, Input } from '@rneui/themed';
+import { CommonActions } from '@react-navigation/native';
+import { Text, Button, Input, Image, Icon } from '@rneui/themed';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { COLORS } from '../../../constants/theme';
 import HeaderComponent from '../../components/Header';
 import ScreenTitle from '../../components/ScreenTitle';
+import {} from '@rneui/base';
 
-const ForgotDetails = () => {
+const ForgotDetails = ({ navigation }: any) => {
+	const handleForgotPassword = () => {
+		console.log('handleForgotPassword');
+	};
+	const handleBackBtn = () => {
+		navigation.dispatch(CommonActions.goBack());
+	};
+
 	return (
 		<SafeAreaProvider>
-			<HeaderComponent />
+			{/* <HeaderComponent authorised={true} icon={'arrow-left'} /> */}
+			<View style={styles.imageContainer}>
+				<View
+					style={{
+						width: 100,
+						height: 100,
+						alignSelf: 'center',
+						justifyContent: 'center',
+						// paddingTop: 0,
+					}}
+				>
+					<Button onPress={handleBackBtn}>
+						<Icon
+							name='arrow-left'
+							type={'feather'}
+							size={34}
+							color={COLORS.bgGreen}
+						/>
+					</Button>
+				</View>
+				<View style={styles.innerContainer}>
+					<Image
+						style={styles.logoImage}
+						// source={require('../Header/image/sslogo1.png')}
+						source={require('../../components/Header/image/sslogo1.png')}
+						resizeMode='contain'
+					/>
+				</View>
+				<View style={{ width: 100, alignSelf: 'center' }}></View>
+			</View>
 			<ScreenTitle title={'Forgot Password?'} />
 
 			<View style={styles.centerContainer}>
@@ -35,7 +73,7 @@ const ForgotDetails = () => {
 								fontSize: 16,
 								color: COLORS.white,
 							}}
-							onPress={() => console.log('aye')}
+							onPress={handleForgotPassword}
 						/>
 					</View>
 				</View>
@@ -81,6 +119,24 @@ const styles = StyleSheet.create({
 		borderTopWidth: 2,
 		height: 100,
 		paddingTop: 30,
+	},
+	imageContainer: {
+		backgroundColor: COLORS.bgBlue,
+		height: 150,
+		paddingTop: 30,
+		paddingBottom: 30,
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+	},
+	innerContainer: {
+		paddingTop: 40,
+		alignSelf: 'center',
+	},
+	logoImage: {
+		width: 100,
+		height: 100,
+		paddingTop: 20,
 	},
 });
 export default ForgotDetails;
