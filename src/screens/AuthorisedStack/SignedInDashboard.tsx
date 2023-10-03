@@ -20,8 +20,6 @@ const SignedInDashboard = ({ navigation }: any) => {
 				}}
 			/>
 			<View style={styles.centerContainer}>
-				{/* <Text>SignedInDashboard</Text> */}
-
 				<View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>
 					<Button
 						title='Search for SkipSpace'

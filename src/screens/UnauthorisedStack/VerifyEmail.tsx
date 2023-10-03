@@ -9,8 +9,6 @@ import ScreenTitle from '../../components/ScreenTitle';
 const VerifyEmail = ({ navigation }: any) => {
 	const handleVerifyEmail = () => {
 		navigation.navigate('AuthorisedStack', { screen: 'SignedInDashboard' });
-		// navigation.navigate('SignedInDashboard');
-		// navigation.dispatch(DrawerActions.toggleDrawer());
 	};
 	return (
 		<SafeAreaProvider>
