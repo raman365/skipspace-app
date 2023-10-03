@@ -10,7 +10,15 @@ interface IScreenTitleProps {
 const ScreenTitle: React.FC<IScreenTitleProps> = ({ title }) => {
 	return (
 		<View style={{ paddingTop: 30 }}>
-			<Text h3 h3Style={{ fontWeight: 'bold', textAlign: 'center' }}>
+			<Text
+				h2
+				h2Style={{
+					fontWeight: 'bold',
+					textAlign: 'center',
+					fontFamily: 'Tungsten-SemiBold',
+					color: COLORS.bgBlue,
+				}}
+			>
 				{title}
 			</Text>
 		</View>

@@ -6,28 +6,31 @@ import HeaderComponent from '../../components/Header';
 import { Input, Text, Button } from '@rneui/themed';
 import ScreenTitle from '../../components/ScreenTitle';
 
-const VerifyEmail = () => {
+const VerifyEmail = ({ navigation }: any) => {
+	const handleVerifyEmail = () => {
+		navigation.navigate('');
+	};
 	return (
 		<SafeAreaProvider>
-			<HeaderComponent />
+			<HeaderComponent authorised={true} />
 			<ScreenTitle title={'Verify your email'} />
 
 			<View style={styles.centerContainer}>
 				<View>
 					<View>
 						<Text style={styles.textStyle}>
-							We've just sent you a verification email!
+							We've just sent you a verification email.
 						</Text>
 						<Text style={styles.textStyle}>
 							Check your inbox and return here once you've followed the
 							instructions
 						</Text>
 					</View>
-					<View style={{ paddingVertical: 25 }}>
-						<ActivityIndicator size={'large'} />
+					<View style={{ paddingVertical: 50 }}>
+						<ActivityIndicator size={'large'} color={COLORS.bgBlue} />
 					</View>
 
-					<View style={{ paddingVertical: 25, marginHorizontal: 50 }}>
+					<View style={{ paddingVertical: 10, marginHorizontal: 50 }}>
 						<Button
 							title={"I've verified my email"}
 							buttonStyle={{
@@ -39,7 +42,7 @@ const VerifyEmail = () => {
 								fontSize: 16,
 								color: COLORS.white,
 							}}
-							onPress={() => console.log('aye')}
+							onPress={handleVerifyEmail}
 						/>
 					</View>
 				</View>

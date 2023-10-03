@@ -62,6 +62,7 @@ const CustomDrawer = () => {
 	const [fontsLoaded, fontError] = useFonts({
 		// 'Inter-Black': require('./assets/fonts/Inter-Black.otf'),
 		'Open-Sans': require('../../assets/fonts/OpenSans/OpenSans-Regular.ttf'),
+		'Open-Sans-Medium': require('../../assets/fonts/OpenSans/OpenSans-Medium.ttf'),
 		'Open-Sans-Cond-SemiBold': require('../../assets/fonts/OpenSans/OpenSans_Condensed-SemiBold.ttf'),
 		'Open-Sans-SemiCond-Reg': require('../../assets/fonts/OpenSans/OpenSans_SemiCondensed-Regular.ttf'),
 		'Tungsten-Bold': require('../../assets/fonts/Tungsten/Tungsten-Bold.ttf'),

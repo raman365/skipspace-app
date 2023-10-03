@@ -32,7 +32,14 @@ const WelcomeHowTo = ({ navigation }: any) => {
 		<CardWithImage cardImage={data.text} cardLabel={data.image} />;
 	};
 	return (
-		<View style={{ backgroundColor: COLORS.white, flex: 1 }}>
+		<View
+			style={{
+				backgroundColor: COLORS.white,
+				flex: 1,
+				justifyContent: 'space-around',
+				alignContent: 'space-between',
+			}}
+		>
 			<View
 				style={{
 					justifyContent: 'center',
@@ -55,7 +62,12 @@ const WelcomeHowTo = ({ navigation }: any) => {
 					sliderWidth={SLIDER_WIDTH}
 					itemWidth={ITEM_WIDTH}
 				/> */}
-				{/* <CardWithImage cardLabel={'Step 1'} /> */}
+				<CardWithImage
+					cardLabel={'Find your local council'}
+					cardImage={
+						'https://awildgeographer.files.wordpress.com/2015/02/john_muir_glacier.jpg'
+					}
+				/>
 				{/* <Carousel
 					pagination={PaginationLight}
 					renderItem={renderItem}

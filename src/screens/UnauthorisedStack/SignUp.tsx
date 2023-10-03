@@ -14,10 +14,14 @@ export const LogoImage = () => {
 	return <Image source={require('../../../assets/ss.png')} />;
 };
 
-const SignUp = () => {
+const SignUp = ({ navigation }: any) => {
+	const handleRegisterBtn = () => {
+		// TODO Handle registration
+		navigation.navigate('VerifyEmail');
+	};
 	return (
 		<SafeAreaProvider>
-			<HeaderComponent />
+			<HeaderComponent authorised={true} />
 			<ScreenTitle title={'Register'} />
 
 			<View style={styles.centerContainer}>
@@ -55,7 +59,7 @@ const SignUp = () => {
 								fontSize: 16,
 								color: COLORS.white,
 							}}
-							onPress={() => console.log('aye')}
+							onPress={handleRegisterBtn}
 						/>
 					</View>
 				</View>
@@ -70,16 +74,18 @@ const SignUp = () => {
 					}}
 				>
 					<Text style={styles.textStyleTwo}>Already have an account? </Text>
-					<Text
-						style={{
-							fontWeight: '700',
+					<Button
+						type={'clear'}
+						titleStyle={{
 							color: COLORS.bgGreen,
 							fontSize: 17,
+							fontWeight: 'bold',
+							// fontFamily: 'Open-Sans-Cond-SemiBold',
 						}}
+						onPress={() => navigation.navigate('AuthDashboard')}
 					>
-						{' '}
 						Sign in here
-					</Text>
+					</Button>
 				</View>
 			</View>
 		</SafeAreaProvider>
@@ -114,12 +120,14 @@ const styles = StyleSheet.create({
 		fontSize: 17,
 		fontWeight: '500',
 		textAlign: 'center',
+		color: COLORS.bgBlue,
+		// fontFamily: 'Open-Sans-Cond-SemiBold',
 	},
 	bottomContainer: {
 		borderTopColor: COLORS.bgGreen,
 		borderTopWidth: 2,
 		height: 100,
-		paddingTop: 30,
+		paddingTop: 15,
 	},
 });
 

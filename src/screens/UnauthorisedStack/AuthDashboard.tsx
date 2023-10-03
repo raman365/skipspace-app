@@ -5,7 +5,7 @@ import { COLORS } from '../../../constants/theme';
 import HeaderComponent from '../../components/Header';
 import ScreenTitle from '../../components/ScreenTitle';
 
-const AuthDashboard = () => {
+const AuthDashboard = ({ navigation }: any) => {
 	return (
 		<SafeAreaProvider>
 			<HeaderComponent authorised={true} />
@@ -53,16 +53,17 @@ const AuthDashboard = () => {
 					}}
 				>
 					<Text style={styles.textStyleTwo}>Don't have an account? </Text>
-					<Text
-						style={{
-							fontWeight: '700',
+					<Button
+						type={'clear'}
+						titleStyle={{
 							color: COLORS.bgGreen,
 							fontSize: 17,
+							fontWeight: 'bold',
 						}}
+						onPress={() => navigation.navigate('SignUp')}
 					>
-						{' '}
 						Sign up here
-					</Text>
+					</Button>
 				</View>
 			</View>
 		</SafeAreaProvider>
@@ -97,12 +98,13 @@ const styles = StyleSheet.create({
 		fontSize: 17,
 		fontWeight: '500',
 		textAlign: 'center',
+		color: COLORS.bgBlue,
 	},
 	bottomContainer: {
 		borderTopColor: COLORS.bgGreen,
 		borderTopWidth: 2,
 		height: 100,
-		paddingTop: 30,
+		paddingTop: 15,
 	},
 });
 
