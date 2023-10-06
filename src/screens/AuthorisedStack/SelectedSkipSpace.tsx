@@ -105,7 +105,7 @@ const SelectedSkipSpace = ({ navigation }: any) => {
 					}}
 				>
 					<Text style={{ textAlign: 'center', fontWeight: '400' }}>
-						After confirming, you'll receive a one-time voucher to use at your
+						After confirmation, you'll receive a one-time voucher to use at your
 						selected SkipSpace site.
 					</Text>
 				</View>
@@ -113,7 +113,7 @@ const SelectedSkipSpace = ({ navigation }: any) => {
 					title='Confirm Voucher'
 					buttonStyle={{
 						backgroundColor: COLORS.bgGreen,
-						borderRadius: 5,
+						borderRadius: 30,
 						paddingVertical: 15,
 					}}
 					titleStyle={{

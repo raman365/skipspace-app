@@ -1,4 +1,4 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import React from 'react';
 import { COLORS } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -20,7 +20,8 @@ const SkipSpaceResults = ({ navigation }: any) => {
 					/>
 				}
 				onPress={() => {
-					navigation.navigate('selectCouncil');
+					// navigation.navigate('selectCouncil');
+					navigation.goBack();
 				}}
 			/>
 			{/* <ScreenTitle title={'Vouchers'} /> */}
@@ -31,6 +32,8 @@ const SkipSpaceResults = ({ navigation }: any) => {
 						fontWeight: 'bold',
 						textAlign: 'center',
 						color: COLORS.bgBlue,
+						fontSize: 30,
+						fontFamily: 'Tungsten-SemiBold',
 					}}
 				>
 					Results
@@ -45,14 +48,51 @@ const SkipSpaceResults = ({ navigation }: any) => {
 					Choose a SkipSpace below. Tap to see more information
 				</Text>
 			</View>
+
 			<View style={styles.centerContainer}>
 				{/* <View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>*/}
+				{/* Add conditional rendering for the activity indicator */}
+				{/* <ActivityIndicator size={'large'} style={{ paddingBottom: 30 }} /> */}
 				<Button
-					title='SkipSpace result'
+					type='outline'
+					title='Barnet Result 1'
 					buttonStyle={{
-						backgroundColor: COLORS.bgGreen,
+						// backgroundColor: COLORS.bgGreen,
 						borderRadius: 5,
 						paddingVertical: 15,
+						margin: 10,
+					}}
+					titleStyle={{
+						fontWeight: '700',
+						fontSize: 16,
+						color: COLORS.bgBlue,
+					}}
+					onPress={() => navigation.navigate('selectedSkipSpace')}
+				/>
+				<Button
+					type='outline'
+					title='Barnet Result 2'
+					buttonStyle={{
+						// backgroundColor: COLORS.bgGreen,
+						borderRadius: 5,
+						paddingVertical: 15,
+						margin: 10,
+					}}
+					titleStyle={{
+						fontWeight: '700',
+						fontSize: 16,
+						color: COLORS.bgBlue,
+					}}
+					onPress={() => navigation.navigate('selectedSkipSpace')}
+				/>
+				<Button
+					type='outline'
+					title='Barnet Result 3'
+					buttonStyle={{
+						// backgroundColor: COLORS.bgGreen,
+						borderRadius: 5,
+						paddingVertical: 15,
+						margin: 10,
 					}}
 					titleStyle={{
 						fontWeight: '700',

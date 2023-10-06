@@ -27,7 +27,17 @@ const HeaderComponent: React.FC<IHeaderComponentProps> = ({
 				>
 					<Button onPress={onPress}>{icon}</Button>
 				</View>
-			) : null}
+			) : (
+				<View
+					style={{
+						width: 100,
+						height: 100,
+						// alignItems: 'center',
+						// justifyContent: 'center',
+						// paddingTop: 0,
+					}}
+				></View>
+			)}
 			<View style={styles.innerContainer}>
 				<Image
 					style={styles.logoImage}
@@ -37,7 +47,9 @@ const HeaderComponent: React.FC<IHeaderComponentProps> = ({
 			</View>
 			{authorised ? (
 				<View style={{ width: 100, alignSelf: 'center' }}></View>
-			) : null}
+			) : (
+				<View style={{ width: 100, alignSelf: 'stretch' }}></View>
+			)}
 		</View>
 	);
 };

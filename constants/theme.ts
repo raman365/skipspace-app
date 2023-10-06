@@ -21,3 +21,14 @@ export const COLORS = {
     softRed: '#fda4af'
 
 }
+
+// export const HEADINGS = {
+//     h4Style: {
+//         fontWeight: 'bold',
+//         textAlign: 'center',
+//         color: COLORS.bgBlue,
+//         fontSize: 30,
+//         fontFamily: 'Tungsten-SemiBold',
+
+//     }
+// }
