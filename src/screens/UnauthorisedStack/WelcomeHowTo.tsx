@@ -15,7 +15,6 @@ import { ScalingDot } from 'react-native-animated-pagination-dots';
 import { COLORS } from '../../../constants/theme';
 
 import SSButton from '../../components/Button';
-import CardWithImage from '../../components/CardWithImage';
 // import ScalingDots from '../../components/ScalingDots';
 
 // const { width } = Dimensions.get('window');
@@ -38,17 +37,6 @@ const DATA = [
 		image: 'https://picsum.photos/1440/2842?random=200',
 	},
 ];
-
-// const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
-
-// const slideList = Array.from({ length: 3 }).map((_, i) => {
-// 	return {
-// 		id: i,
-// 		image: `https://picsum.photos/1440/2842?random=${i}`,
-// 		title: `This is the title! ${i + 1}`,
-// 		subtitle: `This is the subtitle ${i + 1}!`,
-// 	};
-// });
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
 
