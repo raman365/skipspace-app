@@ -3,9 +3,10 @@ import React from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Header, Icon, Input, Button, Image, Text } from '@rneui/themed';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { theme, COLORS } from '../../../constants/theme';
+import { theme, COLORS, FONTSIZES } from '../../../constants/theme';
 import HeaderComponent from '../../components/Header';
 import ScreenTitle from '../../components/ScreenTitle';
+import ClearBtn from '../../components/Button/ClearBtn';
 
 // const SKIPSPACE_LOGO =
 // 	'/Users/bbb/ContractProjects/skipspace-app/assets/images';
@@ -52,11 +53,12 @@ const SignUp = ({ navigation }: any) => {
 							title='Next'
 							buttonStyle={{
 								backgroundColor: COLORS.bgBlue,
-								borderRadius: 5,
+								borderRadius: 25,
+								paddingVertical: 12,
 							}}
 							titleStyle={{
 								fontWeight: '700',
-								fontSize: 16,
+								fontSize: FONTSIZES.xl,
 								color: COLORS.white,
 							}}
 							onPress={handleRegisterBtn}
@@ -73,19 +75,24 @@ const SignUp = ({ navigation }: any) => {
 						alignItems: 'center',
 					}}
 				>
-					<Text style={styles.textStyleTwo}>Already have an account? </Text>
-					<Button
+					<Text style={styles.textStyleTwo}>Already have an account?</Text>
+					{/* <Button
 						type={'clear'}
 						titleStyle={{
 							color: COLORS.bgGreen,
-							fontSize: 17,
+							fontSize: FONTSIZES.xl,
 							fontWeight: 'bold',
 							// fontFamily: 'Open-Sans-Cond-SemiBold',
 						}}
 						onPress={() => navigation.navigate('AuthDashboard')}
 					>
 						Sign in here
-					</Button>
+					</Button> */}
+
+					<ClearBtn
+						buttonLabel={'Sign up here'}
+						onPress={() => navigation.navigate('AuthDashboard')}
+					/>
 				</View>
 			</View>
 		</SafeAreaProvider>
@@ -117,11 +124,10 @@ const styles = StyleSheet.create({
 		fontSize: 15,
 	},
 	textStyleTwo: {
-		fontSize: 17,
-		fontWeight: '500',
+		fontSize: FONTSIZES.xl,
+		fontWeight: '600',
 		textAlign: 'center',
 		color: COLORS.bgBlue,
-		// fontFamily: 'Open-Sans-Cond-SemiBold',
 	},
 	bottomContainer: {
 		borderTopColor: COLORS.bgGreen,

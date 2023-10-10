@@ -72,7 +72,7 @@ const ScalingDots = () => {
 						useNativeDriver: false,
 					}
 				)}
-				style={styles.flatList}
+				// style={styles.flatList}
 				pagingEnabled
 				horizontal
 				decelerationRate={'normal'}

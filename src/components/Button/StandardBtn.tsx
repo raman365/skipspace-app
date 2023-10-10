@@ -1,37 +1,35 @@
 import { View, StyleSheet } from 'react-native';
 import { Text } from '@rneui/themed';
-import { COLORS } from '../../../constants/theme';
+import { COLORS, FONTSIZES } from '../../../constants/theme';
 import { Button } from '@rneui/themed';
 
-interface ISSButtonProps {
+interface IStandardButtonProps {
 	buttonLabel: string;
 	onPress: () => void;
 	bgGreen: boolean;
 }
 
-export const SSButton: React.FC<ISSButtonProps> = ({
+export const StandardButton: React.FC<IStandardButtonProps> = ({
 	buttonLabel,
 	onPress,
-	bgGreen,
 }) => {
 	return (
 		<Button
 			title={buttonLabel}
 			buttonStyle={{
-				backgroundColor: bgGreen ? COLORS.bgGreen : COLORS.bgBlue,
+				backgroundColor: COLORS.bgBlue,
 				borderRadius: 25,
-				paddingVertical: 12,
+				paddingVertical: 15,
 			}}
 			titleStyle={{
 				fontWeight: '700',
-				fontSize: 20,
-				// letterSpacing: 1,
+				fontSize: FONTSIZES.xl,
 				color: COLORS.white,
-				// fontFamily: 'Tungsten-Bold',
+				// fontFamily: 'Tungsten-SemiBold',
 			}}
 			onPress={onPress}
 		/>
 	);
 };
 
-export default SSButton;
+export default StandardButton;

@@ -1,9 +1,11 @@
 import { StyleSheet, View } from 'react-native';
 import { Input, Button, Text } from '@rneui/themed';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { COLORS } from '../../../constants/theme';
+import { COLORS, FONTSIZES } from '../../../constants/theme';
 import HeaderComponent from '../../components/Header';
 import ScreenTitle from '../../components/ScreenTitle';
+import ClearBtn from '../../components/Button/ClearBtn';
+import StandardButton from '../../components/Button/StandardBtn';
 
 const AuthDashboard = ({ navigation }: any) => {
 	const handleSignIn = () => {
@@ -30,39 +32,17 @@ const AuthDashboard = ({ navigation }: any) => {
 						<Input placeholder='********' secureTextEntry={true} />
 					</View>
 					<View>
-						<Button
-							title={'Forgot Password?'}
-							type='clear'
-							titleStyle={{
-								fontWeight: '700',
-								fontSize: 16,
-								color: COLORS.bgGreen,
-								textAlign: 'left',
-							}}
-							buttonStyle={{
-								display: 'flex',
-								alignItems: 'flex-start',
-								justifyContent: 'flex-start',
-								paddingBottom: 20,
-							}}
+						<ClearBtn
+							buttonLabel={'Forgot Password?'}
 							onPress={handleForgotPasswordLink}
 						/>
-						{/* <Text style={styles.textStyle}>Forgot Password?</Text> */}
 					</View>
 
 					<View style={{ paddingVertical: 40 }}>
-						<Button
-							title='Sign In'
-							buttonStyle={{
-								backgroundColor: COLORS.bgBlue,
-								borderRadius: 5,
-							}}
-							titleStyle={{
-								fontWeight: '700',
-								fontSize: 16,
-								color: COLORS.white,
-							}}
+						<StandardButton
+							buttonLabel={'Sign In'}
 							onPress={handleSignIn}
+							bgGreen={false}
 						/>
 					</View>
 				</View>
@@ -70,24 +50,18 @@ const AuthDashboard = ({ navigation }: any) => {
 			<View style={styles.bottomContainer}>
 				<View
 					style={{
-						display: 'flex',
+						// display: 'flex',
 						flexDirection: 'row',
 						justifyContent: 'center',
 						alignItems: 'center',
+						// alignContent: 'center',
 					}}
 				>
-					<Text style={styles.textStyleTwo}>Don't have an account? </Text>
-					<Button
-						type={'clear'}
-						titleStyle={{
-							color: COLORS.bgGreen,
-							fontSize: 17,
-							fontWeight: 'bold',
-						}}
+					<Text style={styles.textStyleTwo}>Don't have an account?</Text>
+					<ClearBtn
+						buttonLabel={'Sign up here'}
 						onPress={() => navigation.navigate('SignUp')}
-					>
-						Sign up here
-					</Button>
+					/>
 				</View>
 			</View>
 		</SafeAreaProvider>
@@ -119,8 +93,8 @@ const styles = StyleSheet.create({
 		fontSize: 15,
 	},
 	textStyleTwo: {
-		fontSize: 17,
-		fontWeight: '500',
+		fontSize: FONTSIZES.xl,
+		fontWeight: '600',
 		textAlign: 'center',
 		color: COLORS.bgBlue,
 	},

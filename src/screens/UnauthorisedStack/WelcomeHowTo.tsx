@@ -148,7 +148,7 @@ const WelcomeHowTo = ({ navigation }: any) => {
 			<View style={{ marginHorizontal: 30, paddingVertical: 20 }}>
 				<SSButton
 					buttonLabel={'Find SkipSpace'}
-					onPress={() => navigation.navigate('SignedInDashboard')}
+					onPress={() => navigation.navigate('AuthDashboard')}
 					bgGreen
 				/>
 			</View>

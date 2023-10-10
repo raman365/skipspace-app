@@ -22,6 +22,16 @@ export const COLORS = {
 
 }
 
+export const FONTSIZES = {
+    xxl: 20,
+    xl: 18,
+    large: 14,
+    medium: 12,
+    small: 10,
+    xsmall: 8
+
+}
+
 // export const HEADINGS = {
 //     h4Style: {
 //         fontWeight: 'bold',

@@ -5,6 +5,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
 import { Button, Icon } from '@rneui/themed';
 import { DrawerActions } from '@react-navigation/native';
+import StandardButton from '../../components/Button/StandardBtn';
 
 const SignedInDashboard = ({ navigation }: any) => {
 	return (
@@ -15,17 +16,16 @@ const SignedInDashboard = ({ navigation }: any) => {
 					<Icon name='menu' type='feather' color={COLORS.bgGreen} size={30} />
 				}
 				onPress={() => {
-					// navigation.toggleDrawer();
 					navigation.dispatch(DrawerActions.toggleDrawer());
 				}}
 			/>
 			<View style={styles.centerContainer}>
 				<View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>
-					<Button
+					{/* <Button
 						title='Search for SkipSpace'
 						buttonStyle={{
 							backgroundColor: COLORS.bgGreen,
-							borderRadius: 5,
+							borderRadius: 25,
 							paddingVertical: 15,
 						}}
 						titleStyle={{
@@ -35,6 +35,11 @@ const SignedInDashboard = ({ navigation }: any) => {
 							fontFamily: 'Tungsten-SemiBold',
 						}}
 						onPress={() => navigation.navigate('searchSelectCouncil')}
+					/> */}
+					<StandardButton
+						buttonLabel={'Search for SkipSpace'}
+						onPress={() => navigation.navigate('searchSelectCouncil')}
+						bgGreen={false}
 					/>
 				</View>
 				<View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>
