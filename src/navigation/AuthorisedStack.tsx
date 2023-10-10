@@ -14,6 +14,7 @@ import {
 	SkipSpaceResults,
 	UserAccount,
 	Vouchers,
+	VoucherConfirmation,
 	Help,
 } from '../screens/index';
 import { COLORS, theme } from '../../constants/theme';
@@ -30,6 +31,7 @@ export type DrawerStackParamsList = {
 	selectedSkipSpace: undefined;
 	userAccount: undefined;
 	vouchers: undefined;
+	voucherConfirmation: undefined;
 	createNewPassword: undefined;
 	help: undefined;
 };
@@ -179,6 +181,14 @@ const CustomDrawer = () => {
 					options={{
 						headerShown: false,
 						title: 'Vouchers',
+					}}
+				/>
+				<Drawer.Screen
+					name={'voucherConfirmation'}
+					component={VoucherConfirmation}
+					options={{
+						headerShown: false,
+						drawerItemStyle: { display: 'none' },
 					}}
 				/>
 

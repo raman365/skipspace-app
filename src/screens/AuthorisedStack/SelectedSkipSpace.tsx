@@ -121,7 +121,7 @@ const SelectedSkipSpace = ({ navigation }: any) => {
 						fontSize: 16,
 						color: COLORS.bgBlue,
 					}}
-					onPress={() => navigation.navigate('vouchers')}
+					onPress={() => navigation.navigate('voucherConfirmation')}
 				/>
 			</View>
 		</SafeAreaProvider>

@@ -21,36 +21,85 @@ const Vouchers = ({ navigation }: any) => {
 					navigation.toggleDrawer();
 				}}
 			/>
-			{/* <ScreenTitle title={'Vouchers'} /> */}
-			<View style={{ paddingTop: 20 }}>
-				<Text
-					h4
-					h4Style={{
-						fontWeight: 'bold',
-						textAlign: 'center',
-						color: COLORS.bgBlue,
-						fontSize: 20,
-						fontFamily: 'Tungsten-SemiBold',
-					}}
-				>
-					Voucher Confirmation
-				</Text>
-			</View>
 
-			<View style={styles.centerContainer}>
+			<View>
+				<View style={{ paddingTop: 20 }}>
+					<Text
+						h4
+						h4Style={{
+							fontWeight: 'bold',
+							textAlign: 'center',
+							color: COLORS.bgBlue,
+							fontSize: 20,
+							fontFamily: 'Tungsten-SemiBold',
+						}}
+					>
+						Voucher Confirmation
+					</Text>
+				</View>
+
 				<View
 					style={{
 						justifyContent: 'center',
 						alignItems: 'center',
-						// paddingBottom: 20,
 					}}
 				>
-					{/* <QRCode
-						value={Base64.btoa(stringExample)}
-						size={150}
-						backgroundColor={COLORS.white}
-					/> */}
 					<QREncoder codeValue={stringExample} />
+				</View>
+
+				<View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>
+					<View
+						style={{
+							paddingVertical: 10,
+							paddingHorizontal: 10,
+							borderColor: COLORS.bgBlue,
+							borderWidth: 1,
+							marginTop: 10,
+							marginBottom: 20,
+						}}
+					>
+						<Text
+							style={{
+								textDecorationLine: 'underline',
+								textAlign: 'center',
+								paddingVertical: 10,
+								fontWeight: 'bold',
+								fontSize: 16,
+							}}
+						>
+							Instructions:
+						</Text>
+						{/* <Text style={{ textAlign: 'left', fontWeight: '400' }}> */}
+						<ListItem style={{ backgroundColor: COLORS.white }}>
+							<ListItem.Content>
+								<ListItem.Title style={styles.listItemTitle}>
+									1. Go to your SkipSpace site.
+								</ListItem.Title>
+								<ListItem.Title style={styles.listItemTitle}>
+									2. Show this QR code to the security staff when you arrive.
+								</ListItem.Title>
+								<ListItem.Title style={styles.listItemTitle}>
+									3. This QR code will expire in 24 hours and can also be found
+									in the Vouchers section.
+								</ListItem.Title>
+							</ListItem.Content>
+						</ListItem>
+						{/* </Text> */}
+					</View>
+					<Button
+						title='Return Home'
+						buttonStyle={{
+							backgroundColor: COLORS.bgGreen,
+							borderRadius: 30,
+							paddingVertical: 15,
+						}}
+						titleStyle={{
+							fontWeight: '700',
+							fontSize: 16,
+							color: COLORS.bgBlue,
+						}}
+						onPress={() => navigation.navigate('SignedInDashboard')}
+					/>
 				</View>
 			</View>
 
@@ -78,71 +127,17 @@ const Vouchers = ({ navigation }: any) => {
 					</Text>
 				</View>
 			</View> */}
-
-			<View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>
-				<View
-					style={{
-						paddingVertical: 10,
-						paddingHorizontal: 10,
-						borderColor: COLORS.bgBlue,
-						borderWidth: 1,
-						marginTop: 10,
-						marginBottom: 20,
-					}}
-				>
-					<Text
-						style={{
-							textDecorationLine: 'underline',
-							textAlign: 'center',
-							paddingVertical: 10,
-							fontWeight: 'bold',
-							fontSize: 16,
-						}}
-					>
-						Instructions:
-					</Text>
-					{/* <Text style={{ textAlign: 'left', fontWeight: '400' }}> */}
-					<ListItem style={{ backgroundColor: COLORS.white }}>
-						<ListItem.Content>
-							<ListItem.Title style={styles.listItemTitle}>
-								1. Go to your SkipSpace site.
-							</ListItem.Title>
-							<ListItem.Title style={styles.listItemTitle}>
-								2. Show this QR code to the security staff when you arrive.
-							</ListItem.Title>
-							<ListItem.Title style={styles.listItemTitle}>
-								3. This QR code will expire in 24 hours and can also be found in
-								the Vouchers section.
-							</ListItem.Title>
-						</ListItem.Content>
-					</ListItem>
-					{/* </Text> */}
-				</View>
-				<Button
-					title='Return Home'
-					buttonStyle={{
-						backgroundColor: COLORS.bgGreen,
-						borderRadius: 30,
-						paddingVertical: 15,
-					}}
-					titleStyle={{
-						fontWeight: '700',
-						fontSize: 16,
-						color: COLORS.bgBlue,
-					}}
-					onPress={() => navigation.navigate('SignedInDashboard')}
-				/>
-			</View>
 		</SafeAreaProvider>
 	);
 };
 
 const styles = StyleSheet.create({
 	centerContainer: {
-		paddingTop: 20,
-		paddingHorizontal: 20,
-		display: 'flex',
-		justifyContent: 'center',
+		// paddingTop: 20,
+		// paddingHorizontal: 20,
+		// display: 'flex',
+		// justifyContent: 'flex-end',
+		// alignContent: 'space-between',
 		// flex: 1,
 	},
 	listItemTitle: {

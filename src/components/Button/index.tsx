@@ -19,13 +19,15 @@ const SSButton: React.FC<ISSButtonProps> = ({
 			title={buttonLabel}
 			buttonStyle={{
 				backgroundColor: bgGreen ? COLORS.bgGreen : COLORS.bgBlue,
-				borderRadius: 5,
-				paddingVertical: 10,
+				borderRadius: 25,
+				paddingVertical: 12,
 			}}
 			titleStyle={{
 				fontWeight: '700',
-				fontSize: 16,
+				fontSize: 20,
+				// letterSpacing: 1,
 				color: COLORS.white,
+				// fontFamily: 'Tungsten-Bold',
 			}}
 			onPress={onPress}
 		/>

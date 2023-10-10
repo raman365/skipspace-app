@@ -1,6 +1,7 @@
 import * as React from 'react';
 import QRCode from 'react-native-qrcode-svg';
 import { COLORS } from '../../../constants/theme';
+import { Text } from 'react-native';
 
 interface IQREncoderProps {
 	codeValue: string;
@@ -60,16 +61,22 @@ const QREncoder: React.FC<IQREncoderProps> = ({ codeValue }) => {
 			) {
 				buffer = chars.indexOf(buffer);
 			}
-
+			// console.log(Base64.btoa(output));
 			return output;
 		},
 	};
 	return (
-		<QRCode
-			value={Base64.btoa(codeValue)}
-			size={170}
-			backgroundColor={COLORS.white}
-		/>
+		<>
+			<QRCode
+				value={Base64.btoa(codeValue)}
+				size={170}
+				// backgroundColor={COLORS.white}
+			/>
+			<Text style={{ padding: 20 }}>
+				{Base64.atob(codeValue)} | {Base64.btoa(codeValue)}
+			</Text>
+			<Text style={{ padding: 20 }}>{Base64.btoa(codeValue)}</Text>
+		</>
 	);
 };
 
