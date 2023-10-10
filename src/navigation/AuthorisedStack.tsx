@@ -4,7 +4,7 @@ import {
 	DrawerContentScrollView,
 	DrawerItemList,
 } from '@react-navigation/drawer';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, Dimensions } from 'react-native';
 
 import {
 	CreateNewPassword,
@@ -23,6 +23,7 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import ClearBtn from '../components/Button/ClearBtn';
 
 export type DrawerStackParamsList = {
 	signedInDashboard: undefined;
@@ -42,6 +43,7 @@ SplashScreen.preventAutoHideAsync();
 // 	UnauthorisedStack: { screen: 'SignedInDashboard' }
 // });
 const Drawer = createDrawerNavigator<DrawerStackParamsList>();
+const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
 
 const CustomDrawerContent = (props: any) => {
 	const { state, ...rest } = props;
@@ -57,8 +59,36 @@ const CustomDrawerContent = (props: any) => {
 					resizeMethod='scale'
 				/>
 			</View>
-			<View style={{ paddingVertical: 10 }}>
-				<DrawerItemList state={newState} {...rest} />
+			<View
+			// style={{
+			// 	justifyContent: 'space-between',
+			// 	alignContent: 'space-around',
+			// }}
+			>
+				<View style={{ paddingVertical: 10 }}>
+					<DrawerItemList state={newState} {...rest} />
+				</View>
+			</View>
+			{/* <View style={{ flex: 1, justifyContent: 'flex-end' }}> */}
+			<View
+				style={{
+					paddingLeft: 5,
+					paddingTop: 10,
+					position: 'absolute',
+					height: 100,
+					left: 0,
+					width: windowWidth,
+					top: windowHeight - 100,
+					borderColor: COLORS.lightBlue,
+					borderTopWidth: 1,
+				}}
+			>
+				<ClearBtn
+					buttonLabel={'Sign out'}
+					onPress={function (): void {
+						throw new Error('Function not implemented.');
+					}}
+				/>
 			</View>
 		</DrawerContentScrollView>
 	);

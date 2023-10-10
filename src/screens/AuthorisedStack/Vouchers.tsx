@@ -13,7 +13,7 @@ const Vouchers = ({ navigation }: any) => {
 	return (
 		<SafeAreaProvider>
 			<HeaderComponent
-				authorised={false}
+				authorised={true}
 				icon={
 					<Icon name='menu' type='feather' color={COLORS.bgGreen} size={40} />
 				}
@@ -34,7 +34,7 @@ const Vouchers = ({ navigation }: any) => {
 							fontFamily: 'Tungsten-SemiBold',
 						}}
 					>
-						Voucher Confirmation
+						Vouchers
 					</Text>
 				</View>
 
@@ -44,7 +44,7 @@ const Vouchers = ({ navigation }: any) => {
 						alignItems: 'center',
 					}}
 				>
-					<QREncoder codeValue={stringExample} />
+					{/* <QREncoder codeValue={stringExample} /> */}
 				</View>
 
 				<View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>
@@ -69,7 +69,6 @@ const Vouchers = ({ navigation }: any) => {
 						>
 							Instructions:
 						</Text>
-						{/* <Text style={{ textAlign: 'left', fontWeight: '400' }}> */}
 						<ListItem style={{ backgroundColor: COLORS.white }}>
 							<ListItem.Content>
 								<ListItem.Title style={styles.listItemTitle}>
