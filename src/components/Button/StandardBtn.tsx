@@ -7,24 +7,29 @@ interface IStandardButtonProps {
 	buttonLabel: string;
 	onPress: () => void;
 	bgGreen: boolean;
+	fontBlue: boolean;
 }
 
 export const StandardButton: React.FC<IStandardButtonProps> = ({
 	buttonLabel,
+	bgGreen,
+	fontBlue,
 	onPress,
 }) => {
 	return (
 		<Button
 			title={buttonLabel}
 			buttonStyle={{
-				backgroundColor: COLORS.bgBlue,
+				backgroundColor: bgGreen ? COLORS.bgGreen : COLORS.bgBlue,
 				borderRadius: 25,
 				paddingVertical: 15,
+				marginVertical: 10,
+				marginHorizontal: 10,
 			}}
 			titleStyle={{
 				fontWeight: '700',
 				fontSize: FONTSIZES.xl,
-				color: COLORS.white,
+				color: fontBlue ? COLORS.bgBlue : COLORS.white,
 				// fontFamily: 'Tungsten-SemiBold',
 			}}
 			onPress={onPress}

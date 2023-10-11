@@ -9,7 +9,7 @@ interface IScreenTitleProps {
 
 const ScreenTitle: React.FC<IScreenTitleProps> = ({ title }) => {
 	return (
-		<View style={{ paddingTop: 30 }}>
+		<View style={{ paddingTop: 20 }}>
 			<Text
 				h2
 				h2Style={{

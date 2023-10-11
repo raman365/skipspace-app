@@ -1,15 +1,20 @@
 import { View, StyleSheet } from 'react-native';
 import React from 'react';
-import { COLORS } from '../../../../constants/theme';
+import { COLORS, FONTSIZES } from '../../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../../components/Header';
 import { Button, Icon, Text, ListItem } from '@rneui/themed';
 import QREncoder from '../../../components/QREncoder';
+import StandardButton from '../../../components/Button/StandardBtn';
+import ScreenTitle from '../../../components/ScreenTitle';
 
 const VoucherConfirmation = ({ navigation }: any) => {
-	const stringExample = 'test';
+	const stringExample = 'test - this is a test a test this is';
 	// 'Location Name: Skips are us | Address: 123 Fake Lane, E17 123. This is an example of a QR code';
-
+	const handleReturnHome = () => {
+		navigation.navigate('signedInDashboard');
+		// TODO: Push voucher data to the database
+	};
 	return (
 		<SafeAreaProvider>
 			<HeaderComponent
@@ -23,19 +28,20 @@ const VoucherConfirmation = ({ navigation }: any) => {
 			/>
 
 			<View>
-				<View style={{ paddingTop: 20 }}>
-					<Text
+				<View style={{ paddingVertical: 20 }}>
+					<ScreenTitle title={'Confirmation'} />
+					{/* <Text
 						h4
 						h4Style={{
 							fontWeight: 'bold',
 							textAlign: 'center',
 							color: COLORS.bgBlue,
-							fontSize: 20,
+							fontSize: FONTSIZES.txxl,
 							fontFamily: 'Tungsten-SemiBold',
 						}}
 					>
-						Voucher Confirmation
-					</Text>
+						Confirmation
+					</Text> */}
 				</View>
 
 				<View
@@ -84,8 +90,10 @@ const VoucherConfirmation = ({ navigation }: any) => {
 								</ListItem.Title>
 							</ListItem.Content>
 						</ListItem>
-						{/* </Text> */}
 					</View>
+				</View>
+
+				<View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>
 					<Button
 						title='Return Home'
 						buttonStyle={{
@@ -95,38 +103,13 @@ const VoucherConfirmation = ({ navigation }: any) => {
 						}}
 						titleStyle={{
 							fontWeight: '700',
-							fontSize: 16,
+							fontSize: FONTSIZES.xl,
 							color: COLORS.bgBlue,
 						}}
-						onPress={() => navigation.navigate('SignedInDashboard')}
+						onPress={handleReturnHome}
 					/>
 				</View>
 			</View>
-
-			{/* <View
-				style={{
-					marginHorizontal: 10,
-					
-				}}
-			>
-				<View style={{ paddingVertical: 10 }}>
-					<Text style={styles.listItemTitle1}> Name:</Text>
-					<Text style={{ textAlign: 'center' }}> Example name</Text>
-				</View>
-				<View>
-					<Text style={styles.listItemTitle1}> Address:</Text>
-					<Text style={{ textAlign: 'center', marginVertical: 10 }}>
-						{' '}
-						Example Address
-					</Text>
-					<Text
-						style={{ textAlign: 'center', textDecorationLine: 'underline' }}
-					>
-						{' '}
-						View on maps
-					</Text>
-				</View>
-			</View> */}
 		</SafeAreaProvider>
 	);
 };

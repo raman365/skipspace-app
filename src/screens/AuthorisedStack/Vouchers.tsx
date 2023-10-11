@@ -3,8 +3,11 @@ import React from 'react';
 import { COLORS } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
+import MapView from 'react-native-maps';
+
 import { Button, Icon, Text, ListItem } from '@rneui/themed';
 import QREncoder from '../../components/QREncoder';
+import ScreenTitle from '../../components/ScreenTitle';
 
 const Vouchers = ({ navigation }: any) => {
 	const stringExample =
@@ -24,7 +27,8 @@ const Vouchers = ({ navigation }: any) => {
 
 			<View>
 				<View style={{ paddingTop: 20 }}>
-					<Text
+					<ScreenTitle title={'Vouchers'} />
+					{/* <Text
 						h4
 						h4Style={{
 							fontWeight: 'bold',
@@ -35,7 +39,7 @@ const Vouchers = ({ navigation }: any) => {
 						}}
 					>
 						Vouchers
-					</Text>
+					</Text> */}
 				</View>
 
 				<View
@@ -85,7 +89,7 @@ const Vouchers = ({ navigation }: any) => {
 						</ListItem>
 						{/* </Text> */}
 					</View>
-					<Button
+					{/* <Button
 						title='Return Home'
 						buttonStyle={{
 							backgroundColor: COLORS.bgGreen,
@@ -98,7 +102,7 @@ const Vouchers = ({ navigation }: any) => {
 							color: COLORS.bgBlue,
 						}}
 						onPress={() => navigation.navigate('SignedInDashboard')}
-					/>
+					/> */}
 				</View>
 			</View>
 

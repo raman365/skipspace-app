@@ -1,6 +1,6 @@
 import { View, StyleSheet } from 'react-native';
 import React from 'react';
-import { COLORS } from '../../../constants/theme';
+import { COLORS, FONTSIZES } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
 import { Button, Icon, Text } from '@rneui/themed';
@@ -118,7 +118,7 @@ const SelectedSkipSpace = ({ navigation }: any) => {
 					}}
 					titleStyle={{
 						fontWeight: '700',
-						fontSize: 16,
+						fontSize: FONTSIZES.xl,
 						color: COLORS.bgBlue,
 					}}
 					onPress={() => navigation.navigate('voucherConfirmation')}

@@ -1,15 +1,16 @@
 import { View, StyleSheet } from 'react-native';
 import React from 'react';
-import { COLORS } from '../../../constants/theme';
+import { COLORS, FONTSIZES } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
 import { Button, Icon } from '@rneui/themed';
 import { DrawerActions } from '@react-navigation/native';
 import StandardButton from '../../components/Button/StandardBtn';
+import MapView from 'react-native-maps';
 
 const SignedInDashboard = ({ navigation }: any) => {
 	return (
-		<SafeAreaProvider style={{ backgroundColor: COLORS.bgBlue }}>
+		<SafeAreaProvider>
 			<HeaderComponent
 				authorised={true}
 				icon={
@@ -19,43 +20,22 @@ const SignedInDashboard = ({ navigation }: any) => {
 					navigation.dispatch(DrawerActions.toggleDrawer());
 				}}
 			/>
-			<View style={styles.centerContainer}>
-				<View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>
-					{/* <Button
-						title='Search for SkipSpace'
-						buttonStyle={{
-							backgroundColor: COLORS.bgGreen,
-							borderRadius: 25,
-							paddingVertical: 15,
-						}}
-						titleStyle={{
-							fontWeight: '700',
-							fontSize: 30,
-							color: COLORS.bgBlue,
-							fontFamily: 'Tungsten-SemiBold',
-						}}
-						onPress={() => navigation.navigate('searchSelectCouncil')}
-					/> */}
+
+			<View>
+				<View>
+					<MapView style={styles.map} />
+				</View>
+				<View style={styles.dashboardBottom}>
 					<StandardButton
+						bgGreen
+						fontBlue
 						buttonLabel={'Search for SkipSpace'}
 						onPress={() => navigation.navigate('searchSelectCouncil')}
-						bgGreen={false}
 					/>
-				</View>
-				<View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>
-					<Button
-						title='View active vouchers'
-						buttonStyle={{
-							backgroundColor: COLORS.bgGreen,
-							borderRadius: 5,
-							paddingVertical: 15,
-						}}
-						titleStyle={{
-							fontWeight: '700',
-							fontSize: 30,
-							color: COLORS.bgBlue,
-							fontFamily: 'Tungsten-SemiBold',
-						}}
+					<StandardButton
+						bgGreen
+						fontBlue
+						buttonLabel={'View Vouchers'}
 						onPress={() => navigation.navigate('vouchers')}
 					/>
 				</View>
@@ -65,12 +45,20 @@ const SignedInDashboard = ({ navigation }: any) => {
 };
 
 const styles = StyleSheet.create({
-	centerContainer: {
-		paddingTop: 50,
-		paddingHorizontal: 20,
-		display: 'flex',
-		justifyContent: 'center',
-		// flex: 1,
+	map: {
+		height: '100%',
+		width: '100%',
+	},
+	dashboardBottom: {
+		height: 350,
+		width: '100%',
+		backgroundColor: COLORS.bgBlue,
+		position: 'absolute',
+		bottom: 0,
+		left: 0,
+		paddingTop: 10,
+		borderTopLeftRadius: 30,
+		borderTopRightRadius: 30,
 	},
 });
 
