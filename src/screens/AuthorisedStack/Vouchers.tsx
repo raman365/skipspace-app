@@ -1,6 +1,6 @@
 import { View, StyleSheet } from 'react-native';
 import React from 'react';
-import { COLORS } from '../../../constants/theme';
+import { COLORS, FONTSIZES } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
 import MapView from 'react-native-maps';
@@ -8,11 +8,15 @@ import MapView from 'react-native-maps';
 import { Button, Icon, Text, ListItem } from '@rneui/themed';
 import QREncoder from '../../components/QREncoder';
 import ScreenTitle from '../../components/ScreenTitle';
+import VoucherItem from '../../components/VoucherItem';
 
 const Vouchers = ({ navigation }: any) => {
 	const stringExample =
 		'Location Name: Skips are us | Address: 123 Fake Lane, E17 123. This is an example of a QR code';
 
+	const handleVoucherItem = () => {
+		console.log('handle voucher item');
+	};
 	return (
 		<SafeAreaProvider>
 			<HeaderComponent
@@ -28,114 +32,84 @@ const Vouchers = ({ navigation }: any) => {
 			<View>
 				<View style={{ paddingTop: 20 }}>
 					<ScreenTitle title={'Vouchers'} />
-					{/* <Text
-						h4
-						h4Style={{
-							fontWeight: 'bold',
-							textAlign: 'center',
-							color: COLORS.bgBlue,
-							fontSize: 20,
-							fontFamily: 'Tungsten-SemiBold',
-						}}
-					>
-						Vouchers
-					</Text> */}
 				</View>
 
-				<View
-					style={{
-						justifyContent: 'center',
-						alignItems: 'center',
-					}}
-				>
-					{/* <QREncoder codeValue={stringExample} /> */}
-				</View>
-
-				<View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>
+				{/* Active vouchers */}
+				<View style={{ paddingBottom: 50 }}>
 					<View
 						style={{
-							paddingVertical: 10,
-							paddingHorizontal: 10,
-							borderColor: COLORS.bgBlue,
-							borderWidth: 1,
-							marginTop: 10,
-							marginBottom: 20,
+							borderBottomColor: COLORS.bgBlue,
+							borderBottomWidth: 1,
+							paddingBottom: 10,
 						}}
 					>
 						<Text
 							style={{
-								textDecorationLine: 'underline',
-								textAlign: 'center',
-								paddingVertical: 10,
+								fontSize: FONTSIZES.xl,
+								color: COLORS.bgBlue,
+								padding: 10,
 								fontWeight: 'bold',
-								fontSize: 16,
 							}}
 						>
-							Instructions:
+							Active:
 						</Text>
-						<ListItem style={{ backgroundColor: COLORS.white }}>
-							<ListItem.Content>
-								<ListItem.Title style={styles.listItemTitle}>
-									1. Go to your SkipSpace site.
-								</ListItem.Title>
-								<ListItem.Title style={styles.listItemTitle}>
-									2. Show this QR code to the security staff when you arrive.
-								</ListItem.Title>
-								<ListItem.Title style={styles.listItemTitle}>
-									3. This QR code will expire in 24 hours and can also be found
-									in the Vouchers section.
-								</ListItem.Title>
-							</ListItem.Content>
-						</ListItem>
-						{/* </Text> */}
 					</View>
-					{/* <Button
-						title='Return Home'
-						buttonStyle={{
-							backgroundColor: COLORS.bgGreen,
-							borderRadius: 30,
-							paddingVertical: 15,
+
+					<View style={styles.section}>
+						<VoucherItem
+							nameOfCompany='Skips R Us'
+							address='123 Fake Avenue, 24 Fake lane, 123 6AA'
+							onPress={handleVoucherItem}
+							hasBeenUsed={false}
+						/>
+						{/* Flat list of links to vouchers */}
+					</View>
+				</View>
+
+				<View style={{ paddingBottom: 50 }}>
+					<View
+						style={{
+							borderBottomColor: COLORS.bgBlue,
+							borderBottomWidth: 1,
+							paddingBottom: 10,
 						}}
-						titleStyle={{
-							fontWeight: '700',
-							fontSize: 16,
-							color: COLORS.bgBlue,
-						}}
-						onPress={() => navigation.navigate('SignedInDashboard')}
-					/> */}
+					>
+						<Text
+							style={{
+								fontSize: FONTSIZES.xl,
+								color: COLORS.bgBlue,
+								padding: 10,
+								fontWeight: 'bold',
+							}}
+						>
+							Expired:
+						</Text>
+					</View>
+
+					<View style={styles.section}>
+						<VoucherItem
+							nameOfCompany='Skips R Us'
+							address='123 Fake Avenue, 24 Fake lane, 123 6AA'
+							onPress={handleVoucherItem}
+							dateUsed={'12/12/2023'}
+							hasBeenUsed={true}
+						/>
+						{/* if length is < 0 show this */}
+						{/*  */}
+						{/* Flat list of links to vouchers */}
+					</View>
 				</View>
 			</View>
-
-			{/* <View
-				style={{
-					marginHorizontal: 10,
-					
-				}}
-			>
-				<View style={{ paddingVertical: 10 }}>
-					<Text style={styles.listItemTitle1}> Name:</Text>
-					<Text style={{ textAlign: 'center' }}> Example name</Text>
-				</View>
-				<View>
-					<Text style={styles.listItemTitle1}> Address:</Text>
-					<Text style={{ textAlign: 'center', marginVertical: 10 }}>
-						{' '}
-						Example Address
-					</Text>
-					<Text
-						style={{ textAlign: 'center', textDecorationLine: 'underline' }}
-					>
-						{' '}
-						View on maps
-					</Text>
-				</View>
-			</View> */}
 		</SafeAreaProvider>
 	);
 };
 
 const styles = StyleSheet.create({
-	centerContainer: {
+	section: {
+		// borderBottomColor: COLORS.lightBlue,
+		// borderTopColor: COLORS.lightBlue,
+		// borderBottomWidth: 2,
+		// borderTopwidth: 2,
 		// paddingTop: 20,
 		// paddingHorizontal: 20,
 		// display: 'flex',

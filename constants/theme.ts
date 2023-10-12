@@ -18,7 +18,10 @@ export const COLORS = {
     lightBlue: '#d0e6e8',
     white: '#fff',
     primaryRed: '#ff0000',
-    softRed: '#fda4af'
+    softRed: '#fda4af',
+    black: '#000',
+    lightGrey: '#b6bdc7'
+
 
 }
 
