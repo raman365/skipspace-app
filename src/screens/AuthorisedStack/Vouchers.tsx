@@ -1,5 +1,5 @@
 import { View, StyleSheet } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { COLORS, FONTSIZES } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
@@ -9,13 +9,23 @@ import { Button, Icon, Text, ListItem } from '@rneui/themed';
 import QREncoder from '../../components/QREncoder';
 import ScreenTitle from '../../components/ScreenTitle';
 import VoucherItem from '../../components/VoucherItem';
+import VoucherSheet from '../../components/BottomSheet';
 
 const Vouchers = ({ navigation }: any) => {
+	const [isVisible, setIsVisible] = useState(false);
+
 	const stringExample =
 		'Location Name: Skips are us | Address: 123 Fake Lane, E17 123. This is an example of a QR code';
 
 	const handleVoucherItem = () => {
 		console.log('handle voucher item');
+		setIsVisible(true);
+
+		// opens up bottom sheet
+	};
+
+	const handleBackdropPress = () => {
+		setIsVisible(false);
 	};
 	return (
 		<SafeAreaProvider>
@@ -100,6 +110,11 @@ const Vouchers = ({ navigation }: any) => {
 					</View>
 				</View>
 			</View>
+			<VoucherSheet
+				isVisible={isVisible}
+				onCancelPress={handleBackdropPress}
+				// onBottomButtonPress={onCancelPress}
+			/>
 		</SafeAreaProvider>
 	);
 };

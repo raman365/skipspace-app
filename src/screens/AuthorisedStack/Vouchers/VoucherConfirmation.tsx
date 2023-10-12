@@ -30,18 +30,6 @@ const VoucherConfirmation = ({ navigation }: any) => {
 			<View>
 				<View style={{ paddingVertical: 20 }}>
 					<ScreenTitle title={'Confirmation'} />
-					{/* <Text
-						h4
-						h4Style={{
-							fontWeight: 'bold',
-							textAlign: 'center',
-							color: COLORS.bgBlue,
-							fontSize: FONTSIZES.txxl,
-							fontFamily: 'Tungsten-SemiBold',
-						}}
-					>
-						Confirmation
-					</Text> */}
 				</View>
 
 				<View
@@ -94,18 +82,10 @@ const VoucherConfirmation = ({ navigation }: any) => {
 				</View>
 
 				<View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>
-					<Button
-						title='Return Home'
-						buttonStyle={{
-							backgroundColor: COLORS.bgGreen,
-							borderRadius: 30,
-							paddingVertical: 15,
-						}}
-						titleStyle={{
-							fontWeight: '700',
-							fontSize: FONTSIZES.xl,
-							color: COLORS.bgBlue,
-						}}
+					<StandardButton
+						bgGreen
+						fontBlue
+						buttonLabel={'Return Home'}
 						onPress={handleReturnHome}
 					/>
 				</View>
@@ -115,14 +95,6 @@ const VoucherConfirmation = ({ navigation }: any) => {
 };
 
 const styles = StyleSheet.create({
-	centerContainer: {
-		// paddingTop: 20,
-		// paddingHorizontal: 20,
-		// display: 'flex',
-		// justifyContent: 'flex-end',
-		// alignContent: 'space-between',
-		// flex: 1,
-	},
 	listItemTitle: {
 		paddingVertical: 5,
 		fontSize: 12,
