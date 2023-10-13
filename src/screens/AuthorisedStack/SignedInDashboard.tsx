@@ -1,14 +1,23 @@
 import { View, StyleSheet } from 'react-native';
 import React from 'react';
-import { COLORS, FONTSIZES } from '../../../constants/theme';
+import { COLORS } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
-import { Button, Icon } from '@rneui/themed';
+import { Icon } from '@rneui/themed';
 import { DrawerActions } from '@react-navigation/native';
 import StandardButton from '../../components/Button/StandardBtn';
 import MapView from 'react-native-maps';
 
 const SignedInDashboard = ({ navigation }: any) => {
+	const handleToggle = () => {
+		navigation.dispatch(DrawerActions.toggleDrawer());
+	};
+	const handleGoSearch = () => {
+		navigation.navigate('searchSelectCouncil');
+	};
+	const handleGoVouchers = () => {
+		navigation.navigate('voucher');
+	};
 	return (
 		<SafeAreaProvider>
 			<HeaderComponent
@@ -16,9 +25,7 @@ const SignedInDashboard = ({ navigation }: any) => {
 				icon={
 					<Icon name='menu' type='feather' color={COLORS.bgGreen} size={30} />
 				}
-				onPress={() => {
-					navigation.dispatch(DrawerActions.toggleDrawer());
-				}}
+				onPress={handleToggle}
 			/>
 
 			<View>
@@ -30,13 +37,13 @@ const SignedInDashboard = ({ navigation }: any) => {
 						bgGreen
 						fontBlue
 						buttonLabel={'Search for SkipSpace'}
-						onPress={() => navigation.navigate('searchSelectCouncil')}
+						onPress={handleGoSearch}
 					/>
 					<StandardButton
 						bgGreen
 						fontBlue
 						buttonLabel={'View Vouchers'}
-						onPress={() => navigation.navigate('vouchers')}
+						onPress={handleGoVouchers}
 					/>
 				</View>
 			</View>

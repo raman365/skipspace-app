@@ -16,12 +16,23 @@ export const COLORS = {
     bgBlue: '#003b49',
     bgGreen: '#7acc00',
     lightBlue: '#d0e6e8',
-    white: '#fff',
     primaryRed: '#ff0000',
-    // softRed: '#fda4af',
     softRed: '#fb596d',
+    lightGrey: '#b6bdc7',
     black: '#000',
-    lightGrey: '#b6bdc7'
+    white: '#fff',
+
+    alpha: {
+        bgBlue: 'rgba(0,59,73, 0.5)',
+        bgGreen: 'rgba(122,204,0, 0.5)',
+        lightBlue: 'rgba(208,230,232, 0.3)',
+        primaryRed: 'rgba(255,0,0 0.5)',
+        softRed: 'rgba(251,89,109, 0.5)',
+        lightGrey: 'rgba(251,89,109, 0.5)',
+        white: 'rgba(255,255,255, 0.5)',
+        black: 'rgba(0,0,0, 0.5)',
+
+    }
 
 
 }

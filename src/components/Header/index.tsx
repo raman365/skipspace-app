@@ -22,7 +22,7 @@ const HeaderComponent: React.FC<IHeaderComponentProps> = ({
 						height: 100,
 						alignSelf: 'center',
 						justifyContent: 'center',
-						// paddingTop: 0,
+						paddingTop: 20,
 					}}
 				>
 					<Button onPress={onPress}>{icon}</Button>
@@ -32,9 +32,6 @@ const HeaderComponent: React.FC<IHeaderComponentProps> = ({
 					style={{
 						width: 100,
 						height: 100,
-						// alignItems: 'center',
-						// justifyContent: 'center',
-						// paddingTop: 0,
 					}}
 				></View>
 			)}

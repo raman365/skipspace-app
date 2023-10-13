@@ -13,9 +13,9 @@ const ScreenTitle: React.FC<IScreenTitleProps> = ({ title }) => {
 			<Text
 				h2
 				h2Style={{
-					fontWeight: 'bold',
+					// fontWeight: '800',
 					textAlign: 'center',
-					fontFamily: 'Tungsten-SemiBold',
+					fontFamily: 'tungsten_semibold',
 					color: COLORS.bgBlue,
 				}}
 			>

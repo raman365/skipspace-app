@@ -29,13 +29,14 @@ export type UnauthorisedStackParamsLists = {
 export const UnauthorisedStack = () => {
 	const [fontsLoaded, fontError] = useFonts({
 		// 'Inter-Black': require('./assets/fonts/Inter-Black.otf'),
-		'Open-Sans': require('../../assets/fonts/OpenSans/OpenSans-Regular.ttf'),
-		'Open-Sans-Medium': require('../../assets/fonts/OpenSans/OpenSans-Medium.ttf'),
-		'Open-Sans-SemiCond-Reg': require('../../assets/fonts/OpenSans/OpenSans_SemiCondensed-Regular.ttf'),
-		'Open-Sans-Cond-SemiBold': require('../../assets/fonts/OpenSans/OpenSans_Condensed-SemiBold.ttf'),
-		'Open-Sans-Extra-Bold': require('../../assets/fonts/OpenSans/OpenSans-Condensed-ExtraBold.ttf'),
-		'Tungsten-Bold': require('../../assets/fonts/Tungsten/Tungsten-Bold.ttf'),
-		'Tungsten-SemiBold': require('../../assets/fonts/Tungsten/Tungsten-Semibold.ttf'),
+		open_sans: require('../../assets/fonts/OpenSans/OpenSans_Regular.ttf'),
+		'Open-Sans-Medium': require('../../assets/fonts/OpenSans/OpenSans_Medium.ttf'),
+		open_sans_cond_semibold: require('../../assets/fonts/OpenSans/OpenSans_CondensedSemiBold.ttf'),
+		open_sans_semicond_reg: require('../../assets/fonts/OpenSans/OpenSans_SemiCondensedRegular.ttf'),
+		tungsten_bold: require('../../assets/fonts/Tungsten/TungstenBold.ttf'),
+		tungsten_semibold: require('../../assets/fonts/Tungsten/tungsten_semibold.ttf'),
+
+		// tungsten_semibold: require('../../assets/fonts/Tungsten/TungstenSemibold.ttf'),
 	});
 
 	const onLayoutRootView = useCallback(async () => {

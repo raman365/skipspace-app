@@ -22,7 +22,7 @@ export const StandardButton: React.FC<IStandardButtonProps> = ({
 			buttonStyle={{
 				backgroundColor: bgGreen ? COLORS.bgGreen : COLORS.bgBlue,
 				borderRadius: 25,
-				paddingVertical: 15,
+				paddingVertical: 13,
 				marginVertical: 10,
 				marginHorizontal: 10,
 			}}

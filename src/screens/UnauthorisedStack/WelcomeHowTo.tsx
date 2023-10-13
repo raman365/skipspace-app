@@ -15,6 +15,7 @@ import { ScalingDot } from 'react-native-animated-pagination-dots';
 import { COLORS } from '../../../constants/theme';
 
 import SSButton from '../../components/Button';
+import StandardButton from '../../components/Button/StandardBtn';
 // import ScalingDots from '../../components/ScalingDots';
 
 // const { width } = Dimensions.get('window');
@@ -100,7 +101,12 @@ const WelcomeHowTo = ({ navigation }: any) => {
 		},
 		[width]
 	);
-
+	const handleRegister = () => {
+		navigation.navigate('SignUp');
+	};
+	const handleSignIn = () => {
+		navigation.navigate('AuthDashboard');
+	};
 	return (
 		<SafeAreaView style={{ justifyContent: 'space-between', flex: 1 }}>
 			{/* image */}
@@ -118,7 +124,7 @@ const WelcomeHowTo = ({ navigation }: any) => {
 				/>
 			</View>
 
-			<View>
+			<View style={styles.carouselContainer}>
 				<FlatList
 					data={INTRO_DATA}
 					keyExtractor={keyExtractor}
@@ -146,10 +152,17 @@ const WelcomeHowTo = ({ navigation }: any) => {
 				/>
 			</View>
 			<View style={{ marginHorizontal: 30, paddingVertical: 20 }}>
-				<SSButton
-					buttonLabel={'Find SkipSpace'}
-					onPress={() => navigation.navigate('AuthDashboard')}
+				<StandardButton
+					buttonLabel={'Register'}
+					onPress={handleRegister}
 					bgGreen
+					fontBlue={false}
+				/>
+				<StandardButton
+					buttonLabel={'Sign in'}
+					onPress={handleSignIn}
+					bgGreen={false}
+					fontBlue={false}
 				/>
 			</View>
 		</SafeAreaView>
@@ -176,8 +189,12 @@ const styles = StyleSheet.create({
 		width: 150,
 		height: 150,
 	},
-
+	carouselContainer: {
+		paddingBottom: 20,
+		marginTop: -10,
+	},
 	dotContainer: {
+		// paddingVertical: 20,
 		backgroundColor: COLORS.white,
 		justifyContent: 'center',
 		alignSelf: 'center',

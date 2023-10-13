@@ -8,6 +8,7 @@ import ScreenTitle from '../ScreenTitle';
 import QREncoder from '../QREncoder';
 import StandardButton from '../Button/StandardBtn';
 import Subtitle from '../Subtitle';
+import CountdownTimer from '../Timer';
 
 interface IVoucherSheetProps {
 	isVisible: boolean;
@@ -39,7 +40,8 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 
 				<View style={styles.viewSection}>
 					<Subtitle subtitle={'Expires: '} />
-					<Subtitle textColor={COLORS.softRed} subtitle={'12:10:00'} />
+					<CountdownTimer />
+					{/* <Subtitle textColor={COLORS.softRed} subtitle={'12:10:00'} /> */}
 				</View>
 
 				<View>

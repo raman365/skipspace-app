@@ -18,8 +18,7 @@ import {
 	Help,
 } from '../screens/index';
 import { COLORS, theme } from '../../constants/theme';
-import { Button, Icon, ThemeProvider } from '@rneui/themed';
-import { NavigationContainer } from '@react-navigation/native';
+import { ThemeProvider } from '@rneui/themed';
 
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
@@ -59,17 +58,11 @@ const CustomDrawerContent = (props: any) => {
 					resizeMethod='scale'
 				/>
 			</View>
-			<View
-			// style={{
-			// 	justifyContent: 'space-between',
-			// 	alignContent: 'space-around',
-			// }}
-			>
+			<View>
 				<View style={{ paddingVertical: 10 }}>
 					<DrawerItemList state={newState} {...rest} />
 				</View>
 			</View>
-			{/* <View style={{ flex: 1, justifyContent: 'flex-end' }}> */}
 			<View
 				style={{
 					paddingLeft: 5,
@@ -96,12 +89,12 @@ const CustomDrawerContent = (props: any) => {
 const CustomDrawer = () => {
 	const [fontsLoaded, fontError] = useFonts({
 		// 'Inter-Black': require('./assets/fonts/Inter-Black.otf'),
-		'Open-Sans': require('../../assets/fonts/OpenSans/OpenSans-Regular.ttf'),
-		'Open-Sans-Medium': require('../../assets/fonts/OpenSans/OpenSans-Medium.ttf'),
-		'Open-Sans-Cond-SemiBold': require('../../assets/fonts/OpenSans/OpenSans_Condensed-SemiBold.ttf'),
-		'Open-Sans-SemiCond-Reg': require('../../assets/fonts/OpenSans/OpenSans_SemiCondensed-Regular.ttf'),
-		'Tungsten-Bold': require('../../assets/fonts/Tungsten/Tungsten-Bold.ttf'),
-		'Tungsten-SemiBold': require('../../assets/fonts/Tungsten/Tungsten-Semibold.ttf'),
+		open_sans: require('../../assets/fonts/OpenSans/OpenSans_Regular.ttf'),
+		open_sans_medium: require('../../assets/fonts/OpenSans/OpenSans_Medium.ttf'),
+		open_sans_cond_semibold: require('../../assets/fonts/OpenSans/OpenSans_CondensedSemiBold.ttf'),
+		open_sans_semicond_reg: require('../../assets/fonts/OpenSans/OpenSans_SemiCondensedRegular.ttf'),
+		tungsten_bold: require('../../assets/fonts/Tungsten/TungstenBold.ttf'),
+		tungsten_semibold: require('../../assets/fonts/Tungsten/tungsten_semibold.ttf'),
 	});
 
 	const onLayoutRootView = useCallback(async () => {
@@ -127,7 +120,7 @@ const CustomDrawer = () => {
 						fontWeight: 'bold',
 						color: COLORS.bgBlue,
 						fontSize: 30,
-						fontFamily: 'Tungsten-SemiBold',
+						// fontFamily: 'tungsten_semibold',
 					},
 					drawerInactiveTintColor: COLORS.white,
 					drawerInactiveBackgroundColor: COLORS.white,
