@@ -16,7 +16,7 @@ const SignedInDashboard = ({ navigation }: any) => {
 		navigation.navigate('searchSelectCouncil');
 	};
 	const handleGoVouchers = () => {
-		navigation.navigate('voucher');
+		navigation.navigate('vouchers');
 	};
 	return (
 		<SafeAreaProvider>

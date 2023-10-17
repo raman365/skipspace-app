@@ -32,7 +32,7 @@ const SelectedSkipSpace = ({ navigation }: any) => {
 						textAlign: 'center',
 						color: COLORS.bgBlue,
 						fontSize: 30,
-						fontFamily: 'Tungsten-SemiBold',
+						fontFamily: 'Tungsten_SemiBold',
 					}}
 				>
 					Selected SkipSpace
@@ -45,7 +45,7 @@ const SelectedSkipSpace = ({ navigation }: any) => {
 						h4Style={{
 							fontWeight: '600',
 							color: COLORS.bgBlue,
-							fontFamily: 'Tungsten-SemiBold',
+							fontFamily: 'Tungsten_SemiBold',
 						}}
 					>
 						Council:
@@ -58,7 +58,7 @@ const SelectedSkipSpace = ({ navigation }: any) => {
 						h4Style={{
 							fontWeight: '600',
 							color: COLORS.bgBlue,
-							fontFamily: 'Tungsten-SemiBold',
+							fontFamily: 'Tungsten_SemiBold',
 						}}
 					>
 						Name of skip company:
@@ -71,7 +71,7 @@ const SelectedSkipSpace = ({ navigation }: any) => {
 						h4Style={{
 							fontWeight: '600',
 							color: COLORS.bgBlue,
-							fontFamily: 'Tungsten-SemiBold',
+							fontFamily: 'Tungsten_SemiBold',
 						}}
 					>
 						Address:
@@ -86,7 +86,7 @@ const SelectedSkipSpace = ({ navigation }: any) => {
 							color: COLORS.bgBlue,
 							textAlign: 'center',
 							textDecorationLine: 'underline',
-							fontFamily: 'Open-Sans-SemiCond-Reg',
+							fontFamily: 'Open_Sans_SemiCond_Reg',
 						}}
 					>
 						View on Maps

@@ -55,7 +55,6 @@ export const FONTSIZES = {
 //         textAlign: 'center',
 //         color: COLORS.bgBlue,
 //         fontSize: 30,
-//         fontFamily: 'Tungsten-SemiBold',
 
 //     }
 // }

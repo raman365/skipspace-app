@@ -32,9 +32,9 @@ export const UnauthorisedStack = () => {
 		open_sans: require('../../assets/fonts/OpenSans/OpenSans_Regular.ttf'),
 		'Open-Sans-Medium': require('../../assets/fonts/OpenSans/OpenSans_Medium.ttf'),
 		open_sans_cond_semibold: require('../../assets/fonts/OpenSans/OpenSans_CondensedSemiBold.ttf'),
-		open_sans_semicond_reg: require('../../assets/fonts/OpenSans/OpenSans_SemiCondensedRegular.ttf'),
+		Open_Sans_SemiCond_Reg: require('../../assets/fonts/OpenSans/OpenSans_SemiCondensedRegular.ttf'),
 		tungsten_bold: require('../../assets/fonts/Tungsten/TungstenBold.ttf'),
-		tungsten_semibold: require('../../assets/fonts/Tungsten/tungsten_semibold.ttf'),
+		Tungsten_SemiBold: require('../../assets/fonts/Tungsten/Tungsten_SemiBold.ttf'),
 
 		// tungsten_semibold: require('../../assets/fonts/Tungsten/TungstenSemibold.ttf'),
 	});

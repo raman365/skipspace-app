@@ -39,7 +39,7 @@ const SignUp = ({ navigation }: any) => {
 					secureTextEntry
 				/>
 
-				<View style={{}}>
+				<View style={{ paddingBottom: 12 }}>
 					<StandardButton
 						buttonLabel={'Next'}
 						onPress={handleRegisterBtn}

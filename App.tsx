@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 // import { View, StatusBar } from 'react-native';
 import { ThemeProvider } from '@rneui/themed';
+import 'expo-splash-screen';
 
 import { COLORS, theme } from './constants/theme';
 import RootNavigation from './src/navigation';

@@ -92,9 +92,9 @@ const CustomDrawer = () => {
 		open_sans: require('../../assets/fonts/OpenSans/OpenSans_Regular.ttf'),
 		open_sans_medium: require('../../assets/fonts/OpenSans/OpenSans_Medium.ttf'),
 		open_sans_cond_semibold: require('../../assets/fonts/OpenSans/OpenSans_CondensedSemiBold.ttf'),
-		open_sans_semicond_reg: require('../../assets/fonts/OpenSans/OpenSans_SemiCondensedRegular.ttf'),
+		Open_Sans_SemiCond_Reg: require('../../assets/fonts/OpenSans/OpenSans_SemiCondensedRegular.ttf'),
 		tungsten_bold: require('../../assets/fonts/Tungsten/TungstenBold.ttf'),
-		tungsten_semibold: require('../../assets/fonts/Tungsten/tungsten_semibold.ttf'),
+		Tungsten_SemiBold: require('../../assets/fonts/Tungsten/Tungsten_SemiBold.ttf'),
 	});
 
 	const onLayoutRootView = useCallback(async () => {
@@ -120,7 +120,7 @@ const CustomDrawer = () => {
 						fontWeight: 'bold',
 						color: COLORS.bgBlue,
 						fontSize: 30,
-						// fontFamily: 'tungsten_semibold',
+						fontFamily: 'Tungsten_SemiBold',
 					},
 					drawerInactiveTintColor: COLORS.white,
 					drawerInactiveBackgroundColor: COLORS.white,

@@ -29,7 +29,7 @@ const UserAccount = ({ navigation }: any) => {
 						textAlign: 'center',
 						color: COLORS.bgBlue,
 						fontSize: 30,
-						fontFamily: 'Tungsten-SemiBold',
+						fontFamily: 'Tungsten_SemiBold',
 					}}
 				>
 					Your Account

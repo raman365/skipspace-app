@@ -27,7 +27,6 @@ export const SSButton: React.FC<ISSButtonProps> = ({
 				fontSize: 20,
 				// letterSpacing: 1,
 				color: COLORS.white,
-				// fontFamily: 'Tungsten-Bold',
 			}}
 			onPress={onPress}
 		/>

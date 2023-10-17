@@ -30,7 +30,6 @@ export const StandardButton: React.FC<IStandardButtonProps> = ({
 				fontWeight: '700',
 				fontSize: FONTSIZES.xl,
 				color: fontBlue ? COLORS.bgBlue : COLORS.white,
-				// fontFamily: 'Tungsten-SemiBold',
 			}}
 			onPress={onPress}
 		/>

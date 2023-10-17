@@ -25,7 +25,7 @@ const SelectCouncil = ({ navigation }: any) => {
 						fontWeight: 'bold',
 						textAlign: 'center',
 						color: COLORS.bgBlue,
-						fontFamily: 'Tungsten-SemiBold',
+						fontFamily: 'Tungsten_SemiBold',
 						fontSize: 30,
 					}}
 				>
