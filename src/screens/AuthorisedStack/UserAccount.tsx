@@ -1,9 +1,13 @@
 import { View, StyleSheet, Alert } from 'react-native';
 import React from 'react';
-import { COLORS } from '../../../constants/theme';
+import { COLORS, FONTSIZES } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
 import { Button, Icon, Input, Text } from '@rneui/themed';
+import TextInput from '../../components/FormComponents/TextInput';
+import SSButton from '../../components/Button';
+
+// TODO: Replace with user data
 
 const UserAccount = ({ navigation }: any) => {
 	return (
@@ -36,40 +40,23 @@ const UserAccount = ({ navigation }: any) => {
 				</Text>
 			</View>
 			<View style={styles.centerContainer}>
-				<View>
-					<Text>First name:</Text>
-					<Input
-						disabled
-						placeholder='Jane'
-						// TODO: Replace with user data
-					/>
-				</View>
-				<View>
-					<Text>Last name:</Text>
-					<Input
-						disabled
-						placeholder='Doe'
-						// TODO: Replace with user data
-					/>
-				</View>
-				<View>
-					<Text>Email address:</Text>
-					<Input
-						disabled
-						placeholder='jane.doe@email.com'
-						// TODO: Replace with user data
-					/>
-				</View>
-				<View>
-					<Text>Used vouchers:</Text>
-					<Input
-						disabled
-						placeholder='1'
-						// TODO: Replace with user data
-					/>
-				</View>
+				<TextInput inputLabel='First name:' placeholder={'Jane'} disabled />
+				<TextInput inputLabel='Last name:' placeholder={'Doe'} disabled />
+				<TextInput
+					inputLabel='Email address:'
+					placeholder={'jane.doe@email.com'}
+					disabled
+				/>
+				<TextInput inputLabel='Used vouchers:' placeholder={'1'} disabled />
 				<View style={styles.bottomDivider}>
-					<Button
+					<SSButton
+						buttonLabel={'Sign out'}
+						onPress={function (): void {
+							throw new Error('Function not implemented.');
+						}}
+						bgGreen={false}
+					/>
+					{/* <Button
 						title='Log out'
 						buttonStyle={{
 							backgroundColor: COLORS.bgGreen,
@@ -82,23 +69,38 @@ const UserAccount = ({ navigation }: any) => {
 							color: COLORS.white,
 						}}
 						onPress={() => Alert.alert('Todo: log out')}
-					/>
+					/> */}
 				</View>
 				<View style={styles.topDivider}>
-					<Button
+					<View style={{ paddingVertical: 10, marginHorizontal: 50 }}>
+						<Button
+							title='Delete my account'
+							buttonStyle={{
+								backgroundColor: COLORS.primaryRed,
+								borderRadius: 25,
+							}}
+							titleStyle={{
+								fontWeight: '700',
+								fontSize: FONTSIZES.medium,
+								color: COLORS.white,
+							}}
+							onPress={() => console.log('sdfds')}
+						/>
+					</View>
+					{/* <Button
 						title='Delete my account'
 						buttonStyle={{
-							backgroundColor: COLORS.softRed,
-							borderRadius: 5,
+							backgroundColor: COLORS.primaryRed,
+							borderRadius: 25,
 							paddingVertical: 10,
 						}}
 						titleStyle={{
 							fontWeight: '700',
-							fontSize: 16,
+							fontSize: FONTSIZES.medium,
 							color: COLORS.white,
 						}}
 						onPress={() => Alert.alert('Todo: log out')}
-					/>
+					/> */}
 				</View>
 				{/* <View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>
 					<Button
@@ -148,11 +150,11 @@ const styles = StyleSheet.create({
 	bottomDivider: {
 		paddingVertical: 20,
 		paddingHorizontal: 25,
-		borderBottomColor: COLORS.lightBlue,
-		borderBottomWidth: 2,
+		// borderBottomColor: COLORS.lightBlue,
+		// borderBottomWidth: 2,
 	},
 	topDivider: {
-		paddingVertical: 20,
+		paddingTop: 50,
 		paddingHorizontal: 25,
 		// borderBottomColor: COLORS.lightBlue,
 		// borderBottomWidth: 2,

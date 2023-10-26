@@ -1,7 +1,7 @@
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { COLORS } from '../../../constants/theme';
+import { COLORS, FONTSIZES } from '../../../constants/theme';
 import HeaderComponent from '../../components/Header';
 import { Input, Text, Button } from '@rneui/themed';
 import ScreenTitle from '../../components/ScreenTitle';
@@ -39,7 +39,7 @@ const VerifyEmail = ({ navigation }: any) => {
 							}}
 							titleStyle={{
 								fontWeight: '700',
-								fontSize: 16,
+								fontSize: FONTSIZES.large,
 								color: COLORS.white,
 							}}
 							onPress={handleVerifyEmail}

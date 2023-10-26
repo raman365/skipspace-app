@@ -220,7 +220,7 @@ const CustomDrawer = () => {
 					component={UserAccount}
 					options={{
 						headerShown: false,
-						title: 'Your account',
+						title: 'Your Account',
 					}}
 				/>
 				<Drawer.Screen

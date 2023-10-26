@@ -153,15 +153,15 @@ const WelcomeHowTo = ({ navigation }: any) => {
 			</View>
 			<View style={{ marginHorizontal: 30, paddingVertical: 20 }}>
 				<StandardButton
-					buttonLabel={'Register'}
-					onPress={handleRegister}
-					bgGreen
-					fontBlue={false}
-				/>
-				<StandardButton
 					buttonLabel={'Sign in'}
 					onPress={handleSignIn}
 					bgGreen={false}
+					fontBlue={false}
+				/>
+				<StandardButton
+					buttonLabel={'Register'}
+					onPress={handleRegister}
+					bgGreen
 					fontBlue={false}
 				/>
 			</View>

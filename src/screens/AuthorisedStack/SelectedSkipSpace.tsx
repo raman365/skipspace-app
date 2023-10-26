@@ -20,7 +20,7 @@ const SelectedSkipSpace = ({ navigation }: any) => {
 					/>
 				}
 				onPress={() => {
-					navigation.navigate('selectCouncil');
+					navigation.navigate('searchSelectCouncil');
 				}}
 			/>
 			{/* <ScreenTitle title={'Vouchers'} /> */}

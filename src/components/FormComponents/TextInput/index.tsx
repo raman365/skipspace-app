@@ -7,6 +7,7 @@ interface ITextInputProps {
 	inputLabel: string;
 	placeholder: string;
 	secureTextEntry?: boolean;
+	disabled?: boolean;
 	errorMessage?: string;
 	onChangeText?: () => void;
 }
@@ -14,6 +15,7 @@ interface ITextInputProps {
 const TextInput: React.FC<ITextInputProps> = ({
 	inputLabel,
 	placeholder,
+	disabled,
 	secureTextEntry = false,
 	errorMessage,
 	onChangeText,
@@ -24,6 +26,7 @@ const TextInput: React.FC<ITextInputProps> = ({
 			<Input
 				inputStyle={styles.inputStyle}
 				placeholder={placeholder}
+				disabled={disabled}
 				secureTextEntry={secureTextEntry}
 				errorMessage={errorMessage}
 				errorStyle={styles.errorStyle}
