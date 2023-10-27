@@ -35,6 +35,7 @@ export const UnauthorisedStack = () => {
 		Open_Sans_SemiCond_Reg: require('../../assets/fonts/OpenSans/OpenSans_SemiCondensedRegular.ttf'),
 		tungsten_bold: require('../../assets/fonts/Tungsten/TungstenBold.ttf'),
 		Tungsten_SemiBold: require('../../assets/fonts/Tungsten/Tungsten_SemiBold.ttf'),
+		tungsten_med: require('../../assets/fonts/Tungsten/Tungsten_Med.otf'),
 
 		// tungsten_semibold: require('../../assets/fonts/Tungsten/TungstenSemibold.ttf'),
 	});

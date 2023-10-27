@@ -38,16 +38,18 @@ const SignUp = ({ navigation }: any) => {
 					placeholder={''}
 					secureTextEntry
 				/>
-
-				<View style={{ paddingBottom: 12 }}>
-					<StandardButton
-						buttonLabel={'Next'}
-						onPress={handleRegisterBtn}
-						bgGreen={false}
-						fontBlue={false}
-					/>
-				</View>
 			</View>
+
+			{/* <View style={{ marginBottom: 20 }}> */}
+			<View style={{ paddingHorizontal: 20, paddingTop: 30 }}>
+				<StandardButton
+					buttonLabel={'Next'}
+					onPress={handleRegisterBtn}
+					bgGreen={false}
+					fontBlue={false}
+				/>
+			</View>
+
 			<Footer
 				children={
 					<>
@@ -56,14 +58,15 @@ const SignUp = ({ navigation }: any) => {
 					</>
 				}
 			/>
+			{/* </View> */}
 		</SafeAreaProvider>
 	);
 };
 
 const styles = StyleSheet.create({
 	centerContainer: {
-		paddingTop: 20,
-		paddingHorizontal: 25,
+		padding: 20,
+		// paddingHorizontal: 25,
 		display: 'flex',
 		justifyContent: 'center',
 		flex: 2,

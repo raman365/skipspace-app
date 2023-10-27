@@ -33,7 +33,7 @@
     "expo-status-bar": "~1.4.2",
     "react": "18.1.0",
     "react-dom": "18.1.0",
-    "react-native": "0.70.8",
+    "react-native": "0.70.14",
     "react-native-animated-pagination-dots": "^0.1.73",
     "react-native-countdown-timer-hooks": "^1.0.4",
     "react-native-crypto-js": "^1.0.0",

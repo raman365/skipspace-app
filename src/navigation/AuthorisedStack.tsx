@@ -95,13 +95,14 @@ const CustomDrawer = () => {
 		Open_Sans_SemiCond_Reg: require('../../assets/fonts/OpenSans/OpenSans_SemiCondensedRegular.ttf'),
 		tungsten_bold: require('../../assets/fonts/Tungsten/TungstenBold.ttf'),
 		Tungsten_SemiBold: require('../../assets/fonts/Tungsten/Tungsten_SemiBold.ttf'),
+		tungsten_med: require('../../assets/fonts/Tungsten/Tungsten_Med.otf'),
 	});
 
-	const onLayoutRootView = useCallback(async () => {
-		if (fontsLoaded || fontError) {
-			await SplashScreen.hideAsync();
-		}
-	}, [fontsLoaded, fontError]);
+	// const onLayoutRootView = useCallback(async () => {
+	// 	if (fontsLoaded || fontError) {
+	// 		await SplashScreen.hideAsync();
+	// 	}
+	// }, [fontsLoaded, fontError]);
 
 	if (!fontsLoaded && !fontError) {
 		return null;

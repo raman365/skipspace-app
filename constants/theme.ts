@@ -3,6 +3,7 @@ import { createTheme } from '@rneui/themed';
 
 export const theme = createTheme({
     lightColors: {
+        // green: '#7acc00',
         primary: '#003b49', // blue
         secondary: '#7acc00', // green
         background: '#d0e6e8',

@@ -30,8 +30,9 @@ const styles = StyleSheet.create({
 		borderTopColor: COLORS.bgGreen,
 		backgroundColor: COLORS.white,
 		borderTopWidth: 2,
-		height: 90,
+		height: 80,
 		paddingTop: 10,
-		marginTop: 15,
+		marginTop: 10,
+		// marginHorizontal: 0,
 	},
 });
