@@ -6,6 +6,8 @@ import { COLORS } from '../../../constants/theme';
 import HeaderComponent from '../../components/Header';
 import ScreenTitle from '../../components/ScreenTitle';
 import {} from '@rneui/base';
+import TextInput from '../../components/FormComponents/TextInput';
+import StandardButton from '../../components/Button/StandardBtn';
 
 const ForgotDetails = ({ navigation }: any) => {
 	const handleForgotPassword = () => {
@@ -57,23 +59,18 @@ const ForgotDetails = ({ navigation }: any) => {
 						</Text>
 					</View>
 					<View style={{ paddingVertical: 50 }}>
-						<Text style={{}}>Email address:</Text>
-						<Input placeholder='your@email.com' />
+						<TextInput
+							inputLabel={'Email address'}
+							placeholder={'your@email.com'}
+						/>
 					</View>
 
 					<View style={{ paddingVertical: 10 }}>
-						<Button
-							title='Send'
-							buttonStyle={{
-								backgroundColor: COLORS.bgBlue,
-								borderRadius: 5,
-							}}
-							titleStyle={{
-								fontWeight: '700',
-								fontSize: 16,
-								color: COLORS.white,
-							}}
+						<StandardButton
+							buttonLabel={'Send'}
 							onPress={handleForgotPassword}
+							bgGreen={false}
+							fontBlue={false}
 						/>
 					</View>
 				</View>
