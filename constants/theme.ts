@@ -39,8 +39,9 @@ export const COLORS = {
 }
 
 export const FONTSIZES = {
-    txxl: 24,
-    txl: 22,
+    '5xl': 30,
+    '4xl': 26,
+    '3xl': 22,
     xxl: 20,
     xl: 18,
     large: 14,

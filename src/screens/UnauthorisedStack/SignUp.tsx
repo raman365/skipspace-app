@@ -9,6 +9,7 @@ import ClearBtn from '../../components/Button/ClearBtn';
 import TextInput from '../../components/FormComponents/TextInput';
 import StandardButton from '../../components/Button/StandardBtn';
 import Footer from '../../components/Footer';
+import SmlStandardBtn from '../../components/Button/SmallStandardBtn';
 
 export const LogoImage = () => {
 	return <Image source={require('../../../assets/ss.png')} />;
@@ -41,14 +42,20 @@ const SignUp = ({ navigation }: any) => {
 			</View>
 
 			{/* <View style={{ marginBottom: 20 }}> */}
-			<View style={{ paddingHorizontal: 20, paddingTop: 30 }}>
+			{/* <View style={{ paddingHorizontal: 20, paddingTop: 30 }}>
 				<StandardButton
 					buttonLabel={'Next'}
 					onPress={handleRegisterBtn}
 					bgGreen={false}
 					fontBlue={false}
 				/>
-			</View>
+			</View> */}
+			<SmlStandardBtn
+				buttonLabel={'Next'}
+				onPress={handleRegisterBtn}
+				bgGreen={false}
+				fontBlue={false}
+			/>
 
 			<Footer
 				children={
@@ -66,7 +73,7 @@ const SignUp = ({ navigation }: any) => {
 const styles = StyleSheet.create({
 	centerContainer: {
 		padding: 20,
-		// paddingHorizontal: 25,
+		marginTop: 15,
 		display: 'flex',
 		justifyContent: 'center',
 		flex: 2,
