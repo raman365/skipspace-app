@@ -10,6 +10,8 @@ interface ITextInputProps {
 	disabled?: boolean;
 	errorMessage?: string;
 	onChangeText?: () => void;
+	icon?: JSX.Element;
+	style?: string;
 }
 
 const TextInput: React.FC<ITextInputProps> = ({
@@ -18,20 +20,23 @@ const TextInput: React.FC<ITextInputProps> = ({
 	disabled,
 	secureTextEntry = false,
 	errorMessage,
+	icon,
 	onChangeText,
 }) => {
 	return (
 		<View>
 			<Text style={styles.textStyle}>{inputLabel} </Text>
 			<Input
-				inputStyle={styles.inputStyle}
+				inputContainerStyle={styles.contStyle}
 				placeholder={placeholder}
 				disabled={disabled}
 				secureTextEntry={secureTextEntry}
 				errorMessage={errorMessage}
 				errorStyle={styles.errorStyle}
 				onChangeText={onChangeText}
+				rightIcon={icon}
 			/>
+			{/* {icon} */}
 		</View>
 	);
 };
@@ -43,7 +48,8 @@ const styles = StyleSheet.create({
 		fontSize: FONTSIZES.large,
 		paddingBottom: 10,
 	},
-	inputStyle: {
+	// inputStyle: {
+	contStyle: {
 		backgroundColor: COLORS.alpha.lightBlue,
 		opacity: 1,
 		paddingHorizontal: 10,

@@ -9,16 +9,7 @@ interface IFooterProps {
 const Footer: React.FC<IFooterProps> = ({ children }) => {
 	return (
 		<View style={styles.bottomContainer}>
-			<View
-				style={{
-					display: 'flex',
-					flexDirection: 'row',
-					justifyContent: 'center',
-					alignItems: 'center',
-				}}
-			>
-				{children}
-			</View>
+			<View style={styles.viewContainer}>{children}</View>
 		</View>
 	);
 };
@@ -34,5 +25,11 @@ const styles = StyleSheet.create({
 		paddingTop: 10,
 		marginTop: 10,
 		// marginHorizontal: 0,
+	},
+	viewContainer: {
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
 	},
 });
