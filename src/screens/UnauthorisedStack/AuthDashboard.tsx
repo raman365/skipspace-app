@@ -27,8 +27,8 @@ const AuthDashboard = ({ navigation }: any) => {
 			<ScreenTitle title={'Sign In'} />
 
 			<View style={styles.centerContainer}>
-				<TextInput inputLabel={'Email address:'} placeholder={''} />
-				<TextInput inputLabel={'Password:'} secureTextEntry placeholder={''} />
+				{/* <TextInput inputLabel={'Email address:'} placeholder={''} />
+				<TextInput inputLabel={'Password:'} secureTextEntry placeholder={''} /> */}
 
 				<View>
 					<ClearBtn

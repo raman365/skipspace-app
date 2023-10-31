@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import {
 	createDrawerNavigator,
 	DrawerContentScrollView,
@@ -23,6 +22,7 @@ import { ThemeProvider } from '@rneui/themed';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import ClearBtn from '../components/Button/ClearBtn';
+// import { handleSignOut } from '../../config/auth';
 
 export type DrawerStackParamsList = {
 	signedInDashboard: undefined;
@@ -50,7 +50,7 @@ const CustomDrawerContent = (props: any) => {
 
 	return (
 		<DrawerContentScrollView {...props} safeArea>
-			<View style={{ marginTop: -45, marginBottom: -30 }}>
+			<View style={{ marginTop: 15 }}>
 				<Image
 					source={require('../../assets/images/menulogogreen.png')}
 					height={10}
@@ -76,12 +76,7 @@ const CustomDrawerContent = (props: any) => {
 					borderTopWidth: 1,
 				}}
 			>
-				<ClearBtn
-					buttonLabel={'Sign out'}
-					onPress={function (): void {
-						throw new Error('Function not implemented.');
-					}}
-				/>
+				{/* <ClearBtn buttonLabel={'Sign out'} onPress={() => handleSignOut} /> */}
 			</View>
 		</DrawerContentScrollView>
 	);
@@ -118,7 +113,6 @@ const CustomDrawer = () => {
 					drawerActiveTintColor: COLORS.white,
 
 					drawerLabelStyle: {
-						fontWeight: 'bold',
 						color: COLORS.bgBlue,
 						fontSize: 30,
 						fontFamily: 'Tungsten_SemiBold',

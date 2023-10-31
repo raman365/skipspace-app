@@ -4,12 +4,27 @@ import { COLORS, FONTSIZES } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
 import { Button, Icon, Input, Text } from '@rneui/themed';
-import TextInput from '../../components/FormComponents/TextInput';
+import TextInput, { autoCap } from '../../components/FormComponents/TextInput';
 import SSButton from '../../components/Button';
+
+import { getAuth, signOut } from 'firebase/auth';
+import { handleSignOut } from '../../../config/auth';
 
 // TODO: Replace with user data
 
 const UserAccount = ({ navigation }: any) => {
+	// const handleSignOut = async () => {
+	// 	const auth = getAuth();
+
+	// 	try {
+	// 		signOut(auth).then(() => {
+	// 			// signout success
+	// 			navigation.navigate('WelcomeHowTo');
+	// 		});
+	// 	} catch (error) {
+	// 		Alert.alert(`An error occurred: ${error}. Please try again`);
+	// 	}
+	// };
 	return (
 		<SafeAreaProvider>
 			<HeaderComponent
@@ -27,9 +42,7 @@ const UserAccount = ({ navigation }: any) => {
 			{/* <ScreenTitle title={'Vouchers'} /> */}
 			<View style={{ paddingTop: 30 }}>
 				<Text
-					h4
-					h4Style={{
-						fontWeight: 'bold',
+					style={{
 						textAlign: 'center',
 						color: COLORS.bgBlue,
 						fontSize: 30,
@@ -40,23 +53,41 @@ const UserAccount = ({ navigation }: any) => {
 				</Text>
 			</View>
 			<View style={styles.centerContainer}>
-				<TextInput inputLabel='First name:' placeholder={'Jane'} disabled />
-				<TextInput inputLabel='Last name:' placeholder={'Doe'} disabled />
+				<TextInput
+					inputLabel='First name:'
+					placeholder={'Jane'}
+					value={''}
+					disabled
+					autoCapitalize={autoCap.WORDS}
+				/>
+				<TextInput
+					inputLabel='Last name:'
+					placeholder={'Doe'}
+					value={''}
+					disabled
+					autoCapitalize={autoCap.WORDS}
+				/>
 				<TextInput
 					inputLabel='Email address:'
 					placeholder={'jane.doe@email.com'}
 					disabled
+					value={''}
+					autoCapitalize={autoCap.NONE}
 				/>
-				<TextInput inputLabel='Used vouchers:' placeholder={'1'} disabled />
+				<TextInput
+					inputLabel='Used vouchers:'
+					placeholder={'1'}
+					disabled
+					value={''}
+					autoCapitalize={autoCap.NONE}
+				/>
 				<View style={styles.bottomDivider}>
 					<SSButton
 						buttonLabel={'Sign out'}
-						onPress={function (): void {
-							throw new Error('Function not implemented.');
-						}}
+						onPress={() => handleSignOut}
 						bgGreen={false}
 					/>
-					{/* <Button
+					<Button
 						title='Log out'
 						buttonStyle={{
 							backgroundColor: COLORS.bgGreen,
@@ -68,8 +99,8 @@ const UserAccount = ({ navigation }: any) => {
 							fontSize: 16,
 							color: COLORS.white,
 						}}
-						onPress={() => Alert.alert('Todo: log out')}
-					/> */}
+						onPress={handleSignOut}
+					/>
 				</View>
 				<View style={styles.topDivider}>
 					<View style={{ paddingVertical: 10, marginHorizontal: 50 }}>

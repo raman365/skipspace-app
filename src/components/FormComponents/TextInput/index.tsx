@@ -3,15 +3,24 @@ import React from 'react';
 import { Header, Icon, Input, Button, Image, Text } from '@rneui/themed';
 import { FONTSIZES, COLORS } from '../../../../constants/theme';
 
+export enum autoCap {
+	NONE = 'none',
+	CHARACTERS = 'characters',
+	WORDS = 'words',
+	SENTENCES = 'sentences',
+}
+
 interface ITextInputProps {
 	inputLabel: string;
-	placeholder: string;
+	placeholder?: string;
 	secureTextEntry?: boolean;
 	disabled?: boolean;
 	errorMessage?: string;
-	onChangeText?: () => void;
 	icon?: JSX.Element;
+	onChangeText?: () => void;
 	style?: string;
+	value: string;
+	autoCapitalize: autoCap;
 }
 
 const TextInput: React.FC<ITextInputProps> = ({
@@ -22,6 +31,8 @@ const TextInput: React.FC<ITextInputProps> = ({
 	errorMessage,
 	icon,
 	onChangeText,
+	autoCapitalize,
+	value,
 }) => {
 	return (
 		<View>
@@ -30,6 +41,8 @@ const TextInput: React.FC<ITextInputProps> = ({
 				inputContainerStyle={styles.contStyle}
 				placeholder={placeholder}
 				disabled={disabled}
+				autoCapitalize={autoCapitalize}
+				value={value}
 				secureTextEntry={secureTextEntry}
 				errorMessage={errorMessage}
 				errorStyle={styles.errorStyle}
@@ -48,7 +61,6 @@ const styles = StyleSheet.create({
 		fontSize: FONTSIZES.large,
 		paddingBottom: 10,
 	},
-	// inputStyle: {
 	contStyle: {
 		backgroundColor: COLORS.alpha.lightBlue,
 		opacity: 1,
