@@ -17,10 +17,10 @@ interface ITextInputProps {
 	disabled?: boolean;
 	errorMessage?: string;
 	icon?: JSX.Element;
-	onChangeText?: () => void;
+	// onChangeText?: () => void;
 	style?: string;
 	value: string;
-	autoCapitalize: autoCap;
+	// autoCapitalize: autoCap;
 }
 
 const TextInput: React.FC<ITextInputProps> = ({
@@ -30,25 +30,26 @@ const TextInput: React.FC<ITextInputProps> = ({
 	secureTextEntry = false,
 	errorMessage,
 	icon,
-	onChangeText,
-	autoCapitalize,
-	value,
+	// onChangeText,
+	// autoCapitalize,
+	// value,
+	...rest
 }) => {
 	return (
 		<View>
 			<Text style={styles.textStyle}>{inputLabel} </Text>
-			<Input
+			{/* <Input
 				inputContainerStyle={styles.contStyle}
-				placeholder={placeholder}
-				disabled={disabled}
-				autoCapitalize={autoCapitalize}
-				value={value}
-				secureTextEntry={secureTextEntry}
-				errorMessage={errorMessage}
+				// placeholder={placeholder}
+				// disabled={disabled}
+				// autoCapitalize={autoCapitalize}
+				// value={value}
+				// secureTextEntry={secureTextEntry}
+				// errorMessage={errorMessage}
 				errorStyle={styles.errorStyle}
-				onChangeText={onChangeText}
+				// onChangeText={onChangeText}
 				rightIcon={icon}
-			/>
+				{...rest}			/> */}
 			{/* {icon} */}
 		</View>
 	);

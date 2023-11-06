@@ -3,7 +3,7 @@ import {
 	DrawerContentScrollView,
 	DrawerItemList,
 } from '@react-navigation/drawer';
-import { View, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Image, StyleSheet, Dimensions, Alert } from 'react-native';
 
 import {
 	CreateNewPassword,
@@ -22,6 +22,9 @@ import { ThemeProvider } from '@rneui/themed';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import ClearBtn from '../components/Button/ClearBtn';
+import { useCallback } from 'react';
+import { getAuth, signOut } from 'firebase/auth';
+import { handleSignOut } from '../utils/authentication';
 // import { handleSignOut } from '../../config/auth';
 
 export type DrawerStackParamsList = {
@@ -43,7 +46,6 @@ SplashScreen.preventAutoHideAsync();
 // });
 const Drawer = createDrawerNavigator<DrawerStackParamsList>();
 const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
-
 const CustomDrawerContent = (props: any) => {
 	const { state, ...rest } = props;
 	const newState = { ...state };
@@ -76,7 +78,7 @@ const CustomDrawerContent = (props: any) => {
 					borderTopWidth: 1,
 				}}
 			>
-				{/* <ClearBtn buttonLabel={'Sign out'} onPress={() => handleSignOut} /> */}
+				<ClearBtn buttonLabel={'Sign out'} onPress={handleSignOut} />
 			</View>
 		</DrawerContentScrollView>
 	);
@@ -84,29 +86,28 @@ const CustomDrawerContent = (props: any) => {
 const CustomDrawer = () => {
 	const [fontsLoaded, fontError] = useFonts({
 		// 'Inter-Black': require('./assets/fonts/Inter-Black.otf'),
-		open_sans: require('../../assets/fonts/OpenSans/OpenSans_Regular.ttf'),
-		open_sans_medium: require('../../assets/fonts/OpenSans/OpenSans_Medium.ttf'),
-		open_sans_cond_semibold: require('../../assets/fonts/OpenSans/OpenSans_CondensedSemiBold.ttf'),
-		Open_Sans_SemiCond_Reg: require('../../assets/fonts/OpenSans/OpenSans_SemiCondensedRegular.ttf'),
+		// open_sans: require('../../assets/fonts/OpenSans/OpenSans_Regular.ttf'),
+		// open_sans_medium: require('../../assets/fonts/OpenSans/OpenSans_Medium.ttf'),
+		// open_sans_cond_semibold: require('../../assets/fonts/OpenSans/OpenSans_CondensedSemiBold.ttf'),
+		// Open_Sans_SemiCond_Reg: require('../../assets/fonts/OpenSans/OpenSans_SemiCondensedRegular.ttf'),
 		tungsten_bold: require('../../assets/fonts/Tungsten/TungstenBold.ttf'),
 		Tungsten_SemiBold: require('../../assets/fonts/Tungsten/Tungsten_SemiBold.ttf'),
 		tungsten_med: require('../../assets/fonts/Tungsten/Tungsten_Med.otf'),
 	});
 
-	// const onLayoutRootView = useCallback(async () => {
-	// 	if (fontsLoaded || fontError) {
-	// 		await SplashScreen.hideAsync();
-	// 	}
-	// }, [fontsLoaded, fontError]);
+	const onLayoutRootView = useCallback(async () => {
+		if (fontsLoaded || fontError) {
+			await SplashScreen.hideAsync();
+		}
+	}, [fontsLoaded, fontError]);
 
 	if (!fontsLoaded && !fontError) {
 		return null;
 	}
 	return (
-		// <NavigationContainer onReady={onLayoutRootView}>
 		<View style={{ flex: 1 }}>
 			<Drawer.Navigator
-				initialRouteName={'signedInDashboard'}
+				// initialRouteName={'signedInDashboard'}
 				screenOptions={() => ({
 					drawerActiveBackgroundColor: COLORS.white,
 					// drawerActiveTintColor: COLORS.bgGreen,
@@ -142,46 +143,6 @@ const CustomDrawer = () => {
 						position: 'absolute',
 						top: 0,
 					},
-					// headerLeft: () => {
-					// 	<View style={styles.imageContainer}>
-					// 		<View
-					// 			style={{
-					// 				width: 100,
-					// 				height: 100,
-					// 				alignSelf: 'center',
-					// 				justifyContent: 'center',
-					// 				paddingTop: 0,
-					// 			}}
-					// 		>
-					// 			<Button onPress={navigation.toggleDrawer}>
-					// 				<Icon
-					// 					name='menu'
-					// 					type='feather'
-					// 					color={COLORS.bgGreen}
-					// 					size={30}
-					// 				/>
-					// 			</Button>
-					// 		</View>
-
-					// 		<View style={styles.innerContainer}>
-					// 			<Image
-					// 				// style={styles.logoImage}
-					// 				height={50}
-					// 				source={require('../../assets/ss.png')}
-					// 				resizeMode='contain'
-					// 			/>
-					// 		</View>
-					// 		<View style={{ width: 100, alignSelf: 'center' }}></View>
-					// 	</View>;
-					// 	// 	<View style={{ backgroundColor: COLORS.bgBlue }}>
-					// 	// 		<Button
-					// 	// 			onPress={navigation.toggleDrawer}
-					// 	// 			// background={'transparent'}
-					// 	// 		>
-					// 	// 			<Icon name='menu' color='white' />
-					// 	// 		</Button>
-					// 	// 	</View>;
-					// },
 				})}
 				drawerContent={(props) => <CustomDrawerContent {...props} />}
 			>
@@ -263,7 +224,6 @@ const CustomDrawer = () => {
 				/>
 			</Drawer.Navigator>
 		</View>
-		// </NavigationContainer>
 	);
 };
 

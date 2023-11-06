@@ -7,9 +7,9 @@ import { Input, Text, Button } from '@rneui/themed';
 import ScreenTitle from '../../components/ScreenTitle';
 
 const VerifyEmail = ({ navigation }: any) => {
-	const handleVerifyEmail = () => {
-		navigation.navigate('AuthorisedStack', { screen: 'signedInDashboard' });
-	};
+	// const handleVerifyEmail = () => {
+	// 	navigation.navigate('AuthorisedStack', { screen: 'signedInDashboard' });
+	// };
 	return (
 		<SafeAreaProvider>
 			<HeaderComponent authorised={true} />
@@ -42,7 +42,8 @@ const VerifyEmail = ({ navigation }: any) => {
 								fontSize: FONTSIZES.large,
 								color: COLORS.white,
 							}}
-							onPress={handleVerifyEmail}
+							// onPress={handleVerifyEmail}
+							onPress={() => console.log('something')}
 						/>
 					</View>
 				</View>

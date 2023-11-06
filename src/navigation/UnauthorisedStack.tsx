@@ -28,7 +28,6 @@ export type UnauthorisedStackParamsLists = {
 
 export const UnauthorisedStack = () => {
 	const [fontsLoaded, fontError] = useFonts({
-		// 'Inter-Black': require('./assets/fonts/Inter-Black.otf'),
 		open_sans: require('../../assets/fonts/OpenSans/OpenSans_Regular.ttf'),
 		'Open-Sans-Medium': require('../../assets/fonts/OpenSans/OpenSans_Medium.ttf'),
 		open_sans_cond_semibold: require('../../assets/fonts/OpenSans/OpenSans_CondensedSemiBold.ttf'),
@@ -36,8 +35,6 @@ export const UnauthorisedStack = () => {
 		tungsten_bold: require('../../assets/fonts/Tungsten/TungstenBold.ttf'),
 		Tungsten_SemiBold: require('../../assets/fonts/Tungsten/Tungsten_SemiBold.ttf'),
 		tungsten_med: require('../../assets/fonts/Tungsten/Tungsten_Med.otf'),
-
-		// tungsten_semibold: require('../../assets/fonts/Tungsten/TungstenSemibold.ttf'),
 	});
 
 	const onLayoutRootView = useCallback(async () => {

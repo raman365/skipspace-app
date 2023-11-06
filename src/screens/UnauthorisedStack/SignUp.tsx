@@ -15,10 +15,18 @@ import HeaderComponent from '../../components/Header';
 import ScreenTitle from '../../components/ScreenTitle';
 import ClearBtn from '../../components/Button/ClearBtn';
 import TextInput, { autoCap } from '../../components/FormComponents/TextInput';
-import StandardButton from '../../components/Button/StandardBtn';
+// import StandardButton from '../../components/Button/StandardBtn';
 import Footer from '../../components/Footer';
 import SmlStandardBtn from '../../components/Button/SmallStandardBtn';
-import { registerNewUser } from '../../../config/auth';
+import { Input } from '@rneui/base';
+import {
+	createUserWithEmailAndPassword,
+	getAuth,
+	sendEmailVerification,
+} from 'firebase/auth';
+import { auth } from '../../../config/firebase';
+// import { useAuth } from '../../context/AuthProvider';
+// import { registerNewUser } from '../../../config/auth';
 
 export const LogoImage = () => {
 	return <Image source={require('../../../assets/ss.png')} />;
@@ -29,35 +37,106 @@ export const LogoImage = () => {
 // 		const userCredential = await
 // 	}
 // }
+
+interface SignUpFormValues {
+	email: string;
+	password: string;
+	// repeatPassword: string
+}
+
 const SignUp = ({ navigation }: any) => {
-	const handleRegisterBtn = async () => {
-		setLoading(true);
+	// const SignUp = () => {
+	const auth = getAuth();
+	const [loading, setLoading] = useState(false);
 
-		try {
-			// 	const user = await registerNewUser(email, password);
-			// 	if (user) {
-			// 		const id = user.uid;
-			// 		// await saveUserData(id, firstName, lastName)
-			// 		// navigation.navigate('VerifyEmail');
-			// 	}
-		} catch (error: any) {
-			setLoading(false);
+	const [firstName, setFirstName] = useState('');
+	const [lastName, setLastName] = useState('');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
 
-			if (error.code === 'auth/email-already-in-use') {
-				Alert.alert(
-					'Email is already in use. Please choose a different email.'
-				);
-			} else if (error.code === 'auth/invalid-email') {
-				Alert.alert('Email address is not valid. Please enter a valid email');
-			} else if (error.code === 'auth/weak-password') {
-				Alert.alert('Weak password. Please enter a stronger password');
-			} else {
-				Alert.alert(`Sign up error: ${error.message}`);
-			}
+	const [isPasswordSecure, setIsPasswordSecure] = useState(true);
+
+	// const { signUp } = useAuth();
+	const [formError, setFormError] = useState<String>('');
+
+	// const handleRegisterBtn = async () => {
+	// setLoading(true);
+	// try {
+	// 	await signUp(email, password);
+	// 	try {
+	// 		// navigation.navigate('VerifyEmail');
+	// 		console.log('user signed up');
+	// 	} catch (error) {
+	// 		console.log('sign up error');
+	// 	}
+	// } catch (error) {
+	// 	console.log(error);
+	// 	setFormError(formError);
+	// 	setLoading(false);
+	// }
+	// };
+
+	// 	const user = await registerNewUser(email, password);
+	// 	if (user) {
+	// 		const id = user.uid;
+	// 		// await saveUserData(id, firstName, lastName)
+	// 		// navigation.navigate('VerifyEmail');
+	// 	}
+	// } catch (error: any) {
+	// 	setLoading(false);
+
+	// 	if (error.code === 'auth/email-already-in-use') {
+	// 		Alert.alert(
+	// 			'Email is already in use. Please choose a different email.'
+	// 		);
+	// 	} else if (error.code === 'auth/invalid-email') {
+	// 		Alert.alert('Email address is not valid. Please enter a valid email');
+	// 	} else if (error.code === 'auth/weak-password') {
+	// 		Alert.alert('Weak password. Please enter a stronger password');
+	// 	} else {
+	// 		Alert.alert(`Sign up error: ${error.message}`);
+	// 	}
+	// }
+
+	// TODO Handle registration
+	// navigation.navigate('VerifyEmail');
+	//};
+
+	const handleRegisterBtn = async (
+		email: string,
+		password: string,
+		firstName: string,
+		lastName: string
+	) => {
+		if (email && password && firstName && lastName) {
+			await createUserWithEmailAndPassword(auth, email, password).then((cred) =>
+				sendEmailVerification(cred.user, {
+					handleCodeInApp: true,
+					url: 'https://skipspaceapp.firebaseapp.com',
+				})
+					.then(() => {
+						// navigate to email v screen or send toast
+						Alert.alert('Check your inbox for the verification email');
+					})
+					.catch((error: any) => {
+						alert(error.message);
+					})
+					.then(() => {
+						console.log('sdsd');
+					})
+			);
+			// .then( async (cred) => await sendEmailVerification(cred.user))
+
+			// try {
+			// 	await createUserWithEmailAndPassword(auth, email, password).then(
+			// 		navigation.navigate('VerifyEmail')
+			// 	);
+			// } catch (err: any) {
+			// 	console.log(`Error occured: ${err.code} -  ${err.message}`);
+			// }
 		}
 
-		// TODO Handle registration
-		// navigation.navigate('VerifyEmail');
+		// sendEmailVerification(auth.currentUser)
 	};
 
 	const handleSignIn = () => {
@@ -67,13 +146,6 @@ const SignUp = ({ navigation }: any) => {
 	const handleViewPassword = () => {
 		isPasswordSecure ? setIsPasswordSecure(false) : setIsPasswordSecure(true);
 	};
-
-	const [loading, setLoading] = useState(false);
-	const [firstName, setFirstName] = useState('');
-	const [lastName, setLastName] = useState('');
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
-	const [isPasswordSecure, setIsPasswordSecure] = useState(true);
 
 	return (
 		<SafeAreaProvider style={{ backgroundColor: COLORS.alpha.white }}>
@@ -87,7 +159,48 @@ const SignUp = ({ navigation }: any) => {
 					<ScreenTitle title={'Register'} />
 
 					<View style={styles.container}>
-						<TextInput
+						<Text style={styles.textStyle}>First name:</Text>
+						<Input
+							inputContainerStyle={styles.contStyle}
+							autoCapitalize='words'
+							value={firstName}
+							onChangeText={(value) => setFirstName(value)}
+						/>
+
+						<Text style={styles.textStyle}>Last name:</Text>
+						<Input
+							inputContainerStyle={styles.contStyle}
+							autoCapitalize='words'
+							value={lastName}
+							onChangeText={(value) => setLastName(value)}
+						/>
+
+						<Text style={styles.textStyle}>Email:</Text>
+						<Input
+							inputContainerStyle={styles.contStyle}
+							autoCapitalize='none'
+							value={email}
+							onChangeText={(email) => setEmail(email)}
+						/>
+
+						<Text style={styles.textStyle}>Password:</Text>
+						<Input
+							inputContainerStyle={styles.contStyle}
+							autoCapitalize='none'
+							value={password}
+							onChangeText={(password) => setPassword(password)}
+							secureTextEntry={isPasswordSecure}
+							rightIcon={
+								<Icon
+									type='entypo'
+									color={COLORS.black}
+									name={isPasswordSecure ? 'eye-with-line' : 'eye'}
+									onPress={handleViewPassword}
+								/>
+							}
+						/>
+
+						{/* <TextInput
 							inputLabel={'First name:'}
 							autoCapitalize={autoCap.WORDS}
 							value={firstName}
@@ -104,7 +217,7 @@ const SignUp = ({ navigation }: any) => {
 							inputLabel={'Email:'}
 							autoCapitalize={autoCap.NONE}
 							value={email}
-							onChangeText={() => setEmail}
+							onChangeText={(value: string) => setEmail(value)}
 							// change keyboard type to email
 						/>
 						<TextInput
@@ -121,11 +234,11 @@ const SignUp = ({ navigation }: any) => {
 									onPress={handleViewPassword}
 								/>
 							}
-						/>
+						/> */}
 
 						<SmlStandardBtn
 							buttonLabel={'Next'}
-							onPress={handleRegisterBtn}
+							onPress={() => handleRegisterBtn}
 							bgGreen={false}
 							fontBlue={false}
 						/>
@@ -157,15 +270,28 @@ const styles = StyleSheet.create({
 
 	container: {
 		padding: 20,
+		marginTop: 20,
 	},
-	textStyle: {
-		fontSize: 15,
-	},
+	// textStyle: {
+	// 	fontSize: 15,
+	// },
 	textStyleTwo: {
 		fontSize: FONTSIZES.xl,
 		fontWeight: '600',
 		textAlign: 'center',
 		color: COLORS.bgBlue,
+	},
+	textStyle: {
+		fontSize: FONTSIZES.large,
+		paddingBottom: 10,
+	},
+	contStyle: {
+		backgroundColor: COLORS.alpha.lightBlue,
+		opacity: 1,
+		paddingHorizontal: 10,
+	},
+	errorStyle: {
+		color: COLORS.softRed,
 	},
 });
 

@@ -1,0 +1,17 @@
+// import React, {createContext} from 'react'
+
+// export const AuthContext = createContext<UserDetailsContextType>({});
+
+// // type User = {
+// //     // ...
+// //   }
+// // type UserDetailsContextType = {
+
+// // }
+// export const AuthProvider = ({children}) => {
+//     return (
+//         <AuthContext.Provider>
+//         {children}
+//         </AuthContext.Provider>
+//     )
+// }

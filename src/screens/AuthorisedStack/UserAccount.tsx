@@ -5,26 +5,16 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
 import { Button, Icon, Input, Text } from '@rneui/themed';
 import TextInput, { autoCap } from '../../components/FormComponents/TextInput';
-import SSButton from '../../components/Button';
+// import SSButton from '../../components/Button';
 
-import { getAuth, signOut } from 'firebase/auth';
-import { handleSignOut } from '../../../config/auth';
+// import { getAuth, signOut } from 'firebase/auth';
+// import { handleSignOut } from '../../navigation/AuthorisedStack';
+import SmlStandardBtn from '../../components/Button/SmallStandardBtn';
+import { handleSignOut } from '../../utils/authentication';
 
 // TODO: Replace with user data
 
 const UserAccount = ({ navigation }: any) => {
-	// const handleSignOut = async () => {
-	// 	const auth = getAuth();
-
-	// 	try {
-	// 		signOut(auth).then(() => {
-	// 			// signout success
-	// 			navigation.navigate('WelcomeHowTo');
-	// 		});
-	// 	} catch (error) {
-	// 		Alert.alert(`An error occurred: ${error}. Please try again`);
-	// 	}
-	// };
 	return (
 		<SafeAreaProvider>
 			<HeaderComponent
@@ -82,27 +72,13 @@ const UserAccount = ({ navigation }: any) => {
 					autoCapitalize={autoCap.NONE}
 				/>
 				<View style={styles.bottomDivider}>
-					<SSButton
+					<SmlStandardBtn
 						buttonLabel={'Sign out'}
-						onPress={() => handleSignOut}
-						bgGreen={false}
-					/>
-					<Button
-						title='Log out'
-						buttonStyle={{
-							backgroundColor: COLORS.bgGreen,
-							borderRadius: 5,
-							paddingVertical: 15,
-						}}
-						titleStyle={{
-							fontWeight: '700',
-							fontSize: 16,
-							color: COLORS.white,
-						}}
 						onPress={handleSignOut}
+						bgGreen={false}
+						fontBlue={false}
 					/>
-				</View>
-				<View style={styles.topDivider}>
+
 					<View style={{ paddingVertical: 10, marginHorizontal: 50 }}>
 						<Button
 							title='Delete my account'
@@ -118,6 +94,44 @@ const UserAccount = ({ navigation }: any) => {
 							onPress={() => console.log('sdfds')}
 						/>
 					</View>
+					{/* <SSButton
+						buttonLabel={'Sign out'}
+						// onPress={() => handleSignOut}
+						onPress={handleSignOut}
+						bgGreen={false}
+					/> */}
+					{/* <Button
+						title='Log out'
+						buttonStyle={{
+							backgroundColor: COLORS.bgGreen,
+							borderRadius: 5,
+							paddingVertical: 15,
+						}}
+						titleStyle={{
+							fontWeight: '700',
+							fontSize: 16,
+							color: COLORS.white,
+						}}
+						// onPress={handleSignOut}
+						onPress={() => console.log('todo')}
+					/> */}
+				</View>
+				<View style={styles.topDivider}>
+					{/* <View style={{ paddingVertical: 10, marginHorizontal: 50 }}>
+						<Button
+							title='Delete my account'
+							buttonStyle={{
+								backgroundColor: COLORS.primaryRed,
+								borderRadius: 25,
+							}}
+							titleStyle={{
+								fontWeight: '700',
+								fontSize: FONTSIZES.medium,
+								color: COLORS.white,
+							}}
+							onPress={() => console.log('sdfds')}
+						/>
+					</View> */}
 					{/* <Button
 						title='Delete my account'
 						buttonStyle={{
