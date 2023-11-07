@@ -5,13 +5,10 @@ import {
 	AuthDashboard,
 	ForgotDetails,
 	VerifyEmail,
-	SignedInDashboard,
 } from '../screens/index';
 
 import { NavigationContainer } from '@react-navigation/native';
-import { View, Image } from 'react-native';
-import { Component, useCallback } from 'react';
-import { COLORS } from '../../constants/theme';
+import { useCallback } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import AuthorisedStack from './AuthorisedStack';

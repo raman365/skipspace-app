@@ -7,10 +7,17 @@ interface ISSButtonProps {
 
 export const Loader: React.FC<ISSButtonProps> = ({ size }) => {
 	return (
-		<>
+		<View style={styles.loadingContainer}>
 			<ActivityIndicator size={size} color={COLORS.bgBlue} />
-		</>
+		</View>
 	);
 };
 
+const styles = StyleSheet.create({
+	loadingContainer: {
+		// flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+});
 export default Loader;

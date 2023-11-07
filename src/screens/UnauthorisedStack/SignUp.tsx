@@ -14,39 +14,21 @@ import { COLORS, FONTSIZES } from '../../../constants/theme';
 import HeaderComponent from '../../components/Header';
 import ScreenTitle from '../../components/ScreenTitle';
 import ClearBtn from '../../components/Button/ClearBtn';
-import TextInput, { autoCap } from '../../components/FormComponents/TextInput';
-// import StandardButton from '../../components/Button/StandardBtn';
+
 import Footer from '../../components/Footer';
 import SmlStandardBtn from '../../components/Button/SmallStandardBtn';
 import { Input } from '@rneui/base';
-import {
-	createUserWithEmailAndPassword,
-	getAuth,
-	sendEmailVerification,
-} from 'firebase/auth';
-import { auth } from '../../../config/firebase';
-// import { useAuth } from '../../context/AuthProvider';
-// import { registerNewUser } from '../../../config/auth';
 
 export const LogoImage = () => {
 	return <Image source={require('../../../assets/ss.png')} />;
 };
 
-// export const registerToVerifySignUp = async(email, password) => {
-// 	try {
-// 		const userCredential = await
-// 	}
-// }
-
 interface SignUpFormValues {
 	email: string;
 	password: string;
-	// repeatPassword: string
 }
 
 const SignUp = ({ navigation }: any) => {
-	// const SignUp = () => {
-	const auth = getAuth();
 	const [loading, setLoading] = useState(false);
 
 	const [firstName, setFirstName] = useState('');
@@ -56,88 +38,7 @@ const SignUp = ({ navigation }: any) => {
 
 	const [isPasswordSecure, setIsPasswordSecure] = useState(true);
 
-	// const { signUp } = useAuth();
 	const [formError, setFormError] = useState<String>('');
-
-	// const handleRegisterBtn = async () => {
-	// setLoading(true);
-	// try {
-	// 	await signUp(email, password);
-	// 	try {
-	// 		// navigation.navigate('VerifyEmail');
-	// 		console.log('user signed up');
-	// 	} catch (error) {
-	// 		console.log('sign up error');
-	// 	}
-	// } catch (error) {
-	// 	console.log(error);
-	// 	setFormError(formError);
-	// 	setLoading(false);
-	// }
-	// };
-
-	// 	const user = await registerNewUser(email, password);
-	// 	if (user) {
-	// 		const id = user.uid;
-	// 		// await saveUserData(id, firstName, lastName)
-	// 		// navigation.navigate('VerifyEmail');
-	// 	}
-	// } catch (error: any) {
-	// 	setLoading(false);
-
-	// 	if (error.code === 'auth/email-already-in-use') {
-	// 		Alert.alert(
-	// 			'Email is already in use. Please choose a different email.'
-	// 		);
-	// 	} else if (error.code === 'auth/invalid-email') {
-	// 		Alert.alert('Email address is not valid. Please enter a valid email');
-	// 	} else if (error.code === 'auth/weak-password') {
-	// 		Alert.alert('Weak password. Please enter a stronger password');
-	// 	} else {
-	// 		Alert.alert(`Sign up error: ${error.message}`);
-	// 	}
-	// }
-
-	// TODO Handle registration
-	// navigation.navigate('VerifyEmail');
-	//};
-
-	const handleRegisterBtn = async (
-		email: string,
-		password: string,
-		firstName: string,
-		lastName: string
-	) => {
-		if (email && password && firstName && lastName) {
-			await createUserWithEmailAndPassword(auth, email, password).then((cred) =>
-				sendEmailVerification(cred.user, {
-					handleCodeInApp: true,
-					url: 'https://skipspaceapp.firebaseapp.com',
-				})
-					.then(() => {
-						// navigate to email v screen or send toast
-						Alert.alert('Check your inbox for the verification email');
-					})
-					.catch((error: any) => {
-						alert(error.message);
-					})
-					.then(() => {
-						console.log('sdsd');
-					})
-			);
-			// .then( async (cred) => await sendEmailVerification(cred.user))
-
-			// try {
-			// 	await createUserWithEmailAndPassword(auth, email, password).then(
-			// 		navigation.navigate('VerifyEmail')
-			// 	);
-			// } catch (err: any) {
-			// 	console.log(`Error occured: ${err.code} -  ${err.message}`);
-			// }
-		}
-
-		// sendEmailVerification(auth.currentUser)
-	};
 
 	const handleSignIn = () => {
 		navigation.navigate('AuthDashboard');
@@ -238,7 +139,8 @@ const SignUp = ({ navigation }: any) => {
 
 						<SmlStandardBtn
 							buttonLabel={'Next'}
-							onPress={() => handleRegisterBtn}
+							// onPress={handleRegisterBtn}
+							onPress={() => console.log('hello')}
 							bgGreen={false}
 							fontBlue={false}
 						/>

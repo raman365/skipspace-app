@@ -8,40 +8,33 @@ import ScreenTitle from '../../components/ScreenTitle';
 import ClearBtn from '../../components/Button/ClearBtn';
 import StandardButton from '../../components/Button/StandardBtn';
 import Footer from '../../components/Footer';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-// import { auth } from '../../../config/firebase';
-import { useNavigation } from '@react-navigation/native';
-import { handleSignIn } from '../../utils/authentication';
+import useAuth from '../../../hooks/useAuth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../../config/firebase';
 
 const AuthDashboard = ({ navigation }: any) => {
-	const auth = getAuth();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
 	// TODO: email verification
 	const handleSignIn = async () => {
+		// TODO: Handle sign in
+
 		if (email && password) {
 			try {
-				await signInWithEmailAndPassword(auth, email, password).then(
-					(userCredential) => {
-						const user = userCredential.user;
-					}
-				);
+				await signInWithEmailAndPassword(auth, email, password);
 			} catch (error: any) {
-				const errorCode = error.code;
-				const errorMessage = error.message;
-
-				console.log(`${errorCode} - ${errorMessage} `);
+				console.error(`ERROR: ${error.code} - ${error.message}`);
 			}
 		}
 	};
 
 	const handleForgotPasswordLink = () => {
-		// navigation.navigate('ForgotDetails');
+		navigation.navigate('ForgotDetails');
 	};
-	// const handleSignUp = () => {
-	// 	navigation.navigate('SignUp');
-	// };
+	const handleSignUp = () => {
+		navigation.navigate('SignUp');
+	};
 	return (
 		<SafeAreaProvider>
 			<HeaderComponent authorised={true} />
@@ -49,8 +42,13 @@ const AuthDashboard = ({ navigation }: any) => {
 			<ScreenTitle title={'Sign In'} />
 
 			<View style={styles.centerContainer}>
-				{/* <TextInput inputLabel={'Email address:'} placeholder={''} value={''} autoCapitalize={"/Users/bbb/ContractProjects/skipspace-app/src/components/FormComponents/TextInput/index".NONE} />
-				<TextInput inputLabel={'Password:'} secureTextEntry placeholder={''} />  */}
+				{/* <TextInput 
+					inputLabel={'Email address:'} 
+					value={email} 
+					onChangeText={(email: React.SetStateAction<string>) => setEmail(email)}
+					autoCapitalize={'none'} 
+					/>
+				<TextInput inputLabel={'Password:'} secureTextEntry />  */}
 				<View>
 					<Text style={styles.formTextStyle}>Email address </Text>
 					<Input
@@ -59,6 +57,7 @@ const AuthDashboard = ({ navigation }: any) => {
 						onChangeText={(email) => setEmail(email)}
 						value={email}
 						autoCapitalize='none'
+						autoCorrect={false}
 					/>
 				</View>
 				<View>
@@ -66,7 +65,7 @@ const AuthDashboard = ({ navigation }: any) => {
 					<Input
 						keyboardType='default'
 						inputContainerStyle={styles.contStyle}
-						secureTextEntry
+						secureTextEntry={true}
 						onChangeText={(password) => setPassword(password)}
 						value={password}
 						autoCapitalize='none'
@@ -83,21 +82,18 @@ const AuthDashboard = ({ navigation }: any) => {
 				<View style={{ paddingVertical: 40 }}>
 					<StandardButton
 						buttonLabel={'Sign In'}
+						// onPress={() => console.log('dsfs')}
 						onPress={handleSignIn}
 						bgGreen={false}
 						fontBlue={false}
 					/>
-					{/* <Pressable onPress={handleSignIn} /> */}
 				</View>
 			</View>
 			<Footer
 				children={
 					<>
 						<Text style={styles.textStyleTwo}>Don't have an account?</Text>
-						<ClearBtn
-							buttonLabel={'Sign up here'}
-							onPress={() => navigation.navigate('signUp')}
-						/>
+						<ClearBtn buttonLabel={'Sign up here'} onPress={handleSignUp} />
 					</>
 				}
 			/>

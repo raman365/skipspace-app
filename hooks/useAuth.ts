@@ -14,6 +14,7 @@ export default function useAuth() {
         const unsubscribe = auth.onAuthStateChanged((authUser) => {
             if (authUser) {
                 // user is signed in
+                console.log('user details: ', authUser)
                 const { uid, email } = authUser;
 
                 setUser({ uid, email });

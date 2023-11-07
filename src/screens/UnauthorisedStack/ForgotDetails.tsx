@@ -27,7 +27,6 @@ const ForgotDetails = ({ navigation }: any) => {
 						height: 100,
 						alignSelf: 'center',
 						justifyContent: 'center',
-						// paddingTop: 0,
 					}}
 				>
 					<Button onPress={handleBackBtn}>
@@ -42,7 +41,6 @@ const ForgotDetails = ({ navigation }: any) => {
 				<View style={styles.innerContainer}>
 					<Image
 						style={styles.logoImage}
-						// source={require('../Header/image/sslogo1.png')}
 						source={require('../../components/Header/image/sslogo1.png')}
 						resizeMode='contain'
 					/>

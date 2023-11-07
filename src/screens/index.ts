@@ -3,7 +3,6 @@ export { default as WelcomeHowTo } from './UnauthorisedStack/WelcomeHowTo'
 export { default as SignUp } from './UnauthorisedStack/SignUp'
 export { default as AuthDashboard } from './UnauthorisedStack/AuthDashboard'
 export { default as ForgotDetails } from './UnauthorisedStack/ForgotDetails'
-export { default as VerifyEmail } from './UnauthorisedStack/VerifyEmail'
 
 
 
@@ -15,6 +14,8 @@ export { default as SelectedSkipSpace } from './AuthorisedStack/SelectedSkipSpac
 export { default as Vouchers } from './AuthorisedStack/Vouchers'
 export { default as CreateNewPassword } from './AuthorisedStack/CreateNewPassword'
 export { default as UserAccount } from './AuthorisedStack/UserAccount'
+export { default as VerifyEmail } from './AuthorisedStack/VerifyEmail'
+
 
 export { default as Help } from './AuthorisedStack/Help'
 

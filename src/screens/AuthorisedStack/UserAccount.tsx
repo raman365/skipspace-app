@@ -4,13 +4,12 @@ import { COLORS, FONTSIZES } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
 import { Button, Icon, Input, Text } from '@rneui/themed';
-import TextInput, { autoCap } from '../../components/FormComponents/TextInput';
+// import TextInput, { autoCap } from '../../components/FormComponents/TextInput';
 // import SSButton from '../../components/Button';
 
-// import { getAuth, signOut } from 'firebase/auth';
 // import { handleSignOut } from '../../navigation/AuthorisedStack';
 import SmlStandardBtn from '../../components/Button/SmallStandardBtn';
-import { handleSignOut } from '../../utils/authentication';
+// import { handleSignOut } from '../../utils/authentication';
 
 // TODO: Replace with user data
 
@@ -43,7 +42,7 @@ const UserAccount = ({ navigation }: any) => {
 				</Text>
 			</View>
 			<View style={styles.centerContainer}>
-				<TextInput
+				{/* <TextInput
 					inputLabel='First name:'
 					placeholder={'Jane'}
 					value={''}
@@ -70,14 +69,14 @@ const UserAccount = ({ navigation }: any) => {
 					disabled
 					value={''}
 					autoCapitalize={autoCap.NONE}
-				/>
+				/> */}
 				<View style={styles.bottomDivider}>
-					<SmlStandardBtn
+					{/* <SmlStandardBtn
 						buttonLabel={'Sign out'}
 						onPress={handleSignOut}
 						bgGreen={false}
 						fontBlue={false}
-					/>
+					/> */}
 
 					<View style={{ paddingVertical: 10, marginHorizontal: 50 }}>
 						<Button

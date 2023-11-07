@@ -1,35 +1,35 @@
 import { StyleSheet, View } from 'react-native';
 import React from 'react';
-import { Header, Icon, Input, Button, Image, Text } from '@rneui/themed';
+import { Input, Text } from '@rneui/themed';
 import { FONTSIZES, COLORS } from '../../../../constants/theme';
 
-export enum autoCap {
-	NONE = 'none',
-	CHARACTERS = 'characters',
-	WORDS = 'words',
-	SENTENCES = 'sentences',
-}
+// export enum autoCap {
+// 	NONE = 'none',
+// 	CHARACTERS = 'characters',
+// 	WORDS = 'words',
+// 	SENTENCES = 'sentences',
+// }
 
 interface ITextInputProps {
 	inputLabel: string;
 	placeholder?: string;
-	secureTextEntry?: boolean;
-	disabled?: boolean;
-	errorMessage?: string;
-	icon?: JSX.Element;
+	// secureTextEntry?: boolean;
+	// disabled?: boolean;
+	// errorMessage?: string;
+	// icon?: JSX.Element;
 	// onChangeText?: () => void;
-	style?: string;
-	value: string;
+	// style?: string;
+	// value: string;
 	// autoCapitalize: autoCap;
 }
 
 const TextInput: React.FC<ITextInputProps> = ({
 	inputLabel,
 	placeholder,
-	disabled,
-	secureTextEntry = false,
-	errorMessage,
-	icon,
+	// disabled,
+	// secureTextEntry = false,
+	// errorMessage,
+	// icon,
 	// onChangeText,
 	// autoCapitalize,
 	// value,
@@ -38,18 +38,18 @@ const TextInput: React.FC<ITextInputProps> = ({
 	return (
 		<View>
 			<Text style={styles.textStyle}>{inputLabel} </Text>
-			{/* <Input
+			<Input
 				inputContainerStyle={styles.contStyle}
+				{...rest}
 				// placeholder={placeholder}
 				// disabled={disabled}
 				// autoCapitalize={autoCapitalize}
 				// value={value}
 				// secureTextEntry={secureTextEntry}
 				// errorMessage={errorMessage}
-				errorStyle={styles.errorStyle}
+				// errorStyle={styles.errorStyle}
 				// onChangeText={onChangeText}
-				rightIcon={icon}
-				{...rest}			/> */}
+			/>
 			{/* {icon} */}
 		</View>
 	);
