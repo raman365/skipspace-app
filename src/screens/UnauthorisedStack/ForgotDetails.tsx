@@ -2,17 +2,63 @@ import { View, StyleSheet } from 'react-native';
 import { CommonActions } from '@react-navigation/native';
 import { Text, Button, Input, Image, Icon } from '@rneui/themed';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { COLORS } from '../../../constants/theme';
-import HeaderComponent from '../../components/Header';
+import { COLORS, FONTSIZES } from '../../../constants/theme';
 import ScreenTitle from '../../components/ScreenTitle';
-import {} from '@rneui/base';
-import TextInput from '../../components/FormComponents/TextInput';
 import StandardButton from '../../components/Button/StandardBtn';
+import { useState } from 'react';
+import { Tooltip, TooltipProps } from '@rneui/base';
+import { sendPasswordResetEmail } from 'firebase/auth';
+import { auth } from '../../../config/firebase';
+
+interface IProps {
+	onOpen: () => void;
+	onClose: () => void;
+	visible: boolean;
+}
+const CustomToolTip: React.FC<TooltipProps> = ({
+	onOpen,
+	onClose,
+	visible,
+	...props
+}) => {
+	return (
+		<Tooltip visible={visible} onOpen={onOpen} onClose={onClose} {...props} />
+	);
+};
 
 const ForgotDetails = ({ navigation }: any) => {
-	const handleForgotPassword = () => {
-		console.log('handleForgotPassword');
+	const [open, setOpen] = useState(false);
+
+	const [email, setEmail] = useState('');
+	const [formError, setFormError] = useState('');
+
+	const handleForgotPassword = async () => {
+		// const auth
+		try {
+			await sendPasswordResetEmail(auth, email).then(() => {
+				// TODO send toast
+				// TODO: customise email template for password reset
+				setOpen(true);
+				setEmail('');
+				setFormError('');
+
+				navigation.push('AuthDashboard');
+			});
+		} catch (error: any) {
+			console.log(error.code);
+			if (error.code === 'auth/missing-email') {
+				setFormError('Add the email you registered with.');
+			} else if (error.code === 'auth/invalid-email') {
+				setFormError('Email address is not valid.');
+			} else if (error.code === 'auth/user-not-found') {
+				setFormError('User not found.');
+			} else {
+				setFormError(`${error.message}`);
+			}
+		}
+		// console.log('handleForgotPassword');
 	};
+
 	const handleBackBtn = () => {
 		navigation.dispatch(CommonActions.goBack());
 	};
@@ -57,10 +103,54 @@ const ForgotDetails = ({ navigation }: any) => {
 						</Text>
 					</View>
 					<View style={{ paddingVertical: 50 }}>
-						<TextInput
-							inputLabel={'Email address'}
-							placeholder={'your@email.com'}
+						<Text style={styles.textStyle}>Email:</Text>
+						<Input
+							inputContainerStyle={styles.contStyle}
+							autoCapitalize='none'
+							autoCorrect={false}
+							value={email}
+							onChangeText={(email) => setEmail(email)}
 						/>
+					</View>
+					<View
+						style={{
+							paddingHorizontal: 10,
+							paddingBottom: 20,
+						}}
+					>
+						<Text style={styles.errorText}>{formError}</Text>
+
+						<View
+							style={{
+								// display: 'flex',
+								// flexDirection: 'row',
+								// justifyContent: 'center',
+								alignItems: 'center',
+							}}
+						>
+							<CustomToolTip
+								backgroundColor={COLORS.alpha.bgGreen}
+								// onOpen={}
+								onClose={() => {
+									setOpen(false);
+								}}
+								visible={open}
+								containerStyle={{
+									width: 250,
+									height: 60,
+									display: 'flex',
+									justifyContent: 'center',
+									alignItems: 'center',
+								}}
+								withPointer={false}
+								animationType={'fade'}
+								popover={
+									<Text style={{ textAlign: 'center' }}>
+										Password reset email has been sent to your inbox!
+									</Text>
+								}
+							/>
+						</View>
 					</View>
 
 					<View style={{ paddingVertical: 10 }}>
@@ -92,6 +182,11 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		fontWeight: 'bold',
 	},
+	contStyle: {
+		backgroundColor: COLORS.alpha.lightBlue,
+		opacity: 1,
+		paddingHorizontal: 10,
+	},
 	centerContainer: {
 		paddingHorizontal: 25,
 		paddingVertical: 50,
@@ -100,10 +195,14 @@ const styles = StyleSheet.create({
 		// flex: 1,
 	},
 	textStyle: {
-		fontSize: 15,
-		textAlign: 'center',
-		paddingVertical: 2,
+		fontSize: FONTSIZES.large,
+		paddingBottom: 10,
 	},
+	// textStyle: {
+	// 	fontSize: 15,
+	// 	textAlign: 'center',
+	// 	paddingVertical: 2,
+	// },
 	textStyleTwo: {
 		fontSize: 17,
 		fontWeight: '500',
@@ -114,6 +213,11 @@ const styles = StyleSheet.create({
 		borderTopWidth: 2,
 		height: 100,
 		paddingTop: 30,
+	},
+	errorText: {
+		color: COLORS.softRed,
+		fontSize: FONTSIZES.large,
+		textAlign: 'center',
 	},
 	imageContainer: {
 		backgroundColor: COLORS.bgBlue,

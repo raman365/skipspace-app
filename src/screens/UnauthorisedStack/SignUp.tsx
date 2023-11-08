@@ -18,6 +18,16 @@ import ClearBtn from '../../components/Button/ClearBtn';
 import Footer from '../../components/Footer';
 import SmlStandardBtn from '../../components/Button/SmallStandardBtn';
 import { Input } from '@rneui/base';
+import {
+	UserCredential,
+	createUserWithEmailAndPassword,
+	sendEmailVerification,
+	updateProfile,
+} from 'firebase/auth';
+import { auth, db } from '../../../config/firebase';
+import { doc, setDoc } from 'firebase/firestore';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 export const LogoImage = () => {
 	return <Image source={require('../../../assets/ss.png')} />;
@@ -28,7 +38,8 @@ interface SignUpFormValues {
 	password: string;
 }
 
-const SignUp = ({ navigation }: any) => {
+const SignUp = () => {
+	const navigation = useNavigation<StackNavigationProp<any>>();
 	const [loading, setLoading] = useState(false);
 
 	const [firstName, setFirstName] = useState('');
@@ -39,6 +50,42 @@ const SignUp = ({ navigation }: any) => {
 	const [isPasswordSecure, setIsPasswordSecure] = useState(true);
 
 	const [formError, setFormError] = useState<String>('');
+
+	const handleVerfifyRegister = async () => {
+		try {
+			const newUserCredential: UserCredential =
+				await createUserWithEmailAndPassword(auth, email, password);
+
+			await sendEmailVerification(newUserCredential.user);
+
+			const userProfileDocRef = doc(
+				db,
+				`registeredUsers/${newUserCredential.user.uid}`
+			);
+
+			// await sendEmailVerification(newUserCredential.user);
+
+			await setDoc(userProfileDocRef, { firstName, lastName, email });
+
+			await updateProfile(newUserCredential.user, {
+				displayName: `${firstName} ${lastName}`,
+			}).then(() => {
+				navigation.push('VerifyEmail');
+			});
+			return newUserCredential;
+		} catch (error: any) {
+			console.log(`Error: ${error.code} - ${error.message}`);
+			if (error.code === 'auth/email-already-in-use') {
+				setFormError('Email is already in use.');
+			} else if (error.code === 'auth/invalid-email') {
+				setFormError('Email address is not valid.');
+			} else if (error.code === 'auth/weak-password') {
+				setFormError('Weak password. Please use a stronger password');
+			} else {
+				setFormError(`Sign up error: ${error.message}`);
+			}
+		}
+	};
 
 	const handleSignIn = () => {
 		navigation.navigate('AuthDashboard');
@@ -80,6 +127,7 @@ const SignUp = ({ navigation }: any) => {
 						<Input
 							inputContainerStyle={styles.contStyle}
 							autoCapitalize='none'
+							autoCorrect={false}
 							value={email}
 							onChangeText={(email) => setEmail(email)}
 						/>
@@ -136,11 +184,23 @@ const SignUp = ({ navigation }: any) => {
 								/>
 							}
 						/> */}
+						<View
+							style={{
+								paddingHorizontal: 10,
+								paddingTop: 10,
+								paddingBottom: 20,
+							}}
+						>
+							<Text style={styles.errorText}>
+								{formError}
+								{/* This an example of error text */}
+							</Text>
+						</View>
 
 						<SmlStandardBtn
 							buttonLabel={'Next'}
-							// onPress={handleRegisterBtn}
-							onPress={() => console.log('hello')}
+							onPress={handleVerfifyRegister}
+							// onPress={() => console.log('hello')}
 							bgGreen={false}
 							fontBlue={false}
 						/>
@@ -174,9 +234,11 @@ const styles = StyleSheet.create({
 		padding: 20,
 		marginTop: 20,
 	},
-	// textStyle: {
-	// 	fontSize: 15,
-	// },
+	errorText: {
+		color: COLORS.softRed,
+		fontSize: FONTSIZES.large,
+		textAlign: 'center',
+	},
 	textStyleTwo: {
 		fontSize: FONTSIZES.xl,
 		fontWeight: '600',
@@ -191,9 +253,6 @@ const styles = StyleSheet.create({
 		backgroundColor: COLORS.alpha.lightBlue,
 		opacity: 1,
 		paddingHorizontal: 10,
-	},
-	errorStyle: {
-		color: COLORS.softRed,
 	},
 });
 

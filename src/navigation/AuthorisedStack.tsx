@@ -4,7 +4,7 @@ import {
 	DrawerContentScrollView,
 	DrawerItemList,
 } from '@react-navigation/drawer';
-import { View, Image, StyleSheet, Dimensions } from 'react-native';
+import { View, Image, StyleSheet, Dimensions, Text } from 'react-native';
 
 import {
 	VerifyEmail,
@@ -18,7 +18,7 @@ import {
 	VoucherConfirmation,
 	Help,
 } from '../screens/index';
-import { COLORS, theme } from '../../constants/theme';
+import { COLORS, FONTSIZES, theme } from '../../constants/theme';
 import { ThemeProvider } from '@rneui/themed';
 
 import { useFonts } from 'expo-font';
@@ -47,22 +47,23 @@ SplashScreen.preventAutoHideAsync();
 // const Drawer = createDrawerNavigator<DrawerStackParamsList>({
 // 	UnauthorisedStack: { screen: 'SignedInDashboard' }
 // });
+
+export const handleSignOut = async () => {
+	try {
+		await signOut(auth);
+	} catch (error: any) {
+		console.error(`Error ${error.code} - ${error.message} `);
+	}
+};
 const Drawer = createDrawerNavigator<DrawerStackParamsList>();
 const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
 const CustomDrawerContent = (props: any) => {
 	const { state, ...rest } = props;
 	const newState = { ...state };
 
-	const handleSignOut = async () => {
-		try {
-			await signOut(auth);
-		} catch (error: any) {
-			console.error(`Error ${error.code} - ${error.message} `);
-		}
-	};
 	return (
 		<DrawerContentScrollView {...props} safeArea>
-			<View style={{ marginTop: 15 }}>
+			<View style={{ marginTop: 0 }}>
 				<Image
 					source={require('../../assets/images/menulogogreen.png')}
 					height={10}
@@ -71,7 +72,7 @@ const CustomDrawerContent = (props: any) => {
 				/>
 			</View>
 			<View>
-				<View style={{ paddingVertical: 10 }}>
+				<View style={{ paddingVertical: 5 }}>
 					<DrawerItemList state={newState} {...rest} />
 				</View>
 			</View>
@@ -88,8 +89,12 @@ const CustomDrawerContent = (props: any) => {
 					borderTopWidth: 1,
 				}}
 			>
+				<View style={{ paddingLeft: 10 }}>
+					<Text style={{ fontSize: FONTSIZES.large, fontWeight: 'bold' }}>
+						{auth.currentUser?.displayName}
+					</Text>
+				</View>
 				<ClearBtn buttonLabel={'Sign out'} onPress={handleSignOut} />
-				{/* <ClearBtn buttonLabel={'Sign out'} onPress={() => console.log('sfs')} /> */}
 			</View>
 		</DrawerContentScrollView>
 	);
@@ -101,12 +106,6 @@ const CustomDrawer = () => {
 		tungsten_med: require('../../assets/fonts/Tungsten/Tungsten_Med.otf'),
 	});
 
-	// const onLayoutRootView = useCallback(async () => {
-	// 	if (fontsLoaded || fontError) {
-	// 		await SplashScreen.hideAsync();
-	// 	}
-	// }, [fontsLoaded, fontError]);
-
 	if (!fontsLoaded && !fontError) {
 		return null;
 	}
@@ -115,7 +114,6 @@ const CustomDrawer = () => {
 			<View style={{ flex: 1 }}>
 				<Drawer.Navigator
 					initialRouteName={'signedInDashboard'}
-					// initialRouteName={'signedInDashboard'}
 					screenOptions={() => ({
 						drawerActiveBackgroundColor: COLORS.white,
 						// drawerActiveTintColor: COLORS.bgGreen,

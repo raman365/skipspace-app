@@ -5,10 +5,17 @@ import { COLORS, FONTSIZES } from '../../../constants/theme';
 import HeaderComponent from '../../components/Header';
 import { Input, Text, Button } from '@rneui/themed';
 import ScreenTitle from '../../components/ScreenTitle';
+import { auth } from '../../../config/firebase';
 
 const VerifyEmail = ({ navigation }: any) => {
-	// const handleVerifyEmail = () => {
-	// 	navigation.navigate('AuthorisedStack', { screen: 'signedInDashboard' });
+	// const handleVerifyEmail = async () => {
+
+	// 	auth.currentUser?.reload()
+	// 	.then( ()=> console.log(auth.currentUser?.emailVerified))
+
+	// 	if (auth.currentUser?.emailVerified)
+	// 	// navigation.navigate('AuthorisedStack', { screen: 'signedInDashboard' });
+
 	// };
 	return (
 		<SafeAreaProvider>
@@ -42,8 +49,8 @@ const VerifyEmail = ({ navigation }: any) => {
 								fontSize: FONTSIZES.large,
 								color: COLORS.white,
 							}}
+							onPress={() => console.log('hello')}
 							// onPress={handleVerifyEmail}
-							onPress={() => console.log('something')}
 						/>
 					</View>
 				</View>

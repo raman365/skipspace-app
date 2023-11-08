@@ -10,6 +10,8 @@ import Loading from '../components/Loader';
 import useAuth from '../../hooks/useAuth';
 
 export default function Routes() {
+	const [loading, setLoading] = useState(false);
+
 	// const { user, setUser } = useContext<Partial<IAuth>>(AuthContext);
 	// const [loading, setLoading] = useState(true);
 
@@ -36,8 +38,7 @@ export default function Routes() {
 	{
 		/* {!user ? <UnauthorisedStack /> : <AuthorisedStack />} */
 	}
-	// <UnauthorisedStack />
-	// </NavigationContainer>
+
 	const { user } = useAuth();
-	return !user ? <UnauthorisedStack /> : <AuthorisedStack />;
+	return user ? <AuthorisedStack /> : <UnauthorisedStack />;
 }
