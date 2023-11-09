@@ -11,13 +11,18 @@ const SelectCouncil = ({ navigation }: any) => {
 			<HeaderComponent
 				authorised={true}
 				icon={
-					<Icon name='menu' type='feather' color={COLORS.bgGreen} size={40} />
+					<Icon
+						style={{ marginRight: 30 }}
+						name='menu'
+						type='feather'
+						color={COLORS.bgGreen}
+						size={30}
+					/>
 				}
 				onPress={() => {
 					navigation.toggleDrawer();
 				}}
 			/>
-			{/* <ScreenTitle title={'Vouchers'} /> */}
 			<View style={{ paddingTop: 30 }}>
 				<Text
 					h4
@@ -57,7 +62,6 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 20,
 		display: 'flex',
 		justifyContent: 'center',
-		// flex: 1,
 	},
 });
 

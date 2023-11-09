@@ -7,6 +7,8 @@ interface User {
     email: string | null;
 }
 
+
+
 export default function useAuth() {
     const [user, setUser] = useState<User | null>(null);
 
@@ -22,7 +24,7 @@ export default function useAuth() {
                 setUser(null);
             }
         });
-        // clearn up the listener when the component unmounts:
+        // clean up the listener when the component unmounts:
         return unsubscribe;
     }, []);
 

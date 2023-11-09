@@ -7,7 +7,6 @@ import {
 import { View, Image, StyleSheet, Dimensions, Text } from 'react-native';
 
 import {
-	VerifyEmail,
 	CreateNewPassword,
 	SearchSelectCouncil,
 	SelectedSkipSpace,
@@ -17,6 +16,7 @@ import {
 	Vouchers,
 	VoucherConfirmation,
 	Help,
+	ConfirmDelete,
 } from '../screens/index';
 import { COLORS, FONTSIZES, theme } from '../../constants/theme';
 import { ThemeProvider } from '@rneui/themed';
@@ -27,10 +27,11 @@ import ClearBtn from '../components/Button/ClearBtn';
 import { NavigationContainer } from '@react-navigation/native';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../config/firebase';
-// import { handleSignOut } from '../utils/authentication';
+import { handleSignOut } from '../utils/signOut';
 
 export type DrawerStackParamsList = {
 	verifyEmail: undefined;
+	confirmDelete: undefined;
 	signedInDashboard: undefined;
 	searchSelectCouncil: undefined;
 	skipSpaceResults: undefined;
@@ -44,17 +45,6 @@ export type DrawerStackParamsList = {
 
 SplashScreen.preventAutoHideAsync();
 
-// const Drawer = createDrawerNavigator<DrawerStackParamsList>({
-// 	UnauthorisedStack: { screen: 'SignedInDashboard' }
-// });
-
-export const handleSignOut = async () => {
-	try {
-		await signOut(auth);
-	} catch (error: any) {
-		console.error(`Error ${error.code} - ${error.message} `);
-	}
-};
 const Drawer = createDrawerNavigator<DrawerStackParamsList>();
 const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
 const CustomDrawerContent = (props: any) => {
@@ -194,6 +184,14 @@ const CustomDrawer = () => {
 						}}
 					/>
 					<Drawer.Screen
+						name={'confirmDelete'}
+						component={ConfirmDelete}
+						options={{
+							headerShown: false,
+							drawerItemStyle: { display: 'none' },
+						}}
+					/>
+					<Drawer.Screen
 						name={'help'}
 						component={Help}
 						options={{
@@ -201,7 +199,6 @@ const CustomDrawer = () => {
 							title: 'Help',
 						}}
 					/>
-
 					<Drawer.Screen
 						name={'createNewPassword'}
 						component={CreateNewPassword}
