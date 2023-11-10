@@ -1,9 +1,9 @@
-import { View, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, ActivityIndicator, Pressable } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { COLORS } from '../../../constants/theme';
+import { COLORS, FONTSIZES } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
-import { Button, Icon, Text } from '@rneui/themed';
+import { BottomSheet, Button, Icon, Text } from '@rneui/themed';
 import {
 	collection,
 	onSnapshot,
@@ -12,13 +12,44 @@ import {
 	DocumentData,
 } from 'firebase/firestore';
 
+// TODO: Generate customized skip id
+
 import { db } from '../../../config/firebase';
+import BoroughSearchButton from '../../components/BoroughSearchButton';
 
 const SelectCouncil = ({ navigation }: any) => {
 	// get all data in a collection
 
 	const [councilData, setCouncilData] = useState<DocumentData[]>([]);
 	const cData: DocumentData[] = [];
+
+	const [isVisible, setIsVisible] = useState(false);
+
+	const BottomSheetSection: React.FC = () => {
+		return (
+			<BottomSheet
+				modalProps={{}}
+				isVisible={isVisible}
+				// containerStyle={{ backgroundColor: COLORS.white }}
+				onBackdropPress={() => setIsVisible(false)}
+			>
+				{/* <View style={{ flex: 1, backgroundColor: COLORS.bgGreen }}></View> */}
+				<View
+					style={[
+						styles.mainContainer,
+						{
+							// Try setting `flexDirection` to `"row"`.
+							flexDirection: 'column',
+						},
+					]}
+				>
+					<View style={{ flex: 1, backgroundColor: 'red' }} />
+					<View style={{ flex: 2, backgroundColor: 'darkorange' }} />
+					<View style={{ flex: 3, backgroundColor: 'green' }} />
+				</View>
+			</BottomSheet>
+		);
+	};
 
 	const getDataByCollection = async () => {
 		try {
@@ -33,6 +64,10 @@ const SelectCouncil = ({ navigation }: any) => {
 		}
 	};
 
+	const handlePress = (itemId: any) => {
+		console.log(`Item with ID ${itemId} pressed`);
+		// Perform any actions you want on press
+	};
 	useEffect(() => {
 		getDataByCollection();
 	}, []);
@@ -77,24 +112,19 @@ const SelectCouncil = ({ navigation }: any) => {
 					Tap on your local borough to find SkipSpace in your area
 				</Text>
 			</View>
-			{/* <View style={styles.centerContainer}>
-				<Button
-					onPress={() => navigation.navigate('skipSpaceResults')}
-					title={'Barnet'}
-				/>
-			</View> */}
 
-			{/*
-				
-				- UseEffect - loop	 though and show local council collection
-				
-				*/}
 			<View>
-				{cData ? (
+				{councilData ? (
 					<View>
-						{councilData.map((council) => (
-							<View key={council.councilName}>
-								<Text>{council.councilName}</Text>
+						{councilData.map((council, i) => (
+							<View key={i}>
+								<BoroughSearchButton
+									councilName={council.council_name}
+									onPress={() => setIsVisible(true)}
+									// onPress={() => handlePress(council.council_name)}
+									// open up bottom sheet
+								/>
+								<BottomSheetSection />
 							</View>
 						))}
 					</View>
@@ -120,6 +150,12 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 20,
 		display: 'flex',
 		justifyContent: 'center',
+	},
+	mainContainer: {
+		flex: 1,
+		// alignItems: 'flex-start',
+		justifyContent: 'center',
+		// justifyItems: ''
 	},
 });
 
