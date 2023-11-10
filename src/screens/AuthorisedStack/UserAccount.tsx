@@ -9,11 +9,7 @@ import { auth, db } from '../../../config/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import { handleSignOut } from '../../utils/signOut';
 import { SmlStandardBtn } from '../../components/Button/SmallStandardBtn';
-
-const deleteUserAccount = async () => {
-	// delete users from auth and firestore collection
-	// delete user collection  then auth
-};
+import ClearBtn from '../../components/Button/ClearBtn';
 
 const UserAccount = ({ navigation }: any) => {
 	// const [userInfo, setUserInfo] = useState<any | undefined>();
@@ -23,10 +19,10 @@ const UserAccount = ({ navigation }: any) => {
 	const handleDeleteAcc = () => {
 		navigation.navigate('confirmDelete');
 	};
+
 	const getUserDataByUID = async (uid: any) => {
 		try {
-			const userDocRef = doc(db, 'registeredUsers', uid);
-
+			const userDocRef = doc(db, 'users', uid);
 			const userDocSnapshot = await getDoc(userDocRef);
 
 			if (userDocSnapshot.exists()) {
@@ -130,8 +126,13 @@ const UserAccount = ({ navigation }: any) => {
 								/>
 							</View>
 
-							<View style={{ marginHorizontal: 50 }}>
-								<Button
+							<View style={{ justifyContent: 'center', alignItems: 'center' }}>
+								<ClearBtn
+									buttonLabel={'Delete my account'}
+									onPress={handleDeleteAcc}
+									color={COLORS.bgBlue}
+								/>
+								{/* <Button
 									title='Delete my account'
 									buttonStyle={{
 										backgroundColor: COLORS.primaryRed,
@@ -143,7 +144,7 @@ const UserAccount = ({ navigation }: any) => {
 										color: COLORS.white,
 									}}
 									onPress={handleDeleteAcc}
-								/>
+								/> */}
 							</View>
 						</View>
 					</>
@@ -152,11 +153,6 @@ const UserAccount = ({ navigation }: any) => {
 						<ActivityIndicator size={'large'} />
 					</View>
 				)}
-
-				{/* <View style={styles.topDivider}>
-				
-					
-				</View> */}
 			</View>
 		</SafeAreaProvider>
 	);

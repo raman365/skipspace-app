@@ -6,11 +6,13 @@ import { Button } from '@rneui/themed';
 interface IStandardButtonProps {
 	buttonLabel: string;
 	onPress: () => void;
+	color?: string;
 }
 
 export const ClearBtn: React.FC<IStandardButtonProps> = ({
 	buttonLabel,
 	onPress,
+	color = COLORS.bgGreen,
 }) => {
 	return (
 		<Button
@@ -19,7 +21,7 @@ export const ClearBtn: React.FC<IStandardButtonProps> = ({
 			titleStyle={{
 				fontWeight: '700',
 				fontSize: FONTSIZES.xl,
-				color: COLORS.bgGreen,
+				color: `${color}`,
 				textAlign: 'left',
 			}}
 			buttonStyle={{

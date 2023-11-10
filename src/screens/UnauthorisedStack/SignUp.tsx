@@ -56,12 +56,9 @@ const SignUp = () => {
 			const newUserCredential: UserCredential =
 				await createUserWithEmailAndPassword(auth, email, password);
 
-			await sendEmailVerification(newUserCredential.user);
+			// await sendEmailVerification(newUserCredential.user);
 
-			const userProfileDocRef = doc(
-				db,
-				`registeredUsers/${newUserCredential.user.uid}`
-			);
+			const userProfileDocRef = doc(db, `users/${newUserCredential.user.uid}`);
 
 			// await sendEmailVerification(newUserCredential.user);
 

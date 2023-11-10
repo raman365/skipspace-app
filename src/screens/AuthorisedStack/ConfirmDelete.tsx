@@ -9,29 +9,28 @@ import ScreenTitle from '../../components/ScreenTitle';
 import ClearBtn from '../../components/Button/ClearBtn';
 import { getAuth, deleteUser } from 'firebase/auth';
 
-import { db } from '../../../config/firebase';
-import { doc, deleteDoc } from 'firebase/firestore';
+import { auth, db } from '../../../config/firebase';
+import { doc, deleteDoc, collection } from 'firebase/firestore';
 
 const ConfirmDelete = ({ navigation }: any) => {
 	const auth = getAuth();
 	const currentUser = auth.currentUser;
 
-	const handleDeleteAccount = async (uid: string) => {
-		// delete the collection
+	const deleteUserDoc = async (uid: string) => {
 		try {
 			const userDocRef = doc(db, 'registeredUsers', uid);
 
 			await deleteDoc(userDocRef);
-			// await deleteUser(auth.currentUser)
-			if (currentUser) {
-				await currentUser.delete();
-				console.log('User auth details deleted success');
-			}
-			navigation.navigate('welcomeHowTos');
-			console.log('User data collection deleted successfully');
+			console.log('User doc has been been deleted ');
 		} catch (error: any) {
-			console.error('Error deleting user: ', error);
+			console.error('Error deleting user doc', error);
 		}
+	};
+
+	const handleDeleteAccount = async (uid: any) => {
+		// const uid = auth.currentUser?.uid;
+		// await deleteUserDoc(uid);
+		console.log('todo');
 	};
 	return (
 		<SafeAreaProvider>
@@ -49,19 +48,8 @@ const ConfirmDelete = ({ navigation }: any) => {
 							forever.
 						</Text>
 					</View>
-					<View style={{ paddingVertical: 50 }}>
-						<View style={{ justifyContent: 'center', alignItems: 'center' }}>
-							<ClearBtn
-								buttonLabel={"I've changed my mind"}
-								// onPress={function (): void {
-								// 	throw new Error('Function not implemented.');
-								// }}
-								onPress={() => navigation.navigate('signedInDashboard')}
-							/>
-						</View>
-					</View>
 
-					<View style={{ paddingVertical: 10, marginHorizontal: 50 }}>
+					<View style={{ paddingVertical: 50, marginHorizontal: 50 }}>
 						<Button
 							title={'Confirm deletion'}
 							buttonStyle={{
@@ -73,8 +61,18 @@ const ConfirmDelete = ({ navigation }: any) => {
 								fontSize: FONTSIZES.large,
 								color: COLORS.white,
 							}}
-							onPress={() => handleDeleteAccount()}
+							onPress={handleDeleteAccount}
 						/>
+
+						<View style={{ paddingVertical: 50 }}>
+							<View style={{ justifyContent: 'center', alignItems: 'center' }}>
+								<ClearBtn
+									buttonLabel={"I've changed my mind"}
+									color={COLORS.bgBlue}
+									onPress={() => navigation.navigate('signedInDashboard')}
+								/>
+							</View>
+						</View>
 					</View>
 				</View>
 			</View>

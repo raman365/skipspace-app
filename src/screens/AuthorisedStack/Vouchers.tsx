@@ -27,12 +27,20 @@ const Vouchers = ({ navigation }: any) => {
 	const handleBackdropPress = () => {
 		setIsVisible(false);
 	};
+
+	// const activeVouchers: [];
 	return (
 		<SafeAreaProvider>
 			<HeaderComponent
 				authorised={true}
 				icon={
-					<Icon name='menu' type='feather' color={COLORS.bgGreen} size={40} />
+					<Icon
+						style={{ marginRight: 30 }}
+						name='menu'
+						type='feather'
+						color={COLORS.bgGreen}
+						size={30}
+					/>
 				}
 				onPress={() => {
 					navigation.toggleDrawer();
@@ -64,7 +72,22 @@ const Vouchers = ({ navigation }: any) => {
 							Active:
 						</Text>
 					</View>
-
+					{/*  */}
+					{/* <View>
+						{activeVouchers ? (
+							<View style={styles.section}>
+								<VoucherItem
+									nameOfCompany='Skips R Us'
+									address='123 Fake Avenue, 24 sFake lane, 123 6AA'
+									onPress={handleVoucherItem}
+									hasBeenUsed={false}
+								/>
+							</View>
+						) : (
+							<Text>You currently have no current vouchers</Text>
+						)}
+					</View> */}
+					{/*  */}
 					<View style={styles.section}>
 						<VoucherItem
 							nameOfCompany='Skips R Us'
