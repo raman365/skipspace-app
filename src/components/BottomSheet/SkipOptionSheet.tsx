@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { BottomSheet, ListItem } from '@rneui/themed';
 
 import { COLORS, FONTSIZES } from '../../../constants/theme';
@@ -14,8 +14,10 @@ import { windowHeight } from '../../utils/dimensions';
 interface ISkipOptionsSheetProps {
 	isVisible: boolean;
 	onCancelPress: () => void;
-	// councilName?: string;
-	// skipCompany?: string;
+	onVoucherPress: () => void;
+	councilName?: string;
+	skipCompany?: string;
+	skipCompanyAddress?: string;
 	// qrCode: React.ReactElement;
 	// skipCompanyName: string
 	// skipCompanyAddress: string
@@ -26,8 +28,10 @@ interface ISkipOptionsSheetProps {
 const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 	isVisible = false,
 	onCancelPress,
-	// councilName,
-	// skipCompany,
+	onVoucherPress,
+	councilName,
+	skipCompany,
+	skipCompanyAddress,
 }) => {
 	return (
 		<BottomSheet
@@ -41,13 +45,62 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 				padding: 20,
 			}}
 		>
-			{/* <View style={styles.top}>
-				<ScreenTitle title={`Results from ${councilName}`} />
-			</View> */}
-			{/* <View style={styles.middle}>
-				<Text>{skipCompany}</Text>
-			</View> */}
-			<View style={styles.bottom} />
+			<View style={styles.top}>
+				{/* <ScreenTitle title={`Results from ${councilName}`} /> */}
+				<View style={{ paddingTop: 20 }}>
+					<ScreenTitle title={`Selected SkipSpace `} />
+					<TouchableOpacity onPress={onCancelPress}>
+						<Text>Back</Text>
+					</TouchableOpacity>
+				</View>
+				<Text
+					style={{
+						textAlign: 'center',
+						paddingVertical: 10,
+						fontSize: FONTSIZES.xl,
+					}}
+				>
+					{councilName} council
+				</Text>
+			</View>
+			<View style={styles.middle}>
+				<Text>SkipSpace Details:</Text>
+
+				<View style={{ flexDirection: 'row', marginVertical: 10 }}>
+					<Text style={{ fontWeight: 'bold' }}>Name of Skip company: </Text>
+					{/* <Text>{skipCompany}</Text> */}
+					<Text>{skipCompany}</Text>
+				</View>
+
+				<View style={{ marginVertical: 10 }}>
+					<Text style={{ fontWeight: 'bold' }}>Address: </Text>
+					<Text>{skipCompanyAddress}</Text>
+				</View>
+
+				<View>
+					{/* convert google map link to component */}
+					<Text style={{ textDecorationLine: 'underline' }}>View on Maps</Text>
+				</View>
+			</View>
+			<View style={styles.bottom}>
+				<View
+					style={{ borderColor: COLORS.bgBlue, borderWidth: 2, padding: 20 }}
+				>
+					<Text style={{ textAlign: 'center', fontSize: FONTSIZES.large }}>
+						After confirming you'll receive a one-time voucher to use at your
+						selected SkipSpace site.
+					</Text>
+				</View>
+
+				<View style={{ paddingTop: 20 }}>
+					<StandardButton
+						buttonLabel={'Confirm Voucher'}
+						onPress={onVoucherPress}
+						bgGreen
+						fontBlue={false}
+					/>
+				</View>
+			</View>
 			{/* <View style={{ paddingTop: 10, paddingBottom: 10 }}> */}
 
 			{/* <View style={styles.mainContainer}>
@@ -100,6 +153,7 @@ const styles = StyleSheet.create({
 	middle: {
 		flex: 0.3,
 		height: windowHeight / 3,
+		margin: 10,
 	},
 
 	bottom: {

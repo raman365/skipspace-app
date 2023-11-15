@@ -25,7 +25,7 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import ClearBtn from '../components/Button/ClearBtn';
 import { NavigationContainer } from '@react-navigation/native';
-import { signOut } from 'firebase/auth';
+// import { signOut } from 'firebase/auth';
 import { auth } from '../../config/firebase';
 import { handleSignOut } from '../utils/signOut';
 

@@ -22,6 +22,11 @@ const SkipSpaceResults = ({ route, navigation }: any) => {
 
 	// const councilname = councilName.toLowerCase();
 
+	const handleVoucherPress = () => {
+		navigation.navigate('voucherConfirmation');
+		setIsVisible(false);
+	};
+
 	return (
 		<SafeAreaProvider>
 			<HeaderComponent
@@ -79,6 +84,10 @@ const SkipSpaceResults = ({ route, navigation }: any) => {
 							<SkipOptionsSheet
 								isVisible={isVisible}
 								onCancelPress={() => setIsVisible(false)}
+								onVoucherPress={handleVoucherPress}
+								councilName={councilName}
+								skipCompany={item.skip_company_name}
+								skipCompanyAddress={item.skip_company_location_address}
 							/>
 						</>
 					)}
