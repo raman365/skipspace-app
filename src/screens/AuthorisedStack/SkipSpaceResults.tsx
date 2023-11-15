@@ -1,12 +1,19 @@
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { COLORS } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
-import { Button, Icon, Text } from '@rneui/themed';
-import ScreenTitle from '../../components/ScreenTitle';
+import { Icon, Text } from '@rneui/themed';
+import { DocumentData, collection, getDocs, query } from 'firebase/firestore';
+import { db } from '../../../config/firebase';
+import { FlatList } from 'react-native-gesture-handler';
 
-const SkipSpaceResults = ({ navigation }: any) => {
+const SkipSpaceResults = ({ route, navigation }: any) => {
+	const { councilName, subCollParams } = route.params;
+	const councilname = councilName.toLowerCase();
+
+	const [skip, setSkip] = useState<DocumentData[]>([]);
+
 	return (
 		<SafeAreaProvider>
 			<HeaderComponent
@@ -20,11 +27,9 @@ const SkipSpaceResults = ({ navigation }: any) => {
 					/>
 				}
 				onPress={() => {
-					// navigation.navigate('selectCouncil');
 					navigation.goBack();
 				}}
 			/>
-			{/* <ScreenTitle title={'Vouchers'} /> */}
 			<View style={{ paddingTop: 30 }}>
 				<Text
 					h4
@@ -36,7 +41,7 @@ const SkipSpaceResults = ({ navigation }: any) => {
 						fontFamily: 'Tungsten_SemiBold',
 					}}
 				>
-					Results
+					Results from {councilName} council
 				</Text>
 				<Text
 					style={{
@@ -49,75 +54,21 @@ const SkipSpaceResults = ({ navigation }: any) => {
 				</Text>
 			</View>
 
-			<View style={styles.centerContainer}>
-				{/* <View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>*/}
-				{/* Add conditional rendering for the activity indicator */}
-				{/* <ActivityIndicator size={'large'} style={{ paddingBottom: 30 }} /> */}
-				<Button
-					type='outline'
-					title='Barnet Result 1'
-					buttonStyle={{
-						// backgroundColor: COLORS.bgGreen,
-						borderRadius: 5,
-						paddingVertical: 15,
-						margin: 10,
-					}}
-					titleStyle={{
-						fontWeight: '700',
-						fontSize: 16,
-						color: COLORS.bgBlue,
-					}}
-					onPress={() => navigation.navigate('selectedSkipSpace')}
+			<View>
+				{/* <Text>{councilName}</Text> */}
+				{/* {console.log(subCollParams.length)} */}
+
+				<FlatList
+					data={subCollParams}
+					renderItem={({ item }) => (
+						<View>
+							{/* <Text>{item.id}</Text> */}
+							<Text>{item.skip_company_name}</Text>
+							{/* <Text>{item.skip_company_contact_lastName}</Text> */}
+							<Text>{item.skip_company_contact_telNum}</Text>
+						</View>
+					)}
 				/>
-				<Button
-					type='outline'
-					title='Barnet Result 2'
-					buttonStyle={{
-						// backgroundColor: COLORS.bgGreen,
-						borderRadius: 5,
-						paddingVertical: 15,
-						margin: 10,
-					}}
-					titleStyle={{
-						fontWeight: '700',
-						fontSize: 16,
-						color: COLORS.bgBlue,
-					}}
-					onPress={() => navigation.navigate('selectedSkipSpace')}
-				/>
-				<Button
-					type='outline'
-					title='Barnet Result 3'
-					buttonStyle={{
-						// backgroundColor: COLORS.bgGreen,
-						borderRadius: 5,
-						paddingVertical: 15,
-						margin: 10,
-					}}
-					titleStyle={{
-						fontWeight: '700',
-						fontSize: 16,
-						color: COLORS.bgBlue,
-					}}
-					onPress={() => navigation.navigate('selectedSkipSpace')}
-				/>
-				{/*</View> */}
-				{/* <View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>
-					<Button
-						title='View active vouchers'
-						buttonStyle={{
-							backgroundColor: COLORS.bgGreen,
-							borderRadius: 5,
-							paddingVertical: 15,
-						}}
-						titleStyle={{
-							fontWeight: '700',
-							fontSize: 16,
-							color: COLORS.bgBlue,
-						}}
-						onPress={() => navigation.navigate('vouchers')}
-					/>
-				</View> */}
 			</View>
 		</SafeAreaProvider>
 	);

@@ -15,6 +15,7 @@ import { auth } from '../../../config/firebase';
 const AuthDashboard = ({ navigation }: any) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [error, setError] = useState('');
 
 	// TODO: email verification
 	const handleSignIn = async () => {
@@ -24,7 +25,11 @@ const AuthDashboard = ({ navigation }: any) => {
 			try {
 				await signInWithEmailAndPassword(auth, email, password);
 			} catch (error: any) {
+				if (error.code == 'auth/invalid-login-credentials') {
+					setError('Invalid email/password details');
+				}
 				console.error(`ERROR: ${error.code} - ${error.message}`);
+				// setError(error.message);
 			}
 		}
 	};
@@ -78,6 +83,13 @@ const AuthDashboard = ({ navigation }: any) => {
 						onPress={handleForgotPasswordLink}
 					/>
 				</View>
+				{error && (
+					<View style={{ paddingTop: 20 }}>
+						<Text style={{ color: COLORS.softRed, textAlign: 'center' }}>
+							{error}
+						</Text>
+					</View>
+				)}
 
 				<View style={{ paddingVertical: 40 }}>
 					<StandardButton

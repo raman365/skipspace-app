@@ -56,7 +56,9 @@ const SignUp = () => {
 			const newUserCredential: UserCredential =
 				await createUserWithEmailAndPassword(auth, email, password);
 
-			// await sendEmailVerification(newUserCredential.user);
+			navigation.push('VerifyEmail');
+
+			await sendEmailVerification(newUserCredential.user);
 
 			const userProfileDocRef = doc(db, `users/${newUserCredential.user.uid}`);
 
@@ -66,9 +68,11 @@ const SignUp = () => {
 
 			await updateProfile(newUserCredential.user, {
 				displayName: `${firstName} ${lastName}`,
-			}).then(() => {
-				navigation.push('VerifyEmail');
 			});
+
+			// then(() => {
+			// 	navigation.push('VerifyEmail');
+			// }
 			return newUserCredential;
 		} catch (error: any) {
 			console.log(`Error: ${error.code} - ${error.message}`);

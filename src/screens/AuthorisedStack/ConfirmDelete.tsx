@@ -10,7 +10,7 @@ import ClearBtn from '../../components/Button/ClearBtn';
 import { getAuth, deleteUser } from 'firebase/auth';
 
 import { auth, db } from '../../../config/firebase';
-import { doc, deleteDoc, collection } from 'firebase/firestore';
+import { doc, deleteDoc, collection, updateDoc } from 'firebase/firestore';
 
 const ConfirmDelete = ({ navigation }: any) => {
 	const auth = getAuth();
@@ -27,10 +27,31 @@ const ConfirmDelete = ({ navigation }: any) => {
 		}
 	};
 
-	const handleDeleteAccount = async (uid: any) => {
+	const deleteUserProfile = async (userId: string) => {
+		const userDocRef = doc(db, 'users', userId);
+
+		try {
+			await deleteDoc(userDocRef);
+			console.log('User profile deleted');
+		} catch (error: any) {
+			console.log('Error: ', error);
+			// TODO - ncorporate additional security measures depending on your specific use case.
+			// TODO: Can account
+		}
+	};
+
+	const handleDeleteAccount = async () => {
+		// TODO: Set up extension: https://extensions.dev/extensions/firebase/delete-user-data
+		// requires: ££
+		// TODO handle delete account
+		// remove user and remove data
+		// TODO: Delete user profile in firebase
 		// const uid = auth.currentUser?.uid;
 		// await deleteUserDoc(uid);
-		console.log('todo');
+		const auth = getAuth();
+		// const userProfile = doc(db, `users/${auth.currentUser?.uid}`);
+
+		const user = auth.currentUser;
 	};
 	return (
 		<SafeAreaProvider>

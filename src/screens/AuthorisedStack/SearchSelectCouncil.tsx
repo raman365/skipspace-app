@@ -1,4 +1,4 @@
-import { View, StyleSheet, ActivityIndicator, Pressable } from 'react-native';
+import { View, StyleSheet, ActivityIndicator, FlatList } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { COLORS, FONTSIZES } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -6,71 +6,99 @@ import HeaderComponent from '../../components/Header';
 import { BottomSheet, Button, Icon, Text } from '@rneui/themed';
 import {
 	collection,
-	onSnapshot,
-	doc,
 	getDocs,
 	DocumentData,
+	where,
+	doc,
+	documentId,
+	query,
+	onSnapshot,
+	SnapshotOptions,
 } from 'firebase/firestore';
+// const { listSubcollections } = require('./firestoreService');
 
 // TODO: Generate customized skip id
 
 import { db } from '../../../config/firebase';
 import BoroughSearchButton from '../../components/BoroughSearchButton';
+// import SkipOptionsSheet from '../../components/BottomSheet/SkipOptionSheet';
+import ScreenTitle from '../../components/ScreenTitle';
+import SkipOptionsSheet from '../../components/BottomSheet/SkipOptionSheet';
 
 const SelectCouncil = ({ navigation }: any) => {
 	// get all data in a collection
 
 	const [councilData, setCouncilData] = useState<DocumentData[]>([]);
-	const cData: DocumentData[] = [];
 
-	const [isVisible, setIsVisible] = useState(false);
+	const [skipCompanyData, setSkipCompanyData] = useState<DocumentData[]>([]);
 
-	const BottomSheetSection: React.FC = () => {
-		return (
-			<BottomSheet
-				modalProps={{}}
-				isVisible={isVisible}
-				// containerStyle={{ backgroundColor: COLORS.white }}
-				onBackdropPress={() => setIsVisible(false)}
-			>
-				{/* <View style={{ flex: 1, backgroundColor: COLORS.bgGreen }}></View> */}
-				<View
-					style={[
-						styles.mainContainer,
-						{
-							// Try setting `flexDirection` to `"row"`.
-							flexDirection: 'column',
-						},
-					]}
-				>
-					<View style={{ flex: 1, backgroundColor: 'red' }} />
-					<View style={{ flex: 2, backgroundColor: 'darkorange' }} />
-					<View style={{ flex: 3, backgroundColor: 'green' }} />
-				</View>
-			</BottomSheet>
+	const mainCollData: DocumentData[] = [];
+	// const subData: DocumentData[] = [];
+	// const subDataId: any[] = [];
+
+	const councilColl = collection(db, 'councils');
+
+	// turn into a function with council id as the param
+
+	const handleSubCollectionData = async (council_n: string) => {
+		// navigation.navigate('skipSpaceResults', {
+		// 	councilName: council_n,
+		// 	// skipCompanyData: skipCompanyData,
+		// });
+
+		const cn = council_n.toLowerCase().replace(/[^a-z]/g, '');
+		const linkedSkipColl = collection(
+			db,
+			'councils',
+			cn,
+			'linkedSkipCompanies'
 		);
+
+		try {
+			const subCollQuerySnapshot = await getDocs(linkedSkipColl);
+			const data: DocumentData[] = [];
+
+			subCollQuerySnapshot.forEach((doc) => {
+				data.push({ id: doc.id, ...doc.data() });
+
+				// console.log('Skip', data);
+				// setSkipCompanyData(subData);
+				setSkipCompanyData(data);
+
+				navigation.navigate('skipSpaceResults', {
+					councilName: council_n,
+					subCollParams: skipCompanyData,
+				});
+			});
+		} catch (error: any) {
+			console.log('Sub collection error: ', error);
+		}
+
+		// nav to next screen with params
 	};
 
 	const getDataByCollection = async () => {
 		try {
-			const querySnapshot = await getDocs(collection(db, 'councils'));
+			const mainCollectionQuerySnapshot = await getDocs(councilColl);
+			// const subCollectionDataSnapshot = await getDocs(collection(db, `councils/${el.id}/linkedSkipCompanies`))
 
-			querySnapshot.forEach((doc) => {
-				cData.push(doc.data());
+			mainCollectionQuerySnapshot.forEach((doc) => {
+				// subDataId.push(doc.id);
+				mainCollData.push(doc.data());
 			});
-			setCouncilData(cData);
+			setCouncilData(mainCollData);
 		} catch (error: any) {
 			console.log('Error: ', error);
 		}
 	};
 
-	const handlePress = (itemId: any) => {
-		console.log(`Item with ID ${itemId} pressed`);
-		// Perform any actions you want on press
-	};
 	useEffect(() => {
 		getDataByCollection();
 	}, []);
+
+	// useEffect(() => {
+	// 	handleSubCollectionData();
+	// }, []);
 
 	return (
 		<SafeAreaProvider>
@@ -111,34 +139,29 @@ const SelectCouncil = ({ navigation }: any) => {
 				>
 					Tap on your local borough to find SkipSpace in your area
 				</Text>
-			</View>
 
-			<View>
-				{councilData ? (
-					<View>
-						{councilData.map((council, i) => (
-							<View key={i}>
-								<BoroughSearchButton
-									councilName={council.council_name}
-									onPress={() => setIsVisible(true)}
-									// onPress={() => handlePress(council.council_name)}
-									// open up bottom sheet
-								/>
-								<BottomSheetSection />
-							</View>
-						))}
-					</View>
-				) : (
-					<View
-						style={{
-							alignItems: 'center',
-							justifyContent: 'center',
-							// flex: 2,
-						}}
-					>
-						<ActivityIndicator color={COLORS.bgGreen} size={'large'} />
-					</View>
-				)}
+				<FlatList
+					data={councilData}
+					// keyExtractor={i}
+					renderItem={({ item }) => (
+						<BoroughSearchButton
+							councilName={item.council_name}
+							onPress={() => handleSubCollectionData(item.council_name)}
+
+							// get subcollection data function
+						/>
+						// <View
+						// 	style={{
+						// 		height: 50,
+						// 		flex: 1,
+						// 		alignItems: 'center',
+						// 		justifyContent: 'center',
+						// 	}}
+						// >
+						// 	<Text> {item.council_name}</Text>
+						// </View>
+					)}
+				/>
 			</View>
 		</SafeAreaProvider>
 	);
