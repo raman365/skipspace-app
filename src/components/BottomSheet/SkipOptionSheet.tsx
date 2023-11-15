@@ -14,8 +14,8 @@ import { windowHeight } from '../../utils/dimensions';
 interface ISkipOptionsSheetProps {
 	isVisible: boolean;
 	onCancelPress: () => void;
-	councilName?: string;
-	skipCompany?: string;
+	// councilName?: string;
+	// skipCompany?: string;
 	// qrCode: React.ReactElement;
 	// skipCompanyName: string
 	// skipCompanyAddress: string
@@ -26,8 +26,8 @@ interface ISkipOptionsSheetProps {
 const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 	isVisible = false,
 	onCancelPress,
-	councilName,
-	skipCompany,
+	// councilName,
+	// skipCompany,
 }) => {
 	return (
 		<BottomSheet
@@ -41,12 +41,12 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 				padding: 20,
 			}}
 		>
-			<View style={styles.top}>
+			{/* <View style={styles.top}>
 				<ScreenTitle title={`Results from ${councilName}`} />
-			</View>
-			<View style={styles.middle}>
+			</View> */}
+			{/* <View style={styles.middle}>
 				<Text>{skipCompany}</Text>
-			</View>
+			</View> */}
 			<View style={styles.bottom} />
 			{/* <View style={{ paddingTop: 10, paddingBottom: 10 }}> */}
 

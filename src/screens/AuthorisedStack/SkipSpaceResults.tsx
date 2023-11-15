@@ -1,18 +1,26 @@
-import { View, StyleSheet, ActivityIndicator } from 'react-native';
+import {
+	View,
+	StyleSheet,
+	ActivityIndicator,
+	TouchableOpacity,
+} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { COLORS } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
-import { Icon, Text } from '@rneui/themed';
+import { Icon, Text, Card } from '@rneui/themed';
 import { DocumentData, collection, getDocs, query } from 'firebase/firestore';
 import { db } from '../../../config/firebase';
 import { FlatList } from 'react-native-gesture-handler';
+import { DetailsCard } from '../../components/DetailsCard';
+import SkipOptionsSheet from '../../components/BottomSheet/SkipOptionSheet';
 
 const SkipSpaceResults = ({ route, navigation }: any) => {
 	const { councilName, subCollParams } = route.params;
-	const councilname = councilName.toLowerCase();
 
-	const [skip, setSkip] = useState<DocumentData[]>([]);
+	const [isVisible, setIsVisible] = useState(false);
+
+	// const councilname = councilName.toLowerCase();
 
 	return (
 		<SafeAreaProvider>
@@ -61,12 +69,18 @@ const SkipSpaceResults = ({ route, navigation }: any) => {
 				<FlatList
 					data={subCollParams}
 					renderItem={({ item }) => (
-						<View>
-							{/* <Text>{item.id}</Text> */}
-							<Text>{item.skip_company_name}</Text>
-							{/* <Text>{item.skip_company_contact_lastName}</Text> */}
-							<Text>{item.skip_company_contact_telNum}</Text>
-						</View>
+						<>
+							<DetailsCard
+								cardHeading={item.skip_company_name}
+								cardSubheading={item.skip_company_location_address}
+								onPress={() => setIsVisible(true)}
+							/>
+
+							<SkipOptionsSheet
+								isVisible={isVisible}
+								onCancelPress={() => setIsVisible(false)}
+							/>
+						</>
 					)}
 				/>
 			</View>
