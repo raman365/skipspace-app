@@ -1,15 +1,22 @@
-import React from 'react';
-
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { BottomSheet, Icon, ListItem } from '@rneui/themed';
-
+import React, { useEffect, useState } from 'react';
+import {
+	Platform,
+	StyleSheet,
+	Text,
+	TouchableOpacity,
+	View,
+} from 'react-native';
+import { BottomSheet, Icon } from '@rneui/themed';
 import { COLORS, FONTSIZES } from '../../../constants/theme';
-import ScreenTitle from '../ScreenTitle';
-import QREncoder from '../QREncoder';
 import StandardButton from '../Button/StandardBtn';
-import Subtitle from '../Subtitle';
-import CountdownTimer from '../Timer';
 import { windowHeight } from '../../utils/dimensions';
+import MapLink from '../MapLink';
+import * as Linking from 'expo-linking';
+
+import {
+	getCoordinatesFromAddress,
+	Coordinates,
+} from '../../utils/geoCodeHelper';
 
 interface ISkipOptionsSheetProps {
 	isVisible: boolean;
@@ -33,6 +40,53 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 	skipCompany,
 	skipCompanyAddress,
 }) => {
+	const [long, setlong] = useState<Number>();
+	const [lat, setlat] = useState<Number>();
+
+	let skipLong: number;
+	let skipLat: number;
+	const url: any = Platform.select({
+		ios: `maps:0,0?q=${skipCompanyAddress}`,
+		android: `geo:0,0?q=${skipCompanyAddress}`,
+	});
+	const fetchCoordindates = async (skipCompanyAddress: any) => {
+		const coordinates: Coordinates | null = await getCoordinatesFromAddress(
+			skipCompanyAddress
+		);
+
+		if (coordinates) {
+			console.log(
+				`Latitude: ${coordinates.latitude}, Longitude: ${coordinates.longitude}`
+			);
+			// console.warn(typeof `${coordinates.latitude}`);
+
+			skipLong = coordinates.longitude;
+			skipLat = coordinates.longitude;
+			// setlat(coordinates.latitude);
+			// setlong(coordinates.longitude);
+
+			console.log(`Lat: ${skipLat} | Long: ${skipLong} `);
+
+			//https://www.google.com/maps/@51.5707162,-0.1186661,17z?entry=ttu
+
+			// You can use the coordinates to display a marker on the map or perform other actions.
+		}
+	};
+	useEffect(() => {
+		// 	const fetchCoordindates = async (skipCompanyAddress: any) => {
+		// 		const coordinates: Coordinates | null = await getCoordinatesFromAddress(
+		// 			skipCompanyAddress
+		// 		);
+
+		// 		if (coordinates) {
+		// 			console.log(
+		// 				`Latitude: ${coordinates.latitude}, Longitude: ${coordinates.longitude}`
+		// 			);
+		// 			// You can use the coordinates to display a marker on the map or perform other actions.
+		// 		}
+		// 	};
+		fetchCoordindates(skipCompanyAddress);
+	}, []);
 	return (
 		<BottomSheet
 			isVisible={isVisible}
@@ -78,16 +132,6 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 							Selected SkipSpace
 						</Text>
 					</View>
-
-					{/* <Text
-						style={{
-							textAlign: 'center',
-							paddingVertical: 10,
-							fontSize: FONTSIZES.xl,
-						}}
-					>
-						{councilName} council
-					</Text> */}
 
 					<View style={{ borderColor: COLORS.bgGreen, borderWidth: 2 }} />
 				</View>
@@ -137,7 +181,7 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 
 						<View style={{ paddingVertical: 10 }}>
 							{/* convert google map link to component */}
-							<Text
+							{/* <Text
 								style={{
 									textDecorationLine: 'underline',
 									textAlign: 'center',
@@ -147,7 +191,24 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 								}}
 							>
 								View on Maps
-							</Text>
+							</Text> */}
+							{/* <MapLink 
+								label='View on maps'
+								address={skipCompanyAddress}
+							 /> */}
+
+							{/* https://www.google.com/maps/@51.5707162,-0.1186661,17z?entry=ttu */}
+							{/* `http://maps.google.com/?q=100+Main+Street+Buffalo+NY */}
+
+							<TouchableOpacity
+								onPress={() =>
+									Linking.openURL(
+										`https://maps.google.com/maps/@${skipLong},${skipLat},17z`
+									)
+								}
+							>
+								<Text style={{ textAlign: 'center' }}>Open something</Text>
+							</TouchableOpacity>
 						</View>
 					</View>
 					<View style={styles.bottom}>

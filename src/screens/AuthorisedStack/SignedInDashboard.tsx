@@ -1,12 +1,14 @@
 import { View, StyleSheet } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { COLORS } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
 import { Icon } from '@rneui/themed';
 import { DrawerActions } from '@react-navigation/native';
 import StandardButton from '../../components/Button/StandardBtn';
-import MapView from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+
+import * as Location from 'expo-location';
 
 const SignedInDashboard = ({ navigation }: any) => {
 	const handleToggle = () => {
@@ -18,6 +20,28 @@ const SignedInDashboard = ({ navigation }: any) => {
 	const handleGoVouchers = () => {
 		navigation.navigate('vouchers');
 	};
+
+	const [location, setLocation] = useState<Object>('');
+	const [errorMsg, setErrorMsg] = useState<String>('');
+
+	const getLocationPermissions = async () => {
+		let { status } = await Location.requestForegroundPermissionsAsync();
+		if (status !== 'granted') {
+			setErrorMsg(
+				'Permission to access location was denied, your lcoation is needed ...'
+			);
+			return;
+		}
+
+		let currentLocation = await Location.getCurrentPositionAsync({});
+		setLocation(currentLocation);
+		console.log(currentLocation);
+	};
+
+	useEffect(() => {
+		getLocationPermissions();
+	}, []);
+
 	return (
 		<SafeAreaProvider>
 			<HeaderComponent
@@ -30,7 +54,17 @@ const SignedInDashboard = ({ navigation }: any) => {
 
 			<View>
 				<View>
-					<MapView style={styles.map} />
+					<MapView
+						provider={PROVIDER_GOOGLE}
+						style={styles.map}
+						// onRegionChange={onRegionChange}
+						initialRegion={{
+							latitude: 51.76965576470866,
+							latitudeDelta: 14.44648580599754,
+							longitude: -4.374094986649737,
+							longitudeDelta: 11.222589999999997,
+						}}
+					/>
 				</View>
 				<View style={styles.dashboardBottom}>
 					<StandardButton
