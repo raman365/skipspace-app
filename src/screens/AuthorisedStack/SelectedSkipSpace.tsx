@@ -1,12 +1,66 @@
-import { View, StyleSheet } from 'react-native';
-import React from 'react';
+import {
+	View,
+	StyleSheet,
+	Linking,
+	Platform,
+	ActivityIndicator,
+	TouchableOpacity,
+} from 'react-native';
+import React, { useEffect, useState } from 'react';
 import { COLORS, FONTSIZES } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
 import { Button, Icon, Text } from '@rneui/themed';
 import ScreenTitle from '../../components/ScreenTitle';
+import * as Location from 'expo-location';
+import MapView, { Marker } from 'react-native-maps';
 
-const SelectedSkipSpace = ({ navigation }: any) => {
+const SelectedSkipSpace = ({ route, navigation }: any) => {
+	const { councilName, skipCompany, skipCompanyAddress } = route.params;
+	const [longitude, setLongitude] = useState<any>(null);
+	const [latitude, setLatitude] = useState<any>(null);
+
+	useEffect(() => {
+		(async () => {
+			try {
+				console.log('Add: ', skipCompanyAddress);
+				console.log('sds');
+				const geocode = await Location.geocodeAsync(skipCompanyAddress);
+
+				if (geocode.length > 0) {
+					// console.log('Geocode is: ', geocode);
+					setLongitude(geocode[0].longitude);
+					setLatitude(geocode[0].latitude);
+				} else {
+					//TODO:  Convert to alert
+					console.error('Invalid address');
+				}
+			} catch (error) {
+				//TODO:  Convert to alert
+				console.error('Error getting location: ', error);
+			}
+		})();
+	}, [skipCompanyAddress]);
+
+	const handleConfirmVoucher = () => {
+		navigation.navigate('voucherConfirmation', {
+			localAuth: councilName,
+			skipCompanyName: skipCompany,
+			skipCompanyAddress: skipCompanyAddress,
+		});
+	};
+	const handleOpenMaps = () => {
+		if (latitude && longitude) {
+			const url: any = Platform.select({
+				ios: `maps://app?daddr${latitude},${longitude}&dirflg=d`,
+				android: `google.navigation:q=${latitude},${longitude}&mode`,
+			});
+			// console.log('url: ', url);
+			Linking.openURL(url);
+		} else {
+			console.error('Location is not available');
+		}
+	};
 	return (
 		<SafeAreaProvider>
 			<HeaderComponent
@@ -39,7 +93,7 @@ const SelectedSkipSpace = ({ navigation }: any) => {
 				</Text>
 			</View>
 			<View style={styles.centerContainer}>
-				<View>
+				<View style={{ alignContent: 'center', paddingVertical: 10 }}>
 					<Text
 						h4
 						h4Style={{
@@ -48,37 +102,39 @@ const SelectedSkipSpace = ({ navigation }: any) => {
 							fontFamily: 'Tungsten_SemiBold',
 						}}
 					>
-						Council:
+						Local Authority:
 					</Text>
-					<Text></Text>
+					<Text style={{ fontSize: FONTSIZES.xxl }}>{councilName}</Text>
 				</View>
-				<View>
+				<View style={{ alignContent: 'center', paddingVertical: 10 }}>
 					<Text
 						h4
 						h4Style={{
 							fontWeight: '600',
 							color: COLORS.bgBlue,
 							fontFamily: 'Tungsten_SemiBold',
+							paddingBottom: 2,
 						}}
 					>
-						Name of skip company:
+						Skip company:
 					</Text>
-					<Text></Text>
+					<Text style={{ fontSize: FONTSIZES.xxl }}>{skipCompany}</Text>
 				</View>
-				<View>
+				<View style={{ paddingBottom: 30 }}>
 					<Text
 						h4
 						h4Style={{
 							fontWeight: '600',
 							color: COLORS.bgBlue,
 							fontFamily: 'Tungsten_SemiBold',
+							paddingBottom: 2,
 						}}
 					>
 						Address:
 					</Text>
-					<Text></Text>
+					<Text style={{ fontSize: FONTSIZES.xl }}>{skipCompanyAddress}</Text>
 				</View>
-				<View>
+				{/* <View>
 					<Text
 						style={{
 							fontSize: 18,
@@ -91,6 +147,41 @@ const SelectedSkipSpace = ({ navigation }: any) => {
 					>
 						View on Maps
 					</Text>
+				</View> */}
+				<View style={{ height: 100, marginBottom: 10 }}>
+					{longitude && latitude ? (
+						<MapView
+							style={styles.map}
+							initialRegion={{
+								latitude: latitude,
+								longitude: longitude,
+								latitudeDelta: 0.0922,
+								longitudeDelta: 0.0421,
+							}}
+							minZoomLevel={15}
+							maxZoomLevel={20}
+						>
+							<Marker coordinate={{ latitude, longitude }} />
+						</MapView>
+					) : (
+						<Text>
+							<ActivityIndicator size={'small'} color={COLORS.bgGreen} />
+						</Text>
+					)}
+					<TouchableOpacity
+						style={{ paddingVertical: 10 }}
+						onPress={handleOpenMaps}
+					>
+						<Text
+							style={{
+								fontSize: FONTSIZES.ml,
+								textAlign: 'center',
+								fontWeight: 'bold',
+							}}
+						>
+							Open in Maps
+						</Text>
+					</TouchableOpacity>
 				</View>
 			</View>
 			<View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>
@@ -121,7 +212,7 @@ const SelectedSkipSpace = ({ navigation }: any) => {
 						fontSize: FONTSIZES.xl,
 						color: COLORS.bgBlue,
 					}}
-					onPress={() => navigation.navigate('voucherConfirmation')}
+					onPress={handleConfirmVoucher}
 				/>
 			</View>
 		</SafeAreaProvider>
@@ -129,9 +220,16 @@ const SelectedSkipSpace = ({ navigation }: any) => {
 };
 
 const styles = StyleSheet.create({
+	map: {
+		borderColor: COLORS.lightGrey,
+		borderWidth: 1,
+		height: 150,
+		width: '100%',
+	},
 	centerContainer: {
-		paddingTop: 50,
-		paddingHorizontal: 40,
+		// paddingTop: 10,
+		paddingHorizontal: 30,
+		paddingBottom: 40,
 		display: 'flex',
 		justifyContent: 'center',
 		flex: 1,

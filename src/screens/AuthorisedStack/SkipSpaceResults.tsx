@@ -23,7 +23,16 @@ const SkipSpaceResults = ({ route, navigation }: any) => {
 	// const councilname = councilName.toLowerCase();
 
 	const handleVoucherPress = () => {
-		navigation.navigate('voucherConfirmation');
+		// navigation.navigate('voucherConfirmation');
+
+		// TODO: Information gets pushed to database
+		navigation.navigate('voucherConfirmation', {
+			councilName: councilName,
+			skipCompanyName: subCollParams.skip_company_name,
+			skipCompanyAddress: subCollParams.skip_company_location_address,
+			// skipCompanyName: 'Test',
+			// skipCompanyAddress: 'Test Address',
+		});
 		setIsVisible(false);
 	};
 
@@ -78,7 +87,14 @@ const SkipSpaceResults = ({ route, navigation }: any) => {
 							<DetailsCard
 								cardHeading={item.skip_company_name}
 								cardSubheading={item.skip_company_location_address}
-								onPress={() => setIsVisible(true)}
+								onPress={() =>
+									navigation.navigate('selectedSkipSpace', {
+										councilName: councilName,
+										skipCompany: item.skip_company_name,
+										skipCompanyAddress: item.skip_company_location_address,
+									})
+								}
+								// onPress={() => setIsVisible(true)}
 							/>
 
 							<SkipOptionsSheet

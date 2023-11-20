@@ -4,7 +4,8 @@ import CryptoJS from 'react-native-crypto-js';
 import QRCode from 'react-native-qrcode-svg';
 
 interface IQREncoderProps {
-	codeValue: string;
+	// codeValue: string[] | Array<String>()
+	codeValue: any;
 }
 
 const QREncoder: React.FC<IQREncoderProps> = ({ codeValue }) => {
@@ -18,7 +19,7 @@ const QREncoder: React.FC<IQREncoderProps> = ({ codeValue }) => {
 
 	return (
 		<>
-			<QRCode value={encryptedQRCodeData} size={170} />
+			<QRCode value={encryptedQRCodeData} size={200} />
 			{/* <Text style={{ padding: 20 }}>{encryptedQRCodeData}</Text>
 			<Text style={{ padding: 20 }}>{originalText}</Text> */}
 		</>

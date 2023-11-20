@@ -60,8 +60,6 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 	}, [skipCompanyAddress]);
 
 	const handleOpenMaps = () => {
-		// console.log('location: ', latitude);
-
 		if (latitude && longitude) {
 			const url: any = Platform.select({
 				ios: `maps://app?daddr${latitude},${longitude}&dirflg=d`,
