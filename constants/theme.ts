@@ -44,6 +44,7 @@ export const FONTSIZES = {
     '3xl': 22,
     xxl: 20,
     xl: 18,
+    ml: 16,
     large: 14,
     medium: 12,
     small: 10,

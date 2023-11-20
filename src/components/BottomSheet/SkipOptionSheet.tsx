@@ -14,11 +14,6 @@ import { windowHeight } from '../../utils/dimensions';
 import * as Linking from 'expo-linking';
 import * as Location from 'expo-location';
 
-import {
-	getCoordinatesFromAddress,
-	Coordinates,
-} from '../../utils/geoCodeHelper';
-import GetLocation from '../GetLocation';
 import MapView, { Marker } from 'react-native-maps';
 
 interface ISkipOptionsSheetProps {
@@ -50,34 +45,29 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 				const geocode = await Location.geocodeAsync(skipCompanyAddress);
 
 				if (geocode.length > 0) {
-					console.log('Geocode is: ', geocode);
-					// setLocation(geocode[0].location);
+					// console.log('Geocode is: ', geocode);
 					setLongitude(geocode[0].longitude);
 					setLatitude(geocode[0].latitude);
-
-					// console.log(location);
-					// console.log(latitude);
-					// console.log(longitude);
 				} else {
+					//TODO:  Convert to alert
 					console.error('Invalid address');
 				}
 			} catch (error) {
+				//TODO:  Convert to alert
 				console.error('Error getting location: ', error);
 			}
 		})();
 	}, [skipCompanyAddress]);
 
 	const handleOpenMaps = () => {
-		// const { latitude, longitude } = location;
-		// setLocation(latitude,longitude)
-		console.log('location: ', latitude);
+		// console.log('location: ', latitude);
 
 		if (latitude && longitude) {
 			const url: any = Platform.select({
 				ios: `maps://app?daddr${latitude},${longitude}&dirflg=d`,
 				android: `google.navigation:q=${latitude},${longitude}&mode`,
 			});
-			console.log('url: ', url);
+			// console.log('url: ', url);
 			Linking.openURL(url);
 		} else {
 			console.error('Location is not available');
@@ -96,16 +86,16 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 		>
 			<View style={{ marginVertical: 20 }}>
 				<View style={styles.top}>
-					<View
-						style={{
-							paddingVertical: 20,
-							flexDirection: 'row',
-							alignItems: 'center',
-							justifyContent: 'center',
-							alignContent: 'space-between',
-						}}
-					>
-						<TouchableOpacity onPress={onCancelPress} style={{ padding: 5 }}>
+					<View style={styles.topSection}>
+						<TouchableOpacity
+							onPress={onCancelPress}
+							style={{
+								position: 'absolute',
+								paddingVertical: 10,
+								paddingHorizontal: 25,
+								top: 0,
+							}}
+						>
 							<Icon
 								name='arrow-left'
 								type='feather'
@@ -113,21 +103,44 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 								size={40}
 							/>
 						</TouchableOpacity>
-						<Text
-							style={{
-								textAlign: 'center',
-								fontFamily: 'Tungsten_SemiBold',
-								color: COLORS.bgBlue,
-								fontSize: FONTSIZES['5xl'],
-							}}
-						>
-							Selected SkipSpace
-						</Text>
+
+						<View style={{ flex: 1, paddingRight: 0 }}>
+							<Text
+								style={{
+									textAlign: 'center',
+									fontFamily: 'Tungsten_SemiBold',
+									color: COLORS.bgBlue,
+									fontSize: FONTSIZES['5xl'],
+								}}
+							>
+								Selected SkipSpace
+							</Text>
+						</View>
+						{/* <View style={{ flex: 1, paddingRight: 10 }} /> */}
 					</View>
 
 					<View style={{ borderColor: COLORS.bgGreen, borderWidth: 2 }} />
 				</View>
-				<View style={{ padding: 20, marginBottom: 50 }}>
+
+				{/* Main body */}
+				{/* <View style={{ padding: 20, marginBottom: 50 }}> */}
+				<View
+					style={{ paddingHorizontal: 20, paddingBottom: 20, marginBottom: 50 }}
+				>
+					<View
+						style={{
+							borderColor: COLORS.bgBlue,
+							borderWidth: 1,
+							// paddingHorizontal: 20,
+							padding: 20,
+							marginHorizontal: 15,
+						}}
+					>
+						<Text style={{ textAlign: 'center', fontSize: FONTSIZES.large }}>
+							After confirming you'll receive a one-time voucher to use at your
+							selected SkipSpace site.
+						</Text>
+					</View>
 					<View style={styles.middle}>
 						<View style={{ marginVertical: 10 }}>
 							<Text
@@ -155,7 +168,7 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 							<Text style={{ fontSize: FONTSIZES.xl }}>{skipCompany}</Text>
 						</View>
 
-						<View style={{ marginVertical: 10 }}>
+						<View style={{ marginVertical: 10, paddingBottom: 10 }}>
 							<Text
 								style={{
 									fontWeight: 'bold',
@@ -169,8 +182,22 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 							<Text style={{ fontSize: FONTSIZES.xl }}>
 								{skipCompanyAddress}
 							</Text>
+							<TouchableOpacity
+								style={{ paddingTop: 10 }}
+								onPress={handleOpenMaps}
+							>
+								<Text
+									style={{
+										fontSize: FONTSIZES.ml,
+										textAlign: 'center',
+										fontWeight: 'bold',
+									}}
+								>
+									Open in Maps
+								</Text>
+							</TouchableOpacity>
 						</View>
-						<View style={{ height: 100 }}>
+						<View style={{ height: 100, marginBottom: 10 }}>
 							{longitude && latitude ? (
 								<MapView
 									style={styles.map}
@@ -192,33 +219,16 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 							)}
 						</View>
 
-						<View style={{ paddingVertical: 10 }}>
-							<TouchableOpacity onPress={handleOpenMaps}>
-								<Text>Open in Maps</Text>
-							</TouchableOpacity>
+						<View style={styles.bottom}>
+							<View style={{ paddingTop: 10 }}>
+								<StandardButton
+									buttonLabel={'Confirm Voucher'}
+									onPress={onVoucherPress}
+									bgGreen
+									fontBlue={false}
+								/>
+							</View>
 						</View>
-					</View>
-					<View style={styles.bottom}></View>
-
-					<View style={{ paddingTop: 20 }}>
-						<View
-							style={{
-								borderColor: COLORS.bgBlue,
-								borderWidth: 2,
-								padding: 20,
-							}}
-						>
-							<Text style={{ textAlign: 'center', fontSize: FONTSIZES.large }}>
-								After confirming you'll receive a one-time voucher to use at
-								your selected SkipSpace site.
-							</Text>
-						</View>
-						<StandardButton
-							buttonLabel={'Confirm Voucher'}
-							onPress={onVoucherPress}
-							bgGreen
-							fontBlue={false}
-						/>
 					</View>
 				</View>
 			</View>
@@ -229,6 +239,23 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 export default SkipOptionsSheet;
 
 const styles = StyleSheet.create({
+	topSection: {
+		paddingVertical: 20,
+		flex: 1,
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+
+		// alignItems: 'flex-start',
+		// justifyI: 'center',
+		// justifyContent: 'center',
+		// justifyContent: 'center',
+		// alignContent: 'center',
+	},
+	top: {
+		// flex: 0.3,
+		// height: windowHeight / 5,
+		paddingVertical: 30,
+	},
 	mainContainer: {
 		backgroundColor: COLORS.white,
 		padding: 30,
@@ -243,12 +270,10 @@ const styles = StyleSheet.create({
 		padding: 20,
 		margin: 10,
 	},
-	top: {
-		// flex: 0.3,
-		// height: windowHeight / 5,
-		paddingVertical: 30,
-	},
+
 	map: {
+		borderColor: COLORS.lightGrey,
+		borderWidth: 1,
 		height: 150,
 		width: '100%',
 	},
@@ -260,8 +285,9 @@ const styles = StyleSheet.create({
 	},
 
 	bottom: {
-		flex: 0.3,
+		// flex: 0.3,
 		// height: windowHeight / 3,
+		paddingTop: 50,
 		borderBottomLeftRadius: 20,
 		borderBottomRightRadius: 20,
 	},
