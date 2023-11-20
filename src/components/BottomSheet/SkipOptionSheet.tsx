@@ -90,7 +90,7 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 						<TouchableOpacity
 							onPress={onCancelPress}
 							style={{
-								position: 'absolute',
+								// position: 'absolute',
 								paddingVertical: 10,
 								paddingHorizontal: 25,
 								top: 0,
@@ -104,7 +104,9 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 							/>
 						</TouchableOpacity>
 
-						<View style={{ flex: 1, paddingRight: 0 }}>
+						<View
+							style={{ flex: 1, paddingRight: 0, justifyContent: 'center' }}
+						>
 							<Text
 								style={{
 									textAlign: 'center',
@@ -116,7 +118,7 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 								Selected SkipSpace
 							</Text>
 						</View>
-						{/* <View style={{ flex: 1, paddingRight: 10 }} /> */}
+						<View style={{ width: 100, alignSelf: 'stretch' }}></View>
 					</View>
 
 					<View style={{ borderColor: COLORS.bgGreen, borderWidth: 2 }} />
@@ -182,20 +184,6 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 							<Text style={{ fontSize: FONTSIZES.xl }}>
 								{skipCompanyAddress}
 							</Text>
-							<TouchableOpacity
-								style={{ paddingTop: 10 }}
-								onPress={handleOpenMaps}
-							>
-								<Text
-									style={{
-										fontSize: FONTSIZES.ml,
-										textAlign: 'center',
-										fontWeight: 'bold',
-									}}
-								>
-									Open in Maps
-								</Text>
-							</TouchableOpacity>
 						</View>
 						<View style={{ height: 100, marginBottom: 10 }}>
 							{longitude && latitude ? (
@@ -217,10 +205,24 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 									<ActivityIndicator size={'small'} color={COLORS.bgGreen} />
 								</Text>
 							)}
+							<TouchableOpacity
+								style={{ paddingVertical: 10 }}
+								onPress={handleOpenMaps}
+							>
+								<Text
+									style={{
+										fontSize: FONTSIZES.ml,
+										textAlign: 'center',
+										fontWeight: 'bold',
+									}}
+								>
+									Open in Maps
+								</Text>
+							</TouchableOpacity>
 						</View>
 
 						<View style={styles.bottom}>
-							<View style={{ paddingTop: 10 }}>
+							<View style={{ paddingTop: 20 }}>
 								<StandardButton
 									buttonLabel={'Confirm Voucher'}
 									onPress={onVoucherPress}
@@ -241,9 +243,9 @@ export default SkipOptionsSheet;
 const styles = StyleSheet.create({
 	topSection: {
 		paddingVertical: 20,
-		flex: 1,
+		// flex: 1,
 		flexDirection: 'row',
-		justifyContent: 'space-between',
+		// justifyContent: 'space-between',
 
 		// alignItems: 'flex-start',
 		// justifyI: 'center',
@@ -252,8 +254,6 @@ const styles = StyleSheet.create({
 		// alignContent: 'center',
 	},
 	top: {
-		// flex: 0.3,
-		// height: windowHeight / 5,
 		paddingVertical: 30,
 	},
 	mainContainer: {
