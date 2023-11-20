@@ -54,7 +54,7 @@ const SkipSpaceResults = ({ route, navigation }: any) => {
 						fontFamily: 'Tungsten_SemiBold',
 					}}
 				>
-					Results from {councilName} council
+					SkipSpace in {councilName} council
 				</Text>
 				<Text
 					style={{
@@ -63,7 +63,7 @@ const SkipSpaceResults = ({ route, navigation }: any) => {
 						textAlign: 'center',
 					}}
 				>
-					Choose a SkipSpace below. Tap to see more information
+					Tap for more information
 				</Text>
 			</View>
 

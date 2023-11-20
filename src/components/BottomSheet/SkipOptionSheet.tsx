@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
+	ActivityIndicator,
 	Platform,
 	StyleSheet,
 	Text,
@@ -10,13 +11,15 @@ import { BottomSheet, Icon } from '@rneui/themed';
 import { COLORS, FONTSIZES } from '../../../constants/theme';
 import StandardButton from '../Button/StandardBtn';
 import { windowHeight } from '../../utils/dimensions';
-import MapLink from '../MapLink';
 import * as Linking from 'expo-linking';
+import * as Location from 'expo-location';
 
 import {
 	getCoordinatesFromAddress,
 	Coordinates,
 } from '../../utils/geoCodeHelper';
+import GetLocation from '../GetLocation';
+import MapView, { Marker } from 'react-native-maps';
 
 interface ISkipOptionsSheetProps {
 	isVisible: boolean;
@@ -24,12 +27,7 @@ interface ISkipOptionsSheetProps {
 	onVoucherPress: () => void;
 	councilName?: string;
 	skipCompany?: string;
-	skipCompanyAddress?: string;
-	// qrCode: React.ReactElement;
-	// skipCompanyName: string
-	// skipCompanyAddress: string
-	// mapLink: string
-	// expiryDate: Date | string
+	skipCompanyAddress?: string | any; // TODO: change type
 }
 
 const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
@@ -40,53 +38,51 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 	skipCompany,
 	skipCompanyAddress,
 }) => {
-	const [long, setlong] = useState<Number>();
-	const [lat, setlat] = useState<Number>();
+	// TODO Remove 'any' type
+	const [location, setLocation] = useState<any>({});
+	const [longitude, setLongitude] = useState<any>(null);
+	const [latitude, setLatitude] = useState<any>(null);
 
-	let skipLong: number;
-	let skipLat: number;
-	const url: any = Platform.select({
-		ios: `maps:0,0?q=${skipCompanyAddress}`,
-		android: `geo:0,0?q=${skipCompanyAddress}`,
-	});
-	const fetchCoordindates = async (skipCompanyAddress: any) => {
-		const coordinates: Coordinates | null = await getCoordinatesFromAddress(
-			skipCompanyAddress
-		);
+	useEffect(() => {
+		(async () => {
+			try {
+				console.log('Add: ', skipCompanyAddress);
+				const geocode = await Location.geocodeAsync(skipCompanyAddress);
 
-		if (coordinates) {
-			console.log(
-				`Latitude: ${coordinates.latitude}, Longitude: ${coordinates.longitude}`
-			);
-			// console.warn(typeof `${coordinates.latitude}`);
+				if (geocode.length > 0) {
+					console.log('Geocode is: ', geocode);
+					// setLocation(geocode[0].location);
+					setLongitude(geocode[0].longitude);
+					setLatitude(geocode[0].latitude);
 
-			skipLong = coordinates.longitude;
-			skipLat = coordinates.longitude;
-			// setlat(coordinates.latitude);
-			// setlong(coordinates.longitude);
+					// console.log(location);
+					// console.log(latitude);
+					// console.log(longitude);
+				} else {
+					console.error('Invalid address');
+				}
+			} catch (error) {
+				console.error('Error getting location: ', error);
+			}
+		})();
+	}, [skipCompanyAddress]);
 
-			console.log(`Lat: ${skipLat} | Long: ${skipLong} `);
+	const handleOpenMaps = () => {
+		// const { latitude, longitude } = location;
+		// setLocation(latitude,longitude)
+		console.log('location: ', latitude);
 
-			//https://www.google.com/maps/@51.5707162,-0.1186661,17z?entry=ttu
-
-			// You can use the coordinates to display a marker on the map or perform other actions.
+		if (latitude && longitude) {
+			const url: any = Platform.select({
+				ios: `maps://app?daddr${latitude},${longitude}&dirflg=d`,
+				android: `google.navigation:q=${latitude},${longitude}&mode`,
+			});
+			console.log('url: ', url);
+			Linking.openURL(url);
+		} else {
+			console.error('Location is not available');
 		}
 	};
-	useEffect(() => {
-		// 	const fetchCoordindates = async (skipCompanyAddress: any) => {
-		// 		const coordinates: Coordinates | null = await getCoordinatesFromAddress(
-		// 			skipCompanyAddress
-		// 		);
-
-		// 		if (coordinates) {
-		// 			console.log(
-		// 				`Latitude: ${coordinates.latitude}, Longitude: ${coordinates.longitude}`
-		// 			);
-		// 			// You can use the coordinates to display a marker on the map or perform other actions.
-		// 		}
-		// 	};
-		fetchCoordindates(skipCompanyAddress);
-	}, []);
 	return (
 		<BottomSheet
 			isVisible={isVisible}
@@ -100,15 +96,12 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 		>
 			<View style={{ marginVertical: 20 }}>
 				<View style={styles.top}>
-					{/* <ScreenTitle title={`Results from ${councilName}`} /> */}
-
 					<View
 						style={{
 							paddingVertical: 20,
 							flexDirection: 'row',
 							alignItems: 'center',
 							justifyContent: 'center',
-							// justifyContent: 'center',
 							alignContent: 'space-between',
 						}}
 					>
@@ -120,7 +113,6 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 								size={40}
 							/>
 						</TouchableOpacity>
-						{/* <View style={{ paddingHorizontal: 5, width: 50 }}></View> */}
 						<Text
 							style={{
 								textAlign: 'center',
@@ -160,7 +152,6 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 							>
 								Name of Skip company:{' '}
 							</Text>
-							{/* <Text>{skipCompany}</Text> */}
 							<Text style={{ fontSize: FONTSIZES.xl }}>{skipCompany}</Text>
 						</View>
 
@@ -174,44 +165,42 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 							>
 								Address:{' '}
 							</Text>
+
 							<Text style={{ fontSize: FONTSIZES.xl }}>
 								{skipCompanyAddress}
 							</Text>
 						</View>
+						<View style={{ height: 100 }}>
+							{longitude && latitude ? (
+								<MapView
+									style={styles.map}
+									initialRegion={{
+										latitude: latitude,
+										longitude: longitude,
+										latitudeDelta: 0.0922,
+										longitudeDelta: 0.0421,
+									}}
+									minZoomLevel={15}
+									maxZoomLevel={20}
+								>
+									<Marker coordinate={{ latitude, longitude }} />
+								</MapView>
+							) : (
+								<Text>
+									<ActivityIndicator size={'small'} color={COLORS.bgGreen} />
+								</Text>
+							)}
+						</View>
 
 						<View style={{ paddingVertical: 10 }}>
-							{/* convert google map link to component */}
-							{/* <Text
-								style={{
-									textDecorationLine: 'underline',
-									textAlign: 'center',
-									fontSize: FONTSIZES.xl,
-									fontWeight: 'bold',
-									color: COLORS.bgBlue,
-								}}
-							>
-								View on Maps
-							</Text> */}
-							{/* <MapLink 
-								label='View on maps'
-								address={skipCompanyAddress}
-							 /> */}
-
-							{/* https://www.google.com/maps/@51.5707162,-0.1186661,17z?entry=ttu */}
-							{/* `http://maps.google.com/?q=100+Main+Street+Buffalo+NY */}
-
-							<TouchableOpacity
-								onPress={() =>
-									Linking.openURL(
-										`https://maps.google.com/maps/@${skipLong},${skipLat},17z`
-									)
-								}
-							>
-								<Text style={{ textAlign: 'center' }}>Open something</Text>
+							<TouchableOpacity onPress={handleOpenMaps}>
+								<Text>Open in Maps</Text>
 							</TouchableOpacity>
 						</View>
 					</View>
-					<View style={styles.bottom}>
+					<View style={styles.bottom}></View>
+
+					<View style={{ paddingTop: 20 }}>
 						<View
 							style={{
 								borderColor: COLORS.bgBlue,
@@ -224,34 +213,14 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 								your selected SkipSpace site.
 							</Text>
 						</View>
-
-						<View style={{ paddingTop: 20 }}>
-							<StandardButton
-								buttonLabel={'Confirm Voucher'}
-								onPress={onVoucherPress}
-								bgGreen
-								fontBlue={false}
-							/>
-						</View>
+						<StandardButton
+							buttonLabel={'Confirm Voucher'}
+							onPress={onVoucherPress}
+							bgGreen
+							fontBlue={false}
+						/>
 					</View>
 				</View>
-
-				{/* <View style={{ paddingTop: 10, paddingBottom: 10 }}> */}
-
-				{/* <View style={styles.mainContainer}>
-				<View style={{ paddingTop: 10, paddingBottom: 10 }}>
-					<ScreenTitle title={`Results from ${councilName}`} />
-				</View>
-
-				<View style={{ paddingBottom: 30, paddingHorizontal: 30 }}>
-					<StandardButton
-						bgGreen
-						fontBlue
-						buttonLabel={'Back'}
-						onPress={onCancelPress}
-					/>
-				</View>
-			</View> */}
 			</View>
 		</BottomSheet>
 	);
@@ -276,19 +245,23 @@ const styles = StyleSheet.create({
 	},
 	top: {
 		// flex: 0.3,
-		height: windowHeight / 5,
+		// height: windowHeight / 5,
 		paddingVertical: 30,
+	},
+	map: {
+		height: 150,
+		width: '100%',
 	},
 
 	middle: {
 		// flex: 0.3,
-		height: windowHeight / 3,
+		// height: windowHeight / 3,
 		margin: 10,
 	},
 
 	bottom: {
 		flex: 0.3,
-		height: windowHeight / 3,
+		// height: windowHeight / 3,
 		borderBottomLeftRadius: 20,
 		borderBottomRightRadius: 20,
 	},

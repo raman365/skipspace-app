@@ -11,6 +11,7 @@ interface User {
 
 export default function useAuth() {
     const [user, setUser] = useState<User | null>(null);
+    // add loader
 
 
     useEffect(() => {

@@ -35,7 +35,7 @@ const SignedInDashboard = ({ navigation }: any) => {
 
 		let currentLocation = await Location.getCurrentPositionAsync({});
 		setLocation(currentLocation);
-		console.log(currentLocation);
+		console.log('Current location', currentLocation);
 	};
 
 	useEffect(() => {
