@@ -7,22 +7,78 @@ import { Button, Icon, Text, ListItem } from '@rneui/themed';
 import QREncoder from '../../../components/QREncoder';
 import StandardButton from '../../../components/Button/StandardBtn';
 import ScreenTitle from '../../../components/ScreenTitle';
+import { getAuth } from 'firebase/auth';
 
+import { db } from '../../../../config/firebase';
+import { collection, addDoc } from 'firebase/firestore';
+
+const addDataToCollection = async (collectionName: string, data: any) => {
+	try {
+		// get ref to collection
+		const voucherCollRef = collection(db, collectionName);
+		// add a new doc with the data
+		const docRef = await addDoc(voucherCollRef, data);
+
+		console.log('Doc written with id: ', docRef.id);
+	} catch (error) {
+		console.error('Error adding document: ', error);
+	}
+};
 const VoucherConfirmation = ({ route, navigation }: any) => {
-	// const { councilName, subCollParams } = route.params;
 	const { localAuth, skipCompanyName, skipCompanyAddress } = route.params;
+	const auth = getAuth();
+	const userInfo = auth.currentUser?.displayName;
+	const dateIssued = '';
 
-	const stringExample = 'test - this is a test a test this is';
+	// const stringExample = 'test - this is a test a test this is';
 
 	const dataInQRCode = `\n
+						  Date issued: ${new Date()}
+						  Person Details: ${userInfo}
 						  Local Authority Issue: ${localAuth} 
 						  Skip Company Name: ${skipCompanyName}
 						  Skip Company Address: ${skipCompanyAddress}
 	 `;
 	// 'Location Name: Skips are us | Address: 123 Fake Lane, E17 123. This is an example of a QR code';
+
+	const voucherData = {
+		date_issued: new Date(),
+		person_details: userInfo,
+		local_auth_issue: localAuth,
+		skip_company_name: skipCompanyName,
+		skip_company_address: skipCompanyAddress,
+		voucherStatus: true,
+	};
+
 	const handleReturnHome = () => {
+		addDataToCollection('vouchers', voucherData);
 		navigation.navigate('signedInDashboard');
 		// TODO: Push voucher data to the database
+
+		// details to add to database:
+		/* 
+		- Date/time issues
+		- Person Details
+		- Local authotity issued
+		- Skip company name
+		- skip company address
+		
+
+		Find user
+		- Create a collection called vouchers as a subcollection of users
+		- 
+		- Create collection called vouchers
+		- Fields:
+		- Auto ID
+		- Date issued
+		- Users' name
+		- Skip Company name
+		- Skip Company address
+		- Voucher status
+		-
+		
+		if it doesn't exist - create on
+		*/
 	};
 	return (
 		<SafeAreaProvider>
@@ -48,6 +104,7 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 					}}
 				>
 					<QREncoder codeValue={dataInQRCode} />
+
 					{console.log(dataInQRCode)}
 					{/* <Text>{dataInQRCode}</Text> */}
 				</View>
