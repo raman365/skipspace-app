@@ -27,14 +27,13 @@ const addDataToCollection = async (collectionName: string, data: any) => {
 const VoucherConfirmation = ({ route, navigation }: any) => {
 	const { localAuth, skipCompanyName, skipCompanyAddress } = route.params;
 	const auth = getAuth();
-	const userInfo = auth.currentUser?.displayName;
-	const dateIssued = '';
+	const userFullname = auth.currentUser?.displayName;
+	const userEmail = auth.currentUser?.email;
 
 	// const stringExample = 'test - this is a test a test this is';
-
 	const dataInQRCode = `\n
 						  Date issued: ${new Date()}
-						  Person Details: ${userInfo}
+						  Person Details: ${userFullname}
 						  Local Authority Issue: ${localAuth} 
 						  Skip Company Name: ${skipCompanyName}
 						  Skip Company Address: ${skipCompanyAddress}
@@ -43,7 +42,8 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 
 	const voucherData = {
 		date_issued: new Date(),
-		person_details: userInfo,
+		user_name: userFullname,
+		user_email: userEmail,
 		local_auth_issue: localAuth,
 		skip_company_name: skipCompanyName,
 		skip_company_address: skipCompanyAddress,
