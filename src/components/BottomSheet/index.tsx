@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { StyleSheet, Text, View } from 'react-native';
 import { BottomSheet, ListItem } from '@rneui/themed';
@@ -10,14 +10,18 @@ import StandardButton from '../Button/StandardBtn';
 import Subtitle from '../Subtitle';
 import CountdownTimer from '../Timer';
 import SmlStandardBtn from '../Button/SmallStandardBtn';
+import ClearBtn from '../Button/ClearBtn';
+import { useNavigation } from '@react-navigation/native';
 
 interface IVoucherSheetProps {
-	isVisible: boolean;
+	isShown: boolean;
 	onCancelPress: () => void;
+	onHelpPress: () => void;
 	userName: string;
 	skipCompanyName: string;
 	skipCompanyAddress: string;
 	localAuthIssue: string;
+	dateIssued: string;
 	// qrCode: React.ReactElement;
 
 	// mapLink: string
@@ -25,27 +29,32 @@ interface IVoucherSheetProps {
 }
 
 const VoucherSheet: React.FC<IVoucherSheetProps> = ({
-	isVisible = false,
+	isShown = false,
 	onCancelPress,
+	onHelpPress,
 	skipCompanyName,
 	skipCompanyAddress,
 	userName,
 	localAuthIssue,
+	dateIssued,
 }) => {
 	const stringExample = 'test - this is a test a test this is';
 	// TODO : Work with date string on voucher
 	// TODO: Maps link on bottom sheeet voucher
 	////   Date issued: ${new Date()}
 	const dataInQRCode = `\n
-						
+						  Date issued: ${dateIssued}
 						  Person Details: ${userName}
 						  Local Authority Issue: ${localAuthIssue} 
 						  Skip Company Name: ${skipCompanyName}
 						  Skip Company Address: ${skipCompanyAddress}
 	 `;
+
+	// const [isVisible, setIsVisible] = useState(false)
+
 	return (
 		<BottomSheet
-			isVisible={isVisible}
+			isVisible={isShown}
 			onBackdropPress={onCancelPress}
 			containerStyle={{}}
 		>
@@ -59,6 +68,7 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 				<View style={styles.viewSection}>
 					<Subtitle subtitle={'Expires: '} />
 					<CountdownTimer />
+					{/* Convert string to timestamp in numbers */}
 					{/* <Subtitle textColor={COLORS.softRed} subtitle={'12:10:00'} /> */}
 				</View>
 
@@ -67,6 +77,7 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 						style={{
 							justifyContent: 'center',
 							alignItems: 'center',
+							padding: 20,
 						}}
 					>
 						<QREncoder codeValue={dataInQRCode} />
@@ -74,81 +85,68 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 
 					<View
 						style={{
-							paddingTop: 20,
-							paddingHorizontal: 30,
-							flexDirection: 'column',
 							justifyContent: 'center',
+							alignItems: 'center',
+							paddingBottom: 20,
 						}}
 					>
-						<Subtitle subtitle={'Skip Company: '} />
-						<Text style={{ textAlign: 'center' }}>{skipCompanyName}</Text>
-					</View>
-					<View
-						style={{
-							paddingTop: 20,
-							// paddingBottom: 10,
-							paddingHorizontal: 30,
-							flexDirection: 'column',
-							justifyContent: 'center',
-						}}
-					>
-						<Subtitle subtitle={'Address: '} />
-						{/* <Text style={{ fontWeight: 'bold' }}>Address: </Text> */}
-						<Text style={{ textAlign: 'center' }}>{skipCompanyAddress}</Text>
-					</View>
-					<View>
 						<Text
 							style={{
 								textAlign: 'center',
-								paddingVertical: 10,
-								textDecorationLine: 'underline',
+								// padding: 10,
+								paddingHorizontal: 40,
 								fontWeight: 'bold',
 							}}
 						>
-							View on maps
+							Arrive at your SkipSpace site and show this QR code
 						</Text>
 					</View>
-				</View>
 
-				<View style={{ paddingVertical: 10, paddingHorizontal: 30 }}>
 					<View
 						style={{
-							paddingVertical: 10,
-							paddingHorizontal: 10,
-							borderColor: COLORS.bgBlue,
+							borderColor: COLORS.lightGrey,
 							borderWidth: 1,
-							marginTop: 10,
-							// marginBottom: 20,
+							margin: 30,
 						}}
 					>
-						<Text
+						<View
 							style={{
-								textDecorationLine: 'underline',
-								textAlign: 'center',
-								paddingVertical: 10,
-								fontWeight: 'bold',
-								fontSize: 16,
+								paddingTop: 20,
+								paddingHorizontal: 30,
+								flexDirection: 'column',
+								justifyContent: 'center',
 							}}
 						>
-							Instructions:
-						</Text>
-						<ListItem style={{ backgroundColor: COLORS.white }}>
-							<ListItem.Content>
-								<ListItem.Title style={styles.listItemTitle}>
-									1. Arrive at your SkipSpace site.
-								</ListItem.Title>
-								<ListItem.Title style={styles.listItemTitle}>
-									2. Show this QR code to the security staff when you arrive.
-								</ListItem.Title>
-								<ListItem.Title style={styles.listItemTitle}>
-									3. This QR code will expire within 24 hours of first issue.
-								</ListItem.Title>
-							</ListItem.Content>
-						</ListItem>
+							<Subtitle subtitle={'Skip Company: '} />
+							<Text style={{ textAlign: 'center' }}>{skipCompanyName}</Text>
+						</View>
+						<View
+							style={{
+								paddingTop: 20,
+								paddingHorizontal: 30,
+								flexDirection: 'column',
+								justifyContent: 'center',
+							}}
+						>
+							<Subtitle subtitle={'Address: '} />
+							<Text style={{ textAlign: 'center' }}>{skipCompanyAddress}</Text>
+						</View>
+						<View style={{ paddingVertical: 20 }}>
+							<Text
+								style={{
+									textAlign: 'center',
+									paddingVertical: 10,
+									textDecorationLine: 'underline',
+									fontWeight: 'bold',
+								}}
+							>
+								View on maps
+							</Text>
+						</View>
 					</View>
 				</View>
 
-				<View style={{ paddingBottom: 30, paddingHorizontal: 30 }}>
+				<View style={{ paddingBottom: 10, paddingHorizontal: 30 }}>
 					{/* <StandardButton
 						bgGreen
 						fontBlue
@@ -161,6 +159,15 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 						bgGreen
 						fontBlue
 					/>
+				</View>
+				<View
+					style={{
+						justifyContent: 'center',
+						alignItems: 'center',
+						paddingBottom: 20,
+					}}
+				>
+					<ClearBtn buttonLabel={'Need help?'} onPress={onHelpPress} />
 				</View>
 			</View>
 		</BottomSheet>

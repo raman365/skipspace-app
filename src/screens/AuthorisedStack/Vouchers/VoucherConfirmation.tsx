@@ -8,6 +8,7 @@ import QREncoder from '../../../components/QREncoder';
 import StandardButton from '../../../components/Button/StandardBtn';
 import ScreenTitle from '../../../components/ScreenTitle';
 import { getAuth } from 'firebase/auth';
+import dayjs from 'dayjs';
 
 import { db } from '../../../../config/firebase';
 import { collection, addDoc } from 'firebase/firestore';
@@ -29,10 +30,12 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 	const auth = getAuth();
 	const userFullname = auth.currentUser?.displayName;
 	const userEmail = auth.currentUser?.email;
+	let dateTimeNow = dayjs().format('DD/MM/YYYY');
+	// let dateTimeNow = dayjs().format('DD/MM/YYYY hh:mm:ss');
 
 	// const stringExample = 'test - this is a test a test this is';
 	const dataInQRCode = `\n
-						  Date issued: ${new Date()}
+						  Date issued: ${dateTimeNow}
 						  Person Details: ${userFullname}
 						  Local Authority Issue: ${localAuth} 
 						  Skip Company Name: ${skipCompanyName}
@@ -41,7 +44,7 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 	// 'Location Name: Skips are us | Address: 123 Fake Lane, E17 123. This is an example of a QR code';
 
 	const voucherData = {
-		date_issued: new Date(),
+		date_issued: dateTimeNow,
 		user_name: userFullname,
 		user_email: userEmail,
 		local_auth_issue: localAuth,

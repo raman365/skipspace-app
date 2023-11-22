@@ -11,7 +11,6 @@ import { COLORS, FONTSIZES } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
 import { Button, Icon, Text } from '@rneui/themed';
-import ScreenTitle from '../../components/ScreenTitle';
 import * as Location from 'expo-location';
 import MapView, { Marker } from 'react-native-maps';
 
@@ -28,7 +27,6 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 				const geocode = await Location.geocodeAsync(skipCompanyAddress);
 
 				if (geocode.length > 0) {
-					// console.log('Geocode is: ', geocode);
 					setLongitude(geocode[0].longitude);
 					setLatitude(geocode[0].latitude);
 				} else {
@@ -55,9 +53,9 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 				ios: `maps://app?daddr${latitude},${longitude}&dirflg=d`,
 				android: `google.navigation:q=${latitude},${longitude}&mode`,
 			});
-			// console.log('url: ', url);
 			Linking.openURL(url);
 		} else {
+			//TODO:  Sort this out
 			console.error('Location is not available');
 		}
 	};
@@ -77,7 +75,7 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 					navigation.navigate('searchSelectCouncil');
 				}}
 			/>
-			{/* <ScreenTitle title={'Vouchers'} /> */}
+
 			<View style={{ paddingTop: 30 }}>
 				<Text
 					h4

@@ -1,19 +1,18 @@
-import {
-	Pressable,
-	StyleSheet,
-	Text,
-	TouchableOpacity,
-	View,
-} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { Icon, ListItem } from '@rneui/base';
-import { COLORS } from '../../../constants/theme';
+import { COLORS, FONTSIZES } from '../../../constants/theme';
+
+import dayjs from 'dayjs';
+
+let now = dayjs();
 
 interface IProps {
 	hasBeenUsed?: boolean;
 	dateUsed?: Date | string;
 	nameOfCompany?: string;
 	address?: string;
+	dateIssued: string | Date;
 	onPress?: () => void;
 }
 const VoucherItem: React.FC<IProps> = ({
@@ -21,10 +20,11 @@ const VoucherItem: React.FC<IProps> = ({
 	dateUsed,
 	nameOfCompany,
 	address,
+	dateIssued,
 	onPress,
 }) => {
 	return (
-		<Pressable
+		<TouchableOpacity
 			onPress={onPress}
 			style={styles.voucherItem}
 			disabled={hasBeenUsed}
@@ -40,16 +40,48 @@ const VoucherItem: React.FC<IProps> = ({
 						<ListItem.Subtitle
 							style={{ color: hasBeenUsed ? COLORS.lightGrey : COLORS.black }}
 						>
-							<Text style={{ fontWeight: 'bold' }}>Name: </Text>
-							<Text>{nameOfCompany}</Text>
+							<Text style={{ fontWeight: 'bold', fontSize: FONTSIZES.ml }}>
+								Name:{' '}
+							</Text>
+							<Text style={{ fontSize: FONTSIZES.ml }}>{nameOfCompany}</Text>
 						</ListItem.Subtitle>
 					</View>
 					<View>
 						<ListItem.Subtitle
-							style={{ color: hasBeenUsed ? COLORS.lightGrey : COLORS.black }}
+							style={{
+								color: hasBeenUsed ? COLORS.lightGrey : COLORS.black,
+								paddingTop: 5,
+							}}
 						>
-							<Text style={{ fontWeight: 'bold' }}>Address: </Text>
-							<Text>{address}</Text>
+							<Text style={{ fontWeight: 'bold', fontSize: FONTSIZES.ml }}>
+								Address:{' '}
+							</Text>
+							<Text style={{ fontSize: FONTSIZES.ml }}>{address}</Text>
+						</ListItem.Subtitle>
+					</View>
+					<View>
+						<ListItem.Subtitle
+							style={{
+								color: hasBeenUsed ? COLORS.lightGrey : COLORS.black,
+								paddingTop: 5,
+							}}
+						>
+							<Text
+								style={{
+									fontWeight: 'bold',
+									fontSize: FONTSIZES.ml,
+								}}
+							>
+								Date Issued:{' '}
+							</Text>
+							<Text style={{ fontSize: FONTSIZES.ml }}>
+								{dateIssued}
+								{/* {console.log(typeof dateIssued)}
+								{console.log(new Date())}
+								{console.log('day is: ', now.format('DD/MM/YYYY hh:mm:ss'))} */}
+
+								{/* {console.log(dayjs(dateIssued))} */}
+							</Text>
 						</ListItem.Subtitle>
 					</View>
 					{hasBeenUsed ? (
@@ -67,7 +99,7 @@ const VoucherItem: React.FC<IProps> = ({
 					<ListItem.Chevron size={24} color={COLORS.black} />
 				)}
 			</ListItem>
-		</Pressable>
+		</TouchableOpacity>
 	);
 };
 
@@ -75,20 +107,10 @@ export default VoucherItem;
 
 const styles = StyleSheet.create({
 	voucherItem: {
-		marginVertical: 10,
+		marginBottom: 10,
 		borderTopColor: COLORS.lightGrey,
 		borderTopWidth: 1,
 		borderBottomColor: COLORS.lightGrey,
 		borderBottomWidth: 1,
 	},
 });
-
-// import { ListItem } from '@rneui/themed';
-// import { View, Text}
-
-// // icon
-// // name of company
-// // address
-// // isUsed
-// // date used
-// // colour

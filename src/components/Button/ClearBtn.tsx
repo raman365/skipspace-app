@@ -7,12 +7,14 @@ interface IStandardButtonProps {
 	buttonLabel: string;
 	onPress: () => void;
 	color?: string;
+	fontSize?: 'large' | 'small';
 }
 
 export const ClearBtn: React.FC<IStandardButtonProps> = ({
 	buttonLabel,
 	onPress,
 	color = COLORS.bgGreen,
+	fontSize,
 }) => {
 	return (
 		<Button
@@ -20,9 +22,10 @@ export const ClearBtn: React.FC<IStandardButtonProps> = ({
 			type='clear'
 			titleStyle={{
 				fontWeight: '700',
-				fontSize: FONTSIZES.xl,
+				fontSize: fontSize === 'large' ? FONTSIZES.xl : FONTSIZES.large,
 				color: `${color}`,
 				textAlign: 'left',
+				// textDecorationLine: 'underline',
 			}}
 			buttonStyle={{
 				display: 'flex',
