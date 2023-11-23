@@ -29,16 +29,77 @@ const SelectCouncil = ({ navigation }: any) => {
 	// get all data in a collection
 
 	const [councilData, setCouncilData] = useState<DocumentData[]>([]);
-
+	const [councilName, setCouncilName] = useState<string>('');
 	const [skipCompanyData, setSkipCompanyData] = useState<DocumentData[]>([]);
 
-	const mainCollData: DocumentData[] = [];
-	// const subData: DocumentData[] = [];
-	// const subDataId: any[] = [];
+	const [subCollectionData, setSubCollectionData] = useState<any[]>([]);
 
+	const mainCollData: DocumentData[] = [];
 	const councilColl = collection(db, 'councils');
 
 	// turn into a function with council id as the param
+
+	// const handleSubCollectionData = async (council_n: string) => {
+	// 	setCouncilName(council_n);
+	// 	const cn = council_n.toLowerCase().replace(/[^a-z]/g, '');
+
+	// 	// console.log(councilName);
+	// 	console.log('cn: ', cn);
+	// 	const linkedSkipColl = collection(
+	// 		db,
+	// 		'councils',
+	// 		cn,
+	// 		'linkedSkipCompanies'
+	// 	);
+
+	// 	try {
+	// 		const subCollQuerySnapshot = await getDocs(linkedSkipColl);
+	// 		const data: DocumentData[] = [];
+
+	// 			const unsubscribe = onSnapshot(
+	// 				query(collection(db, `councils,${cn},linkedSkipCompanies`)),
+	// 				(snapshot) => {
+	// 					const updatedData = snapshot.docs.map((doc) => ({
+	// 						id: doc.id,
+	// 						...doc.data(),
+	// 					}));
+	// 					setSkipCompanyData(data);
+	// 				}
+	// 			);
+
+	// 		// subCollQuerySnapshot.forEach((doc) => {
+	// 		// 	data.push({ id: doc.id, ...doc.data() });
+
+	// 		// 	// console.log('Skip', data);
+	// 		// 	// setSkipCompanyData(subData);
+	// 		// 	setSkipCompanyData(data);
+
+	// 		// 	navigation.navigate('skipSpaceResults', {
+	// 		// 		councilName: council_n,
+	// 		// 		subCollParams: skipCompanyData,
+	// 		// 	});
+	// 		// });
+	// 	} catch (error: any) {
+	// 		console.log('Sub collection error: ', error);
+	// 	}
+
+	// 	// nav to next screen with params
+	// };
+
+	// const getDataByCollection = async () => {
+	// 	try {
+	// 		const mainCollectionQuerySnapshot = await getDocs(councilColl);
+	// 		// const subCollectionDataSnapshot = await getDocs(collection(db, `councils/${el.id}/linkedSkipCompanies`))
+
+	// 		mainCollectionQuerySnapshot.forEach((doc) => {
+	// 			// subDataId.push(doc.id);
+	// 			mainCollData.push(doc.data());
+	// 		});
+	// 		setCouncilData(mainCollData);
+	// 	} catch (error: any) {
+	// 		console.log('Error: ', error);
+	// 	}
+	// };
 
 	const handleSubCollectionData = async (council_n: string) => {
 		// navigation.navigate('skipSpaceResults', {
@@ -76,29 +137,51 @@ const SelectCouncil = ({ navigation }: any) => {
 
 		// nav to next screen with params
 	};
-
-	const getDataByCollection = async () => {
-		try {
-			const mainCollectionQuerySnapshot = await getDocs(councilColl);
-			// const subCollectionDataSnapshot = await getDocs(collection(db, `councils/${el.id}/linkedSkipCompanies`))
-
-			mainCollectionQuerySnapshot.forEach((doc) => {
-				// subDataId.push(doc.id);
-				mainCollData.push(doc.data());
-			});
-			setCouncilData(mainCollData);
-		} catch (error: any) {
-			console.log('Error: ', error);
-		}
-	};
-
 	useEffect(() => {
-		getDataByCollection();
+		const unsubscribe = onSnapshot(
+			query(collection(db, 'councils')),
+			(snapshot) => {
+				const updatedCouncilData = snapshot.docs.map((doc) => ({
+					id: doc.id,
+					...doc.data(),
+				}));
+
+				setCouncilData(updatedCouncilData);
+				console.log(councilData);
+			}
+		);
+		return () => {
+			unsubscribe(); // Cleanup the listener when the component unmounts
+		};
 	}, []);
 
-	// useEffect(() => {
-	// 	handleSubCollectionData();
-	// }, []);
+	useEffect(() => {
+		// 	const fetchSubCollectionData = async () => {
+		// 		// const cn =
+		// 		const mainCollectionQuery = query(collection(db, 'councils'));
+		// 		const mainCollectionDocs = await getDocs(mainCollectionQuery);
+		// 		const mainCollectionDocsIds = mainCollectionDocs.docs.map(
+		// 			(doc) => doc.id
+		// 		);
+		// 		const subCollectionData: any[] = [];
+		// 		for (const docId of mainCollectionDocsIds) {
+		// 			const subCollectionQuery = query(
+		// 				collection(db, 'councils', docId, 'linkedSkipCompanies')
+		// 			);
+		// 			const subCollectionDataSnapshot = await getDocs(subCollectionQuery);
+		// 			subCollectionDataSnapshot.forEach((subDoc) => {
+		// 				subCollectionData.push({
+		// 					mainDocId: docId,
+		// 					subDocId: subDoc.id,
+		// 					...subDoc.data(),
+		// 				});
+		// 			});
+		// 		}
+		// 		setSubCollectionData(subCollectionData);
+		// 	};
+		// 	fetchSubCollectionData;
+		// }, [councilData]);
+	}, []);
 
 	return (
 		<SafeAreaProvider>
@@ -147,19 +230,7 @@ const SelectCouncil = ({ navigation }: any) => {
 						<BoroughSearchButton
 							councilName={item.council_name}
 							onPress={() => handleSubCollectionData(item.council_name)}
-
-							// get subcollection data function
 						/>
-						// <View
-						// 	style={{
-						// 		height: 50,
-						// 		flex: 1,
-						// 		alignItems: 'center',
-						// 		justifyContent: 'center',
-						// 	}}
-						// >
-						// 	<Text> {item.council_name}</Text>
-						// </View>
 					)}
 				/>
 			</View>

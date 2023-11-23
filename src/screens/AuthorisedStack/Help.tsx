@@ -3,7 +3,7 @@ import React from 'react';
 import { COLORS } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
-import { Button, Icon, Text } from '@rneui/themed';
+import { Button, Icon, ListItem, Text } from '@rneui/themed';
 
 const Help = ({ navigation }: any) => {
 	return (
@@ -36,38 +36,43 @@ const Help = ({ navigation }: any) => {
 				</Text>
 			</View>
 			<View style={styles.centerContainer}>
-				{/* <View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>
-					<Button
-						title='Search for SkipSpace'
-						buttonStyle={{
-							backgroundColor: COLORS.bgGreen,
-							borderRadius: 5,
-							paddingVertical: 15,
+				<View style={{ paddingVertical: 10, paddingHorizontal: 30 }}>
+					<View
+						style={{
+							paddingVertical: 10,
+							paddingHorizontal: 10,
+							borderColor: COLORS.bgBlue,
+							borderWidth: 1,
+							marginTop: 10,
+							// marginBottom: 20,
 						}}
-						titleStyle={{
-							fontWeight: '700',
-							fontSize: 16,
-							color: COLORS.bgBlue,
-						}}
-						onPress={() => navigation.navigate('selectCouncil')}
-					/>
-				</View> */}
-				{/* <View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>
-					<Button
-						title='View active vouchers'
-						buttonStyle={{
-							backgroundColor: COLORS.bgGreen,
-							borderRadius: 5,
-							paddingVertical: 15,
-						}}
-						titleStyle={{
-							fontWeight: '700',
-							fontSize: 16,
-							color: COLORS.bgBlue,
-						}}
-						onPress={() => navigation.navigate('vouchers')}
-					/>
-				</View> */}
+					>
+						<Text
+							style={{
+								textDecorationLine: 'underline',
+								textAlign: 'center',
+								paddingVertical: 10,
+								fontWeight: 'bold',
+								fontSize: 16,
+							}}
+						>
+							Instructions:
+						</Text>
+						<ListItem style={{ backgroundColor: COLORS.white }}>
+							<ListItem.Content>
+								<ListItem.Title style={styles.listItemTitle}>
+									1. Arrive at your SkipSpace site.
+								</ListItem.Title>
+								<ListItem.Title style={styles.listItemTitle}>
+									2. Show this QR code to the security staff when you arrive.
+								</ListItem.Title>
+								<ListItem.Title style={styles.listItemTitle}>
+									3. This QR code will expire within 24 hours of first issue.
+								</ListItem.Title>
+							</ListItem.Content>
+						</ListItem>
+					</View>
+				</View>
 			</View>
 		</SafeAreaProvider>
 	);
@@ -79,7 +84,22 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 20,
 		display: 'flex',
 		justifyContent: 'center',
-		// flex: 1,
+	},
+
+	listItemTitle: {
+		paddingVertical: 5,
+		fontSize: 12,
+		fontWeight: 'bold',
+	},
+	listItemTitle1: {
+		paddingVertical: 5,
+		fontSize: 12,
+		fontWeight: 'bold',
+		textAlign: 'center',
+	},
+	listItemSubtitle: {
+		paddingVertical: 5,
+		fontSize: 11,
 	},
 });
 

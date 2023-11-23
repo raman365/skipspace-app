@@ -13,7 +13,16 @@ import VoucherSheet from '../../components/BottomSheet';
 import { auth } from '../../../config/firebase';
 // import { DocumentReference } from '@google-cloud/firestore'
 
-import { query, where, getDocs, collection } from 'firebase/firestore';
+import dayjs from 'dayjs';
+
+import {
+	query,
+	where,
+	getDocs,
+	collection,
+	onSnapshot,
+	orderBy,
+} from 'firebase/firestore';
 import { db } from '../../../config/firebase';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -64,20 +73,35 @@ const Vouchers = ({ navigation }: any) => {
 				// create a ref to the vouchers collection
 				setIsLoading(true);
 				const vouchRef = collection(db, 'vouchers');
+
 				const q = query(
 					vouchRef,
-					where('user_email', '==', auth.currentUser?.email)
+					where('user_email', '==', auth.currentUser?.email),
+					orderBy('date_issued', 'asc')
 				);
-				// TODO: Get real time updates
+				// TODO: Get real time updates ££
 
-				const querySnapshot = await getDocs(q);
-				const newData = querySnapshot.docs.map((doc) => ({
-					id: doc.id,
-					...doc.data(),
-				}));
+				const unsubscribe = onSnapshot(q, (snapshot) => {
+					const updatedData = snapshot.docs.map((doc) => ({
+						id: doc.id,
+						...doc.data(),
+					}));
+					// const timestampData = snapshot.data()?.timestampField;
 
-				setData(newData);
-				setIsLoading(false);
+					setData(updatedData);
+					setIsLoading(false);
+				});
+
+				return () => {
+					unsubscribe(); // Cleanup the listener when the component unmounts
+				};
+				// const querySnapshot = await getDocs(q);
+				// const newData = querySnapshot.docs.map((doc) => ({
+				// 	id: doc.id,
+				// 	...doc.data(),
+				// }));
+
+				// setData(newData);
 			} catch (error) {
 				console.error('Error fetching data: ', error);
 			}
@@ -85,13 +109,18 @@ const Vouchers = ({ navigation }: any) => {
 		fetchVoucherData();
 	}, []);
 
+	// const dateFormatter = (date: any) => {
+	// 	console.log('D: ', date.toDate());
+	// 	return date.toDate();
+	// };
+
 	const renderVouchers = () => {
 		return data.map((voucher: any) => (
 			<View key={voucher.id}>
 				<VoucherItem
 					nameOfCompany={voucher.skip_company_name}
 					address={voucher.skip_company_address}
-					dateIssued={voucher.date_issued.toString()}
+					dateIssued={voucher.date_issued}
 					onPress={handleVoucherItem}
 					hasBeenUsed={false}
 				/>
@@ -103,9 +132,11 @@ const Vouchers = ({ navigation }: any) => {
 					skipCompanyAddress={voucher.skip_company_address} // onBottomButtonPress={onCancelPress}
 					localAuthIssue={voucher.local_auth_issue}
 					userName={voucher.userName}
+					// dateIssued={dayjs(voucher.date_issued.toDate())}
 					dateIssued={voucher.date_issued}
 					onHelpPress={handleHelp}
 				/>
+				{console.log(dayjs().toDate())}
 			</View>
 		));
 	};

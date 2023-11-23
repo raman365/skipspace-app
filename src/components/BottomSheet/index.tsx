@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { BottomSheet, ListItem } from '@rneui/themed';
 
 import { COLORS, FONTSIZES } from '../../../constants/theme';
@@ -11,7 +11,7 @@ import Subtitle from '../Subtitle';
 import CountdownTimer from '../Timer';
 import SmlStandardBtn from '../Button/SmallStandardBtn';
 import ClearBtn from '../Button/ClearBtn';
-import { useNavigation } from '@react-navigation/native';
+import dayjs from 'dayjs';
 
 interface IVoucherSheetProps {
 	isShown: boolean;
@@ -21,7 +21,8 @@ interface IVoucherSheetProps {
 	skipCompanyName: string;
 	skipCompanyAddress: string;
 	localAuthIssue: string;
-	dateIssued: string;
+	// dateIssued: string | Date;
+	dateIssued: string; //TODO change
 	// qrCode: React.ReactElement;
 
 	// mapLink: string
@@ -38,10 +39,10 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 	localAuthIssue,
 	dateIssued,
 }) => {
-	const stringExample = 'test - this is a test a test this is';
 	// TODO : Work with date string on voucher
 	// TODO: Maps link on bottom sheeet voucher
 	////   Date issued: ${new Date()}
+	// const now = dayjs();
 	const dataInQRCode = `\n
 						  Date issued: ${dateIssued}
 						  Person Details: ${userName}
@@ -51,7 +52,7 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 	 `;
 
 	// const [isVisible, setIsVisible] = useState(false)
-
+	console.log(dayjs(dateIssued));
 	return (
 		<BottomSheet
 			isVisible={isShown}
@@ -68,6 +69,19 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 				<View style={styles.viewSection}>
 					<Subtitle subtitle={'Expires: '} />
 					<CountdownTimer />
+					<View style={{ flexDirection: 'column' }}>
+						{/* <Text>{dayjs(dateIssued).format('DD/MM/YYYY')}</Text> */}
+						{/* <Text>{console.log(typeof dateIssued)}</Text> */}
+						{/* <Text>
+							{dayjs('2019-01-25')
+								.add(1, 'day')
+								.subtract(1, 'year')
+								.year(2009)
+								.toString()}
+						</Text> */}
+					</View>
+
+					<Text>{dateIssued}</Text>
 					{/* Convert string to timestamp in numbers */}
 					{/* <Subtitle textColor={COLORS.softRed} subtitle={'12:10:00'} /> */}
 				</View>
@@ -93,7 +107,6 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 						<Text
 							style={{
 								textAlign: 'center',
-								// padding: 10,
 								paddingHorizontal: 40,
 								fontWeight: 'bold',
 							}}
@@ -132,27 +145,23 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 							<Text style={{ textAlign: 'center' }}>{skipCompanyAddress}</Text>
 						</View>
 						<View style={{ paddingVertical: 20 }}>
-							<Text
-								style={{
-									textAlign: 'center',
-									paddingVertical: 10,
-									textDecorationLine: 'underline',
-									fontWeight: 'bold',
-								}}
-							>
-								View on maps
-							</Text>
+							<TouchableOpacity onPress={() => Alert.alert('todo')}>
+								<Text
+									style={{
+										textAlign: 'center',
+										paddingVertical: 10,
+										textDecorationLine: 'underline',
+										fontWeight: 'bold',
+									}}
+								>
+									View on maps
+								</Text>
+							</TouchableOpacity>
 						</View>
 					</View>
 				</View>
 
 				<View style={{ paddingBottom: 10, paddingHorizontal: 30 }}>
-					{/* <StandardButton
-						bgGreen
-						fontBlue
-						buttonLabel={'Back to Vouchers'}
-						onPress={onCancelPress}
-					/> */}
 					<SmlStandardBtn
 						buttonLabel={'Back to Vouchers'}
 						onPress={onCancelPress}

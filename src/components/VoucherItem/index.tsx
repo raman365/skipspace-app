@@ -4,15 +4,14 @@ import { Icon, ListItem } from '@rneui/base';
 import { COLORS, FONTSIZES } from '../../../constants/theme';
 
 import dayjs from 'dayjs';
-
-let now = dayjs();
+// TODO - Ask whats the purpose of haveing an expiry date? when users can just go and issue another one
 
 interface IProps {
 	hasBeenUsed?: boolean;
 	dateUsed?: Date | string;
 	nameOfCompany?: string;
 	address?: string;
-	dateIssued: string | Date;
+	dateIssued: string; // TODO Date maths
 	onPress?: () => void;
 }
 const VoucherItem: React.FC<IProps> = ({
@@ -76,8 +75,7 @@ const VoucherItem: React.FC<IProps> = ({
 							</Text>
 							<Text style={{ fontSize: FONTSIZES.ml }}>
 								{dateIssued}
-								{/* {console.log(typeof dateIssued)}
-								{console.log(new Date())}
+								{/*{console.log(new Date())}
 								{console.log('day is: ', now.format('DD/MM/YYYY hh:mm:ss'))} */}
 
 								{/* {console.log(dayjs(dateIssued))} */}

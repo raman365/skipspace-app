@@ -11,7 +11,7 @@ import { getAuth } from 'firebase/auth';
 import dayjs from 'dayjs';
 
 import { db } from '../../../../config/firebase';
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 
 const addDataToCollection = async (collectionName: string, data: any) => {
 	try {
@@ -31,17 +31,19 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 	const userFullname = auth.currentUser?.displayName;
 	const userEmail = auth.currentUser?.email;
 	let dateTimeNow = dayjs().format('DD/MM/YYYY');
-	// let dateTimeNow = dayjs().format('DD/MM/YYYY hh:mm:ss');
+	let expiryDate = dayjs().hour(24).format('DD/MM/YYYY');
 
-	// const stringExample = 'test - this is a test a test this is';
+	// TODO: If user already has voucher from one council can they get another?
+	//  can user get vouchers from 2 different councils at once?
+
 	const dataInQRCode = `\n
 						  Date issued: ${dateTimeNow}
+						  Expiry date: ${expiryDate}
 						  Person Details: ${userFullname}
 						  Local Authority Issue: ${localAuth} 
 						  Skip Company Name: ${skipCompanyName}
 						  Skip Company Address: ${skipCompanyAddress}
 	 `;
-	// 'Location Name: Skips are us | Address: 123 Fake Lane, E17 123. This is an example of a QR code';
 
 	const voucherData = {
 		date_issued: dateTimeNow,
