@@ -58,6 +58,8 @@ const SignedInDashboard = ({ navigation }: any) => {
 						provider={PROVIDER_GOOGLE}
 						style={styles.map}
 						// onRegionChange={onRegionChange}
+						showsUserLocation
+						minZoomLevel={2}
 						initialRegion={{
 							latitude: 51.76965576470866,
 							latitudeDelta: 14.44648580599754,

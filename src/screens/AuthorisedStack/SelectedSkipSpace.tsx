@@ -22,8 +22,8 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 	useEffect(() => {
 		(async () => {
 			try {
-				console.log('Add: ', skipCompanyAddress);
-				console.log('sds');
+				// console.log('Add: ', skipCompanyAddress);
+				// console.log('sds');
 				const geocode = await Location.geocodeAsync(skipCompanyAddress);
 
 				if (geocode.length > 0) {

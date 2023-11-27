@@ -19,15 +19,17 @@ const BoroughSearchButton: React.FC<IProps> = ({ councilName, onPress }) => {
 		<TouchableOpacity
 			onPress={onPress}
 			style={{
-				margin: 15,
+				marginVertical: 10,
+				marginHorizontal: 15,
 				paddingHorizontal: 15,
-				paddingVertical: 20,
-				borderRadius: 15,
+				paddingVertical: 10,
+				borderRadius: 5,
 				borderWidth: 1,
-				borderColor: COLORS.lightGrey,
+				borderColor: COLORS.alpha.bgGreen,
+				backgroundColor: COLORS.bgGreen,
 				flexDirection: 'row',
 				justifyContent: 'center',
-				alignContent: 'space-between',
+				// alignContent: 'space-between',
 			}}
 			// onpress show skip spaces in the borough
 		>
@@ -43,9 +45,9 @@ const BoroughSearchButton: React.FC<IProps> = ({ councilName, onPress }) => {
 					{councilName}
 				</Text>
 			</View>
-			<View style={{ justifyContent: 'flex-end' }}>
+			{/* <View style={{ justifyContent: 'flex-end', width: 40 }}>
 				<Icon name='chevron-right' type='FontAwesome' color={COLORS.bgBlue} />
-			</View>
+			</View> */}
 		</TouchableOpacity>
 	);
 };

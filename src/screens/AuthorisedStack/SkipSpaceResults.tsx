@@ -9,32 +9,63 @@ import { COLORS } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
 import { Icon, Text, Card } from '@rneui/themed';
-import { DocumentData, collection, getDocs, query } from 'firebase/firestore';
-import { db } from '../../../config/firebase';
+// import { DocumentData, collection, getDocs, query } from 'firebase/firestore';
 import { FlatList } from 'react-native-gesture-handler';
 import { DetailsCard } from '../../components/DetailsCard';
 import SkipOptionsSheet from '../../components/BottomSheet/SkipOptionSheet';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../../../config/firebase';
+
+interface SubDoc {
+	id: string;
+	skip_company_name: string;
+	skip_company_address: string;
+}
 
 const SkipSpaceResults = ({ route, navigation }: any) => {
-	const { councilName, subCollParams } = route.params;
+	// const { councilName, } = route.params;
 
+	const { mainItemId, council_name } = route.params as {
+		mainItemId: string;
+		council_name: string;
+	};
 	const [isVisible, setIsVisible] = useState(false);
-
-	// const councilname = councilName.toLowerCase();
+	const [skipCompanyData, setskipCompanyData] = useState<SubDoc[]>([]);
 
 	const handleVoucherPress = () => {
 		// navigation.navigate('voucherConfirmation');
-
+		console.log('todo');
 		// TODO: Information gets pushed to database
-		navigation.navigate('voucherConfirmation', {
-			councilName: councilName,
-			skipCompanyName: subCollParams.skip_company_name,
-			skipCompanyAddress: subCollParams.skip_company_location_address,
-			// skipCompanyName: 'Test',
-			// skipCompanyAddress: 'Test Address',
-		});
-		setIsVisible(false);
+		// navigation.navigate('voucherConfirmation', {
+		// 	councilName: councilName,
+		// 	skipCompanyName: skip.skip_company_name,
+		// 	skipCompanyAddress: dataFromSkipCompanies.skip_company_address,
+		// 	// skipCompanyName: 'Test',
+		// 	// skipCompanyAddress: 'Test Address',
+		// });
+		// setIsVisible(false);
 	};
+	useEffect(() => {
+		// fetch sub coll data based on selecet main team id
+
+		const fetchSubCollectionData = async () => {
+			const subCollectionRef = collection(
+				db,
+				'councils',
+				mainItemId,
+				'linkedSkipCompanies'
+			);
+			const subCollectionSnapshot = await getDocs(subCollectionRef);
+			const subCollectionData = subCollectionSnapshot.docs.map((subDoc) => ({
+				id: subDoc.id,
+				...subDoc.data(),
+			})) as SubDoc[];
+
+			setskipCompanyData(subCollectionData);
+		};
+
+		fetchSubCollectionData();
+	}, [mainItemId]);
 
 	return (
 		<SafeAreaProvider>
@@ -63,7 +94,7 @@ const SkipSpaceResults = ({ route, navigation }: any) => {
 						fontFamily: 'Tungsten_SemiBold',
 					}}
 				>
-					SkipSpace in {councilName} council
+					SkipSpace in {council_name} council
 				</Text>
 				<Text
 					style={{
@@ -75,23 +106,50 @@ const SkipSpaceResults = ({ route, navigation }: any) => {
 					Tap for more information
 				</Text>
 			</View>
+			{skipCompanyData.map((item) => (
+				<View key={item.id}>
+					<View>
+						<DetailsCard
+							cardHeading={item.skip_company_name}
+							cardSubheading={item.skip_company_address}
+							onPress={() =>
+								navigation.navigate('selectedSkipSpace', {
+									councilName: council_name,
+									skipCompany: item.skip_company_name,
+									skipCompanyAddress: item.skip_company_address,
+								})
+							}
+							// onPress={() => setIsVisible(true)}
+						/>
 
-			<View>
-				{/* <Text>{councilName}</Text> */}
-				{/* {console.log(subCollParams.length)} */}
+						<SkipOptionsSheet
+							isVisible={isVisible}
+							onCancelPress={() => setIsVisible(false)}
+							onVoucherPress={handleVoucherPress}
+							councilName={council_name}
+							skipCompany={item.skip_company_name}
+							skipCompanyAddress={item.skip_company_address}
+						/>
+					</View>
+				</View>
+			))}
 
-				<FlatList
-					data={subCollParams}
+			{/* <View>
+			 <FlatList
+					data={dataFromSkipCompanies}
 					renderItem={({ item }) => (
 						<>
+							{console.log(
+								`	${item.skip_company_name} = ${item.skip_company_address}`
+							)}
 							<DetailsCard
 								cardHeading={item.skip_company_name}
-								cardSubheading={item.skip_company_location_address}
+								cardSubheading={item.skip_company_address}
 								onPress={() =>
 									navigation.navigate('selectedSkipSpace', {
 										councilName: councilName,
 										skipCompany: item.skip_company_name,
-										skipCompanyAddress: item.skip_company_location_address,
+										skipCompanyAddress: item.skip_company_address,
 									})
 								}
 								// onPress={() => setIsVisible(true)}
@@ -107,8 +165,8 @@ const SkipSpaceResults = ({ route, navigation }: any) => {
 							/>
 						</>
 					)}
-				/>
-			</View>
+				/> 
+			</View>*/}
 		</SafeAreaProvider>
 	);
 };

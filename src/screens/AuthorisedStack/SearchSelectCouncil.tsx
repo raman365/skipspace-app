@@ -1,4 +1,10 @@
-import { View, StyleSheet, ActivityIndicator, FlatList } from 'react-native';
+import {
+	View,
+	StyleSheet,
+	ActivityIndicator,
+	FlatList,
+	TouchableOpacity,
+} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { COLORS, FONTSIZES } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -15,174 +21,135 @@ import {
 	onSnapshot,
 	SnapshotOptions,
 } from 'firebase/firestore';
-// const { listSubcollections } = require('./firestoreService');
 
 // TODO: Generate customized skip id
 
 import { db } from '../../../config/firebase';
 import BoroughSearchButton from '../../components/BoroughSearchButton';
-// import SkipOptionsSheet from '../../components/BottomSheet/SkipOptionSheet';
-import ScreenTitle from '../../components/ScreenTitle';
 import SkipOptionsSheet from '../../components/BottomSheet/SkipOptionSheet';
+
+interface MainDoc {
+	id: string;
+	mainItemId: any;
+	council_name: string;
+	// ... other properties from the main document
+}
 
 const SelectCouncil = ({ navigation }: any) => {
 	// get all data in a collection
-
 	const [councilData, setCouncilData] = useState<DocumentData[]>([]);
-	const [councilName, setCouncilName] = useState<string>('');
 	const [skipCompanyData, setSkipCompanyData] = useState<DocumentData[]>([]);
+	const [selectedMainItemId, setSelectedMainItemId] = useState();
 
-	const [subCollectionData, setSubCollectionData] = useState<any[]>([]);
+	const [unsubscribeSubcollections, setUnsubscribeSubcollections] = useState<
+		(() => void)[]
+	>([]);
 
-	const mainCollData: DocumentData[] = [];
-	const councilColl = collection(db, 'councils');
+	const mainCollectionRef = collection(db, 'councils');
 
-	// turn into a function with council id as the param
-
-	// const handleSubCollectionData = async (council_n: string) => {
-	// 	setCouncilName(council_n);
-	// 	const cn = council_n.toLowerCase().replace(/[^a-z]/g, '');
-
-	// 	// console.log(councilName);
-	// 	console.log('cn: ', cn);
-	// 	const linkedSkipColl = collection(
-	// 		db,
-	// 		'councils',
-	// 		cn,
-	// 		'linkedSkipCompanies'
-	// 	);
-
-	// 	try {
-	// 		const subCollQuerySnapshot = await getDocs(linkedSkipColl);
-	// 		const data: DocumentData[] = [];
-
-	// 			const unsubscribe = onSnapshot(
-	// 				query(collection(db, `councils,${cn},linkedSkipCompanies`)),
-	// 				(snapshot) => {
-	// 					const updatedData = snapshot.docs.map((doc) => ({
-	// 						id: doc.id,
-	// 						...doc.data(),
-	// 					}));
-	// 					setSkipCompanyData(data);
-	// 				}
-	// 			);
-
-	// 		// subCollQuerySnapshot.forEach((doc) => {
-	// 		// 	data.push({ id: doc.id, ...doc.data() });
-
-	// 		// 	// console.log('Skip', data);
-	// 		// 	// setSkipCompanyData(subData);
-	// 		// 	setSkipCompanyData(data);
-
-	// 		// 	navigation.navigate('skipSpaceResults', {
-	// 		// 		councilName: council_n,
-	// 		// 		subCollParams: skipCompanyData,
-	// 		// 	});
-	// 		// });
-	// 	} catch (error: any) {
-	// 		console.log('Sub collection error: ', error);
+	// const unsubscribeMain = onSnapshot(
+	// 	mainCollectionRef,
+	// 	(mainCollectionSnapshot) => {
+	// 		const mainCollectionData = mainCollectionSnapshot.docs.map((doc) => ({
+	// 			id: doc.id,
+	// 			...doc.data(),
+	// 		}));
+	// 		setCouncilData(mainCollectionData);
 	// 	}
+	// );
 
-	// 	// nav to next screen with params
-	// };
+	// const subCollectionRef = collection(db, 'councils', 'councilName', 'linkedSkipCompanies' );
+	// const subCollectionSnapshot = await getDocs(subCollectionRef);
+	// const subCollectionData = subCollectionSnapshot.docs.map(doc => ({
+	// 	id: doc.id,
+	// 	...doc.data(),
 
-	// const getDataByCollection = async () => {
-	// 	try {
-	// 		const mainCollectionQuerySnapshot = await getDocs(councilColl);
-	// 		// const subCollectionDataSnapshot = await getDocs(collection(db, `councils/${el.id}/linkedSkipCompanies`))
+	// }))
+	// setSkipCompanyData(subCollectionData)
 
-	// 		mainCollectionQuerySnapshot.forEach((doc) => {
-	// 			// subDataId.push(doc.id);
-	// 			mainCollData.push(doc.data());
-	// 		});
-	// 		setCouncilData(mainCollData);
-	// 	} catch (error: any) {
-	// 		console.log('Error: ', error);
-	// 	}
-	// };
-
-	const handleSubCollectionData = async (council_n: string) => {
-		// navigation.navigate('skipSpaceResults', {
-		// 	councilName: council_n,
-		// 	// skipCompanyData: skipCompanyData,
-		// });
-
-		const cn = council_n.toLowerCase().replace(/[^a-z]/g, '');
-		const linkedSkipColl = collection(
-			db,
-			'councils',
-			cn,
-			'linkedSkipCompanies'
-		);
-
-		try {
-			const subCollQuerySnapshot = await getDocs(linkedSkipColl);
-			const data: DocumentData[] = [];
-
-			subCollQuerySnapshot.forEach((doc) => {
-				data.push({ id: doc.id, ...doc.data() });
-
-				// console.log('Skip', data);
-				// setSkipCompanyData(subData);
-				setSkipCompanyData(data);
-
-				navigation.navigate('skipSpaceResults', {
-					councilName: council_n,
-					subCollParams: skipCompanyData,
-				});
-			});
-		} catch (error: any) {
-			console.log('Sub collection error: ', error);
-		}
-
-		// nav to next screen with params
-	};
 	useEffect(() => {
-		const unsubscribe = onSnapshot(
-			query(collection(db, 'councils')),
-			(snapshot) => {
-				const updatedCouncilData = snapshot.docs.map((doc) => ({
-					id: doc.id,
-					...doc.data(),
-				}));
+		const fetchData = async () => {
+			// **  get data from main collection
 
-				setCouncilData(updatedCouncilData);
-				console.log(councilData);
-			}
-		);
+			const mainCollectionRef = collection(db, 'councils');
+			const mainCollectionSnapshot = await getDocs(mainCollectionRef);
+			const mainCollectionData = mainCollectionSnapshot.docs.map((doc) => ({
+				id: doc.id,
+				...doc.data(),
+			})) as MainDoc[];
+
+			// Apply council data to state
+			setCouncilData(mainCollectionData);
+
+			// loop through the main collection and set up onsnapshot for updates real time
+			mainCollectionData.forEach(async (mainDoc) => {
+				const subCollectionRef = collection(
+					db,
+					'councils',
+					mainDoc.id,
+					'linkedSkipCompanies'
+				);
+
+				const unsubscribeSubCollection = onSnapshot(
+					subCollectionRef,
+					(subCollectionSnapshot) => {
+						const subCollectionData = subCollectionSnapshot.docs.map(
+							(subDoc) => ({
+								id: subDoc.id,
+								...subDoc.data(),
+							})
+						);
+
+						// setSkipCompanyData((prevData) => ({
+						// 	...prevData,
+						// 	[mainDoc.id]: skipCompanyData,
+						// }));
+						setSkipCompanyData((prevData) => ({
+							...prevData,
+							[mainDoc.id]: subCollectionData,
+						}));
+
+						// push id data into array?
+					}
+				);
+
+				// store the unsub function for later use
+
+				setUnsubscribeSubcollections((prevUnsubscribes) => [
+					...prevUnsubscribes,
+					unsubscribeSubCollection,
+				]);
+			});
+		};
+
+		// loop through the main collection and fetch data from sub
+
+		fetchData();
+
+		// TODO clean up
 		return () => {
-			unsubscribe(); // Cleanup the listener when the component unmounts
+			unsubscribeSubcollections.forEach((unsubscribe) => unsubscribe());
 		};
 	}, []);
 
-	useEffect(() => {
-		// 	const fetchSubCollectionData = async () => {
-		// 		// const cn =
-		// 		const mainCollectionQuery = query(collection(db, 'councils'));
-		// 		const mainCollectionDocs = await getDocs(mainCollectionQuery);
-		// 		const mainCollectionDocsIds = mainCollectionDocs.docs.map(
-		// 			(doc) => doc.id
-		// 		);
-		// 		const subCollectionData: any[] = [];
-		// 		for (const docId of mainCollectionDocsIds) {
-		// 			const subCollectionQuery = query(
-		// 				collection(db, 'councils', docId, 'linkedSkipCompanies')
-		// 			);
-		// 			const subCollectionDataSnapshot = await getDocs(subCollectionQuery);
-		// 			subCollectionDataSnapshot.forEach((subDoc) => {
-		// 				subCollectionData.push({
-		// 					mainDocId: docId,
-		// 					subDocId: subDoc.id,
-		// 					...subDoc.data(),
-		// 				});
-		// 			});
-		// 		}
-		// 		setSubCollectionData(subCollectionData);
-		// 	};
-		// 	fetchSubCollectionData;
-		// }, [councilData]);
-	}, []);
+	const handleBoroughSearch = (council_n: string) => {
+		console.log('Selected council: ', council_n);
+		navigation.navigate('skipSpaceResults', {
+			councilName: council_n,
+			dataFromCouncil: councilData,
+			dataFromSkipCompanies: skipCompanyData,
+		});
+	};
 
+	const handleSelectedBorough = (mainItemId: string, council_name: string) => {
+		// Update the selected main item ID
+		// setSelectedMainItemId(mainItemId);
+		console.log(mainItemId + ' = ' + council_name);
+		navigation.navigate('skipSpaceResults', {
+			mainItemId,
+			council_name,
+		});
+	};
 	return (
 		<SafeAreaProvider>
 			<HeaderComponent
@@ -200,7 +167,12 @@ const SelectCouncil = ({ navigation }: any) => {
 					navigation.toggleDrawer();
 				}}
 			/>
-			<View style={{ paddingTop: 30 }}>
+			<View
+				style={{
+					paddingTop: 30,
+					flex: 1,
+				}}
+			>
 				<Text
 					h4
 					h4Style={{
@@ -223,34 +195,73 @@ const SelectCouncil = ({ navigation }: any) => {
 					Tap on your local borough to find SkipSpace in your area
 				</Text>
 
-				<FlatList
-					data={councilData}
-					// keyExtractor={i}
-					renderItem={({ item }) => (
-						<BoroughSearchButton
-							councilName={item.council_name}
-							onPress={() => handleSubCollectionData(item.council_name)}
-						/>
-					)}
-				/>
+				<View style={{ flex: 1 }}>
+					{/* <FlatList
+						data={councilData}
+						// key={}
+						renderItem={({ item }) => (
+						 */}
+					{/* // <BoroughSearchButton */}
+					{/* // 	councilName={item.council_name}
+
+							// 	onPress={() => handleBoroughSearch(item.council_name)}
+							// 	// onPress={() => setIsVisible(true)}
+							// /> */}
+					{councilData.map((mainDoc) => (
+						<View key={mainDoc.id}>
+							<TouchableOpacity
+								key={mainDoc.id}
+								onPress={() =>
+									handleSelectedBorough(mainDoc.id, mainDoc.council_name)
+								}
+								style={{
+									marginVertical: 10,
+									marginHorizontal: 15,
+									paddingHorizontal: 15,
+									paddingVertical: 10,
+									borderRadius: 5,
+									borderWidth: 1,
+									borderColor: COLORS.alpha.bgGreen,
+									backgroundColor: COLORS.bgGreen,
+									flexDirection: 'row',
+									justifyContent: 'center',
+								}}
+							>
+								<View>
+									<Text
+										style={{
+											fontSize: FONTSIZES.xl,
+											textAlign: 'center',
+											color: COLORS.bgBlue,
+											fontWeight: 'bold',
+										}}
+									>
+										{mainDoc.council_name}
+									</Text>
+								</View>
+							</TouchableOpacity>
+						</View>
+					))}
+					{/* )} */}
+					{/* /> */}
+					{/* {councilData.map((mainDoc) => (
+						<View key={mainDoc.id}>
+							<Text style={{ fontWeight: 'bold' }}>{mainDoc.council_name}</Text>
+							<View>
+								{skipCompanyData[mainDoc.id] &&
+									skipCompanyData[mainDoc.id].map((subItem: any) => (
+										<View key={subItem.id} style={{ paddingBottom: 10 }}>
+											<Text>{subItem.skip_company_name}</Text>
+											<Text>{subItem.skip_company_address}</Text>
+										</View>
+									))}
+							</View>
+						</View>
+					))} */}
+				</View>
 			</View>
 		</SafeAreaProvider>
 	);
 };
-
-const styles = StyleSheet.create({
-	centerContainer: {
-		paddingTop: 50,
-		paddingHorizontal: 20,
-		display: 'flex',
-		justifyContent: 'center',
-	},
-	mainContainer: {
-		flex: 1,
-		// alignItems: 'flex-start',
-		justifyContent: 'center',
-		// justifyItems: ''
-	},
-});
 
 export default SelectCouncil;
