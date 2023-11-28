@@ -100,10 +100,6 @@ const SelectCouncil = ({ navigation }: any) => {
 							})
 						);
 
-						// setSkipCompanyData((prevData) => ({
-						// 	...prevData,
-						// 	[mainDoc.id]: skipCompanyData,
-						// }));
 						setSkipCompanyData((prevData) => ({
 							...prevData,
 							[mainDoc.id]: subCollectionData,
@@ -133,7 +129,7 @@ const SelectCouncil = ({ navigation }: any) => {
 	}, []);
 
 	const handleBoroughSearch = (council_n: string) => {
-		console.log('Selected council: ', council_n);
+		// console.log('Selected council: ', council_n);
 		navigation.navigate('skipSpaceResults', {
 			councilName: council_n,
 			dataFromCouncil: councilData,
@@ -142,9 +138,6 @@ const SelectCouncil = ({ navigation }: any) => {
 	};
 
 	const handleSelectedBorough = (mainItemId: string, council_name: string) => {
-		// Update the selected main item ID
-		// setSelectedMainItemId(mainItemId);
-		console.log(mainItemId + ' = ' + council_name);
 		navigation.navigate('skipSpaceResults', {
 			mainItemId,
 			council_name,
@@ -196,68 +189,55 @@ const SelectCouncil = ({ navigation }: any) => {
 				</Text>
 
 				<View style={{ flex: 1 }}>
-					{/* <FlatList
-						data={councilData}
-						// key={}
-						renderItem={({ item }) => (
-						 */}
-					{/* // <BoroughSearchButton */}
-					{/* // 	councilName={item.council_name}
-
-							// 	onPress={() => handleBoroughSearch(item.council_name)}
-							// 	// onPress={() => setIsVisible(true)}
-							// /> */}
-					{councilData.map((mainDoc) => (
-						<View key={mainDoc.id}>
-							<TouchableOpacity
-								key={mainDoc.id}
-								onPress={() =>
-									handleSelectedBorough(mainDoc.id, mainDoc.council_name)
-								}
-								style={{
-									marginVertical: 10,
-									marginHorizontal: 15,
-									paddingHorizontal: 15,
-									paddingVertical: 10,
-									borderRadius: 5,
-									borderWidth: 1,
-									borderColor: COLORS.alpha.bgGreen,
-									backgroundColor: COLORS.bgGreen,
-									flexDirection: 'row',
-									justifyContent: 'center',
-								}}
-							>
-								<View>
-									<Text
+					{councilData ? (
+						<>
+							{councilData.map((mainDoc) => (
+								<View key={mainDoc.id}>
+									<TouchableOpacity
+										key={mainDoc.id}
+										onPress={() =>
+											handleSelectedBorough(mainDoc.id, mainDoc.council_name)
+										}
 										style={{
-											fontSize: FONTSIZES.xl,
-											textAlign: 'center',
-											color: COLORS.bgBlue,
-											fontWeight: 'bold',
+											marginVertical: 10,
+											marginHorizontal: 15,
+											paddingHorizontal: 15,
+											paddingVertical: 10,
+											borderRadius: 5,
+											borderWidth: 1,
+											borderColor: COLORS.alpha.bgGreen,
+											backgroundColor: COLORS.bgGreen,
+											flexDirection: 'row',
+											justifyContent: 'center',
 										}}
 									>
-										{mainDoc.council_name}
-									</Text>
-								</View>
-							</TouchableOpacity>
-						</View>
-					))}
-					{/* )} */}
-					{/* /> */}
-					{/* {councilData.map((mainDoc) => (
-						<View key={mainDoc.id}>
-							<Text style={{ fontWeight: 'bold' }}>{mainDoc.council_name}</Text>
-							<View>
-								{skipCompanyData[mainDoc.id] &&
-									skipCompanyData[mainDoc.id].map((subItem: any) => (
-										<View key={subItem.id} style={{ paddingBottom: 10 }}>
-											<Text>{subItem.skip_company_name}</Text>
-											<Text>{subItem.skip_company_address}</Text>
+										<View>
+											<Text
+												style={{
+													fontSize: FONTSIZES.xl,
+													textAlign: 'center',
+													color: COLORS.bgBlue,
+													fontWeight: 'bold',
+												}}
+											>
+												{mainDoc.council_name}
+											</Text>
 										</View>
-									))}
-							</View>
+									</TouchableOpacity>
+								</View>
+							))}
+						</>
+					) : (
+						<View
+							style={{
+								flex: 1,
+								justifyContent: 'center',
+								alignContent: 'center',
+							}}
+						>
+							<ActivityIndicator size={'large'} color={COLORS.bgGreen} />
 						</View>
-					))} */}
+					)}
 				</View>
 			</View>
 		</SafeAreaProvider>

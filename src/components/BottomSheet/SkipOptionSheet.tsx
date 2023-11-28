@@ -38,38 +38,39 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 	const [longitude, setLongitude] = useState<any>(null);
 	const [latitude, setLatitude] = useState<any>(null);
 
-	useEffect(() => {
-		(async () => {
-			try {
-				console.log('Add: ', skipCompanyAddress);
-				const geocode = await Location.geocodeAsync(skipCompanyAddress);
+	// useEffect(() => {
+	// 	(async () => {
+	// 		try {
+	// 			console.log('Addsdfds: ', skipCompanyAddress);
+	// 			const geocode = await Location.geocodeAsync(skipCompanyAddress);
 
-				if (geocode.length > 0) {
-					// console.log('Geocode is: ', geocode);
-					setLongitude(geocode[0].longitude);
-					setLatitude(geocode[0].latitude);
-				} else {
-					//TODO:  Convert to alert
-					console.error('Invalid address');
-				}
-			} catch (error) {
-				//TODO:  Convert to alert
-				console.error('Error getting location: ', error);
-			}
-		})();
-	}, [skipCompanyAddress]);
+	// 			if (geocode.length > 0) {
+	// 				// console.log('Geocode is: ', geocode);
+	// 				setLongitude(geocode[0].longitude);
+	// 				setLatitude(geocode[0].latitude);
+	// 			} else {
+	// 				//TODO:  Convert to alert
+	// 				console.error('Invalid address');
+	// 			}
+	// 		} catch (error) {
+	// 			//TODO:  Convert to alert
+	// 			console.error('Error getting location: ', error);
+	// 		}
+	// 	})();
+	// }, [skipCompanyAddress]);
 
 	const handleOpenMaps = () => {
-		if (latitude && longitude) {
-			const url: any = Platform.select({
-				ios: `maps://app?daddr${latitude},${longitude}&dirflg=d`,
-				android: `google.navigation:q=${latitude},${longitude}&mode`,
-			});
-			// console.log('url: ', url);
-			Linking.openURL(url);
-		} else {
-			console.error('Location is not available');
-		}
+		console.log('handlemaps');
+		// if (latitude && longitude) {
+		// 	const url: any = Platform.select({
+		// 		ios: `maps://app?daddr${latitude},${longitude}&dirflg=d`,
+		// 		android: `google.navigation:q=${latitude},${longitude}&mode`,
+		// 	});
+		// 	// console.log('url: ', url);
+		// 	Linking.openURL(url);
+		// } else {
+		// 	console.error('Location is not available');
+		// }
 	};
 	return (
 		<BottomSheet

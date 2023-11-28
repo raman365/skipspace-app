@@ -1,16 +1,9 @@
-import {
-	View,
-	StyleSheet,
-	ActivityIndicator,
-	TouchableOpacity,
-} from 'react-native';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { COLORS } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
-import { Icon, Text, Card } from '@rneui/themed';
-// import { DocumentData, collection, getDocs, query } from 'firebase/firestore';
-import { FlatList } from 'react-native-gesture-handler';
+import { Icon, Text } from '@rneui/themed';
 import { DetailsCard } from '../../components/DetailsCard';
 import SkipOptionsSheet from '../../components/BottomSheet/SkipOptionSheet';
 import { collection, getDocs } from 'firebase/firestore';
