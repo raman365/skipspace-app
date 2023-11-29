@@ -47,6 +47,7 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 
 	const voucherData = {
 		date_issued: dateTimeNow,
+		date_expires: expiryDate,
 		user_name: userFullname,
 		user_email: userEmail,
 		local_auth_issue: localAuth,

@@ -12,6 +12,7 @@ interface IProps {
 	nameOfCompany?: string;
 	address?: string;
 	dateIssued: string; // TODO Date maths
+	dateExpires: string;
 	onPress?: () => void;
 }
 const VoucherItem: React.FC<IProps> = ({
@@ -20,6 +21,7 @@ const VoucherItem: React.FC<IProps> = ({
 	nameOfCompany,
 	address,
 	dateIssued,
+	dateExpires,
 	onPress,
 }) => {
 	return (
@@ -49,13 +51,14 @@ const VoucherItem: React.FC<IProps> = ({
 						<ListItem.Subtitle
 							style={{
 								color: hasBeenUsed ? COLORS.lightGrey : COLORS.black,
-								paddingTop: 5,
 							}}
 						>
-							<Text style={{ fontWeight: 'bold', fontSize: FONTSIZES.ml }}>
-								Address:{' '}
-							</Text>
-							<Text style={{ fontSize: FONTSIZES.ml }}>{address}</Text>
+							<View style={{ paddingTop: 5 }}>
+								<Text style={{ fontWeight: 'bold', fontSize: FONTSIZES.ml }}>
+									Address:{' '}
+								</Text>
+								<Text style={{ fontSize: FONTSIZES.ml }}>{address}</Text>
+							</View>
 						</ListItem.Subtitle>
 					</View>
 					<View>
@@ -71,10 +74,11 @@ const VoucherItem: React.FC<IProps> = ({
 									fontSize: FONTSIZES.ml,
 								}}
 							>
-								Date Issued:{' '}
+								Expires:{' '}
 							</Text>
 							<Text style={{ fontSize: FONTSIZES.ml }}>
-								{dateIssued}
+								{/* {dateIssued} */}
+								{dateExpires}
 								{/*{console.log(new Date())}
 								{console.log('day is: ', now.format('DD/MM/YYYY hh:mm:ss'))} */}
 
@@ -105,9 +109,9 @@ export default VoucherItem;
 
 const styles = StyleSheet.create({
 	voucherItem: {
-		marginBottom: 10,
+		// marginBottom: 10,
 		borderTopColor: COLORS.lightGrey,
-		borderTopWidth: 1,
+		// borderTopWidth: 1,
 		borderBottomColor: COLORS.lightGrey,
 		borderBottomWidth: 1,
 	},

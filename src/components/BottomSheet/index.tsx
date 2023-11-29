@@ -23,6 +23,7 @@ interface IVoucherSheetProps {
 	localAuthIssue: string;
 	// dateIssued: string | Date;
 	dateIssued: string; //TODO change
+	dateExpires: string; // TODO change
 	// qrCode: React.ReactElement;
 
 	// mapLink: string
@@ -38,6 +39,7 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 	userName,
 	localAuthIssue,
 	dateIssued,
+	dateExpires,
 }) => {
 	// TODO : Work with date string on voucher
 	// TODO: Maps link on bottom sheeet voucher
@@ -45,6 +47,7 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 	// const now = dayjs();
 	const dataInQRCode = `\n
 						  Date issued: ${dateIssued}
+						  Date expires: ${dateExpires}
 						  Person Details: ${userName}
 						  Local Authority Issue: ${localAuthIssue} 
 						  Skip Company Name: ${skipCompanyName}
@@ -68,20 +71,10 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 
 				<View style={styles.viewSection}>
 					<Subtitle subtitle={'Expires: '} />
-					<CountdownTimer />
+					{/* <CountdownTimer /> */}
 					<View style={{ flexDirection: 'column' }}>
-						{/* <Text>{dayjs(dateIssued).format('DD/MM/YYYY')}</Text> */}
-						{/* <Text>{console.log(typeof dateIssued)}</Text> */}
-						{/* <Text>
-							{dayjs('2019-01-25')
-								.add(1, 'day')
-								.subtract(1, 'year')
-								.year(2009)
-								.toString()}
-						</Text> */}
+						<Text>{dateExpires}</Text>
 					</View>
-
-					<Text>{dateIssued}</Text>
 					{/* Convert string to timestamp in numbers */}
 					{/* <Subtitle textColor={COLORS.softRed} subtitle={'12:10:00'} /> */}
 				</View>

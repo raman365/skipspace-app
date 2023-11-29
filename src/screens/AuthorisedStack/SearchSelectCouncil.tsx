@@ -45,8 +45,6 @@ const SelectCouncil = ({ navigation }: any) => {
 		(() => void)[]
 	>([]);
 
-	const mainCollectionRef = collection(db, 'councils');
-
 	// const unsubscribeMain = onSnapshot(
 	// 	mainCollectionRef,
 	// 	(mainCollectionSnapshot) => {
@@ -104,8 +102,6 @@ const SelectCouncil = ({ navigation }: any) => {
 							...prevData,
 							[mainDoc.id]: subCollectionData,
 						}));
-
-						// push id data into array?
 					}
 				);
 
@@ -128,14 +124,14 @@ const SelectCouncil = ({ navigation }: any) => {
 		};
 	}, []);
 
-	const handleBoroughSearch = (council_n: string) => {
-		// console.log('Selected council: ', council_n);
-		navigation.navigate('skipSpaceResults', {
-			councilName: council_n,
-			dataFromCouncil: councilData,
-			dataFromSkipCompanies: skipCompanyData,
-		});
-	};
+	// const handleBoroughSearch = (council_n: string) => {
+	// 	// console.log('Selected council: ', council_n);
+	// 	navigation.navigate('skipSpaceResults', {
+	// 		councilName: council_n,
+	// 		dataFromCouncil: councilData,
+	// 		dataFromSkipCompanies: skipCompanyData,
+	// 	});
+	// };
 
 	const handleSelectedBorough = (mainItemId: string, council_name: string) => {
 		navigation.navigate('skipSpaceResults', {

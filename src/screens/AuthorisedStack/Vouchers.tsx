@@ -95,6 +95,14 @@ const Vouchers = ({ navigation }: any) => {
 				return () => {
 					unsubscribe(); // Cleanup the listener when the component unmounts
 				};
+
+				// CHECK DATE ON VOUCHER
+				/* 
+				
+				IF date is less than today then place in expiry date section
+				
+				*/
+
 				// const querySnapshot = await getDocs(q);
 				// const newData = querySnapshot.docs.map((doc) => ({
 				// 	id: doc.id,
@@ -121,6 +129,7 @@ const Vouchers = ({ navigation }: any) => {
 					nameOfCompany={voucher.skip_company_name}
 					address={voucher.skip_company_address}
 					dateIssued={voucher.date_issued}
+					dateExpires={voucher.date_expires}
 					onPress={handleVoucherItem}
 					hasBeenUsed={false}
 				/>
@@ -133,53 +142,14 @@ const Vouchers = ({ navigation }: any) => {
 					localAuthIssue={voucher.local_auth_issue}
 					userName={voucher.userName}
 					// dateIssued={dayjs(voucher.date_issued.toDate())}
+					dateExpires={voucher.date_expires}
 					dateIssued={voucher.date_issued}
 					onHelpPress={handleHelp}
 				/>
-				{console.log(dayjs().toDate())}
 			</View>
 		));
 	};
 
-	// const VoucherData = () => {
-	// 	return <>
-	// 		<FlatList
-	// 			data={data}
-	// 			keyExtractor={voucher => voucher.id}
-	// 			renderItem={ ({voucher}) => {
-	// 				return (
-	// 				<>
-	// 					{voucher == 0
-	// 						? <Text> You currently have no active vouchers</Text>
-	// 						: <View>
-	// 							<VoucherItem
-	// 								nameOfCompany={voucher.skip_company_name}
-	// 								address={voucher.skip_company_address}
-	// 								dateIssued={voucher.date_issued.toString()}
-	// 								onPress={handleVoucherItem}
-	// 								hasBeenUsed={false}
-	// 							/>
-
-	// 							<VoucherSheet
-	// 								isShown={isVisible}
-	// 								onCancelPress={handleBackdropPress}
-	// 								skipCompanyName={voucher.skip_company_name}
-	// 								skipCompanyAddress={voucher.skip_company_address} // onBottomButtonPress={onCancelPress}
-	// 								localAuthIssue={voucher.local_auth_issue}
-	// 								userName={voucher.userName}
-	// 								dateIssued={voucher.date_issued}
-	// 							/>
-	// 					</View>
-	// 					}
-
-	// 				</>
-	// 				)
-	// 			}
-	// 		}
-
-	// 		/>
-	// 	</>
-	// }
 	return (
 		<SafeAreaProvider>
 			<HeaderComponent
@@ -233,34 +203,6 @@ const Vouchers = ({ navigation }: any) => {
 							) : (
 								renderVouchers()
 							)}
-
-							{/* {data.map((voucher: any) => (
-									<View key={voucher.id}>
-										<VoucherItem
-											nameOfCompany={voucher.skip_company_name}
-											address={voucher.skip_company_address}
-											dateIssued={voucher.date_issued.toString()}
-											onPress={handleVoucherItem}
-											hasBeenUsed={false}
-										/>
-
-										<VoucherSheet
-											isVisible={isVisible}
-											onCancelPress={handleBackdropPress}
-											skipCompanyName={voucher.skip_company_name}
-											skipCompanyAddress={voucher.skip_company_address} // onBottomButtonPress={onCancelPress}
-											localAuthIssue={voucher.local_auth_issue}
-											userName={voucher.userName}
-										/>
-									</View>
-								))} */}
-							{/* <VoucherItem
-								nameOfCompany='Skips R Us'
-								address='123 Fake Avenue, 24 Fake lane, 123 6AA'
-								onPress={handleVoucherItem}
-								hasBeenUsed={false}
-							/> */}
-							{/* Flat list of links to vouchers */}
 						</View>
 					</ScrollView>
 				</View>

@@ -24,36 +24,48 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 		longitude: number;
 	} | null>(null);
 
+	console.log('Onload: ', skipCompanyAddress);
+
 	useEffect(() => {
-		console.log('loaded');
 		setSkipLocation(skipCompanyAddress);
-		console.log('SKP', skipLocation);
 
-		const getCoordinates = async () => {
-			try {
-				// console.log('Skip Location: ', skipLocation);
+		console.log(`
+  		${councilName} - 
+		${skipLocation}
 
-				const locationData = await Location.geocodeAsync(skipLocation);
+		
+}`);
+	}, []);
 
-				console.log('new', skipLocation);
+	useFocusEffect(
+		React.useCallback(() => {
+			// Fetch coordinates when the screen comes into focus
+			// getCoordinates();
+			console.log('Skip location: ', skipLocation);
+		}, [skipLocation])
+	);
 
-				if (locationData && locationData.length > 0) {
-					setCoordinates({
-						latitude: locationData[0].latitude,
-						longitude: locationData[0].longitude,
-					});
+	// useEffect(() => {
+	// 	setSkipLocation(skipCompanyAddress);
 
-					// console.log('Coords:', coordinates);
-				} else {
-					//TODO: ERROR HANDLING
-					console.error('No coordinates found for the given address');
-				}
-			} catch (error) {
-				console.error('Error fetching coordinates', error);
-			}
-		};
-		getCoordinates();
-	}, [skipLocation]);
+	// 	const getCoordinates = async () => {
+	// 		try {
+	// 			const locationData = await Location.geocodeAsync(skipLocation);
+	// 			if (locationData && locationData.length > 0) {
+	// 				setCoordinates({
+	// 					latitude: locationData[0].latitude,
+	// 					longitude: locationData[0].longitude,
+	// 				});
+	// 			} else {
+	// 				//TODO: ERROR HANDLING
+	// 				console.error('No coordinates found for the given address');
+	// 			}
+	// 		} catch (error) {
+	// 			console.error('Error fetching coordinates', error);
+	// 		}
+	// 	};
+	// 	getCoordinates();
+	// }, [skipLocation]);
 
 	// useEffect(() => {
 	// 	// onload update map
@@ -121,15 +133,6 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 		// 		console.error('Location is not available');
 		// 	}
 	};
-
-	// useFocusEffect(
-
-	// 	React.useCallback(() => {
-	// 		// Fetch coordinates when the screen comes into focus
-	// 		getCoordinates();
-	// 		console.log('Skip location: ', skipLocation);
-	// 	}, [skipLocation])
-	// );
 
 	return (
 		<SafeAreaProvider>
