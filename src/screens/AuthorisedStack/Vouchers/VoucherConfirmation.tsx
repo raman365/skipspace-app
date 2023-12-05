@@ -1,10 +1,10 @@
 import { View, StyleSheet } from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { COLORS, FONTSIZES } from '../../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../../components/Header';
 import { Button, Icon, Text, ListItem } from '@rneui/themed';
-import QREncoder from '../../../components/QREncoder';
+// import QREncoder from '../../../components/QREncoder';
 import StandardButton from '../../../components/Button/StandardBtn';
 import ScreenTitle from '../../../components/ScreenTitle';
 import { getAuth } from 'firebase/auth';
@@ -12,6 +12,8 @@ import dayjs from 'dayjs';
 
 import { db } from '../../../../config/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import QRCoder from '../../../components/QREncoder';
+import { encryptData } from '../../../utils/encryptDecrypt';
 
 const addDataToCollection = async (collectionName: string, data: any) => {
 	try {
@@ -25,16 +27,17 @@ const addDataToCollection = async (collectionName: string, data: any) => {
 		console.error('Error adding document: ', error);
 	}
 };
+
 const VoucherConfirmation = ({ route, navigation }: any) => {
 	const { localAuth, skipCompanyName, skipCompanyAddress } = route.params;
+
 	const auth = getAuth();
+
 	const userFullname = auth.currentUser?.displayName;
 	const userEmail = auth.currentUser?.email;
+
 	let dateTimeNow = dayjs().format('DD/MM/YYYY');
 	let expiryDate = dayjs().hour(24).format('DD/MM/YYYY');
-
-	// TODO: If user already has voucher from one council can they get another?
-	//  can user get vouchers from 2 different councils at once?
 
 	const dataInQRCode = `\n
 						  Date issued: ${dateTimeNow}
@@ -44,6 +47,24 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 						  Skip Company Name: ${skipCompanyName}
 						  Skip Company Address: ${skipCompanyAddress}
 	 `;
+
+	const secretKey = 'theSecretKey';
+	const dataToEncode = dataInQRCode;
+
+	const encData = encryptData(dataToEncode, secretKey);
+
+	// const [data, setData] = useState<string>('');
+
+	// useEffect(() => {
+	// 	// encrypt the data
+	// 	setData(dataInQRCode);
+
+	// 	const encryptedData = encryptData(data, secretKey);
+	// 	console.log('Encrypted data: ', encryptedData);
+	// }, [data]);
+
+	// TODO: If user already has voucher from one council can they get another?
+	//  can user get vouchers from 2 different councils at once?
 
 	const voucherData = {
 		date_issued: dateTimeNow,
@@ -109,9 +130,11 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 						alignItems: 'center',
 					}}
 				>
-					<QREncoder codeValue={dataInQRCode} />
+					{/* <QREncoder codeValue={dataInQRCode} /> */}
 
-					{console.log(dataInQRCode)}
+					<QRCoder data={encData} />
+
+					{console.log('Data in qr: ', dataInQRCode)}
 					{/* <Text>{dataInQRCode}</Text> */}
 				</View>
 
