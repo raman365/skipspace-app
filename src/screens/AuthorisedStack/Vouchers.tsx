@@ -49,6 +49,7 @@ const Vouchers = ({ navigation }: any) => {
 	const [isVisible, setIsVisible] = useState(false);
 	const [data, setData] = useState<any>([]);
 	const [isLoading, setIsLoading] = useState(false);
+	const userFullname = auth.currentUser?.displayName;
 
 	// TODO: Database permissions
 	const handleVoucherItem = () => {
@@ -140,7 +141,8 @@ const Vouchers = ({ navigation }: any) => {
 					skipCompanyName={voucher.skip_company_name}
 					skipCompanyAddress={voucher.skip_company_address} // onBottomButtonPress={onCancelPress}
 					localAuthIssue={voucher.local_auth_issue}
-					userName={voucher.userName}
+					// userName={voucher.userName}
+					userName={userFullname}
 					// dateIssued={dayjs(voucher.date_issued.toDate())}
 					dateExpires={voucher.date_expires}
 					dateIssued={voucher.date_issued}

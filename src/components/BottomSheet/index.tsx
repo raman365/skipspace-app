@@ -5,19 +5,21 @@ import { BottomSheet, ListItem } from '@rneui/themed';
 
 import { COLORS, FONTSIZES } from '../../../constants/theme';
 import ScreenTitle from '../ScreenTitle';
-import QREncoder from '../QREncoder';
+import QREncoder from '../QRCoder';
 import StandardButton from '../Button/StandardBtn';
 import Subtitle from '../Subtitle';
 import CountdownTimer from '../Timer';
 import SmlStandardBtn from '../Button/SmallStandardBtn';
 import ClearBtn from '../Button/ClearBtn';
 import dayjs from 'dayjs';
+import QRCoder from '../QRCoder';
+import { encryptData } from '../../utils/encryptDecrypt';
 
 interface IVoucherSheetProps {
 	isShown: boolean;
 	onCancelPress: () => void;
 	onHelpPress: () => void;
-	userName: string;
+	userName: any;
 	skipCompanyName: string;
 	skipCompanyAddress: string;
 	localAuthIssue: string;
@@ -45,17 +47,24 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 	// TODO: Maps link on bottom sheeet voucher
 	////   Date issued: ${new Date()}
 	// const now = dayjs();
-	const dataInQRCode = `\n
-						  Date issued: ${dateIssued}
-						  Date expires: ${dateExpires}
-						  Person Details: ${userName}
-						  Local Authority Issue: ${localAuthIssue} 
-						  Skip Company Name: ${skipCompanyName}
-						  Skip Company Address: ${skipCompanyAddress}
-	 `;
+	// const dataInQRCode = `\n
+	// 					  Date issued: ${dateIssued}
+	// 					  Date expires: ${dateExpires}
+	// 					  Person Details: ${userName}
+	// 					  Local Authority Issue: ${localAuthIssue}
+	// 					  Skip Company Name: ${skipCompanyName}
+	// 					  Skip Company Address: ${skipCompanyAddress}
+	//  `;
 
 	// const [isVisible, setIsVisible] = useState(false)
-	console.log(dayjs(dateIssued));
+	// console.log(dayjs(dateIssued));
+
+	const dataInQRCode = `\n Date issued: ${dateIssued} \n Expiry date: ${dateExpires} \nPerson Details: ${userName} \n Local Authority Issue: ${localAuthIssue} \nSkip Company Name: ${skipCompanyName} \n Skip Company Address:\n${skipCompanyAddress}`;
+
+	const secretKey = 'theSecretKey';
+	const dataToEncode = dataInQRCode;
+
+	const encData = encryptData(dataToEncode, secretKey);
 	return (
 		<BottomSheet
 			isVisible={isShown}
@@ -87,7 +96,7 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 							padding: 20,
 						}}
 					>
-						<QREncoder codeValue={dataInQRCode} />
+						<QRCoder data={encData} />
 					</View>
 
 					<View

@@ -2,11 +2,16 @@ import React, { useEffect } from 'react';
 import { ActivityIndicator, Text } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import { COLORS } from '../../../constants/theme';
+import { encryptData } from '../../utils/encryptDecrypt';
 
 interface QRCoderProps {
 	data: string;
 }
 const QRCoder: React.FC<QRCoderProps> = ({ data }) => {
+	// const secretKey = 'theSecretKey';
+	// const dataToEncode = data;
+	// const encData = encryptData(dataToEncode, secretKey);
+
 	return (
 		<>
 			{data ? (
@@ -19,6 +24,11 @@ const QRCoder: React.FC<QRCoderProps> = ({ data }) => {
 };
 
 export default QRCoder;
+
+//TODO:
+// Add 24 hour timer to QR code
+// encrypt data in QR code
+
 // const [originalData, setOriginalData] = React.useState(codeValue);
 
 // const [encryptedData, setEncryptedData] = React.useState<string | any>(null);
@@ -59,7 +69,3 @@ export default QRCoder;
 // useEffect(() => {
 // 	encryptData(codeValue);
 // }, [codeValue]);
-
-//TODO:
-// Add 24 hour timer to QR code
-// encrypt data in QR code

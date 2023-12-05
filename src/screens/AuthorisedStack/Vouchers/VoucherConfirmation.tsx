@@ -12,7 +12,7 @@ import dayjs from 'dayjs';
 
 import { db } from '../../../../config/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-import QRCoder from '../../../components/QREncoder';
+import QRCoder from '../../../components/QRCoder';
 import { encryptData } from '../../../utils/encryptDecrypt';
 
 const addDataToCollection = async (collectionName: string, data: any) => {
@@ -39,7 +39,8 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 	let dateTimeNow = dayjs().format('DD/MM/YYYY');
 	let expiryDate = dayjs().hour(24).format('DD/MM/YYYY');
 
-	const dataInQRCode = `\n Date issued: ${dateTimeNow} \n Expiry date: ${expiryDate} \nPerson Details: ${userFullname} \n Local Authority Issue :${localAuth} \nSkip Company Name: ${skipCompanyName} \n Skip Company Address:\n${skipCompanyAddress}`;
+	const dataInQRCode = `\n Date issued: ${dateTimeNow} \n Expiry date: ${expiryDate} \nPerson Details: ${userFullname} \n Local Authority Issue: ${localAuth} \nSkip Company Name: ${skipCompanyName} \n Skip Company Address:\n${skipCompanyAddress}`;
+
 	const secretKey = 'theSecretKey';
 	const dataToEncode = dataInQRCode;
 
@@ -125,6 +126,7 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 					{/* <QREncoder codeValue={dataInQRCode} /> */}
 
 					<QRCoder data={encData} />
+					{/* <QRCoder data={dataInQRCode} /> */}
 
 					{console.log('Data in qr: ', dataInQRCode)}
 					{/* <Text>{dataInQRCode}</Text> */}
