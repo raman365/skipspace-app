@@ -39,15 +39,7 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 	let dateTimeNow = dayjs().format('DD/MM/YYYY');
 	let expiryDate = dayjs().hour(24).format('DD/MM/YYYY');
 
-	const dataInQRCode = `\n
-						  Date issued: ${dateTimeNow}
-						  Expiry date: ${expiryDate}
-						  Person Details: ${userFullname}
-						  Local Authority Issue: ${localAuth} 
-						  Skip Company Name: ${skipCompanyName}
-						  Skip Company Address: ${skipCompanyAddress}
-	 `;
-
+	const dataInQRCode = `\n Date issued: ${dateTimeNow} \n Expiry date: ${expiryDate} \nPerson Details: ${userFullname} \n Local Authority Issue :${localAuth} \nSkip Company Name: ${skipCompanyName} \n Skip Company Address:\n${skipCompanyAddress}`;
 	const secretKey = 'theSecretKey';
 	const dataToEncode = dataInQRCode;
 

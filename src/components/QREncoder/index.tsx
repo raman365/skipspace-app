@@ -1,13 +1,7 @@
 import React, { useEffect } from 'react';
 import { ActivityIndicator, Text } from 'react-native';
-// import CryptoJS from 'react-native-crypto-js';
 import QRCode from 'react-native-qrcode-svg';
 import { COLORS } from '../../../constants/theme';
-
-// interface IQREncoderProps {
-// 	// codeValue: string[] | Array<String>()
-// 	codeValue: any;
-// }
 
 interface QRCoderProps {
 	data: string;
