@@ -71,7 +71,7 @@ const ForgotDetails = ({ navigation }: NavProps) => {
 
 	const handlePasswordReset = () => {
 		sendPasswordResetEmail(forgotEmail);
-		navigation.navigate('signIn');
+		navigation.navigate('AuthDashboard');
 	};
 
 	return (
