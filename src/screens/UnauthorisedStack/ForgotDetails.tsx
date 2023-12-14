@@ -1,4 +1,4 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { CommonActions } from '@react-navigation/native';
 import { Text, Button, Input, Image, Icon } from '@rneui/themed';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -9,6 +9,9 @@ import { useState } from 'react';
 import { Tooltip, TooltipProps } from '@rneui/base';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../../../config/firebase';
+import HeaderComponent from '../../components/Header';
+import useAuth from '../../hooks/useAuth';
+import { NavProps } from '../../../types/types';
 
 interface IProps {
 	onOpen: () => void;
@@ -26,46 +29,53 @@ const CustomToolTip: React.FC<TooltipProps> = ({
 	);
 };
 
-const ForgotDetails = ({ navigation }: any) => {
-	const [open, setOpen] = useState(false);
+const ForgotDetails = ({ navigation }: NavProps) => {
+	const { sendPasswordResetEmail } = useAuth();
 
-	const [email, setEmail] = useState('');
+	// const [open, setOpen] = useState(false);
+
+	const [forgotEmail, setForgotEmail] = useState('');
 	const [formError, setFormError] = useState('');
 
-	const handleForgotPassword = async () => {
-		// const auth
-		try {
-			await sendPasswordResetEmail(auth, email).then(() => {
-				// TODO send toast
-				// TODO: customise email template for password reset
-				setOpen(true);
-				setEmail('');
-				setFormError('');
+	// const handleForgotPassword = async () => {
+	// 	// const auth
+	// 	try {
+	// 		await sendPasswordResetEmail(auth, email).then(() => {
+	// 			// TODO send toast
+	// 			// TODO: customise email template for password reset
+	// 			setOpen(true);
+	// 			setEmail('');
+	// 			setFormError('');
 
-				navigation.push('AuthDashboard');
-			});
-		} catch (error: any) {
-			console.log(error.code);
-			if (error.code === 'auth/missing-email') {
-				setFormError('Add the email you registered with.');
-			} else if (error.code === 'auth/invalid-email') {
-				setFormError('Email address is not valid.');
-			} else if (error.code === 'auth/user-not-found') {
-				setFormError('User not found.');
-			} else {
-				setFormError(`${error.message}`);
-			}
-		}
-		// console.log('handleForgotPassword');
-	};
+	// 			navigation.push('AuthDashboard');
+	// 		});
+	// 	} catch (error: any) {
+	// 		console.log(error.code);
+	// 		if (error.code === 'auth/missing-email') {
+	// 			setFormError('Add the email you registered with.');
+	// 		} else if (error.code === 'auth/invalid-email') {
+	// 			setFormError('Email address is not valid.');
+	// 		} else if (error.code === 'auth/user-not-found') {
+	// 			setFormError('User not found.');
+	// 		} else {
+	// 			setFormError(`${error.message}`);
+	// 		}
+	// 	}
+	// 	// console.log('handleForgotPassword');
+	// };
 
 	const handleBackBtn = () => {
-		navigation.dispatch(CommonActions.goBack());
+		navigation.navigate('AuthDashboard');
+		// navigation.dispatch(CommonActions.goBack());
+	};
+
+	const handlePasswordReset = () => {
+		sendPasswordResetEmail(forgotEmail);
+		navigation.navigate('signIn');
 	};
 
 	return (
 		<SafeAreaProvider>
-			{/* <HeaderComponent authorised={true} icon={'arrow-left'} /> */}
 			<View style={styles.imageContainer}>
 				<View
 					style={{
@@ -75,14 +85,14 @@ const ForgotDetails = ({ navigation }: any) => {
 						justifyContent: 'center',
 					}}
 				>
-					<Button onPress={handleBackBtn}>
+					<TouchableOpacity onPress={handleBackBtn}>
 						<Icon
 							name='arrow-left'
 							type={'feather'}
 							size={34}
 							color={COLORS.bgGreen}
 						/>
-					</Button>
+					</TouchableOpacity>
 				</View>
 				<View style={styles.innerContainer}>
 					<Image
@@ -95,7 +105,7 @@ const ForgotDetails = ({ navigation }: any) => {
 			</View>
 			<ScreenTitle title={'Forgot Password?'} />
 
-			<View style={styles.centerContainer}>
+			{/* <View style={styles.centerContainer}>
 				<View>
 					<View>
 						<Text style={styles.textStyle}>
@@ -122,15 +132,11 @@ const ForgotDetails = ({ navigation }: any) => {
 
 						<View
 							style={{
-								// display: 'flex',
-								// flexDirection: 'row',
-								// justifyContent: 'center',
 								alignItems: 'center',
 							}}
 						>
 							<CustomToolTip
 								backgroundColor={COLORS.alpha.bgGreen}
-								// onOpen={}
 								onClose={() => {
 									setOpen(false);
 								}}
@@ -162,6 +168,30 @@ const ForgotDetails = ({ navigation }: any) => {
 						/>
 					</View>
 				</View>
+			</View> */}
+
+			<View style={styles.centerContainer}>
+				<View style={{ marginHorizontal: 10, marginVertical: 20 }}>
+					<Text style={{ textAlign: 'center', fontSize: FONTSIZES.ml }}>
+						Enter your email address and we'll help you get back in!
+					</Text>
+				</View>
+				<Text style={styles.textStyle}>Email:</Text>
+				<Input
+					style={{ fontSize: FONTSIZES.large }}
+					inputContainerStyle={styles.contStyle}
+					autoCapitalize='none'
+					value={forgotEmail}
+					onChangeText={(value) => setForgotEmail(value)}
+				/>
+			</View>
+			<View style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
+				<StandardButton
+					buttonLabel={'Send'}
+					onPress={handlePasswordReset}
+					bgGreen={false}
+					fontBlue={false}
+				/>
 			</View>
 		</SafeAreaProvider>
 	);

@@ -28,6 +28,7 @@ import { auth, db } from '../../../config/firebase';
 import { doc, setDoc } from 'firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import useAuth from '../../hooks/useAuth';
 
 export const LogoImage = () => {
 	return <Image source={require('../../../assets/ss.png')} />;
@@ -39,6 +40,8 @@ interface SignUpFormValues {
 }
 
 const SignUp = () => {
+	const { user, sendVerifyEmail, signUp } = useAuth();
+
 	const navigation = useNavigation<StackNavigationProp<any>>();
 	const [loading, setLoading] = useState(false);
 
@@ -52,41 +55,78 @@ const SignUp = () => {
 	const [formError, setFormError] = useState<String>('');
 
 	const handleVerfifyRegister = async () => {
-		try {
-			const newUserCredential: UserCredential =
-				await createUserWithEmailAndPassword(auth, email, password);
+		setLoading(true);
 
-			navigation.push('VerifyEmail');
+		if (email && password) {
+			try {
+				const userCredential = await signUp(email, password);
 
-			await sendEmailVerification(newUserCredential.user);
+				const uid = userCredential.user?.uid;
 
-			const userProfileDocRef = doc(db, `users/${newUserCredential.user.uid}`);
+				if (uid) {
+					const companyProfileDoc = doc(db, `users/${uid}`);
 
-			// await sendEmailVerification(newUserCredential.user);
+					await setDoc(companyProfileDoc, {
+						user_email: email,
+						user_first_name: firstName,
+						user_last_name: lastName,
+					});
 
-			await setDoc(userProfileDocRef, { firstName, lastName, email });
+					await updateProfile(userCredential.user, {
+						displayName: `${firstName} ${lastName}`,
+					});
+				} else {
+					console.error('User UID is undefined.');
+					//TODO return null
+				}
 
-			await updateProfile(newUserCredential.user, {
-				displayName: `${firstName} ${lastName}`,
-			});
-
-			// then(() => {
-			// 	navigation.push('VerifyEmail');
-			// }
-			return newUserCredential;
-		} catch (error: any) {
-			console.log(`Error: ${error.code} - ${error.message}`);
-			if (error.code === 'auth/email-already-in-use') {
-				setFormError('Email is already in use.');
-			} else if (error.code === 'auth/invalid-email') {
-				setFormError('Email address is not valid.');
-			} else if (error.code === 'auth/weak-password') {
-				setFormError('Weak password. Please use a stronger password');
-			} else {
-				setFormError(`Sign up error: ${error.message}`);
+				sendVerifyEmail();
+			} catch (error: any) {
+				console.log(`Error: ${error.code} - ${error.message}`);
+				if (error.code === 'auth/email-already-in-use') {
+					setFormError('Email is already in use.');
+				} else if (error.code === 'auth/invalid-email') {
+					setFormError('Email address is not valid.');
+				} else if (error.code === 'auth/weak-password') {
+					setFormError('Weak password. Please use a stronger password');
+				} else {
+					setFormError(`Sign up error: ${error.message}`);
+				}
 			}
+		} else {
+			// TODO Add more specific validation rules
+			setFormError('All fields are required');
 		}
 	};
+	// try {
+	// 	const newUserCredential: UserCredential =
+	// 		await createUserWithEmailAndPassword(auth, email, password);
+
+	// 	navigation.push('VerifyEmail');
+
+	// 	await sendEmailVerification(newUserCredential.user);
+
+	// 	const userProfileDocRef = doc(db, `users/${newUserCredential.user.uid}`);
+
+	// 	await setDoc(userProfileDocRef, { firstName, lastName, email });
+
+	// 	await updateProfile(newUserCredential.user, {
+	// 		displayName: `${firstName} ${lastName}`,
+	// 	});
+
+	// 	return newUserCredential;
+	// } catch (error: any) {
+	// 	console.log(`Error: ${error.code} - ${error.message}`);
+	// 	if (error.code === 'auth/email-already-in-use') {
+	// 		setFormError('Email is already in use.');
+	// 	} else if (error.code === 'auth/invalid-email') {
+	// 		setFormError('Email address is not valid.');
+	// 	} else if (error.code === 'auth/weak-password') {
+	// 		setFormError('Weak password. Please use a stronger password');
+	// 	} else {
+	// 		setFormError(`Sign up error: ${error.message}`);
+	// 	}
+	// }
 
 	const handleSignIn = () => {
 		navigation.navigate('AuthDashboard');
@@ -104,7 +144,7 @@ const SignUp = () => {
 					behavior={Platform.OS === 'ios' ? 'height' : undefined}
 					keyboardVerticalOffset={100}
 				>
-					<HeaderComponent authorised={true} />
+					<HeaderComponent authorised={false} />
 					<ScreenTitle title={'Register'} />
 
 					<View style={styles.container}>
@@ -214,7 +254,11 @@ const SignUp = () => {
 				children={
 					<>
 						<Text style={styles.textStyleTwo}>Already have an account?</Text>
-						<ClearBtn buttonLabel={'Sign in here'} onPress={handleSignIn} />
+						<ClearBtn
+							buttonLabel={'Sign in here'}
+							onPress={handleSignIn}
+							fontSize='large'
+						/>
 					</>
 				}
 			/>

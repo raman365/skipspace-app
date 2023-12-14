@@ -17,12 +17,13 @@ export const SmlStandardBtn: React.FC<ISmlStandardBtnProps> = ({
 	onPress,
 }) => {
 	return (
-		<View style={{ paddingVertical: 10, marginHorizontal: 50 }}>
+		<View style={{ padding: 20, marginHorizontal: 50 }}>
 			<Button
 				title={buttonLabel}
 				buttonStyle={{
 					backgroundColor: bgGreen ? COLORS.bgGreen : COLORS.bgBlue,
 					borderRadius: 25,
+					paddingHorizontal: 20,
 				}}
 				titleStyle={{
 					fontWeight: '700',

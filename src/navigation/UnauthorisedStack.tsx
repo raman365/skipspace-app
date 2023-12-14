@@ -15,70 +15,62 @@ import AuthorisedStack from './AuthorisedStack';
 
 const Stack = createStackNavigator();
 
-export type UnauthorisedStackParamsLists = {
-	welcome: undefined;
-	signUp: undefined;
-	authDashboard: undefined;
-	forgotDetails: undefined;
-	verifyEmail: undefined;
-};
-
 export const UnauthorisedStack = () => {
-	const [fontsLoaded, fontError] = useFonts({
-		open_sans: require('../../assets/fonts/OpenSans/OpenSans_Regular.ttf'),
-		'Open-Sans-Medium': require('../../assets/fonts/OpenSans/OpenSans_Medium.ttf'),
-		open_sans_cond_semibold: require('../../assets/fonts/OpenSans/OpenSans_CondensedSemiBold.ttf'),
-		Open_Sans_SemiCond_Reg: require('../../assets/fonts/OpenSans/OpenSans_SemiCondensedRegular.ttf'),
-		tungsten_bold: require('../../assets/fonts/Tungsten/TungstenBold.ttf'),
-		Tungsten_SemiBold: require('../../assets/fonts/Tungsten/Tungsten_SemiBold.ttf'),
-		tungsten_med: require('../../assets/fonts/Tungsten/Tungsten_Med.otf'),
-	});
+	// const [fontsLoaded, fontError] = useFonts({
+	// 	open_sans: require('../../assets/fonts/OpenSans/OpenSans_Regular.ttf'),
+	// 	'Open-Sans-Medium': require('../../assets/fonts/OpenSans/OpenSans_Medium.ttf'),
+	// 	open_sans_cond_semibold: require('../../assets/fonts/OpenSans/OpenSans_CondensedSemiBold.ttf'),
+	// 	Open_Sans_SemiCond_Reg: require('../../assets/fonts/OpenSans/OpenSans_SemiCondensedRegular.ttf'),
+	// 	tungsten_bold: require('../../assets/fonts/Tungsten/TungstenBold.ttf'),
+	// 	Tungsten_SemiBold: require('../../assets/fonts/Tungsten/Tungsten_SemiBold.ttf'),
+	// 	tungsten_med: require('../../assets/fonts/Tungsten/Tungsten_Med.otf'),
+	// });
 
-	const onLayoutRootView = useCallback(async () => {
-		if (fontsLoaded || fontError) {
-			await SplashScreen.hideAsync();
-		}
-	}, [fontsLoaded, fontError]);
+	// const onLayoutRootView = useCallback(async () => {
+	// 	if (fontsLoaded || fontError) {
+	// 		await SplashScreen.hideAsync();
+	// 	}
+	// }, [fontsLoaded, fontError]);
 
-	if (!fontsLoaded && !fontError) {
-		return null;
-	}
+	// if (!fontsLoaded && !fontError) {
+	// 	return null;
+	// }
 	return (
-		<NavigationContainer onReady={onLayoutRootView} independent={true}>
-			<Stack.Navigator>
-				{/* 1 Welcome/how to */}
-				<Stack.Screen
-					name='WelcomeHowTo'
-					component={WelcomeHowTo}
-					options={{ headerShown: false }}
-				/>
-				{/* 2 SignIn */}
-				<Stack.Screen
-					name='AuthDashboard'
-					component={AuthDashboard}
-					options={{
-						headerShown: false,
-					}}
-				/>
+		// <NavigationContainer onReady={onLayoutRootView} independent={true}>
+		<Stack.Navigator>
+			{/* 1 Welcome/how to */}
+			<Stack.Screen
+				name='WelcomeHowTo'
+				component={WelcomeHowTo}
+				options={{ headerShown: false }}
+			/>
+			{/* 2 SignIn */}
+			<Stack.Screen
+				name='AuthDashboard'
+				component={AuthDashboard}
+				options={{
+					headerShown: false,
+				}}
+			/>
 
-				{/* 3 Register */}
-				<Stack.Screen
-					name='SignUp'
-					component={SignUp}
-					options={{
-						headerShown: false,
-					}}
-				/>
+			{/* 3 Register */}
+			<Stack.Screen
+				name='SignUp'
+				component={SignUp}
+				options={{
+					headerShown: false,
+				}}
+			/>
 
-				{/*  4 Verify Email */}
-				<Stack.Screen
-					name='VerifyEmail'
-					component={VerifyEmail}
-					options={{ headerShown: false }}
-				/>
+			{/*  4 Verify Email */}
+			{/* <Stack.Screen
+				name='VerifyEmail'
+				component={VerifyEmail}
+				options={{ headerShown: false }}
+			/> */}
 
-				{/* SignedInDashboard */}
-				{/* <Stack.Screen
+			{/* SignedInDashboard */}
+			{/* <Stack.Screen
 					name='SignedInDashboard'
 					component={SignedInDashboard}
 					options={{
@@ -86,21 +78,21 @@ export const UnauthorisedStack = () => {
 					}}
 				/> */}
 
-				{/* 5 Forgot details */}
-				<Stack.Screen
-					name='ForgotDetails'
-					component={ForgotDetails}
-					options={{ headerShown: false }}
-				/>
-				{/* DRAWER NAVIGATOR NESTED INTO THE STACK NAVIGATOR */}
-				<Stack.Screen
-					name='AuthorisedStack'
-					component={AuthorisedStack}
-					options={{
-						headerShown: false,
-					}}
-				/>
-			</Stack.Navigator>
-		</NavigationContainer>
+			{/* 5 Forgot details */}
+			<Stack.Screen
+				name='ForgotDetails'
+				component={ForgotDetails}
+				options={{ headerShown: false }}
+			/>
+			{/* DRAWER NAVIGATOR NESTED INTO THE STACK NAVIGATOR */}
+			{/* <Stack.Screen
+				name='AuthorisedStack'
+				component={AuthorisedStack}
+				options={{
+					headerShown: false,
+				}}
+			/> */}
+		</Stack.Navigator>
+		// </NavigationContainer>
 	);
 };

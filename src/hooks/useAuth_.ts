@@ -1,6 +1,6 @@
 // import { User } from "firebase/auth";
 import { useState, useEffect } from "react";
-import { auth } from "../config/firebase";
+import { auth } from "../../config/firebase";
 
 interface User {
     uid: string;

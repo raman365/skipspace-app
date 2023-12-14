@@ -25,13 +25,11 @@ export const ClearBtn: React.FC<IStandardButtonProps> = ({
 				fontSize: fontSize === 'large' ? FONTSIZES.xl : FONTSIZES.large,
 				color: `${color}`,
 				textAlign: 'left',
-				// textDecorationLine: 'underline',
 			}}
 			buttonStyle={{
 				display: 'flex',
 				alignItems: 'flex-start',
 				justifyContent: 'flex-start',
-				// paddingBottom: 20,
 			}}
 			onPress={onPress}
 		/>

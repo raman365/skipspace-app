@@ -8,7 +8,7 @@ import ScreenTitle from '../../components/ScreenTitle';
 import ClearBtn from '../../components/Button/ClearBtn';
 import StandardButton from '../../components/Button/StandardBtn';
 import Footer from '../../components/Footer';
-import useAuth from '../../../hooks/useAuth';
+import useAuth from '../../hooks/useAuth_';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../../config/firebase';
 
@@ -42,7 +42,7 @@ const AuthDashboard = ({ navigation }: any) => {
 	};
 	return (
 		<SafeAreaProvider>
-			<HeaderComponent authorised={true} />
+			<HeaderComponent authorised={false} />
 
 			<ScreenTitle title={'Sign In'} />
 
@@ -105,7 +105,11 @@ const AuthDashboard = ({ navigation }: any) => {
 				children={
 					<>
 						<Text style={styles.textStyleTwo}>Don't have an account?</Text>
-						<ClearBtn buttonLabel={'Sign up here'} onPress={handleSignUp} />
+						<ClearBtn
+							buttonLabel={'Sign up here'}
+							onPress={handleSignUp}
+							fontSize='large'
+						/>
 					</>
 				}
 			/>
