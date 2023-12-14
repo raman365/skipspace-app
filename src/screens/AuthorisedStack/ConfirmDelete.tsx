@@ -11,9 +11,11 @@ import { getAuth, deleteUser } from 'firebase/auth';
 
 import { auth, db } from '../../../config/firebase';
 import { doc, deleteDoc, collection, updateDoc } from 'firebase/firestore';
+import useAuth from '../../hooks/useAuth';
 
 const ConfirmDelete = ({ navigation }: any) => {
-	const auth = getAuth();
+	const { userDelete } = useAuth();
+
 	const currentUser = auth.currentUser;
 
 	const deleteUserDoc = async (uid: string) => {
@@ -41,18 +43,13 @@ const ConfirmDelete = ({ navigation }: any) => {
 	};
 
 	const handleDeleteAccount = async () => {
-		// TODO: Set up extension: https://extensions.dev/extensions/firebase/delete-user-data
-		// requires: ££
-		// TODO handle delete account
-		// remove user and remove data
-		// TODO: Delete user profile in firebase
-		// const uid = auth.currentUser?.uid;
-		// await deleteUserDoc(uid);
-		const auth = getAuth();
-		// const userProfile = doc(db, `users/${auth.currentUser?.uid}`);
-
-		const user = auth.currentUser;
+		userDelete();
 	};
+
+	const handleCancelDeletion = () => {
+		navigation.navigate('signedInDashboard');
+	};
+
 	return (
 		<SafeAreaProvider>
 			<HeaderComponent authorised={true} />
@@ -90,7 +87,7 @@ const ConfirmDelete = ({ navigation }: any) => {
 								<ClearBtn
 									buttonLabel={"I've changed my mind"}
 									color={COLORS.bgBlue}
-									onPress={() => navigation.navigate('signedInDashboard')}
+									onPress={handleCancelDeletion}
 								/>
 							</View>
 						</View>

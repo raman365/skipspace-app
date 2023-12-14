@@ -1,11 +1,25 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
-import { COLORS } from '../../../constants/theme';
+import { COLORS, FONTSIZES } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
-import { Button, Icon, ListItem, Text } from '@rneui/themed';
+import { Icon, Text } from '@rneui/themed';
+import * as Linking from 'expo-linking';
+
+let emailURL = `skipspace-app://mailto:kirk@skipspace.co.uk`;
+let webURL = 'https://www.example.com';
 
 const Help = ({ navigation }: any) => {
+	const handleEmailLink = () => {
+		const email = 'kirk@skipspace.co.uk';
+		const subject = 'Help/Question from the User App';
+
+		const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
+
+		Linking.openURL(mailtoLink).catch((err) =>
+			console.error('Failed to open mailto link:', err)
+		);
+	};
 	return (
 		<SafeAreaProvider>
 			<HeaderComponent
@@ -16,11 +30,7 @@ const Help = ({ navigation }: any) => {
 				onPress={() => {
 					navigation.toggleDrawer();
 				}}
-				// onPress={() => {
-				// 	navigation.navigate('signedInDashboard');
-				// }}
 			/>
-			{/* <ScreenTitle title={'Vouchers'} /> */}
 			<View style={{ paddingTop: 30 }}>
 				<Text
 					h4
@@ -36,43 +46,49 @@ const Help = ({ navigation }: any) => {
 				</Text>
 			</View>
 			<View style={styles.centerContainer}>
-				<View style={{ paddingVertical: 10, paddingHorizontal: 30 }}>
-					<View
+				<Text style={{ fontSize: FONTSIZES.xl }}>How to use your voucher:</Text>
+				<View style={{ paddingLeft: 10, paddingTop: 10 }}>
+					<Text style={{ fontSize: FONTSIZES.ml, marginBottom: 10 }}>
+						1. Arrive at your SkipSpace site.
+					</Text>
+					<Text style={{ fontSize: FONTSIZES.ml, marginBottom: 10 }}>
+						2. Show the QR code to the security staff when you arrive.
+					</Text>
+					<Text style={{ fontSize: FONTSIZES.ml, marginBottom: 10 }}>
+						3. Drop off your items
+					</Text>
+				</View>
+
+				<View style={{ paddingTop: 30 }}>
+					<Text style={{ fontSize: FONTSIZES.xl, textAlign: 'center' }}>
+						Need further help?
+					</Text>
+					<Text
 						style={{
-							paddingVertical: 10,
-							paddingHorizontal: 10,
-							borderColor: COLORS.bgBlue,
-							borderWidth: 1,
-							marginTop: 10,
-							// marginBottom: 20,
+							fontSize: FONTSIZES.ml,
+							textAlign: 'center',
+							paddingBottom: 20,
+							paddingTop: 5,
 						}}
 					>
+						Get in touch:
+					</Text>
+
+					<TouchableOpacity onPress={handleEmailLink}>
 						<Text
 							style={{
-								textDecorationLine: 'underline',
-								textAlign: 'center',
-								paddingVertical: 10,
 								fontWeight: 'bold',
-								fontSize: 16,
+								textAlign: 'center',
+								fontSize: FONTSIZES.xxl,
+								color: COLORS.bgGreen,
 							}}
 						>
-							Instructions:
+							kirk@skipspace.co.uk
 						</Text>
-						<ListItem style={{ backgroundColor: COLORS.white }}>
-							<ListItem.Content>
-								<ListItem.Title style={styles.listItemTitle}>
-									1. Arrive at your SkipSpace site.
-								</ListItem.Title>
-								<ListItem.Title style={styles.listItemTitle}>
-									2. Show this QR code to the security staff when you arrive.
-								</ListItem.Title>
-								<ListItem.Title style={styles.listItemTitle}>
-									3. This QR code will expire within 24 hours of first issue.
-								</ListItem.Title>
-							</ListItem.Content>
-						</ListItem>
-					</View>
+					</TouchableOpacity>
 				</View>
+
+				{/* TODO: aDD help skipspace mail link */}
 			</View>
 		</SafeAreaProvider>
 	);

@@ -3,21 +3,25 @@ import React, { useEffect, useState } from 'react';
 import { COLORS, FONTSIZES } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
-import { Button, Icon, Input, Text } from '@rneui/themed';
+import { Icon, Input, Text } from '@rneui/themed';
 
 import { auth, db } from '../../../config/firebase';
 import { doc, getDoc } from 'firebase/firestore';
-import { handleSignOut } from '../../utils/signOut';
 import { SmlStandardBtn } from '../../components/Button/SmallStandardBtn';
 import ClearBtn from '../../components/Button/ClearBtn';
+import useAuth from '../../hooks/useAuth';
 
 const UserAccount = ({ navigation }: any) => {
 	// const [userInfo, setUserInfo] = useState<any | undefined>();
 	const [userData, setUserData] = useState<any>(null);
-	// const userDetail = auth.currentUser?.uid;
+	const { signUserOut } = useAuth();
 
 	const handleDeleteAcc = () => {
 		navigation.navigate('confirmDelete');
+	};
+
+	const handleSignOut = () => {
+		signUserOut();
 	};
 
 	const getUserDataByUID = async (uid: any) => {
@@ -90,21 +94,22 @@ const UserAccount = ({ navigation }: any) => {
 								disabled
 								inputContainerStyle={styles.contStyle}
 								autoCapitalize='words'
-								placeholder={userData?.firstName}
+								placeholder={userData?.user_first_name}
 							/>
 							<Text style={styles.textStyle}>Last name:</Text>
 							<Input
+								style={{ fontSize: FONTSIZES.xl }}
 								disabled
 								inputContainerStyle={styles.contStyle}
 								autoCapitalize='words'
-								placeholder={userData?.lastName}
+								placeholder={userData?.user_last_name}
 							/>
 							<Text style={styles.textStyle}>Email:</Text>
 							<Input
 								disabled
 								inputContainerStyle={styles.contStyle}
 								autoCapitalize='words'
-								placeholder={userData?.email}
+								placeholder={userData?.user_email}
 							/>
 
 							<Text style={styles.textStyle}>Used vouchers:</Text>
