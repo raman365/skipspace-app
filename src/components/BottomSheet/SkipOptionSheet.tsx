@@ -60,17 +60,17 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 	// }, [skipCompanyAddress]);
 
 	const handleOpenMaps = () => {
-		console.log('handlemaps');
-		// if (latitude && longitude) {
-		// 	const url: any = Platform.select({
-		// 		ios: `maps://app?daddr${latitude},${longitude}&dirflg=d`,
-		// 		android: `google.navigation:q=${latitude},${longitude}&mode`,
-		// 	});
-		// 	// console.log('url: ', url);
-		// 	Linking.openURL(url);
-		// } else {
-		// 	console.error('Location is not available');
-		// }
+		// console.log('handlemaps');
+		if (latitude && longitude) {
+			const url: any = Platform.select({
+				ios: `maps://app?daddr${latitude},${longitude}&dirflg=d`,
+				android: `google.navigation:q=${latitude},${longitude}&mode`,
+			});
+			// console.log('url: ', url);
+			Linking.openURL(url);
+		} else {
+			console.error('Location is not available');
+		}
 	};
 	return (
 		<BottomSheet

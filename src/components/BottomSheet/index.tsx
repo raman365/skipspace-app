@@ -1,6 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+	Alert,
+	Linking,
+	Platform,
+	StyleSheet,
+	Text,
+	TouchableOpacity,
+	View,
+} from 'react-native';
 import { BottomSheet, ListItem } from '@rneui/themed';
 
 import { COLORS, FONTSIZES } from '../../../constants/theme';
@@ -14,6 +22,7 @@ import ClearBtn from '../Button/ClearBtn';
 import dayjs from 'dayjs';
 import QRCoder from '../QRCoder';
 import { encryptData } from '../../utils/encryptDecrypt';
+import * as Location from 'expo-location';
 
 interface IVoucherSheetProps {
 	isShown: boolean;
@@ -65,6 +74,48 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 	const dataToEncode = dataInQRCode;
 
 	const encData = encryptData(dataToEncode, secretKey);
+	const [coordinates, setCoordinates] = useState<{
+		latitude: number;
+		longitude: number;
+	} | null>(null);
+
+	const handleOpenMaps = () => {
+		console.log('handlemaps: ', coordinates);
+
+		if (coordinates) {
+			const url: any = Platform.select({
+				ios: `maps://app?daddr=${coordinates.latitude},${coordinates.longitude}&dirflg=d`,
+				android: `google.navigation:q=${coordinates.latitude},${coordinates.longitude}&mode=d`,
+			});
+			Linking.openURL(url);
+		} else {
+			console.error('Location is not available');
+		}
+	};
+
+	const [skipLocation, setSkipLocation] = useState(skipCompanyAddress);
+
+	useEffect(() => {
+		setSkipLocation(skipCompanyAddress);
+
+		const getCoordinates = async () => {
+			try {
+				const locationData = await Location.geocodeAsync(skipLocation);
+				if (locationData && locationData.length > 0) {
+					setCoordinates({
+						latitude: locationData[0].latitude,
+						longitude: locationData[0].longitude,
+					});
+				} else {
+					//TODO: ERROR HANDLING
+					console.error('No coordinates found for the given address');
+				}
+			} catch (error) {
+				console.error('Error fetching coordinates', error);
+			}
+		};
+		getCoordinates();
+	}, [skipLocation]);
 	return (
 		<BottomSheet
 			isVisible={isShown}
@@ -137,7 +188,7 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 							<Text style={{ textAlign: 'center' }}>{skipCompanyAddress}</Text>
 						</View>
 						<View style={{ paddingVertical: 20 }}>
-							<TouchableOpacity onPress={() => Alert.alert('todo')}>
+							<TouchableOpacity onPress={handleOpenMaps}>
 								<Text
 									style={{
 										textAlign: 'center',
@@ -146,7 +197,7 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 										fontWeight: 'bold',
 									}}
 								>
-									View on maps
+									Open in maps
 								</Text>
 							</TouchableOpacity>
 						</View>

@@ -3,6 +3,9 @@ import {
 	StyleSheet,
 	ActivityIndicator,
 	TouchableOpacity,
+	Pressable,
+	Platform,
+	Linking,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { COLORS, FONTSIZES } from '../../../constants/theme';
@@ -11,7 +14,6 @@ import HeaderComponent from '../../components/Header';
 import { Button, Icon, Text } from '@rneui/themed';
 import * as Location from 'expo-location';
 import MapView, { Marker, Region } from 'react-native-maps';
-import { useFocusEffect } from '@react-navigation/native';
 
 const SelectedSkipSpace = ({ route, navigation }: any) => {
 	const { councilName, skipCompany, skipCompanyAddress } = route.params;
@@ -29,9 +31,6 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 	} | null>(null);
 
 	const [region, setRegion] = useState<Region | undefined>(undefined);
-
-	// console.log('Onload: ', skipCompanyAddress);
-	// console.log('Coords: ', coordinates);
 
 	useEffect(() => {
 		setSkipLocation(skipCompanyAddress);
@@ -125,7 +124,17 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 
 	// TODO
 	const handleOpenMaps = () => {
-		console.log('handlemaps');
+		console.log('handlemaps: ', coordinates);
+
+		if (coordinates) {
+			const url: any = Platform.select({
+				ios: `maps://app?daddr=${coordinates.latitude},${coordinates.longitude}&dirflg=d`,
+				android: `google.navigation:q=${coordinates.latitude},${coordinates.longitude}&mode=d`,
+			});
+			Linking.openURL(url);
+		} else {
+			console.error('Location is not available');
+		}
 	};
 
 	return (
@@ -238,23 +247,22 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 							<ActivityIndicator size={'small'} color={COLORS.bgGreen} />
 						</View>
 					)}
-					<TouchableOpacity
-						style={{ paddingVertical: 10 }}
-						onPress={handleOpenMaps}
-					>
-						<Text
-							style={{
-								fontSize: FONTSIZES.ml,
-								textAlign: 'center',
-								fontWeight: 'bold',
-							}}
-						>
-							Open in Maps
-						</Text>
-					</TouchableOpacity>
 				</View>
 			</View>
-			<View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>
+
+			<View style={{ paddingTop: 5, paddingBottom: 30, paddingHorizontal: 30 }}>
+				<Pressable style={{ paddingBottom: 5 }} onPress={handleOpenMaps}>
+					<Text
+						style={{
+							fontSize: FONTSIZES.ml,
+							textAlign: 'center',
+							fontWeight: 'bold',
+						}}
+					>
+						Open in Maps
+					</Text>
+				</Pressable>
+
 				<View
 					style={{
 						paddingVertical: 10,

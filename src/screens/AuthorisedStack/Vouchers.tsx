@@ -267,7 +267,7 @@ const Vouchers = ({ navigation }: any) => {
 								paddingVertical: 15,
 							}}
 						>
-							You have currently have no used vouchers
+							You currently have no used vouchers
 						</Text>
 					</View>
 				</View>
@@ -279,17 +279,6 @@ const Vouchers = ({ navigation }: any) => {
 const styles = StyleSheet.create({
 	section: {
 		margin: 10,
-
-		// borderBottomColor: COLORS.lightBlue,
-		// borderTopColor: COLORS.lightBlue,
-		// borderBottomWidth: 2,
-		// borderTopwidth: 2,
-		// paddingTop: 20,
-		// paddingHorizontal: 20,
-		// display: 'flex',
-		// justifyContent: 'flex-end',
-		// alignContent: 'space-between',
-		// flex: 1,
 	},
 	listItemTitle: {
 		paddingVertical: 5,
