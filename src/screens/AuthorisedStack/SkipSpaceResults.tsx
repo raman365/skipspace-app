@@ -1,389 +1,390 @@
-// import {
-// 	View,
-// 	StyleSheet,
-// 	ActivityIndicator,
-// 	ScrollView,
-// 	Platform,
-// 	Pressable,
-// } from 'react-native';
-// import React, { useEffect, useState } from 'react';
-// import { COLORS, FONTSIZES } from '../../../constants/theme';
-// import { SafeAreaProvider } from 'react-native-safe-area-context';
-// import HeaderComponent from '../../components/Header';
-// import { Icon, Text } from '@rneui/themed';
-// import { DetailsCard } from '../../components/DetailsCard';
-// import SkipOptionsSheet from '../../components/BottomSheet/SkipOptionSheet';
-// import {
-// 	DocumentData,
-// 	collection,
-// 	doc,
-// 	getDocs,
-// 	query,
-// } from 'firebase/firestore';
-// import { db } from '../../../config/firebase';
+import {
+	View,
+	StyleSheet,
+	ActivityIndicator,
+	ScrollView,
+	Platform,
+	Pressable,
+} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { COLORS, FONTSIZES } from '../../../constants/theme';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import HeaderComponent from '../../components/Header';
+import { Icon, Text } from '@rneui/themed';
+import { DetailsCard } from '../../components/DetailsCard';
+import SkipOptionsSheet from '../../components/BottomSheet/SkipOptionSheet';
+import {
+	DocumentData,
+	collection,
+	doc,
+	getDocs,
+	query,
+} from 'firebase/firestore';
+import { db } from '../../../config/firebase';
 
-// interface SubDoc {
-// 	id: string;
-// 	skip_company_name: string;
-// 	skip_company_address: string;
-// }
+interface SubDoc {
+	id: string;
+	skip_company_name: string;
+	skip_company_address: string;
+}
 
-// const SkipSpaceResults = ({ route, navigation }: any) => {
-// 	// const { councilName, } = route.params;
+const SkipSpaceResults = ({ route, navigation }: any) => {
+	// const { councilName, } = route.params;
 
-// 	const { mainItemId, council_name } = route.params as {
-// 		mainItemId: string;
-// 		council_name: string;
-// 	};
-// 	const [isVisible, setIsVisible] = useState(false);
-// 	const [skipCompanyData, setskipCompanyData] = useState<SubDoc[]>([]);
-// 	const [skipSiteData, setSkipSiteData] = useState<SubDoc[]>([]);
+	const { mainItemId, council_name } = route.params as {
+		mainItemId: string;
+		council_name: string;
+	};
+	const [isVisible, setIsVisible] = useState(false);
+	const [skipCompanyData, setskipCompanyData] = useState<SubDoc[]>([]);
+	const [skipSiteData, setSkipSiteData] = useState<SubDoc[]>([]);
 
-// 	const handleVoucherPress = () => {
-// 		// navigation.navigate('voucherConfirmation');
-// 		console.log('todo');
-// 		// TODO: Information gets pushed to database
-// 		// navigation.navigate('voucherConfirmation', {
-// 		// 	councilName: councilName,
-// 		// 	skipCompanyName: skip.skip_company_name,
-// 		// 	skipCompanyAddress: dataFromSkipCompanies.skip_company_address,
-// 		// 	// skipCompanyName: 'Test',
-// 		// 	// skipCompanyAddress: 'Test Address',
-// 		// });
-// 		// setIsVisible(false);
-// 	};
+	const handleVoucherPress = () => {
+		// navigation.navigate('voucherConfirmation');
+		console.log('todo');
+		// TODO: Information gets pushed to database
+		// navigation.navigate('voucherConfirmation', {
+		// 	councilName: councilName,
+		// 	skipCompanyName: skip.skip_company_name,
+		// 	skipCompanyAddress: dataFromSkipCompanies.skip_company_address,
+		// 	// skipCompanyName: 'Test',
+		// 	// skipCompanyAddress: 'Test Address',
+		// });
+		// setIsVisible(false);
+	};
 
-// 	const SkipPill: React.FC<{ address: string; onPress: () => void }> = ({
-// 		address,
-// 		onPress,
-// 	}) => {
-// 		return (
-// 			<>
-// 				<View style={styles.buttonContainer}>
-// 					<Pressable style={styles.card} onPress={onPress}>
-// 						<Icon
-// 							name={'location-sharp'}
-// 							style={{ paddingRight: 5 }}
-// 							type='ionicon'
-// 							color={COLORS.bgGreen}
-// 						/>
-// 						<Text>{address}</Text>
-// 					</Pressable>
-// 				</View>
-// 			</>
-// 		);
-// 	};
-// 	const [linkedSkipCompaniesData, setLinkedSkipCompaniesData] = useState<any[]>(
-// 		[]
-// 	);
+	const SkipPill: React.FC<{ address: string; onPress: () => void }> = ({
+		address,
+		onPress,
+	}) => {
+		return (
+			<>
+				<View style={styles.buttonContainer}>
+					<Pressable style={styles.card} onPress={onPress}>
+						<Icon
+							name={'location-sharp'}
+							style={{ paddingRight: 5 }}
+							type='ionicon'
+							color={COLORS.bgGreen}
+						/>
+						<Text>{address}</Text>
+					</Pressable>
+				</View>
+			</>
+		);
+	};
+	const [linkedSkipCompaniesData, setLinkedSkipCompaniesData] = useState<any[]>(
+		[]
+	);
 
-// 	// Voucher stuff
-// 	const councilDocRef = doc(db, 'councils', mainItemId);
-// 	const linkedSkipCompaniesCollectionRef = collection(
-// 		councilDocRef,
-// 		'linkedSkipCompanies'
-// 	);
+	// Voucher stuff
+	const councilDocRef = doc(db, 'councils', mainItemId);
+	const linkedSkipCompaniesCollectionRef = collection(
+		councilDocRef,
+		'linkedSkipCompanies'
+	);
 
-// 	const getSkipSitesDataForCompany = async (companyId: string) => {
-// 		try {
-// 			const companyDocRef = doc(linkedSkipCompaniesCollectionRef, companyId);
-// 			const skipSitesCollectionRef = collection(companyDocRef, 'skipSites');
+	const getSkipSitesDataForCompany = async (companyId: string) => {
+		try {
+			const companyDocRef = doc(linkedSkipCompaniesCollectionRef, companyId);
+			const skipSitesCollectionRef = collection(companyDocRef, 'skipSites');
 
-// 			const skipSiteSnapShot = await getDocs(skipSitesCollectionRef);
-// 			const skipSitesData: DocumentData[] = [];
+			const skipSiteSnapShot = await getDocs(skipSitesCollectionRef);
+			const skipSitesData: DocumentData[] = [];
 
-// 			skipSiteSnapShot.forEach((doc) => {
-// 				skipSitesData.push(doc.data());
-// 			});
+			skipSiteSnapShot.forEach((doc) => {
+				skipSitesData.push(doc.data());
+			});
 
-// 			return skipSitesData;
-// 		} catch (error: any) {
-// 			console.error('Err: ', error);
-// 			return [];
-// 		}
-// 	};
+			return skipSitesData;
+		} catch (error: any) {
+			console.error('Err: ', error);
+			return [];
+		}
+	};
 
-// 	// const getLinkedSkipCompaniesData = async () => {
-// 	// 	try {
-// 	// 		const linkedSkipCompaniesSnapShot = await getDocs(
-// 	// 			linkedSkipCompaniesCollectionRef
-// 	// 		);
+	// const getLinkedSkipCompaniesData = async () => {
+	// 	try {
+	// 		const linkedSkipCompaniesSnapShot = await getDocs(
+	// 			linkedSkipCompaniesCollectionRef
+	// 		);
 
-// 	// 		const linkedSkipCompaniesData: any[] = [];
+	// 		const linkedSkipCompaniesData: any[] = [];
 
-// 	// 		linkedSkipCompaniesSnapShot.forEach(async (doc) => {
-// 	// 			const companyId = doc.id;
-// 	// 			const companyName = doc.data().skip_company_name;
+	// 		linkedSkipCompaniesSnapShot.forEach(async (doc) => {
+	// 			const companyId = doc.id;
+	// 			const companyName = doc.data().skip_company_name;
 
-// 	// 			const skipSitesData = await getSkipSitesDataForCompany(companyId);
+	// 			const skipSitesData = await getSkipSitesDataForCompany(companyId);
 
-// 	// 			linkedSkipCompaniesData.push({
-// 	// 				companyId,
-// 	// 				companyName,
-// 	// 				skipSitesData,
-// 	// 			});
-// 	// 		});
+	// 			linkedSkipCompaniesData.push({
+	// 				companyId,
+	// 				companyName,
+	// 				skipSitesData,
+	// 			});
+	// 		});
 
-// 	// 		return linkedSkipCompaniesData;
-// 	// 	} catch (error: any) {
-// 	// 		console.error('Error fetching linkedSkipCompanies subcollection:', error);
-// 	// 		return [];
-// 	// 	}
-// 	// };
+	// 		return linkedSkipCompaniesData;
+	// 	} catch (error: any) {
+	// 		console.error('Error fetching linkedSkipCompanies subcollection:', error);
+	// 		return [];
+	// 	}
+	// };
 
-// 	const getLinkedSkipCompaniesData = async () => {
-// 		try {
-// 			const linkedSkipCompaniesSnapShot = await getDocs(
-// 				linkedSkipCompaniesCollectionRef
-// 			);
+	const getLinkedSkipCompaniesData = async () => {
+		try {
+			const linkedSkipCompaniesSnapShot = await getDocs(
+				linkedSkipCompaniesCollectionRef
+			);
 
-// 			const promises = linkedSkipCompaniesSnapShot.docs.map(async (doc) => {
-// 				const companyId = doc.id;
-// 				const companyName = doc.data().skip_company_name;
+			const promises = linkedSkipCompaniesSnapShot.docs.map(async (doc) => {
+				const companyId = doc.id;
+				const companyName = doc.data().skip_company_name;
 
-// 				const skipSitesData = await getSkipSitesDataForCompany(companyId);
+				const skipSitesData = await getSkipSitesDataForCompany(companyId);
 
-// 				return {
-// 					companyId,
-// 					companyName,
-// 					skipSitesData,
-// 				};
-// 			});
+				return {
+					companyId,
+					companyName,
+					skipSitesData,
+				};
+			});
 
-// 			const result = await Promise.all(promises);
+			const result = await Promise.all(promises);
 
-// 			setLinkedSkipCompaniesData(result);
+			setLinkedSkipCompaniesData(result);
 
-// 			return result;
-// 			// const linkedSkipCompaniesData: any[] = [];
+			return result;
+			// const linkedSkipCompaniesData: any[] = [];
 
-// 			// await Promise.all(
-// 			// 	linkedSkipCompaniesSnapShot.docs.map(async (doc) => {
-// 			// 		const companyId = doc.id;
-// 			// 		const companyName = doc.data().skip_company_name;
+			// await Promise.all(
+			// 	linkedSkipCompaniesSnapShot.docs.map(async (doc) => {
+			// 		const companyId = doc.id;
+			// 		const companyName = doc.data().skip_company_name;
 
-// 			// 		const skipSitesData = await getSkipSitesDataForCompany(companyId);
+			// 		const skipSitesData = await getSkipSitesDataForCompany(companyId);
 
-// 			// 		linkedSkipCompaniesData.push({
-// 			// 			companyId,
-// 			// 			companyName,
-// 			// 			skipSitesData,
-// 			// 		});
-// 			// 	})
-// 			// );
-// 			// return linkedSkipCompaniesData;
-// 		} catch (error: any) {
-// 			console.error('Error fetching linkedSkipCompanies subcollection:', error);
-// 			return [];
-// 		}
-// 	};
+			// 		linkedSkipCompaniesData.push({
+			// 			companyId,
+			// 			companyName,
+			// 			skipSitesData,
+			// 		});
+			// 	})
+			// );
+			// return linkedSkipCompaniesData;
+		} catch (error: any) {
+			console.error('Error fetching linkedSkipCompanies subcollection:', error);
+			return [];
+		}
+	};
 
-// 	// useEffect(() => {
-// 	// 	const fetchData = async () => {
-// 	// 		const data = await getLinkedSkipCompaniesData();
+	// useEffect(() => {
+	// 	const fetchData = async () => {
+	// 		const data = await getLinkedSkipCompaniesData();
 
-// 	// 		setLinkedSkipCompaniesData(data);
-// 	// 	};
+	// 		setLinkedSkipCompaniesData(data);
+	// 	};
 
-// 	// 	fetchData();
-// 	// }, []);
+	// 	fetchData();
+	// }, []);
 
-// 	useEffect(() => {
-// 		console.log('load');
-// 		getLinkedSkipCompaniesData();
-// 		// const fetchData = async () => {
-// 		// 	try {
-// 		// 		const data = await getLinkedSkipCompaniesData();
-// 		// 		setLinkedSkipCompaniesData(data);
-// 		// 	} catch (error: any) {
-// 		// 		console.error('Error fetching data: ', error);
-// 		// 	}
-// 		// };
-// 		// fetchData();
-// 	}, [route]);
-// 	return (
-// 		<SafeAreaProvider>
-// 			<HeaderComponent
-// 				authorised={true}
-// 				icon={
-// 					<Icon
-// 						name='arrow-left'
-// 						type='feather'
-// 						color={COLORS.bgGreen}
-// 						size={40}
-// 					/>
-// 				}
-// 				onPress={() => {
-// 					navigation.goBack();
-// 				}}
-// 			/>
-// 			<View style={{ paddingTop: 30 }}>
-// 				<Text
-// 					h4
-// 					h4Style={{
-// 						fontWeight: 'bold',
-// 						textAlign: 'center',
-// 						color: COLORS.bgBlue,
-// 						fontSize: 30,
-// 						fontFamily: 'Tungsten_SemiBold',
-// 					}}
-// 				>
-// 					Your local SkipSpaces in {council_name}
-// 				</Text>
-// 				<Text
-// 					style={{
-// 						color: COLORS.bgBlue,
-// 						padding: 20,
-// 						textAlign: 'center',
-// 						fontSize: FONTSIZES.xl,
-// 					}}
-// 				>
-// 					Tap on a location to confirm your voucher
-// 				</Text>
-// 			</View>
-// 			<ScrollView>
-// 				<View style={{ padding: 20 }}>
-// 					{linkedSkipCompaniesData.map((company) => (
-// 						<View key={company.companyId} style={{ marginVertical: 20 }}>
-// 							<Text
-// 								style={{
-// 									paddingBottom: 10,
-// 									fontFamily: 'Tungsten_SemiBold',
-// 									fontSize: FONTSIZES['4xl'],
-// 									color: COLORS.bgBlue,
-// 									textAlign: 'center',
-// 								}}
-// 							>
-// 								{company.companyName}
-// 							</Text>
-// 							{company.skipSitesData.map((skipSite: any, index: any) => (
-// 								<SkipPill
-// 									key={index}
-// 									address={skipSite.address}
-// 									onPress={() =>
-// 										navigation.navigate('selectedSkipSpace', {
-// 											councilName: council_name,
-// 											skipCompany: company.companyName,
-// 											skipCompanyAddress: skipSite.address,
-// 										})
-// 									}
-// 								/>
-// 							))}
-// 						</View>
-// 					))}
-// 				</View>
-// 			</ScrollView>
+	useEffect(() => {
+		console.log('load');
+		getLinkedSkipCompaniesData();
+		// const fetchData = async () => {
+		// 	try {
+		// 		const data = await getLinkedSkipCompaniesData();
+		// 		setLinkedSkipCompaniesData(data);
+		// 	} catch (error: any) {
+		// 		console.error('Error fetching data: ', error);
+		// 	}
+		// };
+		// fetchData();
+	}, [route]);
+	return (
+		<SafeAreaProvider>
+			<HeaderComponent
+				authorised={true}
+				icon={
+					<Icon
+						style={{ marginRight: 30 }}
+						name='arrow-left'
+						type='feather'
+						color={COLORS.bgGreen}
+						size={40}
+					/>
+				}
+				onPress={() => {
+					navigation.goBack();
+				}}
+			/>
+			<View style={{ paddingTop: 30 }}>
+				<Text
+					h4
+					h4Style={{
+						fontWeight: 'bold',
+						textAlign: 'center',
+						color: COLORS.bgBlue,
+						fontSize: 30,
+						fontFamily: 'Tungsten_SemiBold',
+					}}
+				>
+					Your local SkipSpaces in {council_name}
+				</Text>
+				<Text
+					style={{
+						color: COLORS.bgBlue,
+						padding: 20,
+						textAlign: 'center',
+						fontSize: FONTSIZES.xl,
+					}}
+				>
+					Tap on a location to confirm your voucher
+				</Text>
+			</View>
+			<ScrollView>
+				<View style={{ padding: 20 }}>
+					{linkedSkipCompaniesData.map((company) => (
+						<View key={company.companyId} style={{ marginVertical: 20 }}>
+							<Text
+								style={{
+									paddingBottom: 10,
+									fontFamily: 'Tungsten_SemiBold',
+									fontSize: FONTSIZES['4xl'],
+									color: COLORS.bgBlue,
+									textAlign: 'center',
+								}}
+							>
+								{company.companyName}
+							</Text>
+							{company.skipSitesData.map((skipSite: any, index: any) => (
+								<SkipPill
+									key={index}
+									address={skipSite.address}
+									onPress={() =>
+										navigation.navigate('selectedSkipSpace', {
+											councilName: council_name,
+											skipCompany: company.companyName,
+											skipCompanyAddress: skipSite.address,
+										})
+									}
+								/>
+							))}
+						</View>
+					))}
+				</View>
+			</ScrollView>
 
-// 			{/* {skipCompanyData.map((item) => (
-// 				<View key={item.id}>
-// 					<View>
-// 						<DetailsCard
-// 							cardHeading={item.skip_company_name}
-// 							cardSubheading={item.skip_company_address}
-// 							onPress={() =>
-// 								navigation.navigate('selectedSkipSpace', {
-// 									councilName: council_name,
-// 									skipCompany: item.skip_company_name,
-// 									skipCompanyAddress: item.skip_company_address,
-// 								})
-// 							}
-// 							// onPress={() => setIsVisible(true)}
-// 						/>
+			{/* {skipCompanyData.map((item) => (
+				<View key={item.id}>
+					<View>
+						<DetailsCard
+							cardHeading={item.skip_company_name}
+							cardSubheading={item.skip_company_address}
+							onPress={() =>
+								navigation.navigate('selectedSkipSpace', {
+									councilName: council_name,
+									skipCompany: item.skip_company_name,
+									skipCompanyAddress: item.skip_company_address,
+								})
+							}
+							// onPress={() => setIsVisible(true)}
+						/>
 
-// 						<SkipOptionsSheet
-// 							isVisible={isVisible}
-// 							onCancelPress={() => setIsVisible(false)}
-// 							onVoucherPress={handleVoucherPress}
-// 							councilName={council_name}
-// 							skipCompany={item.skip_company_name}
-// 							skipCompanyAddress={item.skip_company_address}
-// 						/>
-// 					</View>
-// 				</View>
-// 			))} */}
+						<SkipOptionsSheet
+							isVisible={isVisible}
+							onCancelPress={() => setIsVisible(false)}
+							onVoucherPress={handleVoucherPress}
+							councilName={council_name}
+							skipCompany={item.skip_company_name}
+							skipCompanyAddress={item.skip_company_address}
+						/>
+					</View>
+				</View>
+			))} */}
 
-// 			{/* <View>
-// 			 <FlatList
-// 					data={dataFromSkipCompanies}
-// 					renderItem={({ item }) => (
-// 						<>
-// 							{console.log(
-// 								`	${item.skip_company_name} = ${item.skip_company_address}`
-// 							)}
-// 							<DetailsCard
-// 								cardHeading={item.skip_company_name}
-// 								cardSubheading={item.skip_company_address}
-// 								onPress={() =>
-// 									navigation.navigate('selectedSkipSpace', {
-// 										councilName: councilName,
-// 										skipCompany: item.skip_company_name,
-// 										skipCompanyAddress: item.skip_company_address,
-// 									})
-// 								}
-// 								// onPress={() => setIsVisible(true)}
-// 							/>
+			{/* <View>
+			 <FlatList
+					data={dataFromSkipCompanies}
+					renderItem={({ item }) => (
+						<>
+							{console.log(
+								`	${item.skip_company_name} = ${item.skip_company_address}`
+							)}
+							<DetailsCard
+								cardHeading={item.skip_company_name}
+								cardSubheading={item.skip_company_address}
+								onPress={() =>
+									navigation.navigate('selectedSkipSpace', {
+										councilName: councilName,
+										skipCompany: item.skip_company_name,
+										skipCompanyAddress: item.skip_company_address,
+									})
+								}
+								// onPress={() => setIsVisible(true)}
+							/>
 
-// 							<SkipOptionsSheet
-// 								isVisible={isVisible}
-// 								onCancelPress={() => setIsVisible(false)}
-// 								onVoucherPress={handleVoucherPress}
-// 								councilName={councilName}
-// 								skipCompany={item.skip_company_name}
-// 								skipCompanyAddress={item.skip_company_location_address}
-// 							/>
-// 						</>
-// 					)}
-// 				/>
-// 			</View>*/}
-// 		</SafeAreaProvider>
-// 	);
-// };
+							<SkipOptionsSheet
+								isVisible={isVisible}
+								onCancelPress={() => setIsVisible(false)}
+								onVoucherPress={handleVoucherPress}
+								councilName={councilName}
+								skipCompany={item.skip_company_name}
+								skipCompanyAddress={item.skip_company_location_address}
+							/>
+						</>
+					)}
+				/>
+			</View>*/}
+		</SafeAreaProvider>
+	);
+};
 
-// const styles = StyleSheet.create({
-// 	centerContainer: {
-// 		paddingTop: 50,
-// 		paddingHorizontal: 20,
-// 		display: 'flex',
-// 		justifyContent: 'center',
-// 		// flex: 1,
-// 	},
-// 	card: {
-// 		paddingVertical: 10,
-// 		paddingHorizontal: 10,
-// 		marginVertical: 5,
-// 		flexDirection: 'row',
-// 		justifyContent: 'flex-start',
-// 		alignItems: 'center',
-// 		borderRadius: 25,
-// 		backgroundColor: COLORS.white,
-// 	},
-// 	...Platform.select({
-// 		ios: {
-// 			commonProp: {
-// 				shadowColor: COLORS.black,
-// 				shadowOffsey: { width: 5, height: 5 },
-// 				shadowOpacity: 0.26,
-// 				shadowRadius: 3,
-// 			},
-// 		},
-// 		android: {
-// 			commonProp: {
-// 				elevation: 20,
-// 				shadowColor: COLORS.black,
-// 			},
-// 		},
-// 	}),
-// 	buttonContainer: {
-// 		shadowColor: '#000',
-// 		shadowOffset: {
-// 			width: 0,
-// 			height: 3,
-// 		},
-// 		shadowOpacity: 0.27,
-// 		shadowRadius: 4.65,
+const styles = StyleSheet.create({
+	centerContainer: {
+		paddingTop: 50,
+		paddingHorizontal: 20,
+		display: 'flex',
+		justifyContent: 'center',
+		// flex: 1,
+	},
+	card: {
+		paddingVertical: 10,
+		paddingHorizontal: 10,
+		marginVertical: 5,
+		flexDirection: 'row',
+		justifyContent: 'flex-start',
+		alignItems: 'center',
+		borderRadius: 25,
+		backgroundColor: COLORS.white,
+	},
+	...Platform.select({
+		ios: {
+			commonProp: {
+				shadowColor: COLORS.black,
+				shadowOffsey: { width: 5, height: 5 },
+				shadowOpacity: 0.26,
+				shadowRadius: 3,
+			},
+		},
+		android: {
+			commonProp: {
+				elevation: 20,
+				shadowColor: COLORS.black,
+			},
+		},
+	}),
+	buttonContainer: {
+		shadowColor: '#000',
+		shadowOffset: {
+			width: 0,
+			height: 3,
+		},
+		shadowOpacity: 0.27,
+		shadowRadius: 4.65,
 
-// 		elevation: 6,
-// 	},
-// });
+		elevation: 6,
+	},
+});
 
-// export default SkipSpaceResults;
+export default SkipSpaceResults;

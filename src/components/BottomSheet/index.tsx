@@ -25,7 +25,7 @@ interface IVoucherSheetProps {
 	localAuthIssue: string;
 	// dateIssued: string | Date;
 	dateIssued: string; //TODO change
-	dateExpires: string; // TODO change
+	dateExpires?: string; // TODO change
 	// qrCode: React.ReactElement;
 
 	// mapLink: string
@@ -76,16 +76,6 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 
 				<View style={{ paddingTop: 10, paddingBottom: 10 }}>
 					<ScreenTitle title={'Active Voucher'} />
-				</View>
-
-				<View style={styles.viewSection}>
-					<Subtitle subtitle={'Expires: '} />
-					{/* <CountdownTimer /> */}
-					<View style={{ flexDirection: 'column' }}>
-						<Text>{dateExpires}</Text>
-					</View>
-					{/* Convert string to timestamp in numbers */}
-					{/* <Subtitle textColor={COLORS.softRed} subtitle={'12:10:00'} /> */}
 				</View>
 
 				<View>

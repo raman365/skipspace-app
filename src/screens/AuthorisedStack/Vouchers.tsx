@@ -27,27 +27,31 @@ import { db } from '../../../config/firebase';
 import { ScrollView } from 'react-native-gesture-handler';
 
 //TODO - Get realtime updates on vouchers
-// const fetchDataByValues = async (collectionName: string, field: string, value: any) => {
-// 	try {
-// 		const q = query(collection(db, collectionName), where(field, '==', value));
-// 		const querySnapshot = await getDocs(q);
+const fetchDataByValues = async (
+	collectionName: string,
+	field: string,
+	value: any
+) => {
+	try {
+		const q = query(collection(db, collectionName), where(field, '==', value));
+		const querySnapshot = await getDocs(q);
 
-// 		const data = querySnapshot.docs.map((doc: any) => ({
-// 			id: doc.id,
-// 			...doc.data(),
-// 		}));
+		const data = querySnapshot.docs.map((doc: any) => ({
+			id: doc.id,
+			...doc.data(),
+		}));
 
-// 		console.log('Fetched data: ', data);
-// 		return data;
-// 	} catch (error) {
-// 		console.error('Error fetching data: ', error);
-// 		return [];
-// 	}
-// }
+		console.log('Fetched data: ', data);
+		return data;
+	} catch (error) {
+		console.error('Error fetching data: ', error);
+		return [];
+	}
+};
 
 const Vouchers = ({ navigation }: any) => {
 	const [isVisible, setIsVisible] = useState(false);
-	const [data, setData] = useState<any>([]);
+	const [voucherData, setVoucherData] = useState<any | null>([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const userFullname = auth.currentUser?.displayName;
 
@@ -89,7 +93,7 @@ const Vouchers = ({ navigation }: any) => {
 					}));
 					// const timestampData = snapshot.data()?.timestampField;
 
-					setData(updatedData);
+					setVoucherData(updatedData);
 					setIsLoading(false);
 				});
 
@@ -124,13 +128,17 @@ const Vouchers = ({ navigation }: any) => {
 	// };
 
 	const renderVouchers = () => {
-		return data.map((voucher: any) => (
-			<View key={voucher.id}>
+		return voucherData.map((voucher: any) => (
+			<View
+				key={voucher.id}
+				style={{
+					borderRadius: 25,
+				}}
+			>
 				<VoucherItem
 					nameOfCompany={voucher.skip_company_name}
 					address={voucher.skip_company_address}
 					dateIssued={voucher.date_issued}
-					dateExpires={voucher.date_expires}
 					onPress={handleVoucherItem}
 					hasBeenUsed={false}
 				/>
@@ -139,12 +147,9 @@ const Vouchers = ({ navigation }: any) => {
 					isShown={isVisible}
 					onCancelPress={handleBackdropPress}
 					skipCompanyName={voucher.skip_company_name}
-					skipCompanyAddress={voucher.skip_company_address} // onBottomButtonPress={onCancelPress}
+					skipCompanyAddress={voucher.skip_company_address}
 					localAuthIssue={voucher.local_auth_issue}
-					// userName={voucher.userName}
 					userName={userFullname}
-					// dateIssued={dayjs(voucher.date_issued.toDate())}
-					dateExpires={voucher.date_expires}
 					dateIssued={voucher.date_issued}
 					onHelpPress={handleHelp}
 				/>
@@ -179,7 +184,7 @@ const Vouchers = ({ navigation }: any) => {
 					<View
 						style={{
 							borderBottomColor: COLORS.bgBlue,
-							borderBottomWidth: 1,
+							borderBottomWidth: 0.5,
 							paddingBottom: 10,
 						}}
 					>
@@ -194,35 +199,42 @@ const Vouchers = ({ navigation }: any) => {
 							Active:
 						</Text>
 					</View>
-					<View style={styles.section}>
-						{/* TODO: Add conditional rendering */}
-						<Text
-							style={{
-								textAlign: 'center',
-								fontSize: FONTSIZES.ml,
-								paddingVertical: 15,
-							}}
-						>
-							You have currently have no active vouchers
-						</Text>
 
-						{/* if length is < 0 show this */}
-						{/*  */}
-						{/* Flat list of links to vouchers */}
-					</View>
-					{/* <ScrollView>
-						<View style={styles.section}>
-							{isLoading ? (
-								<ActivityIndicator
-									color={COLORS.bgGreen}
-									size={'small'}
-									style={{ marginVertical: 30 }}
-								/>
-							) : (
-								renderVouchers()
-							)}
+					{voucherData === null ? (
+						<View>
+							{/* TODO: Add conditional rendering */}
+							<Text
+								style={{
+									textAlign: 'center',
+									fontSize: FONTSIZES.ml,
+									paddingVertical: 15,
+								}}
+							>
+								You have currently have no active vouchers
+							</Text>
 						</View>
-					</ScrollView> */}
+					) : (
+						<ScrollView>
+							<View
+								style={{
+									borderRadius: 10,
+									backgroundColor: COLORS.white,
+									paddingHorizontal: 10,
+									margin: 10,
+								}}
+							>
+								{isLoading ? (
+									<ActivityIndicator
+										color={COLORS.bgGreen}
+										size={'small'}
+										style={{ marginVertical: 30 }}
+									/>
+								) : (
+									renderVouchers()
+								)}
+							</View>
+						</ScrollView>
+					)}
 				</View>
 
 				{/* Expired vouchers section */}
@@ -230,7 +242,7 @@ const Vouchers = ({ navigation }: any) => {
 					<View
 						style={{
 							borderBottomColor: COLORS.bgBlue,
-							borderBottomWidth: 1,
+							borderBottomWidth: 0.5,
 							paddingBottom: 10,
 						}}
 					>
@@ -257,10 +269,6 @@ const Vouchers = ({ navigation }: any) => {
 						>
 							You have currently have no used vouchers
 						</Text>
-
-						{/* if length is < 0 show this */}
-						{/*  */}
-						{/* Flat list of links to vouchers */}
 					</View>
 				</View>
 			</View>
@@ -270,6 +278,8 @@ const Vouchers = ({ navigation }: any) => {
 
 const styles = StyleSheet.create({
 	section: {
+		margin: 10,
+
 		// borderBottomColor: COLORS.lightBlue,
 		// borderTopColor: COLORS.lightBlue,
 		// borderBottomWidth: 2,

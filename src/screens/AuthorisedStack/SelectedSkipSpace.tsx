@@ -30,8 +30,8 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 
 	const [region, setRegion] = useState<Region | undefined>(undefined);
 
-	console.log('Onload: ', skipCompanyAddress);
-	console.log('Coords: ', coordinates);
+	// console.log('Onload: ', skipCompanyAddress);
+	// console.log('Coords: ', coordinates);
 
 	useEffect(() => {
 		setSkipLocation(skipCompanyAddress);
@@ -134,6 +134,7 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 				authorised={true}
 				icon={
 					<Icon
+						style={{ marginRight: 30 }}
 						name='arrow-left'
 						type='feather'
 						color={COLORS.bgGreen}
@@ -216,20 +217,12 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 				</View>
 
 				<View style={{ height: 100, marginBottom: 10 }}>
-					{/* TODO: on screen load open reload map */}
-
 					{coordinates ? (
 						<MapView
 							style={styles.map}
 							region={region}
 							minZoomLevel={15}
 							maxZoomLevel={20}
-							// initialRegion={{
-							// 	latitude: coordinates!.latitude,
-							// 	longitude: coordinates!.longitude,
-							// 	latitudeDelta: 0.0922,
-							// 	longitudeDelta: 0.0421,
-							// }}
 						>
 							<Marker
 								coordinate={{

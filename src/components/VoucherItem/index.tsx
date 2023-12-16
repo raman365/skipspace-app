@@ -12,16 +12,29 @@ interface IProps {
 	nameOfCompany?: string;
 	address?: string;
 	dateIssued: string; // TODO Date maths
-	dateExpires: string;
+	dateExpires?: string;
 	onPress?: () => void;
 }
+
+const CardItems: React.FC<{
+	color: string;
+	name: string;
+	nameOfCompany: string;
+}> = ({ color, name, nameOfCompany }) => {
+	return (
+		<ListItem.Subtitle style={{ color: `${color}` }}>
+			<Text style={{ fontWeight: 'bold', fontSize: FONTSIZES.large }}>
+				{name}
+			</Text>
+			<Text style={{ fontSize: FONTSIZES.large }}>{nameOfCompany}</Text>
+		</ListItem.Subtitle>
+	);
+};
 const VoucherItem: React.FC<IProps> = ({
 	hasBeenUsed = false,
 	dateUsed,
 	nameOfCompany,
 	address,
-	dateIssued,
-	dateExpires,
 	onPress,
 }) => {
 	return (
@@ -30,75 +43,54 @@ const VoucherItem: React.FC<IProps> = ({
 			style={styles.voucherItem}
 			disabled={hasBeenUsed}
 		>
-			<ListItem>
+			<ListItem style={{ padding: 0 }} bottomDivider>
 				<Icon
 					name='qrcode'
 					type='material-community'
 					color={hasBeenUsed ? COLORS.lightGrey : COLORS.black}
 				/>
 				<ListItem.Content>
-					<View style={{ paddingBottom: 5 }}>
+					<View style={{ justifyContent: 'center', alignItems: 'center' }}>
+						<ListItem.Subtitle
+							style={{
+								color: hasBeenUsed ? COLORS.lightGrey : COLORS.black,
+								paddingBottom: 5,
+							}}
+						>
+							<Text style={{ fontSize: FONTSIZES.medium }}>
+								{nameOfCompany}
+							</Text>
+						</ListItem.Subtitle>
+					</View>
+
+					<View>
 						<ListItem.Subtitle
 							style={{ color: hasBeenUsed ? COLORS.lightGrey : COLORS.black }}
 						>
-							<Text style={{ fontWeight: 'bold', fontSize: FONTSIZES.ml }}>
-								Name:{' '}
-							</Text>
-							<Text style={{ fontSize: FONTSIZES.ml }}>{nameOfCompany}</Text>
-						</ListItem.Subtitle>
-					</View>
-					<View>
-						<ListItem.Subtitle
-							style={{
-								color: hasBeenUsed ? COLORS.lightGrey : COLORS.black,
-							}}
-						>
-							<View style={{ paddingTop: 5 }}>
-								<Text style={{ fontWeight: 'bold', fontSize: FONTSIZES.ml }}>
-									Address:{' '}
-								</Text>
-								<Text style={{ fontSize: FONTSIZES.ml }}>{address}</Text>
+							<View style={{ flexDirection: 'row' }}>
+								<Text style={{ fontSize: FONTSIZES.medium }}>{address}</Text>
 							</View>
 						</ListItem.Subtitle>
 					</View>
-					<View>
-						<ListItem.Subtitle
-							style={{
-								color: hasBeenUsed ? COLORS.lightGrey : COLORS.black,
-								paddingTop: 5,
-							}}
-						>
-							<Text
-								style={{
-									fontWeight: 'bold',
-									fontSize: FONTSIZES.ml,
-								}}
-							>
-								Expires:{' '}
-							</Text>
-							<Text style={{ fontSize: FONTSIZES.ml }}>
-								{/* {dateIssued} */}
-								{dateExpires}
-								{/*{console.log(new Date())}
-								{console.log('day is: ', now.format('DD/MM/YYYY hh:mm:ss'))} */}
 
-								{/* {console.log(dayjs(dateIssued))} */}
-							</Text>
-						</ListItem.Subtitle>
-					</View>
 					{hasBeenUsed ? (
-						<View style={{ paddingVertical: 5 }}>
+						<View>
 							<ListItem.Subtitle
 								style={{ color: hasBeenUsed ? COLORS.lightGrey : COLORS.black }}
 							>
-								<Text style={{ fontWeight: 'bold' }}>Used: </Text>
-								<Text>{dateUsed}</Text>
+								<Text
+									style={{ fontWeight: 'bold', fontSize: FONTSIZES.medium }}
+								>
+									Used:
+								</Text>
+								<Text style={{ fontSize: FONTSIZES.medium }}>{dateUsed}</Text>
 							</ListItem.Subtitle>
 						</View>
 					) : null}
 				</ListItem.Content>
+
 				{hasBeenUsed ? null : (
-					<ListItem.Chevron size={24} color={COLORS.black} />
+					<ListItem.Chevron size={20} color={COLORS.black} />
 				)}
 			</ListItem>
 		</TouchableOpacity>
@@ -109,10 +101,8 @@ export default VoucherItem;
 
 const styles = StyleSheet.create({
 	voucherItem: {
-		// marginBottom: 10,
-		borderTopColor: COLORS.lightGrey,
-		// borderTopWidth: 1,
-		borderBottomColor: COLORS.lightGrey,
-		borderBottomWidth: 1,
+		// borderTopColor: COLORS.lightGrey,
+		// borderBottomColor: COLORS.lightGrey,
+		// borderBottomWidth: 0.5,
 	},
 });
