@@ -137,24 +137,13 @@ const UserAccount = ({ navigation }: any) => {
 									onPress={handleDeleteAcc}
 									color={COLORS.bgBlue}
 								/>
-								{/* <Button
-									title='Delete my account'
-									buttonStyle={{
-										backgroundColor: COLORS.primaryRed,
-										borderRadius: 25,
-									}}
-									titleStyle={{
-										fontWeight: '700',
-										fontSize: FONTSIZES.medium,
-										color: COLORS.white,
-									}}
-									onPress={handleDeleteAcc}
-								/> */}
 							</View>
 						</View>
 					</>
 				) : (
-					<View>
+					<View
+						style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+					>
 						<ActivityIndicator size={'large'} />
 					</View>
 				)}
@@ -169,19 +158,14 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 20,
 		display: 'flex',
 		justifyContent: 'center',
-		// flex: 1,
 	},
 	bottomDivider: {
 		paddingVertical: 5,
 		paddingHorizontal: 25,
-		// borderBottomColor: COLORS.lightBlue,
-		// borderBottomWidth: 2,
 	},
 	topDivider: {
 		paddingTop: 50,
 		paddingHorizontal: 25,
-		// borderBottomColor: COLORS.lightBlue,
-		// borderBottomWidth: 2,
 	},
 	textStyle: {
 		fontSize: FONTSIZES.large,

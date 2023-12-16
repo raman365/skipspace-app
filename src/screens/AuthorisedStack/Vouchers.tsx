@@ -194,7 +194,23 @@ const Vouchers = ({ navigation }: any) => {
 							Active:
 						</Text>
 					</View>
-					<ScrollView>
+					<View style={styles.section}>
+						{/* TODO: Add conditional rendering */}
+						<Text
+							style={{
+								textAlign: 'center',
+								fontSize: FONTSIZES.ml,
+								paddingVertical: 15,
+							}}
+						>
+							You have currently have no active vouchers
+						</Text>
+
+						{/* if length is < 0 show this */}
+						{/*  */}
+						{/* Flat list of links to vouchers */}
+					</View>
+					{/* <ScrollView>
 						<View style={styles.section}>
 							{isLoading ? (
 								<ActivityIndicator
@@ -206,7 +222,7 @@ const Vouchers = ({ navigation }: any) => {
 								renderVouchers()
 							)}
 						</View>
-					</ScrollView>
+					</ScrollView> */}
 				</View>
 
 				{/* Expired vouchers section */}
@@ -226,7 +242,7 @@ const Vouchers = ({ navigation }: any) => {
 								fontWeight: 'bold',
 							}}
 						>
-							Expired:
+							Used:
 						</Text>
 					</View>
 
@@ -239,7 +255,7 @@ const Vouchers = ({ navigation }: any) => {
 								paddingVertical: 15,
 							}}
 						>
-							You have currently have no expired vouchers
+							You have currently have no used vouchers
 						</Text>
 
 						{/* if length is < 0 show this */}

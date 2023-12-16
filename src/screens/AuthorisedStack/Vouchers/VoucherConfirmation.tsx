@@ -135,8 +135,7 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 				<View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>
 					<View
 						style={{
-							paddingVertical: 10,
-							paddingHorizontal: 10,
+							padding: 10,
 							borderColor: COLORS.bgBlue,
 							borderWidth: 1,
 							marginTop: 10,
@@ -161,11 +160,17 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 									1. Arrive at your SkipSpace with your items to discard.
 								</ListItem.Title>
 								<ListItem.Title style={styles.listItemTitle}>
-									2. Show this QR code to the security staff when you arrive. It
-									can also be found in the Vouchers section.
+									2. Show this QR code to the security staff when you arrive.
 								</ListItem.Title>
-								<ListItem.Title style={styles.listItemTitle}>
-									3. This QR code will expire in 24 hours
+								<ListItem.Title
+									style={{
+										paddingVertical: 5,
+										fontSize: 12,
+										fontWeight: 'bold',
+										textAlign: 'center',
+									}}
+								>
+									This voucher can also be found in the Vouchers section.
 								</ListItem.Title>
 							</ListItem.Content>
 						</ListItem>

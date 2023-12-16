@@ -6,7 +6,7 @@ export type DrawerStackParamsList = {
     verifyEmail: undefined;
     confirmDelete: undefined;
     searchSelectCouncil: undefined;
-    skipSpaceResults: undefined;
+    skipSpaceResults?: { mainItemId?: string }; // Define mainItemId as a parameter
     selectedSkipSpace: undefined;
     userAccount: undefined;
     vouchers: undefined;

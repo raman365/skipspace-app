@@ -25,8 +25,9 @@ import {
 // TODO: Generate customized skip id
 
 import { db } from '../../../config/firebase';
-import BoroughSearchButton from '../../components/BoroughSearchButton';
-import SkipOptionsSheet from '../../components/BottomSheet/SkipOptionSheet';
+// import BoroughSearchButton from '../../components/BoroughSearchButton';
+// import SkipOptionsSheet from '../../components/BottomSheet/SkipOptionSheet';
+import { ScrollView } from 'react-native-gesture-handler';
 
 interface MainDoc {
 	id: string;
@@ -177,15 +178,27 @@ const SelectCouncil = ({ navigation }: any) => {
 				<Text
 					style={{
 						color: COLORS.bgBlue,
-						padding: 20,
+						paddingVertical: 20,
+						paddingHorizontal: 10,
 						textAlign: 'center',
+						fontSize: FONTSIZES.xl,
 					}}
 				>
 					Tap on your local borough to find SkipSpace in your area
 				</Text>
 
-				<View style={{ flex: 1 }}>
-					{councilData ? (
+				<ScrollView style={{ flex: 1, paddingTop: 20, marginBottom: 50 }}>
+					{councilData === null ? (
+						<View
+							style={{
+								flex: 1,
+								justifyContent: 'center',
+								alignContent: 'center',
+							}}
+						>
+							<ActivityIndicator size={'large'} color={COLORS.bgGreen} />
+						</View>
+					) : councilData ? (
 						<>
 							{councilData.map((mainDoc) => (
 								<View key={mainDoc.id}>
@@ -195,11 +208,11 @@ const SelectCouncil = ({ navigation }: any) => {
 											handleSelectedBorough(mainDoc.id, mainDoc.council_name)
 										}
 										style={{
-											marginVertical: 10,
+											marginVertical: 7,
 											marginHorizontal: 15,
 											paddingHorizontal: 15,
 											paddingVertical: 10,
-											borderRadius: 5,
+											borderRadius: 25,
 											borderWidth: 1,
 											borderColor: COLORS.alpha.bgGreen,
 											backgroundColor: COLORS.bgGreen,
@@ -234,7 +247,7 @@ const SelectCouncil = ({ navigation }: any) => {
 							<ActivityIndicator size={'large'} color={COLORS.bgGreen} />
 						</View>
 					)}
-				</View>
+				</ScrollView>
 			</View>
 		</SafeAreaProvider>
 	);

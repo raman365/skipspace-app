@@ -8,10 +8,6 @@ interface QRCoderProps {
 	data: string;
 }
 const QRCoder: React.FC<QRCoderProps> = ({ data }) => {
-	// const secretKey = 'theSecretKey';
-	// const dataToEncode = data;
-	// const encData = encryptData(dataToEncode, secretKey);
-
 	return (
 		<>
 			{data ? (
@@ -24,48 +20,3 @@ const QRCoder: React.FC<QRCoderProps> = ({ data }) => {
 };
 
 export default QRCoder;
-
-//TODO:
-// Add 24 hour timer to QR code
-// encrypt data in QR code
-
-// const [originalData, setOriginalData] = React.useState(codeValue);
-
-// const [encryptedData, setEncryptedData] = React.useState<string | any>(null);
-// // const key ='MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCrg0Holn+8OkLu0bRo/qgWAOFV';
-// const key = '123456';
-
-// // const encryptData = async (originalData: string) => {
-// const encrpyted = CryptoES.AES.encrypt(codeValue, 'somethingsomething');
-
-// console.log('E: ', encrpyted);
-
-// const decrypted = CryptoES.AES.decrypt(encrpyted, 'somethingsomething');
-
-// console.log('D: ', decrypted);
-
-// setEncryptedData(encrpyted);
-
-// try {
-// 	const encryptionKey = await Crypto.digestStringAsync(
-// 		Crypto.CryptoDigestAlgorithm.SHA256,
-// 		key
-// 	);
-
-// 	// encrypt the input data
-// 	const encrypted = await Crypto.digestStringAsync(
-// 		Crypto.CryptoDigestAlgorithm.SHA256,
-// 		originalData + encryptionKey
-// 	);
-// 	console.log('Orig data: ', originalData);
-// 	console.log('encrpyted data:- ', encrypted);
-
-// 	setEncryptedData(encrypted);
-// } catch (error) {
-// 	console.error('Error encrypting data: ', error);
-// }
-// };
-
-// useEffect(() => {
-// 	encryptData(codeValue);
-// }, [codeValue]);

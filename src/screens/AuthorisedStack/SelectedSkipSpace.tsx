@@ -1,11 +1,8 @@
 import {
 	View,
 	StyleSheet,
-	Linking,
-	Platform,
 	ActivityIndicator,
 	TouchableOpacity,
-	Alert,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { COLORS, FONTSIZES } from '../../../constants/theme';
@@ -18,54 +15,61 @@ import { useFocusEffect } from '@react-navigation/native';
 
 const SelectedSkipSpace = ({ route, navigation }: any) => {
 	const { councilName, skipCompany, skipCompanyAddress } = route.params;
+	const { mainItemId } = route.params || {}; // Use default empty object if params is undefined
+
+	// const {  council_name } = route.params as {
+	// 	mainItemId: string;
+	// 	council_name: string;
+	// };
+
 	const [skipLocation, setSkipLocation] = useState(skipCompanyAddress);
 	const [coordinates, setCoordinates] = useState<{
 		latitude: number;
 		longitude: number;
 	} | null>(null);
 
+	const [region, setRegion] = useState<Region | undefined>(undefined);
+
 	console.log('Onload: ', skipCompanyAddress);
+	console.log('Coords: ', coordinates);
+
+	useEffect(() => {
+		setSkipLocation(skipCompanyAddress);
+	}, [skipCompanyAddress]);
+
+	// update the region when he coordinates change
+	useEffect(() => {
+		if (coordinates) {
+			setRegion({
+				latitude: coordinates.latitude,
+				longitude: coordinates.longitude,
+				latitudeDelta: 0.0922,
+				longitudeDelta: 0.0421,
+			});
+		}
+	}, [coordinates]);
 
 	useEffect(() => {
 		setSkipLocation(skipCompanyAddress);
 
-		console.log(`
-  		${councilName} - 
-		${skipLocation}
-
-		
-}`);
-	}, []);
-
-	useFocusEffect(
-		React.useCallback(() => {
-			// Fetch coordinates when the screen comes into focus
-			// getCoordinates();
-			console.log('Skip location: ', skipLocation);
-		}, [skipLocation])
-	);
-
-	// useEffect(() => {
-	// 	setSkipLocation(skipCompanyAddress);
-
-	// 	const getCoordinates = async () => {
-	// 		try {
-	// 			const locationData = await Location.geocodeAsync(skipLocation);
-	// 			if (locationData && locationData.length > 0) {
-	// 				setCoordinates({
-	// 					latitude: locationData[0].latitude,
-	// 					longitude: locationData[0].longitude,
-	// 				});
-	// 			} else {
-	// 				//TODO: ERROR HANDLING
-	// 				console.error('No coordinates found for the given address');
-	// 			}
-	// 		} catch (error) {
-	// 			console.error('Error fetching coordinates', error);
-	// 		}
-	// 	};
-	// 	getCoordinates();
-	// }, [skipLocation]);
+		const getCoordinates = async () => {
+			try {
+				const locationData = await Location.geocodeAsync(skipLocation);
+				if (locationData && locationData.length > 0) {
+					setCoordinates({
+						latitude: locationData[0].latitude,
+						longitude: locationData[0].longitude,
+					});
+				} else {
+					//TODO: ERROR HANDLING
+					console.error('No coordinates found for the given address');
+				}
+			} catch (error) {
+				console.error('Error fetching coordinates', error);
+			}
+		};
+		getCoordinates();
+	}, [skipLocation]);
 
 	// useEffect(() => {
 	// 	// onload update map
@@ -122,16 +126,6 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 	// TODO
 	const handleOpenMaps = () => {
 		console.log('handlemaps');
-		// 	if (latitude && longitude) {
-		// 		const url: any = Platform.select({
-		// 			ios: `maps://app?daddr${latitude},${longitude}&dirflg=d`,
-		// 			android: `google.navigation:q=${latitude},${longitude}&mode`,
-		// 		});
-		// 		Linking.openURL(url);
-		// 	} else {
-		// 		//TODO:  Sort this out
-		// 		console.error('Location is not available');
-		// 	}
 	};
 
 	return (
@@ -147,7 +141,6 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 					/>
 				}
 				onPress={() => {
-					// navigation.navigate('searchSelectCouncil');
 					navigation.goBack();
 				}}
 			/>
@@ -215,7 +208,7 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 							textAlign: 'center',
 						}}
 					>
-						Address:
+						Site Address:
 					</Text>
 					<Text style={{ fontSize: FONTSIZES.xl, textAlign: 'center' }}>
 						{skipCompanyAddress}
@@ -228,16 +221,16 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 					{coordinates ? (
 						<MapView
 							style={styles.map}
+							region={region}
 							minZoomLevel={15}
 							maxZoomLevel={20}
-							initialRegion={{
-								latitude: coordinates!.latitude,
-								longitude: coordinates!.longitude,
-								latitudeDelta: 0.0922,
-								longitudeDelta: 0.0421,
-							}}
+							// initialRegion={{
+							// 	latitude: coordinates!.latitude,
+							// 	longitude: coordinates!.longitude,
+							// 	latitudeDelta: 0.0922,
+							// 	longitudeDelta: 0.0421,
+							// }}
 						>
-							{/* <Marker coordinate={{ latitude, longitude }} /> */}
 							<Marker
 								coordinate={{
 									latitude: coordinates!.latitude,
