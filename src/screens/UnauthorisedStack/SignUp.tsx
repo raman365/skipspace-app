@@ -18,13 +18,8 @@ import ClearBtn from '../../components/Button/ClearBtn';
 import Footer from '../../components/Footer';
 import SmlStandardBtn from '../../components/Button/SmallStandardBtn';
 import { Input } from '@rneui/base';
-import {
-	UserCredential,
-	createUserWithEmailAndPassword,
-	sendEmailVerification,
-	updateProfile,
-} from 'firebase/auth';
-import { auth, db } from '../../../config/firebase';
+import { updateProfile } from 'firebase/auth';
+import { db } from '../../../config/firebase';
 import { doc, setDoc } from 'firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -34,10 +29,10 @@ export const LogoImage = () => {
 	return <Image source={require('../../../assets/ss.png')} />;
 };
 
-interface SignUpFormValues {
-	email: string;
-	password: string;
-}
+// interface SignUpFormValues {
+// 	email: string;
+// 	password: string;
+// }
 
 const SignUp = () => {
 	const { user, sendVerifyEmail, signUp } = useAuth();
@@ -98,35 +93,6 @@ const SignUp = () => {
 			setFormError('All fields are required');
 		}
 	};
-	// try {
-	// 	const newUserCredential: UserCredential =
-	// 		await createUserWithEmailAndPassword(auth, email, password);
-
-	// 	navigation.push('VerifyEmail');
-
-	// 	await sendEmailVerification(newUserCredential.user);
-
-	// 	const userProfileDocRef = doc(db, `users/${newUserCredential.user.uid}`);
-
-	// 	await setDoc(userProfileDocRef, { firstName, lastName, email });
-
-	// 	await updateProfile(newUserCredential.user, {
-	// 		displayName: `${firstName} ${lastName}`,
-	// 	});
-
-	// 	return newUserCredential;
-	// } catch (error: any) {
-	// 	console.log(`Error: ${error.code} - ${error.message}`);
-	// 	if (error.code === 'auth/email-already-in-use') {
-	// 		setFormError('Email is already in use.');
-	// 	} else if (error.code === 'auth/invalid-email') {
-	// 		setFormError('Email address is not valid.');
-	// 	} else if (error.code === 'auth/weak-password') {
-	// 		setFormError('Weak password. Please use a stronger password');
-	// 	} else {
-	// 		setFormError(`Sign up error: ${error.message}`);
-	// 	}
-	// }
 
 	const handleSignIn = () => {
 		navigation.navigate('AuthDashboard');
@@ -138,10 +104,10 @@ const SignUp = () => {
 
 	return (
 		<SafeAreaProvider style={{ backgroundColor: COLORS.alpha.white }}>
-			<ScrollView>
+			<ScrollView style={{ flex: 1 }}>
 				<KeyboardAvoidingView
 					style={{ flex: 1 }}
-					behavior={Platform.OS === 'ios' ? 'height' : undefined}
+					behavior={Platform.OS === 'ios' ? 'padding' : undefined}
 					keyboardVerticalOffset={100}
 				>
 					<HeaderComponent authorised={false} />
@@ -190,41 +156,6 @@ const SignUp = () => {
 							}
 						/>
 
-						{/* <TextInput
-							inputLabel={'First name:'}
-							autoCapitalize={autoCap.WORDS}
-							value={firstName}
-							onChangeText={() => setFirstName}
-						/>
-						<TextInput
-							inputLabel={'Last name:'}
-							autoCapitalize={autoCap.WORDS}
-							value={lastName}
-							onChangeText={() => setLastName}
-						/>
-
-						<TextInput
-							inputLabel={'Email:'}
-							autoCapitalize={autoCap.NONE}
-							value={email}
-							onChangeText={(value: string) => setEmail(value)}
-							// change keyboard type to email
-						/>
-						<TextInput
-							inputLabel={'Password:'}
-							autoCapitalize={autoCap.NONE}
-							value={password}
-							onChangeText={() => setPassword}
-							secureTextEntry={isPasswordSecure}
-							icon={
-								<Icon
-									type='entypo'
-									color={COLORS.black}
-									name={isPasswordSecure ? 'eye-with-line' : 'eye'}
-									onPress={handleViewPassword}
-								/>
-							}
-						/> */}
 						<View
 							style={{
 								paddingHorizontal: 10,

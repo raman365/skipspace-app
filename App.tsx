@@ -1,14 +1,3 @@
-import 'react-native-gesture-handler';
-
-import AuthorisedStack from './src/navigation/AuthorisedStack';
-import { UnauthorisedStack } from './src/navigation/UnauthorisedStack';
-import { useFonts } from 'expo-font';
-import { NavigationContainer } from '@react-navigation/native';
-
-import * as SplashScreen from 'expo-splash-screen';
-import useAuth from './src/hooks/useAuth';
-import { useState, useCallback } from 'react';
-
 // import { ThemeProvider } from '@rneui/themed';
 // import 'expo-splash-screen';
 
@@ -33,10 +22,21 @@ import { useState, useCallback } from 'react';
 // 		</ThemeProvider>
 // 	);
 // }
+import 'react-native-gesture-handler';
 
+import AuthorisedStack from './src/navigation/AuthorisedStack';
+import { UnauthorisedStack } from './src/navigation/UnauthorisedStack';
+import { useFonts } from 'expo-font';
+import { NavigationContainer } from '@react-navigation/native';
+
+import * as SplashScreen from 'expo-splash-screen';
+import useAuth from './src/hooks/useAuth';
+import { useState, useCallback } from 'react';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
+import { COLORS } from './constants/theme';
 export default function App() {
-	const { user } = useAuth();
-	const [loading, setLoading] = useState<boolean>(false);
+	const { user, isAuthenticated: authLoading } = useAuth();
+	const [loading, setLoading] = useState<boolean>(true);
 
 	const [fontsLoaded, fontError] = useFonts({
 		tungsten_bold: require('./assets/fonts/Tungsten/TungstenBold.ttf'),
@@ -47,6 +47,16 @@ export default function App() {
 	const onLayoutRootView = useCallback(async () => {
 		if (fontsLoaded || fontError) {
 			await SplashScreen.hideAsync();
+			// setTimeout(() => {
+			// setLoading(false);
+			// }, 1000);
+			// try {
+			// 	// setLoading(false);
+
+			// 	await SplashScreen.hideAsync();
+			// } catch (error) {
+			// 	console.error('Error hiding splash screen:', error);
+			// }
 		}
 	}, [fontsLoaded, fontError]);
 
@@ -58,5 +68,20 @@ export default function App() {
 		<NavigationContainer onReady={onLayoutRootView} independent={true}>
 			{user ? <AuthorisedStack /> : <UnauthorisedStack />}
 		</NavigationContainer>
+		// // <View style={styles.container}>
+		// 	{/* {authLoading || user ? (
+		// 		<ActivityIndicator size={'large'} color={COLORS.bgGreen} />
+		// 	) : ( */}
+
+		// 	{/* )} */}
+		// // </View>
 	);
 }
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+});

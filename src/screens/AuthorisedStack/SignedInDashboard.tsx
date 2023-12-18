@@ -16,8 +16,7 @@ import ScreenTitle from '../../components/ScreenTitle';
 
 const SignedInDashboard = ({ navigation }: any) => {
 	const [isEmailVerified, setIsEmailVerified] = useState<boolean | null>(null);
-	const { user, sendVerifyEmail, signUserOut, checkEmailVerificationStatus } =
-		useAuth();
+	const { user, sendVerifyEmail, checkEmailVerificationStatus } = useAuth();
 
 	const handleToggle = () => {
 		navigation.dispatch(DrawerActions.toggleDrawer());
@@ -48,7 +47,7 @@ const SignedInDashboard = ({ navigation }: any) => {
 		let { status } = await Location.requestForegroundPermissionsAsync();
 		if (status !== 'granted') {
 			setErrorMsg(
-				'Permission to access location was denied, your lcoation is needed ...'
+				'Permission to access location was denied, your lcoation is needed for functional uses in this app'
 			);
 			return;
 		}
@@ -57,8 +56,6 @@ const SignedInDashboard = ({ navigation }: any) => {
 		setLocation(currentLocation);
 		// console.log('Current location', currentLocation);
 	};
-
-	// TODO: useEffect to check status of email verification
 
 	useEffect(() => {
 		const checkEmailVerificationStatus = async (): Promise<void> => {
@@ -97,6 +94,7 @@ const SignedInDashboard = ({ navigation }: any) => {
 						authorised={true}
 						icon={
 							<Icon
+								style={{ marginRight: 30 }}
 								name='menu'
 								type='feather'
 								color={COLORS.bgGreen}

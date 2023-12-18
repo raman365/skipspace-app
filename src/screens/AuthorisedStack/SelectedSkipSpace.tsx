@@ -2,7 +2,6 @@ import {
 	View,
 	StyleSheet,
 	ActivityIndicator,
-	TouchableOpacity,
 	Pressable,
 	Platform,
 	Linking,
@@ -18,11 +17,6 @@ import MapView, { Marker, Region } from 'react-native-maps';
 const SelectedSkipSpace = ({ route, navigation }: any) => {
 	const { councilName, skipCompany, skipCompanyAddress } = route.params;
 	const { mainItemId } = route.params || {}; // Use default empty object if params is undefined
-
-	// const {  council_name } = route.params as {
-	// 	mainItemId: string;
-	// 	council_name: string;
-	// };
 
 	const [skipLocation, setSkipLocation] = useState(skipCompanyAddress);
 	const [coordinates, setCoordinates] = useState<{

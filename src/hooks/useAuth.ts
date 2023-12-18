@@ -7,6 +7,7 @@ interface AuthState {
     user: User | null;
     isAuthenticated: boolean | null;
 
+
 }
 
 interface AuthActions {

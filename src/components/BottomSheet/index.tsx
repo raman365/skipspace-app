@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 import {
-	Alert,
 	Linking,
 	Platform,
 	StyleSheet,
@@ -9,17 +8,13 @@ import {
 	TouchableOpacity,
 	View,
 } from 'react-native';
-import { BottomSheet, ListItem } from '@rneui/themed';
+import { BottomSheet } from '@rneui/themed';
 
-import { COLORS, FONTSIZES } from '../../../constants/theme';
+import { COLORS } from '../../../constants/theme';
 import ScreenTitle from '../ScreenTitle';
-import QREncoder from '../QRCoder';
-import StandardButton from '../Button/StandardBtn';
 import Subtitle from '../Subtitle';
-import CountdownTimer from '../Timer';
 import SmlStandardBtn from '../Button/SmallStandardBtn';
 import ClearBtn from '../Button/ClearBtn';
-import dayjs from 'dayjs';
 import QRCoder from '../QRCoder';
 import { encryptData } from '../../utils/encryptDecrypt';
 import * as Location from 'expo-location';
