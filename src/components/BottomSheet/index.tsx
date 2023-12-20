@@ -63,12 +63,23 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 	// const [isVisible, setIsVisible] = useState(false)
 	// console.log(dayjs(dateIssued));
 
-	const dataInQRCode = `\n Date issued: ${dateIssued} \n Expiry date: ${dateExpires} \nPerson Details: ${userName} \n Local Authority Issue: ${localAuthIssue} \nSkip Company Name: ${skipCompanyName} \n Skip Company Address:\n${skipCompanyAddress}`;
+	// const dataInQRCode = `\n Date issued: ${dateIssued} \n Expiry date: ${dateExpires} \nPerson Details: ${userName} \n Local Authority Issue: ${localAuthIssue} \nSkip Company Name: ${skipCompanyName} \n Skip Company Address:\n${skipCompanyAddress}`;
+	const voucherData = {
+		date_time_issued: dateIssued,
+		user_name: userName,
+		local_auth_issue: localAuthIssue,
+		skip_company_name: skipCompanyName,
+		skip_company_address: skipCompanyAddress,
+		voucher_used: false,
+	};
+
+	const jsonString = JSON.stringify(voucherData);
 
 	const secretKey = 'theSecretKey';
-	const dataToEncode = dataInQRCode;
+	// const dataToEncode = dataInQRCode;
 
-	const encData = encryptData(dataToEncode, secretKey);
+	// const encData = encryptData(dataToEncode, secretKey);
+
 	const [coordinates, setCoordinates] = useState<{
 		latitude: number;
 		longitude: number;
@@ -132,7 +143,9 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 							padding: 20,
 						}}
 					>
-						<QRCoder data={encData} />
+						{/* <QRCoder data={encData} /> */}
+						{/* <QRCoder data={encData} /> */}
+						<QRCoder data={jsonString} />
 					</View>
 
 					<View

@@ -54,8 +54,10 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 						longitude: locationData[0].longitude,
 					});
 				} else {
-					//TODO: ERROR HANDLING
+					//TODO: ERROR HANDLING for location
 					console.error('No coordinates found for the given address');
+
+					// TODO  conditional rendering
 				}
 			} catch (error) {
 				console.error('Error fetching coordinates', error);

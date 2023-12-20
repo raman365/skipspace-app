@@ -36,15 +36,14 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 	const userFullname = auth.currentUser?.displayName;
 	const userEmail = auth.currentUser?.email;
 
-	let dateTimeNow = dayjs().format('DD/MM/YYYY');
-	let expiryDate = dayjs().hour(24).format('DD/MM/YYYY');
+	let dateTimeNow = dayjs().format('DD/MM/YYYY HH:mm:ss');
+	console.log(dateTimeNow);
+	// let expiryDate = dayjs().hour(24).format('DD/MM/YYYY');
 
-	const dataInQRCode = `\n Date issued: ${dateTimeNow} \n Expiry date: ${expiryDate} \nPerson Details: ${userFullname} \n Local Authority Issue: ${localAuth} \nSkip Company Name: ${skipCompanyName} \n Skip Company Address:\n${skipCompanyAddress}`;
+	// const dataInQRCode = `\n Date issued: ${dateTimeNow} \nPerson Details: ${userFullname} \n Local Authority Issue: ${localAuth} \nSkip Company Name: ${skipCompanyName} \n Skip Company Address:\n${skipCompanyAddress}`;
 
-	const secretKey = 'theSecretKey';
-	const dataToEncode = dataInQRCode;
-
-	const encData = encryptData(dataToEncode, secretKey);
+	const secretKey = 'theSecretKey'; //TODO - Change this
+	// const dataToEncode = dataInQRCode;
 
 	// const [data, setData] = useState<string>('');
 
@@ -59,21 +58,34 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 	// TODO: If user already has voucher from one council can they get another?
 	//  can user get vouchers from 2 different councils at once?
 
+	// the below gets pushed to the database
+
 	const voucherData = {
-		date_issued: dateTimeNow,
-		date_expires: expiryDate,
+		date_time_issued: dateTimeNow,
 		user_name: userFullname,
 		user_email: userEmail,
 		local_auth_issue: localAuth,
 		skip_company_name: skipCompanyName,
 		skip_company_address: skipCompanyAddress,
-		voucherStatus: true,
+		voucher_used: false,
 	};
+
+	// this part goes into the QR code
+	const jsonString = JSON.stringify(voucherData);
+
+	// const parseData = JSON.parse(jsonString);
+
+	// console.log('Parsed: ', parseData);
+
+	// const encData = encryptData(jsonString, secretKey);
+
+	console.log('Serialized Obj: ', jsonString);
 
 	const handleReturnHome = () => {
 		addDataToCollection('vouchers', voucherData);
 		navigation.navigate('signedInDashboard');
-		// TODO: Push voucher data to the database
+
+		// TODO: Push voucher data to the database - send throgh voucher id
 
 		// details to add to database:
 		/* 
@@ -124,12 +136,8 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 					}}
 				>
 					{/* <QREncoder codeValue={dataInQRCode} /> */}
-
-					<QRCoder data={encData} />
-					{/* <QRCoder data={dataInQRCode} /> */}
-
-					{console.log('Data in qr: ', dataInQRCode)}
-					{/* <Text>{dataInQRCode}</Text> */}
+					{/* <QRCoder data={encData} /> */}
+					<QRCoder data={jsonString} />
 				</View>
 
 				<View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>

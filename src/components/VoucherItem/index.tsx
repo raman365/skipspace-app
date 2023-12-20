@@ -11,7 +11,7 @@ interface IProps {
 	dateUsed?: Date | string;
 	nameOfCompany?: string;
 	address?: string;
-	dateIssued: string; // TODO Date maths
+	dateTimeIssued: string; // TODO Date maths
 	dateExpires?: string;
 	onPress?: () => void;
 }
@@ -68,25 +68,27 @@ const VoucherItem: React.FC<IProps> = ({
 							style={{ color: hasBeenUsed ? COLORS.lightGrey : COLORS.black }}
 						>
 							<View style={{ flexDirection: 'row' }}>
-								<Text style={{ fontSize: FONTSIZES.medium }}>{address}</Text>
+								<Text
+									style={{
+										fontSize: FONTSIZES.medium,
+										color: hasBeenUsed ? COLORS.lightGrey : COLORS.black,
+									}}
+								>
+									{address}
+								</Text>
 							</View>
 						</ListItem.Subtitle>
 					</View>
 
-					{hasBeenUsed ? (
+					{/* {hasBeenUsed ? (
 						<View>
 							<ListItem.Subtitle
 								style={{ color: hasBeenUsed ? COLORS.lightGrey : COLORS.black }}
 							>
-								<Text
-									style={{ fontWeight: 'bold', fontSize: FONTSIZES.medium }}
-								>
-									Used:
-								</Text>
 								<Text style={{ fontSize: FONTSIZES.medium }}>{dateUsed}</Text>
 							</ListItem.Subtitle>
 						</View>
-					) : null}
+					) : null} */}
 				</ListItem.Content>
 
 				{hasBeenUsed ? null : (

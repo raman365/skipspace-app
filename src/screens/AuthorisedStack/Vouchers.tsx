@@ -52,6 +52,8 @@ const fetchDataByValues = async (
 const Vouchers = ({ navigation }: any) => {
 	const [isVisible, setIsVisible] = useState(false);
 	const [voucherData, setVoucherData] = useState<any | null>([]);
+
+	const [usedVoucherData, setUsedVoucherData] = useState<any | null>([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const userFullname = auth.currentUser?.displayName;
 
@@ -82,7 +84,13 @@ const Vouchers = ({ navigation }: any) => {
 				const q = query(
 					vouchRef,
 					where('user_email', '==', auth.currentUser?.email),
-					orderBy('date_issued', 'asc')
+					orderBy('date_time_issued', 'asc')
+				);
+
+				const usedVouchers = query(
+					vouchRef,
+					where('user_email', '==', auth.currentUser?.email),
+					where('voucher_used', '==', true)
 				);
 				// TODO: Get real time updates ££
 
@@ -91,30 +99,24 @@ const Vouchers = ({ navigation }: any) => {
 						id: doc.id,
 						...doc.data(),
 					}));
-					// const timestampData = snapshot.data()?.timestampField;
 
 					setVoucherData(updatedData);
+					setIsLoading(false);
+				});
+				const unsubscribeUsed = onSnapshot(usedVouchers, (snapshot) => {
+					const updatedData = snapshot.docs.map((doc) => ({
+						id: doc.id,
+						...doc.data(),
+					}));
+
+					setUsedVoucherData(updatedData);
 					setIsLoading(false);
 				});
 
 				return () => {
 					unsubscribe(); // Cleanup the listener when the component unmounts
+					unsubscribeUsed(); // Cleanup the listener when the component unmounts
 				};
-
-				// CHECK DATE ON VOUCHER
-				/* 
-				
-				IF date is less than today then place in expiry date section
-				
-				*/
-
-				// const querySnapshot = await getDocs(q);
-				// const newData = querySnapshot.docs.map((doc) => ({
-				// 	id: doc.id,
-				// 	...doc.data(),
-				// }));
-
-				// setData(newData);
 			} catch (error) {
 				console.error('Error fetching data: ', error);
 			}
@@ -138,7 +140,7 @@ const Vouchers = ({ navigation }: any) => {
 				<VoucherItem
 					nameOfCompany={voucher.skip_company_name}
 					address={voucher.skip_company_address}
-					dateIssued={voucher.date_issued}
+					dateTimeIssued={voucher.date_time_issued}
 					onPress={handleVoucherItem}
 					hasBeenUsed={false}
 				/>
@@ -150,9 +152,46 @@ const Vouchers = ({ navigation }: any) => {
 					skipCompanyAddress={voucher.skip_company_address}
 					localAuthIssue={voucher.local_auth_issue}
 					userName={userFullname}
-					dateIssued={voucher.date_issued}
+					dateIssued={voucher.date_time_issued}
 					onHelpPress={handleHelp}
 				/>
+			</View>
+		));
+	};
+
+	const renderUsedVouchers = () => {
+		return usedVoucherData.map((voucher: any) => (
+			<View
+				key={voucher.id}
+				style={{
+					borderRadius: 25,
+				}}
+			>
+				<View
+					key={voucher.id}
+					style={{
+						borderRadius: 25,
+					}}
+				>
+					<VoucherItem
+						nameOfCompany={voucher.skip_company_name}
+						address={voucher.skip_company_address}
+						dateTimeIssued={voucher.date_time_issued}
+						onPress={handleVoucherItem}
+						hasBeenUsed={true}
+					/>
+
+					<VoucherSheet
+						isShown={isVisible}
+						onCancelPress={handleBackdropPress}
+						skipCompanyName={voucher.skip_company_name}
+						skipCompanyAddress={voucher.skip_company_address}
+						localAuthIssue={voucher.local_auth_issue}
+						userName={userFullname}
+						dateIssued={voucher.date_time_issued}
+						onHelpPress={handleHelp}
+					/>
+				</View>
 			</View>
 		));
 	};
@@ -199,42 +238,43 @@ const Vouchers = ({ navigation }: any) => {
 							Active:
 						</Text>
 					</View>
-
-					{voucherData === null ? (
-						<View>
-							{/* TODO: Add conditional rendering */}
-							<Text
-								style={{
-									textAlign: 'center',
-									fontSize: FONTSIZES.ml,
-									paddingVertical: 15,
-								}}
-							>
-								You have currently have no active vouchers
-							</Text>
-						</View>
-					) : (
-						<ScrollView>
-							<View
-								style={{
-									borderRadius: 10,
-									backgroundColor: COLORS.white,
-									paddingHorizontal: 10,
-									margin: 10,
-								}}
-							>
-								{isLoading ? (
-									<ActivityIndicator
-										color={COLORS.bgGreen}
-										size={'small'}
-										style={{ marginVertical: 30 }}
-									/>
-								) : (
-									renderVouchers()
-								)}
+					<>
+						{voucherData === null ? (
+							<View>
+								{/* TODO: Add conditional rendering */}
+								<Text
+									style={{
+										textAlign: 'center',
+										fontSize: FONTSIZES.ml,
+										paddingVertical: 15,
+									}}
+								>
+									You have currently have no active vouchers
+								</Text>
 							</View>
-						</ScrollView>
-					)}
+						) : (
+							<ScrollView>
+								<View
+									style={{
+										borderRadius: 10,
+										backgroundColor: COLORS.white,
+										paddingHorizontal: 10,
+										margin: 10,
+									}}
+								>
+									{isLoading ? (
+										<ActivityIndicator
+											color={COLORS.bgGreen}
+											size={'small'}
+											style={{ marginVertical: 30 }}
+										/>
+									) : (
+										renderVouchers()
+									)}
+								</View>
+							</ScrollView>
+						)}
+					</>
 				</View>
 
 				{/* Expired vouchers section */}
@@ -257,9 +297,66 @@ const Vouchers = ({ navigation }: any) => {
 							Used:
 						</Text>
 					</View>
+					<>
+						{usedVoucherData === null ? (
+							<View>
+								{/* TODO: Add conditional rendering */}
+								<Text
+									style={{
+										textAlign: 'center',
+										fontSize: FONTSIZES.ml,
+										paddingVertical: 15,
+									}}
+								>
+									You have currently have no active vouchers
+								</Text>
+							</View>
+						) : (
+							<ScrollView>
+								<View
+									style={{
+										borderRadius: 10,
+										backgroundColor: COLORS.white,
+										paddingHorizontal: 10,
+										margin: 10,
+									}}
+								>
+									{isLoading ? (
+										<ActivityIndicator
+											color={COLORS.bgGreen}
+											size={'small'}
+											style={{ marginVertical: 30 }}
+										/>
+									) : (
+										renderUsedVouchers()
+									)}
+								</View>
+							</ScrollView>
+						)}
+					</>
+				</View>
+
+				{/* <View style={{ paddingBottom: 50 }}>
+					<View
+						style={{
+							borderBottomColor: COLORS.bgBlue,
+							borderBottomWidth: 0.5,
+							paddingBottom: 10,
+						}}
+					>
+						<Text
+							style={{
+								fontSize: FONTSIZES.xl,
+								color: COLORS.bgBlue,
+								padding: 10,
+								fontWeight: 'bold',
+							}}
+						>
+							Used:
+						</Text>
+					</View>
 
 					<View style={styles.section}>
-						{/* TODO: Add conditional rendering */}
 						<Text
 							style={{
 								textAlign: 'center',
@@ -268,9 +365,43 @@ const Vouchers = ({ navigation }: any) => {
 							}}
 						>
 							You currently have no used vouchers
+							{usedVoucherData === null ? (
+								<View>
+									<Text
+										style={{
+											textAlign: 'center',
+											fontSize: FONTSIZES.ml,
+											paddingVertical: 15,
+										}}
+									>
+										You currently have no used vouchers
+									</Text>
+								</View>
+							) : (
+								<ScrollView>
+									<View
+										style={{
+											borderRadius: 10,
+											backgroundColor: COLORS.white,
+											paddingHorizontal: 10,
+											margin: 10,
+										}}
+									>
+										{isLoading ? (
+											<ActivityIndicator
+												color={COLORS.bgGreen}
+												size={'small'}
+												style={{ marginVertical: 30 }}
+											/>
+										) : (
+											renderUsedVouchers()
+										)}
+									</View>
+								</ScrollView>
+							)}
 						</Text>
 					</View>
-				</View>
+				</View> */}
 			</View>
 		</SafeAreaProvider>
 	);

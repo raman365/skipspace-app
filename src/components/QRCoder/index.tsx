@@ -2,10 +2,9 @@ import React, { useEffect } from 'react';
 import { ActivityIndicator, Text } from 'react-native';
 import QRCode from 'react-native-qrcode-svg';
 import { COLORS } from '../../../constants/theme';
-import { encryptData } from '../../utils/encryptDecrypt';
 
 interface QRCoderProps {
-	data: string;
+	data: any;
 }
 const QRCoder: React.FC<QRCoderProps> = ({ data }) => {
 	return (
