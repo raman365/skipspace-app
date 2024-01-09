@@ -46,32 +46,36 @@ const Help = ({ navigation }: any) => {
 				</Text>
 			</View>
 			<View style={styles.centerContainer}>
-				<Text style={{ fontSize: FONTSIZES.xl }}>How to use your voucher:</Text>
+				<Text
+					style={{
+						fontSize: FONTSIZES.xl,
+						textAlign: 'center',
+						paddingBottom: 10,
+					}}
+				>
+					How to use your voucher:
+				</Text>
 				<View style={{ paddingLeft: 10, paddingTop: 10 }}>
-					<Text style={{ fontSize: FONTSIZES.ml, marginBottom: 10 }}>
+					<Text style={{ fontSize: FONTSIZES.ml, marginBottom: 15 }}>
 						1. Arrive at your SkipSpace site.
 					</Text>
-					<Text style={{ fontSize: FONTSIZES.ml, marginBottom: 10 }}>
-						2. Show the QR code to the security staff when you arrive.
+					<Text style={{ fontSize: FONTSIZES.ml, marginBottom: 15 }}>
+						2. Show the QR code to the security staff.
 					</Text>
-					<Text style={{ fontSize: FONTSIZES.ml, marginBottom: 10 }}>
+					<Text style={{ fontSize: FONTSIZES.ml, marginBottom: 15 }}>
 						3. Drop off your items
 					</Text>
 				</View>
 
 				<View style={{ paddingTop: 30 }}>
-					<Text style={{ fontSize: FONTSIZES.xl, textAlign: 'center' }}>
-						Need further help?
-					</Text>
 					<Text
 						style={{
-							fontSize: FONTSIZES.ml,
+							fontSize: FONTSIZES.xl,
 							textAlign: 'center',
-							paddingBottom: 20,
-							paddingTop: 5,
+							paddingBottom: 10,
 						}}
 					>
-						Get in touch:
+						Need further help?
 					</Text>
 
 					<TouchableOpacity onPress={handleEmailLink}>
