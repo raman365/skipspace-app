@@ -103,34 +103,6 @@ const SkipSpaceResults = ({ route, navigation }: any) => {
 		}
 	};
 
-	// const getLinkedSkipCompaniesData = async () => {
-	// 	try {
-	// 		const linkedSkipCompaniesSnapShot = await getDocs(
-	// 			linkedSkipCompaniesCollectionRef
-	// 		);
-
-	// 		const linkedSkipCompaniesData: any[] = [];
-
-	// 		linkedSkipCompaniesSnapShot.forEach(async (doc) => {
-	// 			const companyId = doc.id;
-	// 			const companyName = doc.data().skip_company_name;
-
-	// 			const skipSitesData = await getSkipSitesDataForCompany(companyId);
-
-	// 			linkedSkipCompaniesData.push({
-	// 				companyId,
-	// 				companyName,
-	// 				skipSitesData,
-	// 			});
-	// 		});
-
-	// 		return linkedSkipCompaniesData;
-	// 	} catch (error: any) {
-	// 		console.error('Error fetching linkedSkipCompanies subcollection:', error);
-	// 		return [];
-	// 	}
-	// };
-
 	const getLinkedSkipCompaniesData = async () => {
 		try {
 			const linkedSkipCompaniesSnapShot = await getDocs(
@@ -189,7 +161,7 @@ const SkipSpaceResults = ({ route, navigation }: any) => {
 	// }, []);
 
 	useEffect(() => {
-		console.log('load');
+		// console.log('load');
 		getLinkedSkipCompaniesData();
 		// const fetchData = async () => {
 		// 	try {

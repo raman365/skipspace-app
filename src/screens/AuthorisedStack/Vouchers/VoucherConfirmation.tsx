@@ -13,7 +13,7 @@ import dayjs from 'dayjs';
 import { db } from '../../../../config/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import QRCoder from '../../../components/QRCoder';
-import { encryptData } from '../../../utils/encryptDecrypt';
+import { encryptDataFunc } from '../../../utils/encryptDecrypt';
 
 const addDataToCollection = async (collectionName: string, data: any) => {
 	try {
@@ -55,11 +55,6 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 	// 	console.log('Encrypted data: ', encryptedData);
 	// }, [data]);
 
-	// TODO: If user already has voucher from one council can they get another?
-	//  can user get vouchers from 2 different councils at once?
-
-	// the below gets pushed to the database
-
 	const voucherData = {
 		date_time_issued: dateTimeNow,
 		user_name: userFullname,
@@ -77,40 +72,14 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 
 	// console.log('Parsed: ', parseData);
 
-	// const encData = encryptData(jsonString, secretKey);
+	// const encData = encryptDataFunc(jsonString, secretKey);
+	const encData = encryptDataFunc(jsonString, secretKey);
 
-	console.log('Serialized Obj: ', jsonString);
+	// console.log('Serialized Obj: ', jsonString);
 
 	const handleReturnHome = () => {
 		addDataToCollection('vouchers', voucherData);
 		navigation.navigate('signedInDashboard');
-
-		// TODO: Push voucher data to the database - send throgh voucher id
-
-		// details to add to database:
-		/* 
-		- Date/time issues
-		- Person Details
-		- Local authotity issued
-		- Skip company name
-		- skip company address
-		
-
-		Find user
-		- Create a collection called vouchers as a subcollection of users
-		- 
-		- Create collection called vouchers
-		- Fields:
-		- Auto ID
-		- Date issued
-		- Users' name
-		- Skip Company name
-		- Skip Company address
-		- Voucher status
-		-
-		
-		if it doesn't exist - create on
-		*/
 	};
 	return (
 		<SafeAreaProvider>

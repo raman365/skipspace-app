@@ -32,7 +32,7 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 
 	// update the region when he coordinates change
 	useEffect(() => {
-		if (coordinates) {
+		if (coordinates && coordinates.latitude && coordinates.longitude) {
 			setRegion({
 				latitude: coordinates.latitude,
 				longitude: coordinates.longitude,
@@ -40,6 +40,10 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 				longitudeDelta: 0.0421,
 			});
 		}
+		// } else {
+		// 	// TODO error handling
+		// 	console.log('location not available');
+		// }
 	}, [coordinates]);
 
 	useEffect(() => {

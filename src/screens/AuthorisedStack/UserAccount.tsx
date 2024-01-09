@@ -6,7 +6,7 @@ import HeaderComponent from '../../components/Header';
 import { Icon, Input, Text } from '@rneui/themed';
 
 import { auth, db } from '../../../config/firebase';
-import { doc, getDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, query, where } from 'firebase/firestore';
 import { SmlStandardBtn } from '../../components/Button/SmallStandardBtn';
 import ClearBtn from '../../components/Button/ClearBtn';
 import useAuth from '../../hooks/useAuth';
@@ -53,6 +53,7 @@ const UserAccount = ({ navigation }: any) => {
 				console.log('user not found');
 			}
 		}
+
 		fetchData();
 	}, []);
 
@@ -112,13 +113,13 @@ const UserAccount = ({ navigation }: any) => {
 								placeholder={userData?.user_email}
 							/>
 
-							<Text style={styles.textStyle}>Used vouchers:</Text>
+							{/* <Text style={styles.textStyle}>Used vouchers:</Text>
 							<Input
 								disabled
 								inputContainerStyle={styles.contStyle}
 								autoCapitalize='words'
 								placeholder={'TBC'}
-							/>
+							/> */}
 						</View>
 
 						<View style={styles.bottomDivider}>

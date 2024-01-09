@@ -17,10 +17,10 @@ const AuthDashboard = ({ navigation }: any) => {
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
 
-	// TODO: email verification
 	const handleSignIn = async () => {
 		// TODO: Handle sign in
 
+		setError('');
 		if (email && password) {
 			try {
 				await signInWithEmailAndPassword(auth, email, password);
@@ -28,8 +28,7 @@ const AuthDashboard = ({ navigation }: any) => {
 				if (error.code == 'auth/invalid-login-credentials') {
 					setError('Invalid email/password details');
 				}
-				console.error(`ERROR: ${error.code} - ${error.message}`);
-				// setError(error.message);
+				// console.error(`ERROR: ${error.code} - ${error.message}`);
 			}
 		}
 	};
@@ -47,13 +46,6 @@ const AuthDashboard = ({ navigation }: any) => {
 			<ScreenTitle title={'Sign In'} />
 
 			<View style={styles.centerContainer}>
-				{/* <TextInput 
-					inputLabel={'Email address:'} 
-					value={email} 
-					onChangeText={(email: React.SetStateAction<string>) => setEmail(email)}
-					autoCapitalize={'none'} 
-					/>
-				<TextInput inputLabel={'Password:'} secureTextEntry />  */}
 				<View>
 					<Text style={styles.formTextStyle}>Email address </Text>
 					<Input
@@ -85,7 +77,14 @@ const AuthDashboard = ({ navigation }: any) => {
 				</View>
 				{error && (
 					<View style={{ paddingTop: 20 }}>
-						<Text style={{ color: COLORS.softRed, textAlign: 'center' }}>
+						<Text
+							style={{
+								color: COLORS.softRed,
+								textAlign: 'center',
+								fontWeight: '700',
+								fontSize: FONTSIZES.large,
+							}}
+						>
 							{error}
 						</Text>
 					</View>
@@ -94,7 +93,6 @@ const AuthDashboard = ({ navigation }: any) => {
 				<View style={{ paddingVertical: 40 }}>
 					<StandardButton
 						buttonLabel={'Sign In'}
-						// onPress={() => console.log('dsfs')}
 						onPress={handleSignIn}
 						bgGreen={false}
 						fontBlue={false}

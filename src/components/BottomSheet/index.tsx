@@ -16,7 +16,7 @@ import Subtitle from '../Subtitle';
 import SmlStandardBtn from '../Button/SmallStandardBtn';
 import ClearBtn from '../Button/ClearBtn';
 import QRCoder from '../QRCoder';
-import { encryptData } from '../../utils/encryptDecrypt';
+import { encryptDataFunc } from '../../utils/encryptDecrypt';
 import * as Location from 'expo-location';
 
 interface IVoucherSheetProps {
@@ -27,13 +27,8 @@ interface IVoucherSheetProps {
 	skipCompanyName: string;
 	skipCompanyAddress: string;
 	localAuthIssue: string;
-	// dateIssued: string | Date;
 	dateIssued: string; //TODO change
 	dateExpires?: string; // TODO change
-	// qrCode: React.ReactElement;
-
-	// mapLink: string
-	// expiryDate: Date | string
 }
 
 const VoucherSheet: React.FC<IVoucherSheetProps> = ({
@@ -47,23 +42,6 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 	dateIssued,
 	dateExpires,
 }) => {
-	// TODO : Work with date string on voucher
-	// TODO: Maps link on bottom sheeet voucher
-	////   Date issued: ${new Date()}
-	// const now = dayjs();
-	// const dataInQRCode = `\n
-	// 					  Date issued: ${dateIssued}
-	// 					  Date expires: ${dateExpires}
-	// 					  Person Details: ${userName}
-	// 					  Local Authority Issue: ${localAuthIssue}
-	// 					  Skip Company Name: ${skipCompanyName}
-	// 					  Skip Company Address: ${skipCompanyAddress}
-	//  `;
-
-	// const [isVisible, setIsVisible] = useState(false)
-	// console.log(dayjs(dateIssued));
-
-	// const dataInQRCode = `\n Date issued: ${dateIssued} \n Expiry date: ${dateExpires} \nPerson Details: ${userName} \n Local Authority Issue: ${localAuthIssue} \nSkip Company Name: ${skipCompanyName} \n Skip Company Address:\n${skipCompanyAddress}`;
 	const voucherData = {
 		date_time_issued: dateIssued,
 		user_name: userName,
@@ -76,7 +54,6 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 	const jsonString = JSON.stringify(voucherData);
 
 	const secretKey = 'theSecretKey';
-	// const dataToEncode = dataInQRCode;
 
 	// const encData = encryptData(dataToEncode, secretKey);
 
