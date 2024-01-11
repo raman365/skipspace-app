@@ -24,7 +24,7 @@ interface IVoucherSheetProps {
 	onCancelPress: () => void;
 	onHelpPress: () => void;
 	userName: any;
-	skipCompanyName: string;
+	// skipCompanyName: string;
 	skipCompanyAddress: string;
 	localAuthIssue: string;
 	dateIssued: string; //TODO change
@@ -35,18 +35,17 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 	isShown = false,
 	onCancelPress,
 	onHelpPress,
-	skipCompanyName,
+	// skipCompanyName,
 	skipCompanyAddress,
 	userName,
 	localAuthIssue,
 	dateIssued,
-	dateExpires,
 }) => {
 	const voucherData = {
 		date_time_issued: dateIssued,
 		user_name: userName,
 		local_auth_issue: localAuthIssue,
-		skip_company_name: skipCompanyName,
+		// skip_company_name: skipCompanyName,
 		skip_company_address: skipCompanyAddress,
 		voucher_used: false,
 	};
@@ -157,10 +156,7 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 								flexDirection: 'column',
 								justifyContent: 'center',
 							}}
-						>
-							<Subtitle subtitle={'Skip Company: '} />
-							<Text style={{ textAlign: 'center' }}>{skipCompanyName}</Text>
-						</View>
+						></View>
 						<View
 							style={{
 								paddingTop: 20,

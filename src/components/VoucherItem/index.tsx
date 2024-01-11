@@ -32,17 +32,13 @@ const CardItems: React.FC<{
 };
 const VoucherItem: React.FC<IProps> = ({
 	hasBeenUsed = false,
-	dateUsed,
+	// dateUsed,
 	nameOfCompany,
 	address,
 	onPress,
 }) => {
 	return (
-		<TouchableOpacity
-			onPress={onPress}
-			style={styles.voucherItem}
-			disabled={hasBeenUsed}
-		>
+		<TouchableOpacity onPress={onPress} disabled={hasBeenUsed}>
 			<ListItem style={{ padding: 0 }} bottomDivider>
 				<Icon
 					name='qrcode'
@@ -50,19 +46,6 @@ const VoucherItem: React.FC<IProps> = ({
 					color={hasBeenUsed ? COLORS.lightGrey : COLORS.black}
 				/>
 				<ListItem.Content>
-					<View style={{ justifyContent: 'center', alignItems: 'center' }}>
-						<ListItem.Subtitle
-							style={{
-								color: hasBeenUsed ? COLORS.lightGrey : COLORS.black,
-								paddingBottom: 5,
-							}}
-						>
-							<Text style={{ fontSize: FONTSIZES.medium }}>
-								{nameOfCompany}
-							</Text>
-						</ListItem.Subtitle>
-					</View>
-
 					<View>
 						<ListItem.Subtitle
 							style={{ color: hasBeenUsed ? COLORS.lightGrey : COLORS.black }}
@@ -70,6 +53,7 @@ const VoucherItem: React.FC<IProps> = ({
 							<View style={{ flexDirection: 'row' }}>
 								<Text
 									style={{
+										paddingTop: 7,
 										fontSize: FONTSIZES.medium,
 										color: hasBeenUsed ? COLORS.lightGrey : COLORS.black,
 									}}
@@ -100,11 +84,3 @@ const VoucherItem: React.FC<IProps> = ({
 };
 
 export default VoucherItem;
-
-const styles = StyleSheet.create({
-	voucherItem: {
-		// borderTopColor: COLORS.lightGrey,
-		// borderBottomColor: COLORS.lightGrey,
-		// borderBottomWidth: 0.5,
-	},
-});

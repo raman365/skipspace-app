@@ -148,7 +148,7 @@ const Vouchers = ({ navigation }: any) => {
 				<VoucherSheet
 					isShown={isVisible}
 					onCancelPress={handleBackdropPress}
-					skipCompanyName={voucher.skip_company_name}
+					// skipCompanyName={voucher.skip_company_name}
 					skipCompanyAddress={voucher.skip_company_address}
 					localAuthIssue={voucher.local_auth_issue}
 					userName={userFullname}
@@ -184,7 +184,7 @@ const Vouchers = ({ navigation }: any) => {
 					<VoucherSheet
 						isShown={isVisible}
 						onCancelPress={handleBackdropPress}
-						skipCompanyName={voucher.skip_company_name}
+						// skipCompanyName={voucher.skip_company_name}
 						skipCompanyAddress={voucher.skip_company_address}
 						localAuthIssue={voucher.local_auth_issue}
 						userName={userFullname}
@@ -241,15 +241,42 @@ const Vouchers = ({ navigation }: any) => {
 							</Text>
 						</View>
 						<>
-							<Text
-								style={{
-									textAlign: 'center',
-									fontSize: FONTSIZES.ml,
-									paddingVertical: 15,
-								}}
-							>
-								You have currently have no active vouchers
-							</Text>
+							{voucherData ? (
+								<>
+									<ScrollView>
+										<View
+											style={{
+												borderRadius: 10,
+												backgroundColor: COLORS.white,
+												paddingHorizontal: 10,
+												margin: 10,
+											}}
+										>
+											{isLoading ? (
+												<ActivityIndicator
+													color={COLORS.bgGreen}
+													size={'small'}
+													style={{ marginVertical: 30 }}
+												/>
+											) : (
+												renderVouchers()
+											)}
+										</View>
+									</ScrollView>
+								</>
+							) : (
+								<>
+									<Text
+										style={{
+											textAlign: 'center',
+											fontSize: FONTSIZES.ml,
+											paddingVertical: 15,
+										}}
+									>
+										You have currently have no active vouchers
+									</Text>
+								</>
+							)}
 							{/* {voucherData === 0 ? (
 								<View>
 									

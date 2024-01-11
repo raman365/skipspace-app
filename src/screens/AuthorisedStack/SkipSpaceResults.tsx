@@ -194,68 +194,6 @@ const SkipSpaceResults = ({ route, navigation }: any) => {
 					))}
 				</View>
 			</ScrollView>
-
-			{/* {skipCompanyData.map((item) => (
-				<View key={item.id}>
-					<View>
-						<DetailsCard
-							cardHeading={item.skip_company_name}
-							cardSubheading={item.skip_company_address}
-							onPress={() =>
-								navigation.navigate('selectedSkipSpace', {
-									councilName: council_name,
-									skipCompany: item.skip_company_name,
-									skipCompanyAddress: item.skip_company_address,
-								})
-							}
-							// onPress={() => setIsVisible(true)}
-						/>
-
-						<SkipOptionsSheet
-							isVisible={isVisible}
-							onCancelPress={() => setIsVisible(false)}
-							onVoucherPress={handleVoucherPress}
-							councilName={council_name}
-							skipCompany={item.skip_company_name}
-							skipCompanyAddress={item.skip_company_address}
-						/>
-					</View>
-				</View>
-			))} */}
-
-			{/* <View>
-			 <FlatList
-					data={dataFromSkipCompanies}
-					renderItem={({ item }) => (
-						<>
-							{console.log(
-								`	${item.skip_company_name} = ${item.skip_company_address}`
-							)}
-							<DetailsCard
-								cardHeading={item.skip_company_name}
-								cardSubheading={item.skip_company_address}
-								onPress={() =>
-									navigation.navigate('selectedSkipSpace', {
-										councilName: councilName,
-										skipCompany: item.skip_company_name,
-										skipCompanyAddress: item.skip_company_address,
-									})
-								}
-								// onPress={() => setIsVisible(true)}
-							/>
-
-							<SkipOptionsSheet
-								isVisible={isVisible}
-								onCancelPress={() => setIsVisible(false)}
-								onVoucherPress={handleVoucherPress}
-								councilName={councilName}
-								skipCompany={item.skip_company_name}
-								skipCompanyAddress={item.skip_company_location_address}
-							/>
-						</>
-					)}
-				/>
-			</View>*/}
 		</SafeAreaProvider>
 	);
 };

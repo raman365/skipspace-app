@@ -60,7 +60,7 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 		user_name: userFullname,
 		user_email: userEmail,
 		local_auth_issue: localAuth,
-		skip_company_name: skipCompanyName,
+		// skip_company_name: skipCompanyName,
 		skip_company_address: skipCompanyAddress,
 		voucher_used: false,
 	};

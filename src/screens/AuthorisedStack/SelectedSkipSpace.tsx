@@ -117,7 +117,6 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 	const handleConfirmVoucher = () => {
 		navigation.navigate('voucherConfirmation', {
 			localAuth: councilName,
-			skipCompanyName: skipCompany,
 			skipCompanyAddress: skipCompanyAddress,
 		});
 	};
@@ -155,7 +154,7 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 				}}
 			/>
 
-			<View style={{ paddingTop: 20, paddingBottom: 15 }}>
+			<View style={{ paddingTop: 30, paddingBottom: 15 }}>
 				<Text
 					h4
 					h4Style={{
@@ -170,7 +169,8 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 				</Text>
 			</View>
 
-			<View style={styles.centerContainer}>
+			{/* <View style={styles.centerContainer}> */}
+			<View style={{ paddingHorizontal: 30, flex: 1 }}>
 				<View style={{ alignContent: 'center', paddingBottom: 10 }}>
 					<Text
 						h4
@@ -188,24 +188,7 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 						{councilName}
 					</Text>
 				</View>
-				<View style={{ alignContent: 'center', paddingVertical: 20 }}>
-					<Text
-						h4
-						h4Style={{
-							fontWeight: '600',
-							color: COLORS.bgBlue,
-							fontFamily: 'Tungsten_SemiBold',
-							paddingBottom: 2,
-							letterSpacing: 0.3,
-							textAlign: 'center',
-						}}
-					>
-						Skip company:
-					</Text>
-					<Text style={{ fontSize: FONTSIZES.xl, textAlign: 'center' }}>
-						{skipCompany}
-					</Text>
-				</View>
+
 				<View style={{ paddingTop: 20, paddingBottom: 20 }}>
 					<Text
 						h4
@@ -225,7 +208,7 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 					</Text>
 				</View>
 
-				<View style={{ height: 100, marginBottom: 10 }}>
+				<View style={{ height: 100, paddingTop: 10 }}>
 					{coordinates ? (
 						<MapView
 							style={styles.map}
@@ -250,8 +233,8 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 				</View>
 			</View>
 
-			<View style={{ paddingTop: 5, paddingBottom: 30, paddingHorizontal: 30 }}>
-				<Pressable style={{ paddingBottom: 5 }} onPress={handleOpenMaps}>
+			<View style={{ paddingBottom: 40, paddingHorizontal: 30 }}>
+				<Pressable style={{ paddingVertical: 5 }} onPress={handleOpenMaps}>
 					<Text
 						style={{
 							fontSize: FONTSIZES.ml,
@@ -270,6 +253,7 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 						borderColor: COLORS.bgBlue,
 						borderWidth: 1,
 						marginTop: 10,
+						// paddingTop: 20,
 						marginBottom: 30,
 					}}
 				>
@@ -302,14 +286,15 @@ const styles = StyleSheet.create({
 		borderColor: COLORS.lightGrey,
 		// flex: 1,
 		borderWidth: 1,
-		height: 150,
+		height: 200,
 		width: '100%',
+		// marginVertical: 20,
 	},
 	centerContainer: {
-		paddingHorizontal: 30,
+		// paddingHorizontal: 30,
 		paddingBottom: 40,
-		display: 'flex',
-		justifyContent: 'center',
+		// display: 'flex',
+		// justifyContent: 'center',
 		flex: 1,
 	},
 });
