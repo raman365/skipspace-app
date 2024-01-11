@@ -26,9 +26,11 @@ interface MainDoc {
 const SelectCouncil = ({ navigation }: any) => {
 	// get all data in a collection
 	const [councilData, setCouncilData] = useState<DocumentData[]>([]);
-	const [skipCompanyData, setSkipCompanyData] = useState<DocumentData[]>([]);
 	const [skipSitesData, setSkipSitesData] = useState<DocumentData[]>([]);
-	const [selectedMainItemId, setSelectedMainItemId] = useState();
+
+	// const [skipCompanyData, setSkipCompanyData] = useState<DocumentData[]>([]);
+	// const [skipSitesData, setSkipSitesData] = useState<DocumentData[]>([]);
+	// const [selectedMainItemId, setSelectedMainItemId] = useState();
 
 	const [unsubscribeSubcollections, setUnsubscribeSubcollections] = useState<
 		(() => void)[]
@@ -36,10 +38,10 @@ const SelectCouncil = ({ navigation }: any) => {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			// **  get data from main collection
-
+			// **  get data from main council collection
 			const mainCollectionRef = collection(db, 'councils');
 			const mainCollectionSnapshot = await getDocs(mainCollectionRef);
+
 			const mainCollectionData = mainCollectionSnapshot.docs.map((doc) => ({
 				id: doc.id,
 				...doc.data(),
@@ -73,15 +75,19 @@ const SelectCouncil = ({ navigation }: any) => {
 							})
 						);
 
+						setSkipSitesData((prevData) => ({
+							...prevData,
+							[mainDoc.id]: subCollectionData,
+						}));
 						// setSkipCompanyData((prevData) => ({
 						// 	...prevData,
 						// 	[mainDoc.id]: subCollectionData,
 						// }));
 
-						setSkipSitesData((prevData) => ({
-							...prevData,
-							[mainDoc.id]: subCollectionData,
-						}));
+						// setSkipSitesData((prevData) => ({
+						// 	...prevData,
+						// 	[mainDoc.id]: subCollectionData,
+						// }));
 
 						// console.log('Site data: ', skipSitesData);
 					}
@@ -159,8 +165,8 @@ const SelectCouncil = ({ navigation }: any) => {
 				<Text
 					style={{
 						color: COLORS.bgBlue,
-						paddingVertical: 20,
-						paddingHorizontal: 10,
+						paddingTop: 20,
+						paddingHorizontal: 15,
 						textAlign: 'center',
 						fontSize: FONTSIZES.xl,
 					}}
@@ -168,7 +174,14 @@ const SelectCouncil = ({ navigation }: any) => {
 					Tap on your local borough to find SkipSpace in your area
 				</Text>
 
-				<ScrollView style={{ flex: 1, paddingTop: 20, marginBottom: 50 }}>
+				<ScrollView
+					style={{
+						flex: 1,
+						paddingTop: 20,
+						marginBottom: 20,
+						paddingBottom: 100,
+					}}
+				>
 					{councilData === null ? (
 						<View
 							style={{

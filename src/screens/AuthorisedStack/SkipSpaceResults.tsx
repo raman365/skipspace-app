@@ -35,8 +35,8 @@ const SkipSpaceResults = ({ route, navigation }: any) => {
 		mainItemId: string;
 		council_name: string;
 	};
-	const [isVisible, setIsVisible] = useState(false);
-	const [skipCompanyData, setskipCompanyData] = useState<SubDoc[]>([]);
+	// const [isVisible, setIsVisible] = useState(false);
+	// const [skipCompanyData, setskipCompanyData] = useState<SubDoc[]>([]);
 	const [skipSiteData, setSkipSiteData] = useState<SubDoc[]>([]);
 
 	const handleVoucherPress = () => {
@@ -76,102 +76,34 @@ const SkipSpaceResults = ({ route, navigation }: any) => {
 	const [linkedSkipCompaniesData, setLinkedSkipCompaniesData] = useState<any[]>(
 		[]
 	);
+	const [linkedSkipSites, setLinkedSkipSites] = useState<any[]>([]);
 
 	// Voucher stuff
-	const councilDocRef = doc(db, 'councils', mainItemId);
-	const linkedSkipCompaniesCollectionRef = collection(
-		councilDocRef,
-		'linkedSkipCompanies'
-	);
 
-	const getSkipSitesDataForCompany = async (companyId: string) => {
+	const getSkipSitesData = async () => {
 		try {
-			const companyDocRef = doc(linkedSkipCompaniesCollectionRef, companyId);
-			const skipSitesCollectionRef = collection(companyDocRef, 'skipSites');
-
-			const skipSiteSnapShot = await getDocs(skipSitesCollectionRef);
-			const skipSitesData: DocumentData[] = [];
-
-			skipSiteSnapShot.forEach((doc) => {
-				skipSitesData.push(doc.data());
-			});
-
-			return skipSitesData;
-		} catch (error: any) {
-			console.error('Err: ', error);
-			return [];
-		}
-	};
-
-	const getLinkedSkipCompaniesData = async () => {
-		try {
-			const linkedSkipCompaniesSnapShot = await getDocs(
-				linkedSkipCompaniesCollectionRef
+			const parentId = council_name.toLowerCase(); // Replace with the actual ID of the parent document
+			const subCollectionRef = collection(
+				db,
+				'councils',
+				parentId,
+				'skipSites'
 			);
+			const subCollectionSnapshot = await getDocs(subCollectionRef);
 
-			const promises = linkedSkipCompaniesSnapShot.docs.map(async (doc) => {
-				const companyId = doc.id;
-				const companyName = doc.data().skip_company_name;
+			const subCollectionData = subCollectionSnapshot.docs.map((doc) => ({
+				id: doc.id,
+				...doc.data(),
+			}));
 
-				const skipSitesData = await getSkipSitesDataForCompany(companyId);
-
-				return {
-					companyId,
-					companyName,
-					skipSitesData,
-				};
-			});
-
-			const result = await Promise.all(promises);
-
-			setLinkedSkipCompaniesData(result);
-
-			return result;
-			// const linkedSkipCompaniesData: any[] = [];
-
-			// await Promise.all(
-			// 	linkedSkipCompaniesSnapShot.docs.map(async (doc) => {
-			// 		const companyId = doc.id;
-			// 		const companyName = doc.data().skip_company_name;
-
-			// 		const skipSitesData = await getSkipSitesDataForCompany(companyId);
-
-			// 		linkedSkipCompaniesData.push({
-			// 			companyId,
-			// 			companyName,
-			// 			skipSitesData,
-			// 		});
-			// 	})
-			// );
-			// return linkedSkipCompaniesData;
+			setLinkedSkipSites(subCollectionData);
 		} catch (error: any) {
-			console.error('Error fetching linkedSkipCompanies subcollection:', error);
-			return [];
+			console.log('Error: ', error);
 		}
 	};
-
-	// useEffect(() => {
-	// 	const fetchData = async () => {
-	// 		const data = await getLinkedSkipCompaniesData();
-
-	// 		setLinkedSkipCompaniesData(data);
-	// 	};
-
-	// 	fetchData();
-	// }, []);
 
 	useEffect(() => {
-		// console.log('load');
-		getLinkedSkipCompaniesData();
-		// const fetchData = async () => {
-		// 	try {
-		// 		const data = await getLinkedSkipCompaniesData();
-		// 		setLinkedSkipCompaniesData(data);
-		// 	} catch (error: any) {
-		// 		console.error('Error fetching data: ', error);
-		// 	}
-		// };
-		// fetchData();
+		getSkipSitesData();
 	}, [route]);
 	return (
 		<SafeAreaProvider>
@@ -215,6 +147,22 @@ const SkipSpaceResults = ({ route, navigation }: any) => {
 				</Text>
 			</View>
 			<ScrollView>
+				<View style={{ padding: 20 }}>
+					{linkedSkipSites.map((site: any, index: any) => (
+						<SkipPill
+							key={index}
+							address={site.address}
+							onPress={() =>
+								navigation.navigate('selectedSkipSpace', {
+									councilName: council_name,
+									skipCompanyAddress: site.address,
+								})
+							}
+						/>
+					))}
+					<Text></Text>
+				</View>
+
 				<View style={{ padding: 20 }}>
 					{linkedSkipCompaniesData.map((company) => (
 						<View key={company.companyId} style={{ marginVertical: 20 }}>

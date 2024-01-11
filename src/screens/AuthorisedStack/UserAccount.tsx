@@ -93,14 +93,15 @@ const UserAccount = ({ navigation }: any) => {
 							<Text style={styles.textStyle}>First name:</Text>
 							<Input
 								disabled
+								style={{ fontSize: FONTSIZES.ml }}
 								inputContainerStyle={styles.contStyle}
 								autoCapitalize='words'
 								placeholder={userData?.user_first_name}
 							/>
 							<Text style={styles.textStyle}>Last name:</Text>
 							<Input
-								style={{ fontSize: FONTSIZES.xl }}
 								disabled
+								style={{ fontSize: FONTSIZES.ml }}
 								inputContainerStyle={styles.contStyle}
 								autoCapitalize='words'
 								placeholder={userData?.user_last_name}
@@ -108,6 +109,7 @@ const UserAccount = ({ navigation }: any) => {
 							<Text style={styles.textStyle}>Email:</Text>
 							<Input
 								disabled
+								style={{ fontSize: FONTSIZES.ml }}
 								inputContainerStyle={styles.contStyle}
 								autoCapitalize='words'
 								placeholder={userData?.user_email}

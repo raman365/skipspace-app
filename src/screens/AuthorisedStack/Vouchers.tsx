@@ -218,155 +218,100 @@ const Vouchers = ({ navigation }: any) => {
 				<View style={{ paddingVertical: 20 }}>
 					<ScreenTitle title={'Vouchers'} />
 				</View>
-				{/* Active vouchers */}
-				<View style={{ paddingBottom: 50 }}>
-					<View
-						style={{
-							borderBottomColor: COLORS.bgBlue,
-							borderBottomWidth: 0.5,
-							paddingBottom: 10,
-						}}
-					>
-						<Text
+
+				<ScrollView style={{ marginBottom: 200 }}>
+					{/* Active vouchers */}
+					<View style={{ paddingBottom: 50 }}>
+						<View
 							style={{
-								fontSize: FONTSIZES.xl,
-								color: COLORS.bgBlue,
-								padding: 10,
-								fontWeight: 'bold',
+								borderBottomColor: COLORS.bgBlue,
+								borderBottomWidth: 0.5,
+								paddingBottom: 10,
 							}}
 						>
-							Active:
-						</Text>
-					</View>
-					<>
-						{voucherData === null ? (
-							<View>
-								{/* TODO: Add conditional rendering */}
-								<Text
-									style={{
-										textAlign: 'center',
-										fontSize: FONTSIZES.ml,
-										paddingVertical: 15,
-									}}
-								>
-									You have currently have no active vouchers
-								</Text>
-							</View>
-						) : (
-							<ScrollView>
-								<View
-									style={{
-										borderRadius: 10,
-										backgroundColor: COLORS.white,
-										paddingHorizontal: 10,
-										margin: 10,
-									}}
-								>
-									{isLoading ? (
-										<ActivityIndicator
-											color={COLORS.bgGreen}
-											size={'small'}
-											style={{ marginVertical: 30 }}
-										/>
-									) : (
-										renderVouchers()
-									)}
+							<Text
+								style={{
+									fontSize: FONTSIZES.xl,
+									color: COLORS.bgBlue,
+									padding: 10,
+									fontWeight: 'bold',
+								}}
+							>
+								Active:
+							</Text>
+						</View>
+						<>
+							<Text
+								style={{
+									textAlign: 'center',
+									fontSize: FONTSIZES.ml,
+									paddingVertical: 15,
+								}}
+							>
+								You have currently have no active vouchers
+							</Text>
+							{/* {voucherData === 0 ? (
+								<View>
+									
+									<Text  //TODO: Add conditional rendering 
+										style={{
+											textAlign: 'center',
+											fontSize: FONTSIZES.ml,
+											paddingVertical: 15,
+										}}
+									>
+										You have currently have no active vouchers
+									</Text>
 								</View>
-							</ScrollView>
-						)}
-					</>
-				</View>
-
-				{/* Expired vouchers section */}
-				<View style={{ paddingBottom: 50 }}>
-					<View
-						style={{
-							borderBottomColor: COLORS.bgBlue,
-							borderBottomWidth: 0.5,
-							paddingBottom: 10,
-						}}
-					>
-						<Text
-							style={{
-								fontSize: FONTSIZES.xl,
-								color: COLORS.bgBlue,
-								padding: 10,
-								fontWeight: 'bold',
-							}}
-						>
-							Used:
-						</Text>
-					</View>
-					<>
-						{usedVoucherData === null ? (
-							<View>
-								{/* TODO: Add conditional rendering */}
-								<Text
-									style={{
-										textAlign: 'center',
-										fontSize: FONTSIZES.ml,
-										paddingVertical: 15,
-									}}
-								>
-									You have currently have no active vouchers
-								</Text>
-							</View>
-						) : (
-							<ScrollView>
-								<View
-									style={{
-										borderRadius: 10,
-										backgroundColor: COLORS.white,
-										paddingHorizontal: 10,
-										margin: 10,
-									}}
-								>
-									{isLoading ? (
-										<ActivityIndicator
-											color={COLORS.bgGreen}
-											size={'small'}
-											style={{ marginVertical: 30 }}
-										/>
-									) : (
-										renderUsedVouchers()
-									)}
-								</View>
-							</ScrollView>
-						)}
-					</>
-				</View>
-
-				{/* <View style={{ paddingBottom: 50 }}>
-					<View
-						style={{
-							borderBottomColor: COLORS.bgBlue,
-							borderBottomWidth: 0.5,
-							paddingBottom: 10,
-						}}
-					>
-						<Text
-							style={{
-								fontSize: FONTSIZES.xl,
-								color: COLORS.bgBlue,
-								padding: 10,
-								fontWeight: 'bold',
-							}}
-						>
-							Used:
-						</Text>
+							) : (
+								<ScrollView>
+									<View
+										style={{
+											borderRadius: 10,
+											backgroundColor: COLORS.white,
+											paddingHorizontal: 10,
+											margin: 10,
+										}}
+									>
+										{isLoading ? (
+											<ActivityIndicator
+												color={COLORS.bgGreen}
+												size={'small'}
+												style={{ marginVertical: 30 }}
+											/>
+										) : (
+											renderVouchers()
+										)}
+									</View>
+								</ScrollView>
+							)} */}
+						</>
 					</View>
 
-					<View style={styles.section}>
-						<Text
+					{/* Expired vouchers section */}
+					<View style={{ paddingBottom: 50 }}>
+						<View
 							style={{
-								textAlign: 'center',
-								fontSize: FONTSIZES.ml,
-								paddingVertical: 15,
+								borderBottomColor: COLORS.bgBlue,
+								borderBottomWidth: 0.5,
+								paddingBottom: 10,
 							}}
 						>
-							You currently have no used vouchers
+							<Text
+								style={{
+									fontSize: FONTSIZES.xl,
+									color: COLORS.bgBlue,
+									padding: 10,
+									fontWeight: 'bold',
+								}}
+							>
+								Used:
+							</Text>
+						</View>
+						<>
 							{usedVoucherData === null ? (
 								<View>
+									{/* TODO: Add conditional rendering */}
 									<Text
 										style={{
 											textAlign: 'center',
@@ -374,11 +319,11 @@ const Vouchers = ({ navigation }: any) => {
 											paddingVertical: 15,
 										}}
 									>
-										You currently have no used vouchers
+										You have currently have no active vouchers
 									</Text>
 								</View>
 							) : (
-								<ScrollView>
+								<ScrollView style={{ paddingBottom: 50 }}>
 									<View
 										style={{
 											borderRadius: 10,
@@ -399,9 +344,9 @@ const Vouchers = ({ navigation }: any) => {
 									</View>
 								</ScrollView>
 							)}
-						</Text>
+						</>
 					</View>
-				</View> */}
+				</ScrollView>
 			</View>
 		</SafeAreaProvider>
 	);

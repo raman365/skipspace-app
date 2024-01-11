@@ -116,6 +116,7 @@ const SignUp = () => {
 					<View style={styles.container}>
 						<Text style={styles.textStyle}>First name:</Text>
 						<Input
+							style={{ fontSize: FONTSIZES.ml }}
 							inputContainerStyle={styles.contStyle}
 							autoCapitalize='words'
 							value={firstName}
@@ -124,6 +125,7 @@ const SignUp = () => {
 
 						<Text style={styles.textStyle}>Last name:</Text>
 						<Input
+							style={{ fontSize: FONTSIZES.ml }}
 							inputContainerStyle={styles.contStyle}
 							autoCapitalize='words'
 							value={lastName}
@@ -132,6 +134,7 @@ const SignUp = () => {
 
 						<Text style={styles.textStyle}>Email:</Text>
 						<Input
+							style={{ fontSize: FONTSIZES.ml }}
 							inputContainerStyle={styles.contStyle}
 							autoCapitalize='none'
 							autoCorrect={false}
@@ -141,6 +144,7 @@ const SignUp = () => {
 
 						<Text style={styles.textStyle}>Password:</Text>
 						<Input
+							style={{ fontSize: FONTSIZES.ml }}
 							inputContainerStyle={styles.contStyle}
 							autoCapitalize='none'
 							value={password}
@@ -229,6 +233,7 @@ const styles = StyleSheet.create({
 		backgroundColor: COLORS.alpha.lightBlue,
 		opacity: 1,
 		paddingHorizontal: 10,
+		// fontSize: FONTSIZES.medium,
 	},
 });
 
