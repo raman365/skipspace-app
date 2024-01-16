@@ -5,12 +5,14 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
 import { Icon, Text } from '@rneui/themed';
 import * as Linking from 'expo-linking';
+import * as WebBrowser from 'expo-web-browser';
+import ClearBtn from '../../components/Button/ClearBtn';
 
 let emailURL = `skipspace-app://mailto:kirk@skipspace.co.uk`;
 let webURL = 'https://www.example.com';
 
 const Help = ({ navigation }: any) => {
-	const handleEmailLink = () => {
+	const handleLink = () => {
 		const email = 'kirk@skipspace.co.uk';
 		const subject = 'Help/Question from the User App';
 
@@ -67,32 +69,32 @@ const Help = ({ navigation }: any) => {
 					</Text>
 				</View>
 
-				<View style={{ paddingTop: 30 }}>
+				<View
+					style={{
+						paddingTop: 30,
+						justifyContent: 'center',
+						alignItems: 'center',
+					}}
+				>
 					<Text
 						style={{
 							fontSize: FONTSIZES.xl,
 							textAlign: 'center',
-							paddingBottom: 10,
+							paddingBottom: 5,
+							fontWeight: '600',
+							color: COLORS.bgBlue,
 						}}
 					>
 						Need further help?
 					</Text>
-
-					<TouchableOpacity onPress={handleEmailLink}>
-						<Text
-							style={{
-								fontWeight: 'bold',
-								textAlign: 'center',
-								fontSize: FONTSIZES.xxl,
-								color: COLORS.bgGreen,
-							}}
-						>
-							kirk@skipspace.co.uk
-						</Text>
-					</TouchableOpacity>
+					<ClearBtn
+						fontSize='large'
+						buttonLabel={' Contact us'}
+						onPress={() =>
+							Linking.openURL('https://www.skipspace.co.uk/contact')
+						}
+					/>
 				</View>
-
-				{/* TODO: aDD help skipspace mail link */}
 			</View>
 		</SafeAreaProvider>
 	);

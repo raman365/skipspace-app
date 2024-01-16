@@ -27,11 +27,6 @@ const SelectCouncil = ({ navigation }: any) => {
 	// get all data in a collection
 	const [councilData, setCouncilData] = useState<DocumentData[]>([]);
 	const [skipSitesData, setSkipSitesData] = useState<DocumentData[]>([]);
-
-	// const [skipCompanyData, setSkipCompanyData] = useState<DocumentData[]>([]);
-	// const [skipSitesData, setSkipSitesData] = useState<DocumentData[]>([]);
-	// const [selectedMainItemId, setSelectedMainItemId] = useState();
-
 	const [unsubscribeSubcollections, setUnsubscribeSubcollections] = useState<
 		(() => void)[]
 	>([]);

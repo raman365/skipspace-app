@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import {
+	Alert,
 	Linking,
 	Platform,
 	StyleSheet,
@@ -24,18 +25,16 @@ interface IVoucherSheetProps {
 	onCancelPress: () => void;
 	onHelpPress: () => void;
 	userName: any;
-	// skipCompanyName: string;
 	skipCompanyAddress: string;
 	localAuthIssue: string;
-	dateIssued: string; //TODO change
-	dateExpires?: string; // TODO change
+	dateIssued: string;
+	dateExpires?: string;
 }
 
 const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 	isShown = false,
 	onCancelPress,
 	onHelpPress,
-	// skipCompanyName,
 	skipCompanyAddress,
 	userName,
 	localAuthIssue,
@@ -45,7 +44,6 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 		date_time_issued: dateIssued,
 		user_name: userName,
 		local_auth_issue: localAuthIssue,
-		// skip_company_name: skipCompanyName,
 		skip_company_address: skipCompanyAddress,
 		voucher_used: false,
 	};
@@ -89,11 +87,12 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 						longitude: locationData[0].longitude,
 					});
 				} else {
-					//TODO: ERROR HANDLING
 					console.error('No coordinates found for the given address');
+					Alert.alert('No coordinates found for the given address');
 				}
-			} catch (error) {
+			} catch (error: any) {
 				console.error('Error fetching coordinates', error);
+				Alert.alert('Error fetching coordinates', error);
 			}
 		};
 		getCoordinates();
@@ -105,8 +104,6 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 			containerStyle={{}}
 		>
 			<View style={styles.mainContainer}>
-				{/* <View style={styles.voucherTicketTop} /> */}
-
 				<View style={{ paddingTop: 10, paddingBottom: 10 }}>
 					<ScreenTitle title={'Active Voucher'} />
 				</View>

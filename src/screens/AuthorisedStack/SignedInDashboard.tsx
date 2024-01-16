@@ -1,4 +1,11 @@
-import { View, StyleSheet, ActivityIndicator, Image, Text } from 'react-native';
+import {
+	View,
+	StyleSheet,
+	ActivityIndicator,
+	Image,
+	Text,
+	Alert,
+} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { COLORS } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -54,7 +61,6 @@ const SignedInDashboard = ({ navigation }: any) => {
 
 		let currentLocation = await Location.getCurrentPositionAsync({});
 		setLocation(currentLocation);
-		// console.log('Current location', currentLocation);
 	};
 
 	useEffect(() => {
@@ -65,12 +71,9 @@ const SignedInDashboard = ({ navigation }: any) => {
 
 					setIsEmailVerified(user.emailVerified);
 				} catch (error: any) {
-					// TODO
 					console.error('Error reloading: ', error.message);
+					Alert.alert('Error: ', error.message);
 				}
-				// } else {
-				// 	// TODO
-				// 	console.error('Error user is not authed ');
 			}
 		};
 		checkEmailVerificationStatus();
@@ -174,6 +177,17 @@ const SignedInDashboard = ({ navigation }: any) => {
 						</View>
 
 						<View style={{ alignItems: 'center' }}>
+							<Text
+								style={{
+									paddingHorizontal: 40,
+									textAlign: 'center',
+									color: COLORS.bgBlue,
+									paddingBottom: 10,
+								}}
+							>
+								Please wait 30 seconds before requesting another verification
+								email
+							</Text>
 							<ClearBtn
 								buttonLabel={'Send email again'}
 								onPress={handleSendAgain}

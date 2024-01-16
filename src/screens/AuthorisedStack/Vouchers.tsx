@@ -1,9 +1,8 @@
-import { View, StyleSheet, ActivityIndicator, FlatList } from 'react-native';
+import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { COLORS, FONTSIZES } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
-// import MapView from 'react-native-maps';
 
 import { Icon, Text } from '@rneui/themed';
 import ScreenTitle from '../../components/ScreenTitle';
@@ -11,9 +10,6 @@ import VoucherItem from '../../components/VoucherItem';
 import VoucherSheet from '../../components/BottomSheet';
 
 import { auth } from '../../../config/firebase';
-// import { DocumentReference } from '@google-cloud/firestore'
-
-import dayjs from 'dayjs';
 
 import {
 	query,
@@ -21,33 +17,32 @@ import {
 	getDocs,
 	collection,
 	onSnapshot,
-	orderBy,
 } from 'firebase/firestore';
 import { db } from '../../../config/firebase';
 import { ScrollView } from 'react-native-gesture-handler';
 
 //TODO - Get realtime updates on vouchers
-const fetchDataByValues = async (
-	collectionName: string,
-	field: string,
-	value: any
-) => {
-	try {
-		const q = query(collection(db, collectionName), where(field, '==', value));
-		const querySnapshot = await getDocs(q);
+// const fetchDataByValues = async (
+// 	collectionName: string,
+// 	field: string,
+// 	value: any
+// ) => {
+// 	try {
+// 		const q = query(collection(db, collectionName), where(field, '==', value));
+// 		const querySnapshot = await getDocs(q);
 
-		const data = querySnapshot.docs.map((doc: any) => ({
-			id: doc.id,
-			...doc.data(),
-		}));
+// 		const data = querySnapshot.docs.map((doc: any) => ({
+// 			id: doc.id,
+// 			...doc.data(),
+// 		}));
 
-		console.log('Fetched data: ', data);
-		return data;
-	} catch (error) {
-		console.error('Error fetching data: ', error);
-		return [];
-	}
-};
+// 		console.log('Fetched data: ', data);
+// 		return data;
+// 	} catch (error) {
+// 		console.error('Error fetching data: ', error);
+// 		return [];
+// 	}
+// };
 
 const Vouchers = ({ navigation }: any) => {
 	const [isVisible, setIsVisible] = useState(false);
@@ -59,10 +54,7 @@ const Vouchers = ({ navigation }: any) => {
 
 	// TODO: Database permissions
 	const handleVoucherItem = () => {
-		// console.log('handle voucher item');
 		setIsVisible(true);
-
-		// opens up bottom sheet
 	};
 
 	const handleBackdropPress = () => {
@@ -77,14 +69,13 @@ const Vouchers = ({ navigation }: any) => {
 	useEffect(() => {
 		const fetchVoucherData = async () => {
 			try {
-				// create a ref to the vouchers collection
 				setIsLoading(true);
 				const vouchRef = collection(db, 'vouchers');
 
-				const q = query(
+				const activeVouchers = query(
 					vouchRef,
 					where('user_email', '==', auth.currentUser?.email),
-					orderBy('date_time_issued', 'asc')
+					where('voucher_used', '==', false)
 				);
 
 				const usedVouchers = query(
@@ -94,7 +85,7 @@ const Vouchers = ({ navigation }: any) => {
 				);
 				// TODO: Get real time updates ££
 
-				const unsubscribe = onSnapshot(q, (snapshot) => {
+				const unsubscribe = onSnapshot(activeVouchers, (snapshot) => {
 					const updatedData = snapshot.docs.map((doc) => ({
 						id: doc.id,
 						...doc.data(),
@@ -124,11 +115,6 @@ const Vouchers = ({ navigation }: any) => {
 		fetchVoucherData();
 	}, []);
 
-	// const dateFormatter = (date: any) => {
-	// 	console.log('D: ', date.toDate());
-	// 	return date.toDate();
-	// };
-
 	const renderVouchers = () => {
 		return voucherData.map((voucher: any) => (
 			<View
@@ -138,7 +124,6 @@ const Vouchers = ({ navigation }: any) => {
 				}}
 			>
 				<VoucherItem
-					nameOfCompany={voucher.skip_company_name}
 					address={voucher.skip_company_address}
 					dateTimeIssued={voucher.date_time_issued}
 					onPress={handleVoucherItem}
@@ -148,7 +133,6 @@ const Vouchers = ({ navigation }: any) => {
 				<VoucherSheet
 					isShown={isVisible}
 					onCancelPress={handleBackdropPress}
-					// skipCompanyName={voucher.skip_company_name}
 					skipCompanyAddress={voucher.skip_company_address}
 					localAuthIssue={voucher.local_auth_issue}
 					userName={userFullname}
@@ -174,7 +158,6 @@ const Vouchers = ({ navigation }: any) => {
 					}}
 				>
 					<VoucherItem
-						nameOfCompany={voucher.skip_company_name}
 						address={voucher.skip_company_address}
 						dateTimeIssued={voucher.date_time_issued}
 						onPress={handleVoucherItem}
@@ -184,7 +167,6 @@ const Vouchers = ({ navigation }: any) => {
 					<VoucherSheet
 						isShown={isVisible}
 						onCancelPress={handleBackdropPress}
-						// skipCompanyName={voucher.skip_company_name}
 						skipCompanyAddress={voucher.skip_company_address}
 						localAuthIssue={voucher.local_auth_issue}
 						userName={userFullname}
@@ -273,45 +255,10 @@ const Vouchers = ({ navigation }: any) => {
 											paddingVertical: 15,
 										}}
 									>
-										You have currently have no active vouchers
+										You currently have no active vouchers
 									</Text>
 								</>
 							)}
-							{/* {voucherData === 0 ? (
-								<View>
-									
-									<Text  //TODO: Add conditional rendering 
-										style={{
-											textAlign: 'center',
-											fontSize: FONTSIZES.ml,
-											paddingVertical: 15,
-										}}
-									>
-										You have currently have no active vouchers
-									</Text>
-								</View>
-							) : (
-								<ScrollView>
-									<View
-										style={{
-											borderRadius: 10,
-											backgroundColor: COLORS.white,
-											paddingHorizontal: 10,
-											margin: 10,
-										}}
-									>
-										{isLoading ? (
-											<ActivityIndicator
-												color={COLORS.bgGreen}
-												size={'small'}
-												style={{ marginVertical: 30 }}
-											/>
-										) : (
-											renderVouchers()
-										)}
-									</View>
-								</ScrollView>
-							)} */}
 						</>
 					</View>
 
@@ -336,9 +283,17 @@ const Vouchers = ({ navigation }: any) => {
 							</Text>
 						</View>
 						<>
+							{/* <Text
+								style={{
+									textAlign: 'center',
+									fontSize: FONTSIZES.ml,
+									paddingVertical: 15,
+								}}
+							>
+								You currently have no used vouchers
+							</Text> */}
 							{usedVoucherData === null ? (
 								<View>
-									{/* TODO: Add conditional rendering */}
 									<Text
 										style={{
 											textAlign: 'center',

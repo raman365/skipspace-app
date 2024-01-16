@@ -31,42 +31,11 @@ const CustomToolTip: React.FC<TooltipProps> = ({
 
 const ForgotDetails = ({ navigation }: NavProps) => {
 	const { sendPasswordResetEmail } = useAuth();
-
-	// const [open, setOpen] = useState(false);
-
 	const [forgotEmail, setForgotEmail] = useState('');
 	const [formError, setFormError] = useState('');
 
-	// const handleForgotPassword = async () => {
-	// 	// const auth
-	// 	try {
-	// 		await sendPasswordResetEmail(auth, email).then(() => {
-	// 			// TODO send toast
-	// 			// TODO: customise email template for password reset
-	// 			setOpen(true);
-	// 			setEmail('');
-	// 			setFormError('');
-
-	// 			navigation.push('AuthDashboard');
-	// 		});
-	// 	} catch (error: any) {
-	// 		console.log(error.code);
-	// 		if (error.code === 'auth/missing-email') {
-	// 			setFormError('Add the email you registered with.');
-	// 		} else if (error.code === 'auth/invalid-email') {
-	// 			setFormError('Email address is not valid.');
-	// 		} else if (error.code === 'auth/user-not-found') {
-	// 			setFormError('User not found.');
-	// 		} else {
-	// 			setFormError(`${error.message}`);
-	// 		}
-	// 	}
-	// 	// console.log('handleForgotPassword');
-	// };
-
 	const handleBackBtn = () => {
 		navigation.navigate('AuthDashboard');
-		// navigation.dispatch(CommonActions.goBack());
 	};
 
 	const handlePasswordReset = () => {
@@ -104,71 +73,6 @@ const ForgotDetails = ({ navigation }: NavProps) => {
 				<View style={{ width: 100, alignSelf: 'center' }}></View>
 			</View>
 			<ScreenTitle title={'Forgot Password?'} />
-
-			{/* <View style={styles.centerContainer}>
-				<View>
-					<View>
-						<Text style={styles.textStyle}>
-							Enter your email and we will help you get back in{' '}
-						</Text>
-					</View>
-					<View style={{ paddingVertical: 50 }}>
-						<Text style={styles.textStyle}>Email:</Text>
-						<Input
-							inputContainerStyle={styles.contStyle}
-							autoCapitalize='none'
-							autoCorrect={false}
-							value={email}
-							onChangeText={(email) => setEmail(email)}
-						/>
-					</View>
-					<View
-						style={{
-							paddingHorizontal: 10,
-							paddingBottom: 20,
-						}}
-					>
-						<Text style={styles.errorText}>{formError}</Text>
-
-						<View
-							style={{
-								alignItems: 'center',
-							}}
-						>
-							<CustomToolTip
-								backgroundColor={COLORS.alpha.bgGreen}
-								onClose={() => {
-									setOpen(false);
-								}}
-								visible={open}
-								containerStyle={{
-									width: 250,
-									height: 60,
-									display: 'flex',
-									justifyContent: 'center',
-									alignItems: 'center',
-								}}
-								withPointer={false}
-								animationType={'fade'}
-								popover={
-									<Text style={{ textAlign: 'center' }}>
-										Password reset email has been sent to your inbox!
-									</Text>
-								}
-							/>
-						</View>
-					</View>
-
-					<View style={{ paddingVertical: 10 }}>
-						<StandardButton
-							buttonLabel={'Send'}
-							onPress={handleForgotPassword}
-							bgGreen={false}
-							fontBlue={false}
-						/>
-					</View>
-				</View>
-			</View> */}
 
 			<View style={styles.centerContainer}>
 				<View style={{ marginHorizontal: 10, marginVertical: 20 }}>
@@ -222,17 +126,12 @@ const styles = StyleSheet.create({
 		paddingVertical: 50,
 		display: 'flex',
 		justifyContent: 'space-between',
-		// flex: 1,
 	},
 	textStyle: {
 		fontSize: FONTSIZES.large,
 		paddingBottom: 10,
 	},
-	// textStyle: {
-	// 	fontSize: 15,
-	// 	textAlign: 'center',
-	// 	paddingVertical: 2,
-	// },
+
 	textStyleTwo: {
 		fontSize: 17,
 		fontWeight: '500',

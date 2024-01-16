@@ -22,7 +22,7 @@ interface ISkipOptionsSheetProps {
 	onVoucherPress: () => void;
 	councilName?: string;
 	skipCompany?: string;
-	skipCompanyAddress?: string | any; // TODO: change type
+	skipCompanyAddress?: string;
 }
 
 const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
@@ -33,40 +33,15 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 	skipCompany,
 	skipCompanyAddress,
 }) => {
-	// TODO Remove 'any' type
-	const [location, setLocation] = useState<any>({});
-	const [longitude, setLongitude] = useState<any>(null);
-	const [latitude, setLatitude] = useState<any>(null);
-
-	// useEffect(() => {
-	// 	(async () => {
-	// 		try {
-	// 			console.log('Addsdfds: ', skipCompanyAddress);
-	// 			const geocode = await Location.geocodeAsync(skipCompanyAddress);
-
-	// 			if (geocode.length > 0) {
-	// 				// console.log('Geocode is: ', geocode);
-	// 				setLongitude(geocode[0].longitude);
-	// 				setLatitude(geocode[0].latitude);
-	// 			} else {
-	// 				//TODO:  Convert to alert
-	// 				console.error('Invalid address');
-	// 			}
-	// 		} catch (error) {
-	// 			//TODO:  Convert to alert
-	// 			console.error('Error getting location: ', error);
-	// 		}
-	// 	})();
-	// }, [skipCompanyAddress]);
+	const [longitude, setLongitude] = useState<number | null>(null);
+	const [latitude, setLatitude] = useState<number | null>(null);
 
 	const handleOpenMaps = () => {
-		// console.log('handlemaps');
 		if (latitude && longitude) {
 			const url: any = Platform.select({
 				ios: `maps://app?daddr${latitude},${longitude}&dirflg=d`,
 				android: `google.navigation:q=${latitude},${longitude}&mode`,
 			});
-			// console.log('url: ', url);
 			Linking.openURL(url);
 		} else {
 			console.error('Location is not available');
@@ -89,7 +64,6 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 						<TouchableOpacity
 							onPress={onCancelPress}
 							style={{
-								// position: 'absolute',
 								paddingVertical: 10,
 								paddingHorizontal: 25,
 								top: 0,
@@ -124,7 +98,6 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 				</View>
 
 				{/* Main body */}
-				{/* <View style={{ padding: 20, marginBottom: 50 }}> */}
 				<View
 					style={{ paddingHorizontal: 20, paddingBottom: 20, marginBottom: 50 }}
 				>
@@ -132,7 +105,6 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 						style={{
 							borderColor: COLORS.bgBlue,
 							borderWidth: 1,
-							// paddingHorizontal: 20,
 							padding: 20,
 							marginHorizontal: 15,
 						}}
@@ -242,15 +214,7 @@ export default SkipOptionsSheet;
 const styles = StyleSheet.create({
 	topSection: {
 		paddingVertical: 20,
-		// flex: 1,
 		flexDirection: 'row',
-		// justifyContent: 'space-between',
-
-		// alignItems: 'flex-start',
-		// justifyI: 'center',
-		// justifyContent: 'center',
-		// justifyContent: 'center',
-		// alignContent: 'center',
 	},
 	top: {
 		paddingVertical: 30,
@@ -278,14 +242,10 @@ const styles = StyleSheet.create({
 	},
 
 	middle: {
-		// flex: 0.3,
-		// height: windowHeight / 3,
 		margin: 10,
 	},
 
 	bottom: {
-		// flex: 0.3,
-		// height: windowHeight / 3,
 		paddingTop: 50,
 		borderBottomLeftRadius: 20,
 		borderBottomRightRadius: 20,

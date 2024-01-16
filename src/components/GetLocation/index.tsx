@@ -14,7 +14,6 @@ const GetLocation: React.FC<{ address: string }> = ({ address }) => {
 				const geocode = await Location.geocodeAsync(address);
 
 				if (geocode.length > 0) {
-					// setLocation(geocode[0].location);
 					setLongitude(geocode[0].longitude);
 					setLatitude(geocode[0].latitude);
 
@@ -31,9 +30,6 @@ const GetLocation: React.FC<{ address: string }> = ({ address }) => {
 	const handleOpenMaps = () => {
 		if (location) {
 			const { latitude, longitude } = location;
-
-			// const  url: string  = Platform.select({
-			// TODO:CHECK types
 			const url: any = Platform.select({
 				ios: `maps://app?daddr${latitude},${longitude}&dirflg=d`,
 				android: `google.navigation:q=${latitude},${longitude}&mode`,

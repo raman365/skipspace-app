@@ -65,8 +65,10 @@ const useAuth = (): AuthState & AuthActions => {
         try {
             await signOut(auth);
         } catch (err: any) {
-            // TODO: Error handling
             console.error(`Error ${err.code} - ${err.message}`);
+            Alert.alert('Error', err.message)
+
+
         }
     };
 
@@ -78,11 +80,14 @@ const useAuth = (): AuthState & AuthActions => {
             user
                 ? await sendEmailVerification(user)
                 : console.log("error - email not sent, please try ")
-        } catch (error) {
-            // TODO: Make sure this handled well by the user
+        } catch (error: any) {
             console.error("Error: ", error)
+            Alert.alert('Error', error)
+
         }
     }
+
+    // TODO: Check user has been signed out before verifying email          
 
     const checkEmailVerificationStatus = async (): Promise<void> => {
         const user = auth.currentUser;
@@ -127,7 +132,7 @@ const useAuth = (): AuthState & AuthActions => {
     const sendResetEmail = async (email: string): Promise<void> => {
         try {
             await sendPasswordResetEmail(auth, email);
-            Alert.alert('Password reset email sent!')
+            Alert.alert('Password reset email sent', 'Please check your inbox')
         } catch (error: any) {
             console.log(`Error:, ${error.code} - ${error.message}`)
 

@@ -1,4 +1,5 @@
 import * as Location from 'expo-location'
+import { Alert } from 'react-native';
 
 export interface Coordinates {
     latitude: number,
@@ -13,8 +14,8 @@ export const getCoordinatesFromAddress = async (address: string): Promise<Coordi
             const { latitude, longitude } = location[0];
             return { latitude, longitude };
         } else {
-            // TODO: Does the below need to be see by the user?
             console.warn('no results found for the address ');
+            Alert.alert('No location found for this address')
             return null
         }
     } catch (error) {

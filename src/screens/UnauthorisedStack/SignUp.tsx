@@ -72,7 +72,7 @@ const SignUp = () => {
 					});
 				} else {
 					console.error('User UID is undefined.');
-					//TODO return null
+					return null;
 				}
 
 				sendVerifyEmail();
@@ -89,7 +89,6 @@ const SignUp = () => {
 				}
 			}
 		} else {
-			// TODO Add more specific validation rules
 			setFormError('All fields are required');
 		}
 	};
@@ -116,7 +115,7 @@ const SignUp = () => {
 					<View style={styles.container}>
 						<Text style={styles.textStyle}>First name:</Text>
 						<Input
-							style={{ fontSize: FONTSIZES.ml }}
+							style={{ fontSize: FONTSIZES.large }}
 							inputContainerStyle={styles.contStyle}
 							autoCapitalize='words'
 							value={firstName}
@@ -125,7 +124,7 @@ const SignUp = () => {
 
 						<Text style={styles.textStyle}>Last name:</Text>
 						<Input
-							style={{ fontSize: FONTSIZES.ml }}
+							style={{ fontSize: FONTSIZES.large }}
 							inputContainerStyle={styles.contStyle}
 							autoCapitalize='words'
 							value={lastName}
@@ -134,7 +133,7 @@ const SignUp = () => {
 
 						<Text style={styles.textStyle}>Email:</Text>
 						<Input
-							style={{ fontSize: FONTSIZES.ml }}
+							style={{ fontSize: FONTSIZES.large }}
 							inputContainerStyle={styles.contStyle}
 							autoCapitalize='none'
 							autoCorrect={false}
@@ -144,7 +143,7 @@ const SignUp = () => {
 
 						<Text style={styles.textStyle}>Password:</Text>
 						<Input
-							style={{ fontSize: FONTSIZES.ml }}
+							style={{ fontSize: FONTSIZES.large }}
 							inputContainerStyle={styles.contStyle}
 							autoCapitalize='none'
 							value={password}
@@ -152,6 +151,7 @@ const SignUp = () => {
 							secureTextEntry={isPasswordSecure}
 							rightIcon={
 								<Icon
+									size={20}
 									type='entypo'
 									color={COLORS.black}
 									name={isPasswordSecure ? 'eye-with-line' : 'eye'}

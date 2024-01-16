@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TouchableOpacity, StyleSheet, View, Pressable } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Text, Input } from '@rneui/themed';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { COLORS, FONTSIZES } from '../../../constants/theme';
@@ -8,7 +8,6 @@ import ScreenTitle from '../../components/ScreenTitle';
 import ClearBtn from '../../components/Button/ClearBtn';
 import StandardButton from '../../components/Button/StandardBtn';
 import Footer from '../../components/Footer';
-import useAuth from '../../hooks/useAuth_';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../../config/firebase';
 
@@ -18,8 +17,6 @@ const AuthDashboard = ({ navigation }: any) => {
 	const [error, setError] = useState('');
 
 	const handleSignIn = async () => {
-		// TODO: Handle sign in
-
 		setError('');
 		if (email && password) {
 			try {
@@ -49,6 +46,7 @@ const AuthDashboard = ({ navigation }: any) => {
 				<View>
 					<Text style={styles.formTextStyle}>Email address </Text>
 					<Input
+						style={{ fontSize: FONTSIZES.large }}
 						keyboardType='email-address'
 						inputContainerStyle={styles.contStyle}
 						onChangeText={(email) => setEmail(email)}
@@ -60,6 +58,7 @@ const AuthDashboard = ({ navigation }: any) => {
 				<View>
 					<Text style={styles.formTextStyle}>Password</Text>
 					<Input
+						style={{ fontSize: FONTSIZES.large }}
 						keyboardType='default'
 						inputContainerStyle={styles.contStyle}
 						secureTextEntry={true}

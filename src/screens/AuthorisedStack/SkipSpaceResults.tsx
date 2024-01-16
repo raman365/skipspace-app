@@ -131,9 +131,10 @@ const SkipSpaceResults = ({ route, navigation }: any) => {
 						color: COLORS.bgBlue,
 						fontSize: 30,
 						fontFamily: 'Tungsten_SemiBold',
+						paddingHorizontal: 30,
 					}}
 				>
-					Your local SkipSpaces in {council_name}
+					Your local SkipSpaces sites in {council_name}
 				</Text>
 				<Text
 					style={{

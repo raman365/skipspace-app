@@ -1,17 +1,14 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
 import { Icon, ListItem } from '@rneui/base';
 import { COLORS, FONTSIZES } from '../../../constants/theme';
-
-import dayjs from 'dayjs';
-// TODO - Ask whats the purpose of haveing an expiry date? when users can just go and issue another one
 
 interface IProps {
 	hasBeenUsed?: boolean;
 	dateUsed?: Date | string;
 	nameOfCompany?: string;
 	address?: string;
-	dateTimeIssued: string; // TODO Date maths
+	dateTimeIssued: string;
 	dateExpires?: string;
 	onPress?: () => void;
 }
@@ -32,10 +29,9 @@ const CardItems: React.FC<{
 };
 const VoucherItem: React.FC<IProps> = ({
 	hasBeenUsed = false,
-	// dateUsed,
-	nameOfCompany,
 	address,
 	onPress,
+	dateUsed,
 }) => {
 	return (
 		<TouchableOpacity onPress={onPress} disabled={hasBeenUsed}>
@@ -53,7 +49,7 @@ const VoucherItem: React.FC<IProps> = ({
 							<View style={{ flexDirection: 'row' }}>
 								<Text
 									style={{
-										paddingTop: 7,
+										paddingTop: 5,
 										fontSize: FONTSIZES.medium,
 										color: hasBeenUsed ? COLORS.lightGrey : COLORS.black,
 									}}
@@ -63,16 +59,6 @@ const VoucherItem: React.FC<IProps> = ({
 							</View>
 						</ListItem.Subtitle>
 					</View>
-
-					{/* {hasBeenUsed ? (
-						<View>
-							<ListItem.Subtitle
-								style={{ color: hasBeenUsed ? COLORS.lightGrey : COLORS.black }}
-							>
-								<Text style={{ fontSize: FONTSIZES.medium }}>{dateUsed}</Text>
-							</ListItem.Subtitle>
-						</View>
-					) : null} */}
 				</ListItem.Content>
 
 				{hasBeenUsed ? null : (
