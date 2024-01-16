@@ -10,9 +10,7 @@ import {
 import { BottomSheet, Icon } from '@rneui/themed';
 import { COLORS, FONTSIZES } from '../../../constants/theme';
 import StandardButton from '../Button/StandardBtn';
-import { windowHeight } from '../../utils/dimensions';
 import * as Linking from 'expo-linking';
-import * as Location from 'expo-location';
 
 import MapView, { Marker } from 'react-native-maps';
 

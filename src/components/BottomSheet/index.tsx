@@ -17,7 +17,7 @@ import Subtitle from '../Subtitle';
 import SmlStandardBtn from '../Button/SmallStandardBtn';
 import ClearBtn from '../Button/ClearBtn';
 import QRCoder from '../QRCoder';
-import { encryptDataFunc } from '../../utils/encryptDecrypt';
+import { encryptDataFunc, KEY } from '../../utils/encryptDecrypt';
 import * as Location from 'expo-location';
 
 interface IVoucherSheetProps {
@@ -50,9 +50,9 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 
 	const jsonString = JSON.stringify(voucherData);
 
-	const secretKey = 'theSecretKey';
+	// const secretKey = 'theSecretKey';
 
-	// const encData = encryptData(dataToEncode, secretKey);
+	const encData = encryptDataFunc(jsonString, KEY);
 
 	const [coordinates, setCoordinates] = useState<{
 		latitude: number;
@@ -98,11 +98,7 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 		getCoordinates();
 	}, [skipLocation]);
 	return (
-		<BottomSheet
-			isVisible={isShown}
-			onBackdropPress={onCancelPress}
-			containerStyle={{}}
-		>
+		<BottomSheet isVisible={isShown} onBackdropPress={onCancelPress}>
 			<View style={styles.mainContainer}>
 				<View style={{ paddingTop: 10, paddingBottom: 10 }}>
 					<ScreenTitle title={'Active Voucher'} />
@@ -116,9 +112,10 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 							padding: 20,
 						}}
 					>
+						{/* TODO: QR encoding */}
 						{/* <QRCoder data={encData} /> */}
-						{/* <QRCoder data={encData} /> */}
-						<QRCoder data={jsonString} />
+						<QRCoder data={encData} />
+						{/* <QRCoder data={jsonString} /> */}
 					</View>
 
 					<View

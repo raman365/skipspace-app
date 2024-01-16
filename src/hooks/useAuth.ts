@@ -6,8 +6,6 @@ import { Alert } from 'react-native';
 interface AuthState {
     user: User | null;
     isAuthenticated: boolean | null;
-
-
 }
 
 interface AuthActions {
@@ -105,6 +103,7 @@ const useAuth = (): AuthState & AuthActions => {
                 }
             } catch (error: any) {
                 console.error('Error reloading user:', error.message);
+                Alert.alert('Error', error.message)
             }
         }
     }
@@ -135,6 +134,7 @@ const useAuth = (): AuthState & AuthActions => {
             Alert.alert('Password reset email sent', 'Please check your inbox')
         } catch (error: any) {
             console.log(`Error:, ${error.code} - ${error.message}`)
+            Alert.alert('Error', error.message)
 
         }
 

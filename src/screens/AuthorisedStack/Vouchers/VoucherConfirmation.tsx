@@ -1,9 +1,9 @@
 import { View, StyleSheet } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import { COLORS, FONTSIZES } from '../../../../constants/theme';
+import React from 'react';
+import { COLORS } from '../../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../../components/Header';
-import { Button, Icon, Text, ListItem } from '@rneui/themed';
+import { Icon, Text, ListItem } from '@rneui/themed';
 // import QREncoder from '../../../components/QREncoder';
 import StandardButton from '../../../components/Button/StandardBtn';
 import ScreenTitle from '../../../components/ScreenTitle';
@@ -11,17 +11,14 @@ import { getAuth } from 'firebase/auth';
 import dayjs from 'dayjs';
 
 import { db } from '../../../../config/firebase';
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection, addDoc } from 'firebase/firestore';
 import QRCoder from '../../../components/QRCoder';
-import { encryptDataFunc } from '../../../utils/encryptDecrypt';
+import { KEY, encryptDataFunc } from '../../../utils/encryptDecrypt';
 
 const addDataToCollection = async (collectionName: string, data: any) => {
 	try {
-		// get ref to collection
 		const voucherCollRef = collection(db, collectionName);
-		// add a new doc with the data
 		const docRef = await addDoc(voucherCollRef, data);
-
 		console.log('Doc written with id: ', docRef.id);
 	} catch (error) {
 		console.error('Error adding document: ', error);
@@ -42,7 +39,10 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 
 	// const dataInQRCode = `\n Date issued: ${dateTimeNow} \nPerson Details: ${userFullname} \n Local Authority Issue: ${localAuth} \nSkip Company Name: ${skipCompanyName} \n Skip Company Address:\n${skipCompanyAddress}`;
 
-	const secretKey = 'theSecretKey'; //TODO - Change this
+	// const secretKey = 'theSecretKey'; //TODO - Change this
+	// const secretKey =
+	// 	'4b3c5420783c8e8fdad383619d2f6a0a6e4535c223e87b8485bd181d333187f9';
+	// TODO place in ENV
 	// const dataToEncode = dataInQRCode;
 
 	// const [data, setData] = useState<string>('');
@@ -60,7 +60,6 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 		user_name: userFullname,
 		user_email: userEmail,
 		local_auth_issue: localAuth,
-		// skip_company_name: skipCompanyName,
 		skip_company_address: skipCompanyAddress,
 		voucher_used: false,
 	};
@@ -70,10 +69,8 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 
 	// const parseData = JSON.parse(jsonString);
 
-	// console.log('Parsed: ', parseData);
-
 	// const encData = encryptDataFunc(jsonString, secretKey);
-	const encData = encryptDataFunc(jsonString, secretKey);
+	const encData = encryptDataFunc(jsonString, KEY);
 
 	// console.log('Serialized Obj: ', jsonString);
 
@@ -105,8 +102,8 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 					}}
 				>
 					{/* <QREncoder codeValue={dataInQRCode} /> */}
-					{/* <QRCoder data={encData} /> */}
-					<QRCoder data={jsonString} />
+					<QRCoder data={encData} />
+					{/* <QRCoder data={jsonString} /> */}
 				</View>
 
 				<View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>

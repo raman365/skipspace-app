@@ -1,5 +1,4 @@
-import { View, StyleSheet, Text } from 'react-native';
-// import { Text } from '@rneui/themed';
+import { View, Text } from 'react-native';
 import { COLORS, FONTSIZES } from '../../../constants/theme';
 import {} from '@rneui/themed';
 
@@ -10,15 +9,6 @@ interface IScreenTitleProps {
 const ScreenTitle: React.FC<IScreenTitleProps> = ({ title }) => {
 	return (
 		<View style={{ paddingTop: 20 }}>
-			{/* <Text
-				h2
-				h2Style={{
-					// fontWeight: '800',
-					textAlign: 'center',
-					fontFamily: 'tungsten_med',
-					color: COLORS.bgBlue,
-				}}
-			> */}
 			<Text
 				style={{
 					textAlign: 'center',

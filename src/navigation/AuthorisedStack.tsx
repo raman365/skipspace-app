@@ -21,12 +21,10 @@ import {
 import { COLORS, FONTSIZES, theme } from '../../constants/theme';
 import { ThemeProvider } from '@rneui/themed';
 
-import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import ClearBtn from '../components/Button/ClearBtn';
-import { NavigationContainer } from '@react-navigation/native';
 import { auth } from '../../config/firebase';
-// import { handleSignOut } from '../utils/signOut';
+
 import { DrawerStackParamsList } from '../../types/types';
 import useAuth from '../hooks/useAuth';
 
@@ -85,15 +83,6 @@ const CustomDrawerContent = (props: any) => {
 	);
 };
 const CustomDrawer = () => {
-	// const [fontsLoaded, fontError] = useFonts({
-	// 	tungsten_bold: require('../../assets/fonts/Tungsten/TungstenBold.ttf'),
-	// 	Tungsten_SemiBold: require('../../assets/fonts/Tungsten/Tungsten_SemiBold.ttf'),
-	// 	tungsten_med: require('../../assets/fonts/Tungsten/Tungsten_Med.otf'),
-	// });
-
-	// if (!fontsLoaded && !fontError) {
-	// 	return null;
-	// }
 	return (
 		<View style={{ flex: 1 }}>
 			<Drawer.Navigator

@@ -11,17 +11,10 @@ import VoucherSheet from '../../components/BottomSheet';
 
 import { auth } from '../../../config/firebase';
 
-import {
-	query,
-	where,
-	getDocs,
-	collection,
-	onSnapshot,
-} from 'firebase/firestore';
+import { query, where, collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../../../config/firebase';
 import { ScrollView } from 'react-native-gesture-handler';
 
-//TODO - Get realtime updates on vouchers
 // const fetchDataByValues = async (
 // 	collectionName: string,
 // 	field: string,
@@ -83,7 +76,6 @@ const Vouchers = ({ navigation }: any) => {
 					where('user_email', '==', auth.currentUser?.email),
 					where('voucher_used', '==', true)
 				);
-				// TODO: Get real time updates ££
 
 				const unsubscribe = onSnapshot(activeVouchers, (snapshot) => {
 					const updatedData = snapshot.docs.map((doc) => ({
