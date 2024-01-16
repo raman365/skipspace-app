@@ -1,12 +1,5 @@
-import {
-	Pressable,
-	StyleSheet,
-	Text,
-	TouchableOpacity,
-	View,
-} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React from 'react';
-import { Icon } from '@rneui/base';
 import { COLORS, FONTSIZES } from '../../../constants/theme';
 
 interface IProps {
@@ -29,9 +22,7 @@ const BoroughSearchButton: React.FC<IProps> = ({ councilName, onPress }) => {
 				backgroundColor: COLORS.bgGreen,
 				flexDirection: 'row',
 				justifyContent: 'center',
-				// alignContent: 'space-between',
 			}}
-			// onpress show skip spaces in the borough
 		>
 			<View>
 				<Text
@@ -45,13 +36,8 @@ const BoroughSearchButton: React.FC<IProps> = ({ councilName, onPress }) => {
 					{councilName}
 				</Text>
 			</View>
-			{/* <View style={{ justifyContent: 'flex-end', width: 40 }}>
-				<Icon name='chevron-right' type='FontAwesome' color={COLORS.bgBlue} />
-			</View> */}
 		</TouchableOpacity>
 	);
 };
 
 export default BoroughSearchButton;
-
-const styles = StyleSheet.create({});

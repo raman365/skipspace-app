@@ -1,5 +1,4 @@
-import { View, StyleSheet } from 'react-native';
-import { Text } from '@rneui/themed';
+import { View } from 'react-native';
 import { COLORS, FONTSIZES } from '../../../constants/theme';
 import { Button } from '@rneui/themed';
 

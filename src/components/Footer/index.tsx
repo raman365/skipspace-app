@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
 		height: 80,
 		paddingTop: 10,
 		marginTop: 10,
-		// marginHorizontal: 0,
 	},
 	viewContainer: {
 		display: 'flex',

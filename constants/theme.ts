@@ -3,14 +3,12 @@ import { createTheme } from '@rneui/themed';
 
 export const theme = createTheme({
     lightColors: {
-        // green: '#7acc00',
         primary: '#003b49', // blue
         secondary: '#7acc00', // green
         background: '#d0e6e8',
         black: '#000',
         white: '#fff'
     },
-    // },
 });
 
 export const COLORS = {
@@ -51,13 +49,3 @@ export const FONTSIZES = {
     xsmall: 8
 
 }
-
-// export const HEADINGS = {
-//     h4Style: {
-//         fontWeight: 'bold',
-//         textAlign: 'center',
-//         color: COLORS.bgBlue,
-//         fontSize: 30,
-
-//     }
-// }

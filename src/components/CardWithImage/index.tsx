@@ -4,7 +4,7 @@ import {
 	Dimensions,
 	useWindowDimensions,
 } from 'react-native';
-import { Card, Text } from '@rneui/themed';
+import { Card } from '@rneui/themed';
 import { COLORS } from '../../../constants/theme';
 import {} from '@rneui/themed';
 

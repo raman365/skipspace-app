@@ -8,10 +8,7 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { getFirestore } from 'firebase/firestore';
 
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 // TODO: Hide env variables
 
 const firebaseConfig = {
@@ -38,18 +35,3 @@ if (!firebase.apps.length) {
 // Firestore instance
 export const db = getFirestore(app);
 
-// // Initialize Firebase
-// //firebase.initializeApp(firebaseConfig); // It's expecting an objects
-
-// export const app = initializeApp(firebaseConfig);
-
-// // Initialize Firebase Authentication and get a reference to the service
-// export const auth = initializeAuth(app, {
-//     persistence: getReactNativePersistence(ReactNativeAsyncStorage)
-// });
-// // export const auth = getAuth(app);
-
-
-// // const auth = getAuth()
-
-// // export { app, auth }

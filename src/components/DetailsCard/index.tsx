@@ -1,5 +1,5 @@
 import { Card } from '@rneui/base';
-import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, View, Text } from 'react-native';
 
 interface IProps {
 	cardHeading: string;

@@ -1,5 +1,3 @@
-import { View, StyleSheet } from 'react-native';
-import { Text } from '@rneui/themed';
 import { COLORS } from '../../../constants/theme';
 import { Button } from '@rneui/themed';
 
@@ -25,7 +23,6 @@ export const SSButton: React.FC<ISSButtonProps> = ({
 			titleStyle={{
 				fontWeight: '700',
 				fontSize: 20,
-				// letterSpacing: 1,
 				color: COLORS.white,
 			}}
 			onPress={onPress}
