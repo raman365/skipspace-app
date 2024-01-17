@@ -25,7 +25,6 @@ const AuthDashboard = ({ navigation }: any) => {
 				if (error.code == 'auth/invalid-login-credentials') {
 					setError('Invalid email/password details');
 				}
-				// console.error(`ERROR: ${error.code} - ${error.message}`);
 			}
 		}
 	};

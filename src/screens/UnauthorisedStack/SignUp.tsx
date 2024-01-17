@@ -5,7 +5,6 @@ import {
 	ScrollView,
 	Text,
 	Platform,
-	Alert,
 } from 'react-native';
 import React, { useState } from 'react';
 import { Icon, Image } from '@rneui/themed';

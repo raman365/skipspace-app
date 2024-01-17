@@ -5,6 +5,7 @@ import {
 	Pressable,
 	Platform,
 	Linking,
+	Alert,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { COLORS, FONTSIZES } from '../../../constants/theme';
@@ -16,7 +17,7 @@ import MapView, { Marker, Region } from 'react-native-maps';
 
 const SelectedSkipSpace = ({ route, navigation }: any) => {
 	const { councilName, skipCompany, skipCompanyAddress } = route.params;
-	const { mainItemId } = route.params || {}; // Use default empty object if params is undefined
+	// const { mainItemId } = route.params || {};
 
 	const [skipLocation, setSkipLocation] = useState(skipCompanyAddress);
 	const [coordinates, setCoordinates] = useState<{
@@ -30,7 +31,6 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 		setSkipLocation(skipCompanyAddress);
 	}, [skipCompanyAddress]);
 
-	// update the region when he coordinates change
 	useEffect(() => {
 		if (coordinates && coordinates.latitude && coordinates.longitude) {
 			setRegion({
@@ -40,10 +40,6 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 				longitudeDelta: 0.0421,
 			});
 		}
-		// } else {
-		// 	// TODO error handling
-		// 	console.log('location not available');
-		// }
 	}, [coordinates]);
 
 	useEffect(() => {
@@ -58,10 +54,8 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 						longitude: locationData[0].longitude,
 					});
 				} else {
-					//TODO: ERROR HANDLING for location
 					console.error('No coordinates found for the given address');
-
-					// TODO  conditional rendering
+					Alert.alert('No coordinates found for the given address');
 				}
 			} catch (error) {
 				console.error('Error fetching coordinates', error);
@@ -70,50 +64,6 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 		getCoordinates();
 	}, [skipLocation]);
 
-	// useEffect(() => {
-	// 	// onload update map
-	// 	// (async () => {
-	// 	// 	try {
-	// 	// 		const geocode = await Location.geocodeAsync(skipCompanyAddress);
-
-	// 	// 		if (geocode.length > 0) {
-	// 	// 			setLongitude(geocode[0].longitude);
-	// 	// 			setLatitude(geocode[0].latitude);
-
-	// 	// 			console.log('lng: ', longitude);
-	// 	// 			console.log('lat: ', latitude);
-	// 	// 		} else {
-	// 	// 			//TODO:  Convert to alert
-	// 	// 			console.error('Invalid address');
-	// 	// 		}
-	// 	// 	} catch (error) {
-	// 	// 		//TODO:  Convert to alert
-	// 	// 		console.error('Error getting location: ', error);
-	// 	// 	}
-	// 	// })();
-
-	// 	console.log('SCA', skipCompanyAddress);
-
-	// 	setSkipLocation(skipCompanyAddress);
-
-	// 	const updateMapLocation = async () => {
-	// 		try {
-	// 			const geocode = await Location.geocodeAsync(skipLocation);
-
-	// 			if (geocode.length > 0) {
-	// 				setLongitude(geocode[0].longitude);
-	// 				setLatitude(geocode[0].latitude);
-	// 			} else {
-	// 				console.error('invalid address');
-	// 			}
-	// 		} catch (error: any) {
-	// 			console.error('Error getting location');
-	// 		}
-	// 	};
-	// 	updateMapLocation();
-	// }, [skipLocation]);
-	// }, []);
-
 	const handleConfirmVoucher = () => {
 		navigation.navigate('voucherConfirmation', {
 			localAuth: councilName,
@@ -121,10 +71,7 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 		});
 	};
 
-	// TODO
 	const handleOpenMaps = () => {
-		console.log('handlemaps: ', coordinates);
-
 		if (coordinates) {
 			const url: any = Platform.select({
 				ios: `maps://app?daddr=${coordinates.latitude},${coordinates.longitude}&dirflg=d`,
@@ -169,7 +116,6 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 				</Text>
 			</View>
 
-			{/* <View style={styles.centerContainer}> */}
 			<View style={{ paddingHorizontal: 30, flex: 1 }}>
 				<View style={{ alignContent: 'center', paddingBottom: 10 }}>
 					<Text
@@ -291,10 +237,8 @@ const styles = StyleSheet.create({
 		// marginVertical: 20,
 	},
 	centerContainer: {
-		// paddingHorizontal: 30,
 		paddingBottom: 40,
-		// display: 'flex',
-		// justifyContent: 'center',
+
 		flex: 1,
 	},
 });

@@ -15,7 +15,6 @@ export const Loader: React.FC<ISSButtonProps> = ({ size }) => {
 
 const styles = StyleSheet.create({
 	loadingContainer: {
-		// flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
 	},

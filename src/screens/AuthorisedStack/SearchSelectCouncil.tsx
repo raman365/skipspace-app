@@ -20,11 +20,9 @@ interface MainDoc {
 	id: string;
 	mainItemId: any;
 	council_name: string;
-	// ... other properties from the main document
 }
 
 const SelectCouncil = ({ navigation }: any) => {
-	// get all data in a collection
 	const [councilData, setCouncilData] = useState<DocumentData[]>([]);
 	const [skipSitesData, setSkipSitesData] = useState<DocumentData[]>([]);
 	const [unsubscribeSubcollections, setUnsubscribeSubcollections] = useState<
@@ -47,12 +45,6 @@ const SelectCouncil = ({ navigation }: any) => {
 
 			// loop through the main collection and set up onsnapshot for updates real time
 			mainCollectionData.forEach(async (mainDoc) => {
-				// const subCollectionRef = collection(
-				// 	db,
-				// 	'councils',
-				// 	mainDoc.id,
-				// 	'linkedSkipCompanies'
-				// );
 				const subCollectionRef = collection(
 					db,
 					'councils',
@@ -74,21 +66,8 @@ const SelectCouncil = ({ navigation }: any) => {
 							...prevData,
 							[mainDoc.id]: subCollectionData,
 						}));
-						// setSkipCompanyData((prevData) => ({
-						// 	...prevData,
-						// 	[mainDoc.id]: subCollectionData,
-						// }));
-
-						// setSkipSitesData((prevData) => ({
-						// 	...prevData,
-						// 	[mainDoc.id]: subCollectionData,
-						// }));
-
-						// console.log('Site data: ', skipSitesData);
 					}
 				);
-
-				// store the unsub function for later use
 
 				setUnsubscribeSubcollections((prevUnsubscribes) => [
 					...prevUnsubscribes,
@@ -97,24 +76,11 @@ const SelectCouncil = ({ navigation }: any) => {
 			});
 		};
 
-		// loop through the main collection and fetch data from sub
-
 		fetchData();
-
-		// TODO clean up
 		return () => {
 			unsubscribeSubcollections.forEach((unsubscribe) => unsubscribe());
 		};
 	}, []);
-
-	// const handleBoroughSearch = (council_n: string) => {
-	// 	// console.log('Selected council: ', council_n);
-	// 	navigation.navigate('skipSpaceResults', {
-	// 		councilName: council_n,
-	// 		dataFromCouncil: councilData,
-	// 		dataFromSkipCompanies: skipCompanyData,
-	// 	});
-	// };
 
 	const handleSelectedBorough = (mainItemId: string, council_name: string) => {
 		navigation.navigate('skipSpaceResults', {

@@ -1,15 +1,11 @@
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { CommonActions } from '@react-navigation/native';
-import { Text, Button, Input, Image, Icon } from '@rneui/themed';
+import { Text, Input, Image, Icon } from '@rneui/themed';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { COLORS, FONTSIZES } from '../../../constants/theme';
 import ScreenTitle from '../../components/ScreenTitle';
 import StandardButton from '../../components/Button/StandardBtn';
 import { useState } from 'react';
 import { Tooltip, TooltipProps } from '@rneui/base';
-import { sendPasswordResetEmail } from 'firebase/auth';
-import { auth } from '../../../config/firebase';
-import HeaderComponent from '../../components/Header';
 import useAuth from '../../hooks/useAuth';
 import { NavProps } from '../../../types/types';
 

@@ -29,18 +29,17 @@ const ConfirmDelete = ({ navigation }: any) => {
 		}
 	};
 
-	const deleteUserProfile = async (userId: string) => {
-		const userDocRef = doc(db, 'users', userId);
+	// const deleteUserProfile = async (userId: string) => {
+	// 	const userDocRef = doc(db, 'users', userId);
 
-		try {
-			await deleteDoc(userDocRef);
-			console.log('User profile deleted');
-		} catch (error: any) {
-			console.log('Error: ', error);
-			// TODO - ncorporate additional security measures depending on your specific use case.
-			// TODO: Can account
-		}
-	};
+	// 	try {
+	// 		await deleteDoc(userDocRef);
+	// 		console.log('User profile deleted');
+	// 	} catch (error: any) {
+	// 		console.log('Error: ', error);
+	// 		// TODO - ncorporate additional security measures depending on your specific use case.
+	// 	}
+	// };
 
 	const handleDeleteAccount = async () => {
 		userDelete();
