@@ -70,6 +70,8 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 	// const parseData = JSON.parse(jsonString);
 
 	// const encData = encryptDataFunc(jsonString, secretKey);
+	let text = 'something i want to send through';
+
 	const encData = encryptDataFunc(jsonString, KEY);
 
 	// console.log('Serialized Obj: ', jsonString);
@@ -104,6 +106,7 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 					{/* <QREncoder codeValue={dataInQRCode} /> */}
 					<QRCoder data={encData} />
 					{/* <QRCoder data={jsonString} /> */}
+					{/* <QRCoder data={'something i want to send through'} /> */}
 				</View>
 
 				<View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>
@@ -127,7 +130,6 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 						>
 							Instructions:
 						</Text>
-						{/* <Text style={{ textAlign: 'left', fontWeight: '400' }}> */}
 						<ListItem style={{ backgroundColor: COLORS.white }}>
 							<ListItem.Content>
 								<ListItem.Title style={styles.listItemTitle}>

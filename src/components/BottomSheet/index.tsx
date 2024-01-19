@@ -52,6 +52,7 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 
 	// const secretKey = 'theSecretKey';
 
+	// const encData = encryptDataFunc(jsonString, KEY);
 	const encData = encryptDataFunc(jsonString, KEY);
 
 	const [coordinates, setCoordinates] = useState<{
@@ -114,8 +115,8 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 					>
 						{/* TODO: QR encoding */}
 						{/* <QRCoder data={encData} /> */}
-						<QRCoder data={encData} />
-						{/* <QRCoder data={jsonString} /> */}
+						{/* <QRCoder data={encData} /> */}
+						<QRCoder data={jsonString} />
 					</View>
 
 					<View

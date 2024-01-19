@@ -1,3 +1,4 @@
+import Constants from 'expo-constants'
 import { initializeApp } from 'firebase/app';
 import * as firebaseAuth from 'firebase/auth';
 import { initializeAuth } from 'firebase/auth';
@@ -9,8 +10,19 @@ import 'firebase/compat/firestore';
 import { getFirestore } from 'firebase/firestore';
 
 
+const expoConfig = Constants.expoConfig;
+
 // TODO: Hide env variables
 
+// const firebaseConfig = {
+//     apiKey: expoConfig?.extra?.FIREBASE_API_KEY,
+//     authDomain: expoConfig?.extra?.FIREBASE_AUTH_DOMAIN,
+//     projectId: expoConfig?.extra?.FIREBASE_PROJECT_ID,
+//     storageBucket: expoConfig?.extra?.FIREBASE_STORAGE_BUCKET,
+//     messagingSenderId: expoConfig?.extra?.FIREBASE_MESSAGING_SENDER_I,
+//     appId: expoConfig?.extra?.FIREBASE_APP_ID,
+//     measurementId: expoConfig?.extra?.FIREBASE_MEASUREMENT_ID,
+// };
 const firebaseConfig = {
     apiKey: "AIzaSyC8nxqcFTEXaOw8acvKyCxppwtdRJWUAYU",
     authDomain: "skipspaceapp.firebaseapp.com",

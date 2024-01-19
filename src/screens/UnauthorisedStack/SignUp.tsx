@@ -166,16 +166,12 @@ const SignUp = () => {
 								paddingBottom: 20,
 							}}
 						>
-							<Text style={styles.errorText}>
-								{formError}
-								{/* This an example of error text */}
-							</Text>
+							<Text style={styles.errorText}>{formError}</Text>
 						</View>
 
 						<SmlStandardBtn
 							buttonLabel={'Next'}
 							onPress={handleVerfifyRegister}
-							// onPress={() => console.log('hello')}
 							bgGreen={false}
 							fontBlue={false}
 						/>
