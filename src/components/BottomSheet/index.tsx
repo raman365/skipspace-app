@@ -111,10 +111,7 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 							padding: 20,
 						}}
 					>
-						{/* TODO: QR encoding */}
-						{/* <QRCoder data={encData} /> */}
 						<QRCoder data={encData} />
-						{/* <QRCoder data={jsonString} /> */}
 					</View>
 
 					<View
