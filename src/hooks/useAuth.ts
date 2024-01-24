@@ -85,7 +85,7 @@ const useAuth = (): AuthState & AuthActions => {
         }
     }
 
-    // TODO: Check user has been signed out before verifying email          
+    // TODO: Check user has been signed out before verifying email ?         
 
     const checkEmailVerificationStatus = async (): Promise<void> => {
         const user = auth.currentUser;

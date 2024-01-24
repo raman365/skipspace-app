@@ -1,16 +1,14 @@
-import { View, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { COLORS, FONTSIZES } from '../../../constants/theme';
 import HeaderComponent from '../../components/Header';
-import { Input, Text, Button } from '@rneui/themed';
+import { Text, Button } from '@rneui/themed';
 import ScreenTitle from '../../components/ScreenTitle';
-// import { auth } from '../../../config/firebase';
 import ClearBtn from '../../components/Button/ClearBtn';
-import { getAuth, deleteUser } from 'firebase/auth';
 
 import { auth, db } from '../../../config/firebase';
-import { doc, deleteDoc, collection, updateDoc } from 'firebase/firestore';
+import { doc, deleteDoc } from 'firebase/firestore';
 import useAuth from '../../hooks/useAuth';
 
 const ConfirmDelete = ({ navigation }: any) => {
@@ -28,18 +26,6 @@ const ConfirmDelete = ({ navigation }: any) => {
 			console.error('Error deleting user doc', error);
 		}
 	};
-
-	// const deleteUserProfile = async (userId: string) => {
-	// 	const userDocRef = doc(db, 'users', userId);
-
-	// 	try {
-	// 		await deleteDoc(userDocRef);
-	// 		console.log('User profile deleted');
-	// 	} catch (error: any) {
-	// 		console.log('Error: ', error);
-	// 		// TODO - ncorporate additional security measures depending on your specific use case.
-	// 	}
-	// };
 
 	const handleDeleteAccount = async () => {
 		userDelete();
@@ -117,7 +103,6 @@ const styles = StyleSheet.create({
 		paddingVertical: 50,
 		display: 'flex',
 		justifyContent: 'space-between',
-		// flex: 1,
 	},
 	textStyle: {
 		fontSize: 15,

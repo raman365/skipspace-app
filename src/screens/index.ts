@@ -14,7 +14,6 @@ export { default as SelectedSkipSpace } from './AuthorisedStack/SelectedSkipSpac
 export { default as Vouchers } from './AuthorisedStack/Vouchers'
 export { default as CreateNewPassword } from './AuthorisedStack/CreateNewPassword'
 export { default as UserAccount } from './AuthorisedStack/UserAccount'
-export { default as VerifyEmail } from './AuthorisedStack/VerifyEmail'
 export { default as ConfirmDelete } from './AuthorisedStack/ConfirmDelete'
 
 

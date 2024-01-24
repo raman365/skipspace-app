@@ -28,11 +28,6 @@ export const LogoImage = () => {
 	return <Image source={require('../../../assets/ss.png')} />;
 };
 
-// interface SignUpFormValues {
-// 	email: string;
-// 	password: string;
-// }
-
 const SignUp = () => {
 	const { user, sendVerifyEmail, signUp } = useAuth();
 

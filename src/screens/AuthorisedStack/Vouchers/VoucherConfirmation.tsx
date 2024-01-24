@@ -75,9 +75,7 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 						alignItems: 'center',
 					}}
 				>
-					{/* <QREncoder codeValue={dataInQRCode} /> */}
 					<QRCoder data={encData} />
-					{/* <QRCoder data={jsonString} /> */}
 				</View>
 
 				<View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>

@@ -44,7 +44,6 @@ const SignedInDashboard = ({ navigation }: any) => {
 		console.log('sent sent');
 
 		sendVerifyEmail();
-		// TODO: Add seconds before sending again
 	};
 
 	const [location, setLocation] = useState<Object>('');
@@ -112,7 +111,6 @@ const SignedInDashboard = ({ navigation }: any) => {
 							<MapView
 								provider={PROVIDER_GOOGLE}
 								style={styles.map}
-								// onRegionChange={onRegionChange}
 								showsUserLocation
 								minZoomLevel={2}
 								initialRegion={{

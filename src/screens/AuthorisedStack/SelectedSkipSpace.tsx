@@ -16,8 +16,7 @@ import * as Location from 'expo-location';
 import MapView, { Marker, Region } from 'react-native-maps';
 
 const SelectedSkipSpace = ({ route, navigation }: any) => {
-	const { councilName, skipCompany, skipCompanyAddress } = route.params;
-	// const { mainItemId } = route.params || {};
+	const { councilName, skipCompanyAddress } = route.params;
 
 	const [skipLocation, setSkipLocation] = useState(skipCompanyAddress);
 	const [coordinates, setCoordinates] = useState<{
@@ -230,11 +229,9 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 const styles = StyleSheet.create({
 	map: {
 		borderColor: COLORS.lightGrey,
-		// flex: 1,
 		borderWidth: 1,
 		height: 200,
 		width: '100%',
-		// marginVertical: 20,
 	},
 	centerContainer: {
 		paddingBottom: 40,

@@ -6,9 +6,6 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { theme, COLORS } from '../../../constants/theme';
 import HeaderComponent from '../../components/Header';
 
-// const SKIPSPACE_LOGO =
-// 	'/Users/bbb/ContractProjects/skipspace-app/assets/images';
-
 export const LogoImage = () => {
 	return <Image source={require('../../../assets/ss.png')} />;
 };

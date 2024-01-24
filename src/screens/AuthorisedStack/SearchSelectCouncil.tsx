@@ -11,8 +11,6 @@ import {
 	onSnapshot,
 } from 'firebase/firestore';
 
-// TODO: Generate customized skip id
-
 import { db } from '../../../config/firebase';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -43,7 +41,6 @@ const SelectCouncil = ({ navigation }: any) => {
 			// Apply council data to state
 			setCouncilData(mainCollectionData);
 
-			// loop through the main collection and set up onsnapshot for updates real time
 			mainCollectionData.forEach(async (mainDoc) => {
 				const subCollectionRef = collection(
 					db,

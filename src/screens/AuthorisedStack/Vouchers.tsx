@@ -74,8 +74,8 @@ const Vouchers = ({ navigation }: any) => {
 				});
 
 				return () => {
-					unsubscribe(); // Cleanup the listener when the component unmounts
-					unsubscribeUsed(); // Cleanup the listener when the component unmounts
+					unsubscribe();
+					unsubscribeUsed();
 				};
 			} catch (error) {
 				console.error('Error fetching data: ', error);
@@ -124,29 +124,6 @@ const Vouchers = ({ navigation }: any) => {
 					</View>
 				</View>
 			))
-			// <FlatList
-			// 	data={voucherData}
-			// 	keyExtractor={(item) => item.id}
-			// 	renderItem={({ item }) => (
-			// 		<View style={{ borderRadius: 25 }}>
-			// 			<VoucherItem
-			// 				address={item.skip_company_address}
-			// 				dateTimeIssued={item.date_time_issued}
-			// 				onPress={handleVoucherItem}
-			// 				hasBeenUsed={false}
-			// 			/>
-			// 			<VoucherSheet
-			// 				isShown={false}
-			// 				onCancelPress={handleBackdropPress}
-			// 				skipCompanyAddress={item.skip_company_address}
-			// 				userName={userFullname}
-			// 				localAuthIssue={item.local_auth_issue}
-			// 				dateIssued={item.date_time_issued}
-			// 				onHelpPress={handleHelp}
-			// 			/>
-			// 		</View>
-			// 	)}
-			// />
 		);
 	};
 
@@ -191,30 +168,6 @@ const Vouchers = ({ navigation }: any) => {
 				</View>
 			))
 		);
-
-		// <FlatList
-		// 	data={usedVoucherData}
-		// 	keyExtractor={(item) => item.id}
-		// 	renderItem={({ item }) => (
-		// 		<View style={{ borderRadius: 25 }}>
-		// 			<VoucherItem
-		// 				address={item.skip_company_address}
-		// 				dateTimeIssued={item.date_time_issued}
-		// 				onPress={handleVoucherItem}
-		// 				hasBeenUsed={true}
-		// 			/>
-		// 			<VoucherSheet
-		// 				isShown={false}
-		// 				onCancelPress={handleBackdropPress}
-		// 				skipCompanyAddress={item.skip_company_address}
-		// 				userName={userFullname}
-		// 				localAuthIssue={item.local_auth_issue}
-		// 				dateIssued={item.date_time_issued}
-		// 				onHelpPress={handleHelp}
-		// 			/>
-		// 		</View>
-		// 	)}
-		///>
 	};
 
 	return (
@@ -239,7 +192,6 @@ const Vouchers = ({ navigation }: any) => {
 				<ScreenTitle title={'Vouchers'} />
 			</View>
 
-			{/* <ScrollView style={{ marginBottom: 200 }}> */}
 			<View style={{ marginBottom: 200 }}>
 				{/* Active vouchers */}
 				<View style={{ paddingBottom: 50 }}>

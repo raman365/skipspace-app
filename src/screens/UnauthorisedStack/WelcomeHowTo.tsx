@@ -9,35 +9,10 @@ import {
 	Animated,
 	useWindowDimensions,
 } from 'react-native';
-import React, { useRef } from 'react';
+import React from 'react';
 import { ScalingDot } from 'react-native-animated-pagination-dots';
-
 import { COLORS, FONTSIZES } from '../../../constants/theme';
-
-import SSButton from '../../components/Button';
 import StandardButton from '../../components/Button/StandardBtn';
-// import ScalingDots from '../../components/ScalingDots';
-
-// const { width } = Dimensions.get('window');
-// const SLIDER_WIDTH = Dimensions.get('window').width + 80;
-// const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);
-
-// const DATA = [
-// 	{
-// 		text: '#1 - First do this',
-// 		image:
-// 			'https://awildgeographer.files.wordpress.com/2015/02/john_muir_glacier.jpg',
-// 	},
-// 	{
-// 		text: '#2 - Then do this',
-// 		image:
-// 			'https://awildgeographer.files.wordpress.com/2015/02/john_muir_glacier.jpg',
-// 	},
-// 	{
-// 		text: '#3 - Finally do this!',
-// 		image: 'https://picsum.photos/1440/2842?random=200',
-// 	},
-// ];
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get('window');
 
@@ -102,7 +77,6 @@ const WelcomeHowTo = ({ navigation }: any) => {
 	};
 	return (
 		<SafeAreaView style={{ justifyContent: 'space-between', flex: 1 }}>
-			{/* image */}
 			<View
 				style={{
 					alignItems: 'center',
@@ -187,7 +161,6 @@ const styles = StyleSheet.create({
 		marginTop: -10,
 	},
 	dotContainer: {
-		// paddingVertical: 20,
 		backgroundColor: COLORS.white,
 		justifyContent: 'center',
 		alignSelf: 'center',

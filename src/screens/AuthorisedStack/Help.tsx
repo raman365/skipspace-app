@@ -1,11 +1,10 @@
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import React from 'react';
 import { COLORS, FONTSIZES } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
 import { Icon, Text } from '@rneui/themed';
 import * as Linking from 'expo-linking';
-import * as WebBrowser from 'expo-web-browser';
 import ClearBtn from '../../components/Button/ClearBtn';
 
 let emailURL = `skipspace-app://mailto:kirk@skipspace.co.uk`;

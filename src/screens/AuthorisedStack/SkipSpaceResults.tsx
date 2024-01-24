@@ -1,7 +1,6 @@
 import {
 	View,
 	StyleSheet,
-	ActivityIndicator,
 	ScrollView,
 	Platform,
 	Pressable,
@@ -11,15 +10,8 @@ import { COLORS, FONTSIZES } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
 import { Icon, Text } from '@rneui/themed';
-import { DetailsCard } from '../../components/DetailsCard';
-import SkipOptionsSheet from '../../components/BottomSheet/SkipOptionSheet';
-import {
-	DocumentData,
-	collection,
-	doc,
-	getDocs,
-	query,
-} from 'firebase/firestore';
+
+import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../../config/firebase';
 
 interface SubDoc {
@@ -29,28 +21,9 @@ interface SubDoc {
 }
 
 const SkipSpaceResults = ({ route, navigation }: any) => {
-	// const { councilName, } = route.params;
-
-	const { mainItemId, council_name } = route.params as {
+	const { council_name } = route.params as {
 		mainItemId: string;
 		council_name: string;
-	};
-	// const [isVisible, setIsVisible] = useState(false);
-	// const [skipCompanyData, setskipCompanyData] = useState<SubDoc[]>([]);
-	const [skipSiteData, setSkipSiteData] = useState<SubDoc[]>([]);
-
-	const handleVoucherPress = () => {
-		// navigation.navigate('voucherConfirmation');
-		console.log('todo');
-		// TODO: Information gets pushed to database
-		// navigation.navigate('voucherConfirmation', {
-		// 	councilName: councilName,
-		// 	skipCompanyName: skip.skip_company_name,
-		// 	skipCompanyAddress: dataFromSkipCompanies.skip_company_address,
-		// 	// skipCompanyName: 'Test',
-		// 	// skipCompanyAddress: 'Test Address',
-		// });
-		// setIsVisible(false);
 	};
 
 	const SkipPill: React.FC<{ address: string; onPress: () => void }> = ({
@@ -78,11 +51,9 @@ const SkipSpaceResults = ({ route, navigation }: any) => {
 	);
 	const [linkedSkipSites, setLinkedSkipSites] = useState<any[]>([]);
 
-	// Voucher stuff
-
 	const getSkipSitesData = async () => {
 		try {
-			const parentId = council_name.toLowerCase(); // Replace with the actual ID of the parent document
+			const parentId = council_name.toLowerCase();
 			const subCollectionRef = collection(
 				db,
 				'councils',
@@ -205,7 +176,6 @@ const styles = StyleSheet.create({
 		paddingHorizontal: 20,
 		display: 'flex',
 		justifyContent: 'center',
-		// flex: 1,
 	},
 	card: {
 		paddingVertical: 10,
