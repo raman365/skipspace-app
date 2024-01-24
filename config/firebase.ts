@@ -1,4 +1,3 @@
-import Constants from 'expo-constants'
 import { initializeApp } from 'firebase/app';
 import * as firebaseAuth from 'firebase/auth';
 import { initializeAuth } from 'firebase/auth';
@@ -8,29 +7,23 @@ import 'firebase/compat/storage';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import { getFirestore } from 'firebase/firestore';
+import {
+    FIREBASE_API_KEY,
+    FIREBASE_AUTH_DOMAIN,
+    FIREBASE_PROJECT_ID,
+    FIREBASE_STORAGE_BUCKET,
+    FIREBASE_MESSAGING_SENDER_ID,
+    FIREBASE_APP_ID, FIREBASE_MEASUREMENT_ID
+} from '@env'
 
-
-const expoConfig = Constants.expoConfig;
-
-// TODO: Hide env variables
-
-// const firebaseConfig = {
-//     apiKey: expoConfig?.extra?.FIREBASE_API_KEY,
-//     authDomain: expoConfig?.extra?.FIREBASE_AUTH_DOMAIN,
-//     projectId: expoConfig?.extra?.FIREBASE_PROJECT_ID,
-//     storageBucket: expoConfig?.extra?.FIREBASE_STORAGE_BUCKET,
-//     messagingSenderId: expoConfig?.extra?.FIREBASE_MESSAGING_SENDER_I,
-//     appId: expoConfig?.extra?.FIREBASE_APP_ID,
-//     measurementId: expoConfig?.extra?.FIREBASE_MEASUREMENT_ID,
-// };
 const firebaseConfig = {
-    apiKey: "AIzaSyC8nxqcFTEXaOw8acvKyCxppwtdRJWUAYU",
-    authDomain: "skipspaceapp.firebaseapp.com",
-    projectId: "skipspaceapp",
-    storageBucket: "skipspaceapp.appspot.com",
-    messagingSenderId: "246450722568",
-    appId: "1:246450722568:web:e02abd48ea7d01b2f27ebd",
-    measurementId: "G-61LDVMQE6N"
+    apiKey: FIREBASE_API_KEY,
+    authDomain: FIREBASE_AUTH_DOMAIN,
+    projectId: FIREBASE_PROJECT_ID,
+    storageBucket: FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: FIREBASE_MESSAGING_SENDER_ID,
+    appId: FIREBASE_APP_ID,
+    measurementId: FIREBASE_MEASUREMENT_ID,
 };
 
 export const app = initializeApp(firebaseConfig);

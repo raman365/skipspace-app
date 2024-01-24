@@ -31,7 +31,6 @@ const VoucherItem: React.FC<IProps> = ({
 	hasBeenUsed = false,
 	address,
 	onPress,
-	dateUsed,
 }) => {
 	return (
 		<TouchableOpacity onPress={onPress} disabled={hasBeenUsed}>

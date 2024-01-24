@@ -4,7 +4,6 @@ import { COLORS } from '../../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../../components/Header';
 import { Icon, Text, ListItem } from '@rneui/themed';
-// import QREncoder from '../../../components/QREncoder';
 import StandardButton from '../../../components/Button/StandardBtn';
 import ScreenTitle from '../../../components/ScreenTitle';
 import { getAuth } from 'firebase/auth';
@@ -13,7 +12,8 @@ import dayjs from 'dayjs';
 import { db } from '../../../../config/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import QRCoder from '../../../components/QRCoder';
-import { KEY, encryptDataFunc } from '../../../utils/encryptDecrypt';
+import { encryptDataFunc } from '../../../utils/encryptDecrypt';
+import { SECRET_KEY } from '@env';
 
 const addDataToCollection = async (collectionName: string, data: any) => {
 	try {
@@ -26,7 +26,7 @@ const addDataToCollection = async (collectionName: string, data: any) => {
 };
 
 const VoucherConfirmation = ({ route, navigation }: any) => {
-	const { localAuth, skipCompanyName, skipCompanyAddress } = route.params;
+	const { localAuth, skipCompanyAddress } = route.params;
 
 	const auth = getAuth();
 
@@ -35,25 +35,6 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 
 	let dateTimeNow = dayjs().format('DD/MM/YYYY HH:mm:ss');
 	console.log(dateTimeNow);
-	// let expiryDate = dayjs().hour(24).format('DD/MM/YYYY');
-
-	// const dataInQRCode = `\n Date issued: ${dateTimeNow} \nPerson Details: ${userFullname} \n Local Authority Issue: ${localAuth} \nSkip Company Name: ${skipCompanyName} \n Skip Company Address:\n${skipCompanyAddress}`;
-
-	// const secretKey = 'theSecretKey'; //TODO - Change this
-	// const secretKey =
-	// 	'4b3c5420783c8e8fdad383619d2f6a0a6e4535c223e87b8485bd181d333187f9';
-	// TODO place in ENV
-	// const dataToEncode = dataInQRCode;
-
-	// const [data, setData] = useState<string>('');
-
-	// useEffect(() => {
-	// 	// encrypt the data
-	// 	setData(dataInQRCode);
-
-	// 	const encryptedData = encryptData(data, secretKey);
-	// 	console.log('Encrypted data: ', encryptedData);
-	// }, [data]);
 
 	const voucherData = {
 		date_time_issued: dateTimeNow,
@@ -64,17 +45,8 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 		voucher_used: false,
 	};
 
-	// this part goes into the QR code
 	const jsonString = JSON.stringify(voucherData);
-
-	// const parseData = JSON.parse(jsonString);
-
-	// const encData = encryptDataFunc(jsonString, secretKey);
-	let text = 'something i want to send through';
-
-	const encData = encryptDataFunc(jsonString, KEY);
-
-	// console.log('Serialized Obj: ', jsonString);
+	const encData = encryptDataFunc(jsonString, SECRET_KEY);
 
 	const handleReturnHome = () => {
 		addDataToCollection('vouchers', voucherData);
@@ -106,7 +78,6 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 					{/* <QREncoder codeValue={dataInQRCode} /> */}
 					<QRCoder data={encData} />
 					{/* <QRCoder data={jsonString} /> */}
-					{/* <QRCoder data={'something i want to send through'} /> */}
 				</View>
 
 				<View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>

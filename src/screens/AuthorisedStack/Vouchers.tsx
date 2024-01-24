@@ -13,29 +13,6 @@ import { auth } from '../../../config/firebase';
 
 import { query, where, collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../../../config/firebase';
-import { ScrollView } from 'react-native-gesture-handler';
-
-// const fetchDataByValues = async (
-// 	collectionName: string,
-// 	field: string,
-// 	value: any
-// ) => {
-// 	try {
-// 		const q = query(collection(db, collectionName), where(field, '==', value));
-// 		const querySnapshot = await getDocs(q);
-
-// 		const data = querySnapshot.docs.map((doc: any) => ({
-// 			id: doc.id,
-// 			...doc.data(),
-// 		}));
-
-// 		console.log('Fetched data: ', data);
-// 		return data;
-// 	} catch (error) {
-// 		console.error('Error fetching data: ', error);
-// 		return [];
-// 	}
-// };
 
 const Vouchers = ({ navigation }: any) => {
 	const [isVisible, setIsVisible] = useState(false);
@@ -107,67 +84,137 @@ const Vouchers = ({ navigation }: any) => {
 		fetchVoucherData();
 	}, []);
 
-	const renderVouchers = () => {
-		return voucherData.map((voucher: any) => (
-			<View
-				key={voucher.id}
-				style={{
-					borderRadius: 25,
-				}}
-			>
-				<VoucherItem
-					address={voucher.skip_company_address}
-					dateTimeIssued={voucher.date_time_issued}
-					onPress={handleVoucherItem}
-					hasBeenUsed={false}
-				/>
-
-				<VoucherSheet
-					isShown={isVisible}
-					onCancelPress={handleBackdropPress}
-					skipCompanyAddress={voucher.skip_company_address}
-					localAuthIssue={voucher.local_auth_issue}
-					userName={userFullname}
-					dateIssued={voucher.date_time_issued}
-					onHelpPress={handleHelp}
-				/>
-			</View>
-		));
-	};
-
-	const renderUsedVouchers = () => {
-		return usedVoucherData.map((voucher: any) => (
-			<View
-				key={voucher.id}
-				style={{
-					borderRadius: 25,
-				}}
-			>
+	const renderVouchers = (isLoading: boolean) => {
+		return isLoading ? (
+			<ActivityIndicator
+				color={COLORS.bgGreen}
+				size={'small'}
+				style={{ marginVertical: 30 }}
+			/>
+		) : (
+			usedVoucherData.map((voucher: any) => (
 				<View
 					key={voucher.id}
 					style={{
 						borderRadius: 25,
 					}}
 				>
-					<VoucherItem
-						address={voucher.skip_company_address}
-						dateTimeIssued={voucher.date_time_issued}
-						onPress={handleVoucherItem}
-						hasBeenUsed={true}
-					/>
+					<View
+						key={voucher.id}
+						style={{
+							borderRadius: 25,
+						}}
+					>
+						<VoucherItem
+							address={voucher.skip_company_address}
+							dateTimeIssued={voucher.date_time_issued}
+							onPress={handleVoucherItem}
+							hasBeenUsed={false}
+						/>
 
-					<VoucherSheet
-						isShown={isVisible}
-						onCancelPress={handleBackdropPress}
-						skipCompanyAddress={voucher.skip_company_address}
-						localAuthIssue={voucher.local_auth_issue}
-						userName={userFullname}
-						dateIssued={voucher.date_time_issued}
-						onHelpPress={handleHelp}
-					/>
+						<VoucherSheet
+							isShown={isVisible}
+							onCancelPress={handleBackdropPress}
+							skipCompanyAddress={voucher.skip_company_address}
+							localAuthIssue={voucher.local_auth_issue}
+							userName={userFullname}
+							dateIssued={voucher.date_time_issued}
+							onHelpPress={handleHelp}
+						/>
+					</View>
 				</View>
-			</View>
-		));
+			))
+			// <FlatList
+			// 	data={voucherData}
+			// 	keyExtractor={(item) => item.id}
+			// 	renderItem={({ item }) => (
+			// 		<View style={{ borderRadius: 25 }}>
+			// 			<VoucherItem
+			// 				address={item.skip_company_address}
+			// 				dateTimeIssued={item.date_time_issued}
+			// 				onPress={handleVoucherItem}
+			// 				hasBeenUsed={false}
+			// 			/>
+			// 			<VoucherSheet
+			// 				isShown={false}
+			// 				onCancelPress={handleBackdropPress}
+			// 				skipCompanyAddress={item.skip_company_address}
+			// 				userName={userFullname}
+			// 				localAuthIssue={item.local_auth_issue}
+			// 				dateIssued={item.date_time_issued}
+			// 				onHelpPress={handleHelp}
+			// 			/>
+			// 		</View>
+			// 	)}
+			// />
+		);
+	};
+
+	const renderUsedVouchers = (isLoading: boolean) => {
+		return isLoading ? (
+			<ActivityIndicator
+				color={COLORS.bgGreen}
+				size={'small'}
+				style={{ marginVertical: 30 }}
+			/>
+		) : (
+			usedVoucherData.map((voucher: any) => (
+				<View
+					key={voucher.id}
+					style={{
+						borderRadius: 25,
+					}}
+				>
+					<View
+						key={voucher.id}
+						style={{
+							borderRadius: 25,
+						}}
+					>
+						<VoucherItem
+							address={voucher.skip_company_address}
+							dateTimeIssued={voucher.date_time_issued}
+							onPress={handleVoucherItem}
+							hasBeenUsed={true}
+						/>
+
+						<VoucherSheet
+							isShown={isVisible}
+							onCancelPress={handleBackdropPress}
+							skipCompanyAddress={voucher.skip_company_address}
+							localAuthIssue={voucher.local_auth_issue}
+							userName={userFullname}
+							dateIssued={voucher.date_time_issued}
+							onHelpPress={handleHelp}
+						/>
+					</View>
+				</View>
+			))
+		);
+
+		// <FlatList
+		// 	data={usedVoucherData}
+		// 	keyExtractor={(item) => item.id}
+		// 	renderItem={({ item }) => (
+		// 		<View style={{ borderRadius: 25 }}>
+		// 			<VoucherItem
+		// 				address={item.skip_company_address}
+		// 				dateTimeIssued={item.date_time_issued}
+		// 				onPress={handleVoucherItem}
+		// 				hasBeenUsed={true}
+		// 			/>
+		// 			<VoucherSheet
+		// 				isShown={false}
+		// 				onCancelPress={handleBackdropPress}
+		// 				skipCompanyAddress={item.skip_company_address}
+		// 				userName={userFullname}
+		// 				localAuthIssue={item.local_auth_issue}
+		// 				dateIssued={item.date_time_issued}
+		// 				onHelpPress={handleHelp}
+		// 			/>
+		// 		</View>
+		// 	)}
+		///>
 	};
 
 	return (
@@ -188,139 +235,111 @@ const Vouchers = ({ navigation }: any) => {
 				}}
 			/>
 
-			<View>
-				<View style={{ paddingVertical: 20 }}>
-					<ScreenTitle title={'Vouchers'} />
-				</View>
+			<View style={{ paddingVertical: 20 }}>
+				<ScreenTitle title={'Vouchers'} />
+			</View>
 
-				<ScrollView style={{ marginBottom: 200 }}>
-					{/* Active vouchers */}
-					<View style={{ paddingBottom: 50 }}>
-						<View
+			{/* <ScrollView style={{ marginBottom: 200 }}> */}
+			<View style={{ marginBottom: 200 }}>
+				{/* Active vouchers */}
+				<View style={{ paddingBottom: 50 }}>
+					<View
+						style={{
+							borderBottomColor: COLORS.bgBlue,
+							borderBottomWidth: 0.5,
+							paddingBottom: 10,
+						}}
+					>
+						<Text
 							style={{
-								borderBottomColor: COLORS.bgBlue,
-								borderBottomWidth: 0.5,
-								paddingBottom: 10,
+								fontSize: FONTSIZES.xl,
+								color: COLORS.bgBlue,
+								padding: 10,
+								fontWeight: 'bold',
 							}}
 						>
-							<Text
-								style={{
-									fontSize: FONTSIZES.xl,
-									color: COLORS.bgBlue,
-									padding: 10,
-									fontWeight: 'bold',
-								}}
-							>
-								Active:
-							</Text>
-						</View>
-						<>
-							{voucherData ? (
-								<>
-									<ScrollView>
-										<View
-											style={{
-												borderRadius: 10,
-												backgroundColor: COLORS.white,
-												paddingHorizontal: 10,
-												margin: 10,
-											}}
-										>
-											{isLoading ? (
-												<ActivityIndicator
-													color={COLORS.bgGreen}
-													size={'small'}
-													style={{ marginVertical: 30 }}
-												/>
-											) : (
-												renderVouchers()
-											)}
-										</View>
-									</ScrollView>
-								</>
-							) : (
-								<>
-									<Text
-										style={{
-											textAlign: 'center',
-											fontSize: FONTSIZES.ml,
-											paddingVertical: 15,
-										}}
-									>
-										You currently have no active vouchers
-									</Text>
-								</>
-							)}
-						</>
+							Active:
+						</Text>
 					</View>
 
-					{/* Expired vouchers section */}
-					<View style={{ paddingBottom: 50 }}>
-						<View
-							style={{
-								borderBottomColor: COLORS.bgBlue,
-								borderBottomWidth: 0.5,
-								paddingBottom: 10,
-							}}
-						>
-							<Text
-								style={{
-									fontSize: FONTSIZES.xl,
-									color: COLORS.bgBlue,
-									padding: 10,
-									fontWeight: 'bold',
-								}}
-							>
-								Used:
-							</Text>
-						</View>
+					{voucherData.length > 0 ? (
 						<>
-							{/* <Text
+							<View>
+								<View
+									style={{
+										borderRadius: 10,
+										backgroundColor: COLORS.white,
+										paddingHorizontal: 10,
+										margin: 10,
+									}}
+								>
+									{renderVouchers(isLoading)}
+								</View>
+							</View>
+						</>
+					) : (
+						<>
+							<Text
 								style={{
 									textAlign: 'center',
 									fontSize: FONTSIZES.ml,
 									paddingVertical: 15,
 								}}
 							>
-								You currently have no used vouchers
-							</Text> */}
-							{usedVoucherData === null ? (
-								<View>
-									<Text
-										style={{
-											textAlign: 'center',
-											fontSize: FONTSIZES.ml,
-											paddingVertical: 15,
-										}}
-									>
-										You have currently have no active vouchers
-									</Text>
-								</View>
-							) : (
-								<ScrollView style={{ paddingBottom: 50 }}>
-									<View
-										style={{
-											borderRadius: 10,
-											backgroundColor: COLORS.white,
-											paddingHorizontal: 10,
-											margin: 10,
-										}}
-									>
-										{isLoading ? (
-											<ActivityIndicator
-												color={COLORS.bgGreen}
-												size={'small'}
-												style={{ marginVertical: 30 }}
-											/>
-										) : (
-											renderUsedVouchers()
-										)}
-									</View>
-								</ScrollView>
-							)}
+								You currently have no active vouchers
+							</Text>
 						</>
+					)}
+				</View>
+
+				{/* Expired vouchers section */}
+				<View style={{ paddingBottom: 50 }}>
+					<View
+						style={{
+							borderBottomColor: COLORS.bgBlue,
+							borderBottomWidth: 0.5,
+							paddingBottom: 10,
+						}}
+					>
+						<Text
+							style={{
+								fontSize: FONTSIZES.xl,
+								color: COLORS.bgBlue,
+								padding: 10,
+								fontWeight: 'bold',
+							}}
+						>
+							Used:
+						</Text>
 					</View>
-				</ScrollView>
+
+					<>
+						{usedVoucherData.length > 0 ? (
+							<View style={{ paddingBottom: 50 }}>
+								<View
+									style={{
+										borderRadius: 10,
+										backgroundColor: COLORS.white,
+										paddingHorizontal: 10,
+										margin: 10,
+									}}
+								>
+									{renderUsedVouchers(isLoading)}
+								</View>
+							</View>
+						) : (
+							<Text
+								style={{
+									textAlign: 'center',
+									fontSize: FONTSIZES.ml,
+									paddingVertical: 15,
+								}}
+							>
+								You have currently have no used vouchers
+							</Text>
+						)}
+					</>
+				</View>
 			</View>
 		</SafeAreaProvider>
 	);
