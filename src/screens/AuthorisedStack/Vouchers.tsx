@@ -92,7 +92,7 @@ const Vouchers = ({ navigation }: any) => {
 				style={{ marginVertical: 30 }}
 			/>
 		) : (
-			usedVoucherData.map((voucher: any) => (
+			voucherData.map((voucher: any) => (
 				<View
 					key={voucher.id}
 					style={{
@@ -287,7 +287,7 @@ const Vouchers = ({ navigation }: any) => {
 									paddingVertical: 15,
 								}}
 							>
-								You have currently have no used vouchers
+								You currently have no used vouchers
 							</Text>
 						)}
 					</>
