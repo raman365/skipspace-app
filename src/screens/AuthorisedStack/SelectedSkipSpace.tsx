@@ -198,7 +198,6 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 						borderColor: COLORS.bgBlue,
 						borderWidth: 1,
 						marginTop: 10,
-						// paddingTop: 20,
 						marginBottom: 30,
 					}}
 				>
