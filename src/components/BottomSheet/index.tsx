@@ -18,7 +18,7 @@ import SmlStandardBtn from '../Button/SmallStandardBtn';
 import ClearBtn from '../Button/ClearBtn';
 import QRCoder from '../QRCoder';
 import { encryptDataFunc } from '../../utils/encryptDecrypt';
-import { SECRET_KEY } from '@env';
+import { EXPO_PUBLIC_SECRET_KEY } from '@env';
 import * as Location from 'expo-location';
 
 interface IVoucherSheetProps {
@@ -51,7 +51,7 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 
 	const jsonString = JSON.stringify(voucherData);
 
-	const encData = encryptDataFunc(jsonString, SECRET_KEY);
+	const encData = encryptDataFunc(jsonString, EXPO_PUBLIC_SECRET_KEY);
 
 	const [coordinates, setCoordinates] = useState<{
 		latitude: number;

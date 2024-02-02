@@ -13,7 +13,7 @@ import { db } from '../../../../config/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import QRCoder from '../../../components/QRCoder';
 import { encryptDataFunc } from '../../../utils/encryptDecrypt';
-import { SECRET_KEY } from '@env';
+import { EXPO_PUBLIC_SECRET_KEY } from '@env';
 
 const addDataToCollection = async (collectionName: string, data: any) => {
 	try {
@@ -46,7 +46,7 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 	};
 
 	const jsonString = JSON.stringify(voucherData);
-	const encData = encryptDataFunc(jsonString, SECRET_KEY);
+	const encData = encryptDataFunc(jsonString, EXPO_PUBLIC_SECRET_KEY);
 
 	const handleReturnHome = () => {
 		addDataToCollection('vouchers', voucherData);
