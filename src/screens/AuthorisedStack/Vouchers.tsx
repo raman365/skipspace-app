@@ -1,4 +1,4 @@
-import { View, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, ActivityIndicator, ScrollView } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { COLORS, FONTSIZES } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -192,7 +192,7 @@ const Vouchers = ({ navigation }: any) => {
 				<ScreenTitle title={'Vouchers'} />
 			</View>
 
-			<View style={{ marginBottom: 200 }}>
+			<ScrollView style={{ paddingBottom: 200 }}>
 				{/* Active vouchers */}
 				<View style={{ paddingBottom: 50 }}>
 					<View
@@ -265,9 +265,9 @@ const Vouchers = ({ navigation }: any) => {
 						</Text>
 					</View>
 
-					<>
+					<View style={{ marginBottom: 100 }}>
 						{usedVoucherData.length > 0 ? (
-							<View style={{ paddingBottom: 50 }}>
+							<ScrollView style={{ paddingBottom: 50 }}>
 								<View
 									style={{
 										borderRadius: 10,
@@ -278,7 +278,7 @@ const Vouchers = ({ navigation }: any) => {
 								>
 									{renderUsedVouchers(isLoading)}
 								</View>
-							</View>
+							</ScrollView>
 						) : (
 							<Text
 								style={{
@@ -290,9 +290,9 @@ const Vouchers = ({ navigation }: any) => {
 								You currently have no used vouchers
 							</Text>
 						)}
-					</>
+					</View>
 				</View>
-			</View>
+			</ScrollView>
 		</SafeAreaProvider>
 	);
 };

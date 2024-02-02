@@ -5,6 +5,7 @@ import {
 	Image,
 	Text,
 	Alert,
+	Platform,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { COLORS } from '../../../constants/theme';
@@ -13,7 +14,7 @@ import HeaderComponent from '../../components/Header';
 import { Icon } from '@rneui/themed';
 import { DrawerActions } from '@react-navigation/native';
 import StandardButton from '../../components/Button/StandardBtn';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { PROVIDER_DEFAULT, PROVIDER_GOOGLE } from 'react-native-maps';
 
 import * as Location from 'expo-location';
 import useAuth from '../../hooks/useAuth';
@@ -109,7 +110,10 @@ const SignedInDashboard = ({ navigation }: any) => {
 					<View>
 						<View>
 							<MapView
-								provider={PROVIDER_GOOGLE}
+								// provider={PROVIDER_GOOGLE}
+								provider={
+									Platform.OS === 'android' ? PROVIDER_GOOGLE : PROVIDER_DEFAULT
+								}
 								style={styles.map}
 								showsUserLocation
 								minZoomLevel={2}

@@ -15,3 +15,7 @@ web-build/
 
 # gitignore
 .env
+
+# ios & android
+ios
+android

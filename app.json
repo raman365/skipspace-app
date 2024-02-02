@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "SkipSpace",
-    "slug": "skipspace-app",
+    "slug": "skipspace-users",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -47,8 +47,9 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "c4e18bef-f7b3-4910-ad28-2a1d7cc9408f"
+        "projectId": "3434fd33-8e35-444d-a634-d06543d3fb8f"
       }
-    }
+    },
+    "owner": "shoot-the-moon-ltd"
   }
 }
