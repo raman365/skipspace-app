@@ -202,8 +202,8 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 					}}
 				>
 					<Text style={{ textAlign: 'center', fontWeight: '400' }}>
-						After confirmation, you'll receive a one-time voucher to use at your
-						selected SkipSpace site.
+						After confirmation, you’ll receive a voucher to use at your selected
+						site
 					</Text>
 				</View>
 				<Button

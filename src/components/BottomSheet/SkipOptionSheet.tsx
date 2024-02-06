@@ -108,8 +108,8 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 						}}
 					>
 						<Text style={{ textAlign: 'center', fontSize: FONTSIZES.large }}>
-							After confirming you'll receive a one-time voucher to use at your
-							selected SkipSpace site.
+							After confirmation, you will receive a voucher to use at your
+							selected site.
 						</Text>
 					</View>
 					<View style={styles.middle}>

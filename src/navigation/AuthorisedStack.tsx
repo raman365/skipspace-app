@@ -51,7 +51,7 @@ const CustomDrawerContent = (props: any) => {
 					source={require('../../assets/images/menulogogreen.png')}
 					height={10}
 					resizeMode='center'
-					resizeMethod='scale'
+					// resizeMethod='center'
 				/>
 			</View>
 			<View>

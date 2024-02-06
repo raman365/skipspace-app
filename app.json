@@ -20,7 +20,10 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.stmdeveloper.skipspaceapp",
-      "buildNumber": "6"
+      "buildNumber": "6",
+      "config": {
+        "googleMapsApiKey": "AIzaSyA2D17TfvkbQV7tcODZdoU1IS9OBEvBzB4"
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -32,7 +35,12 @@
         "android.permission.ACCESS_FINE_LOCATION",
         "android.permission.FOREGROUND_SERVICE"
       ],
-      "package": "com.stmdeveloper.skipspaceapp"
+      "package": "com.stmdeveloper.skipspaceapp",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyB__SuythajigL7TdN77odFR5KcRl0dqto"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"

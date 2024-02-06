@@ -36,11 +36,20 @@ const SkipSpaceResults = ({ route, navigation }: any) => {
 					<Pressable style={styles.card} onPress={onPress}>
 						<Icon
 							name={'location-sharp'}
-							style={{ paddingRight: 5 }}
+							style={{ padding: 5 }}
 							type='ionicon'
 							color={COLORS.bgGreen}
 						/>
-						<Text>{address}</Text>
+						<View style={{ flexDirection: 'row', flexShrink: 1 }}>
+							<Text
+								style={{
+									flexShrink: 1,
+									fontSize: FONTSIZES.medium,
+								}}
+							>
+								{address}
+							</Text>
+						</View>
 					</Pressable>
 				</View>
 			</>
@@ -105,7 +114,7 @@ const SkipSpaceResults = ({ route, navigation }: any) => {
 						paddingHorizontal: 30,
 					}}
 				>
-					Your local SkipSpaces sites in {council_name}
+					Your local SkipSpace sites in {council_name}
 				</Text>
 				<Text
 					style={{
@@ -179,7 +188,7 @@ const styles = StyleSheet.create({
 	},
 	card: {
 		paddingVertical: 10,
-		paddingHorizontal: 10,
+		paddingHorizontal: 15,
 		marginVertical: 5,
 		flexDirection: 'row',
 		justifyContent: 'flex-start',
@@ -204,6 +213,7 @@ const styles = StyleSheet.create({
 		},
 	}),
 	buttonContainer: {
+		paddingHorizontal: 10,
 		shadowColor: '#000',
 		shadowOffset: {
 			width: 0,

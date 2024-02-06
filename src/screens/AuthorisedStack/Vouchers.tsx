@@ -22,7 +22,6 @@ const Vouchers = ({ navigation }: any) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const userFullname = auth.currentUser?.displayName;
 
-	// TODO: Database permissions
 	const handleVoucherItem = () => {
 		setIsVisible(true);
 	};
@@ -192,7 +191,10 @@ const Vouchers = ({ navigation }: any) => {
 				<ScreenTitle title={'Vouchers'} />
 			</View>
 
-			<ScrollView style={{ paddingBottom: 200 }}>
+			<ScrollView
+				style={{ paddingBottom: 200 }}
+				showsVerticalScrollIndicator={false}
+			>
 				{/* Active vouchers */}
 				<View style={{ paddingBottom: 50 }}>
 					<View
@@ -267,7 +269,10 @@ const Vouchers = ({ navigation }: any) => {
 
 					<View style={{ marginBottom: 100 }}>
 						{usedVoucherData.length > 0 ? (
-							<ScrollView style={{ paddingBottom: 50 }}>
+							<ScrollView
+								style={{ paddingBottom: 50 }}
+								showsVerticalScrollIndicator={false}
+							>
 								<View
 									style={{
 										borderRadius: 10,

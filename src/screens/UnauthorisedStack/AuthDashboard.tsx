@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import {
+	KeyboardAvoidingView,
+	Platform,
+	ScrollView,
+	StyleSheet,
+	View,
+} from 'react-native';
 import { Text, Input } from '@rneui/themed';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { COLORS, FONTSIZES } from '../../../constants/theme';
@@ -37,66 +43,75 @@ const AuthDashboard = ({ navigation }: any) => {
 	};
 	return (
 		<SafeAreaProvider>
-			<HeaderComponent authorised={false} />
+			<ScrollView style={{ flex: 1 }}>
+				<KeyboardAvoidingView
+					style={{ flex: 1 }}
+					behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+					keyboardVerticalOffset={100}
+				>
+					<HeaderComponent authorised={false} />
 
-			<ScreenTitle title={'Sign In'} />
+					<ScreenTitle title={'Sign In'} />
 
-			<View style={styles.centerContainer}>
-				<View>
-					<Text style={styles.formTextStyle}>Email address </Text>
-					<Input
-						style={{ fontSize: FONTSIZES.large }}
-						keyboardType='email-address'
-						inputContainerStyle={styles.contStyle}
-						onChangeText={(email) => setEmail(email)}
-						value={email}
-						autoCapitalize='none'
-						autoCorrect={false}
-					/>
-				</View>
-				<View>
-					<Text style={styles.formTextStyle}>Password</Text>
-					<Input
-						style={{ fontSize: FONTSIZES.large }}
-						keyboardType='default'
-						inputContainerStyle={styles.contStyle}
-						secureTextEntry={true}
-						onChangeText={(password) => setPassword(password)}
-						value={password}
-						autoCapitalize='none'
-					/>
-				</View>
+					<View style={styles.centerContainer}>
+						<View>
+							<Text style={styles.formTextStyle}>Email address </Text>
+							<Input
+								style={{ fontSize: FONTSIZES.large }}
+								keyboardType='email-address'
+								inputContainerStyle={styles.contStyle}
+								onChangeText={(email) => setEmail(email)}
+								value={email}
+								autoCapitalize='none'
+								autoCorrect={false}
+							/>
+						</View>
+						<View>
+							<Text style={styles.formTextStyle}>Password</Text>
+							<Input
+								style={{ fontSize: FONTSIZES.large }}
+								keyboardType='default'
+								inputContainerStyle={styles.contStyle}
+								secureTextEntry={true}
+								onChangeText={(password) => setPassword(password)}
+								value={password}
+								autoCapitalize='none'
+							/>
+						</View>
 
-				<View>
-					<ClearBtn
-						buttonLabel={'Forgot Password?'}
-						onPress={handleForgotPasswordLink}
-					/>
-				</View>
-				{error && (
-					<View style={{ paddingTop: 20 }}>
-						<Text
-							style={{
-								color: COLORS.softRed,
-								textAlign: 'center',
-								fontWeight: '700',
-								fontSize: FONTSIZES.large,
-							}}
-						>
-							{error}
-						</Text>
+						<View>
+							<ClearBtn
+								buttonLabel={'Forgot Password?'}
+								onPress={handleForgotPasswordLink}
+							/>
+						</View>
+						{error && (
+							<View style={{ paddingTop: 20 }}>
+								<Text
+									style={{
+										color: COLORS.softRed,
+										textAlign: 'center',
+										fontWeight: '700',
+										fontSize: FONTSIZES.large,
+									}}
+								>
+									{error}
+								</Text>
+							</View>
+						)}
+
+						<View style={{ paddingVertical: 40 }}>
+							<StandardButton
+								buttonLabel={'Sign In'}
+								onPress={handleSignIn}
+								bgGreen={false}
+								fontBlue={false}
+							/>
+						</View>
 					</View>
-				)}
+				</KeyboardAvoidingView>
+			</ScrollView>
 
-				<View style={{ paddingVertical: 40 }}>
-					<StandardButton
-						buttonLabel={'Sign In'}
-						onPress={handleSignIn}
-						bgGreen={false}
-						fontBlue={false}
-					/>
-				</View>
-			</View>
 			<Footer
 				children={
 					<>

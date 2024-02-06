@@ -5,7 +5,23 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "store"
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_FIREBASE_API_KEY": "AIzaSyC8nxqcFTEXaOw8acvKyCxppwtdRJWUAYU",
+        "EXPO_PUBLIC_FIREBASE_AUTH_DOMAIN": "skipspaceapp.firebaseapp.com",
+        "EXPO_PUBLIC_FIREBASE_PROJECT_ID": "skipspaceapp",
+        "EXPO_PUBLIC_FIREBASE_STORAGE_BUCKET" : "skipspaceapp.appspot.com",
+        "EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID" : "246450722568",
+        "EXPO_PUBLIC_FIREBASE_APP_ID" : "1:246450722568:web:e02abd48ea7d01b2f27ebd",
+        "EXPO_PUBLIC_FIREBASE_MEASUREMENT_ID": "G-61LDVMQE6N"
+      }
+    },
+    "development-simulator": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "ios": {
+        "simulator": true
+      }
     },
     "preview": {
       "distribution": "internal"
