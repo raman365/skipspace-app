@@ -41,23 +41,21 @@ const VoucherItem: React.FC<IProps> = ({
 					color={hasBeenUsed ? COLORS.lightGrey : COLORS.black}
 				/>
 				<ListItem.Content>
-					<View>
-						<ListItem.Subtitle
-							style={{ color: hasBeenUsed ? COLORS.lightGrey : COLORS.black }}
+					<ListItem.Subtitle
+						style={{
+							color: hasBeenUsed ? COLORS.lightGrey : COLORS.black,
+						}}
+					>
+						<Text
+							numberOfLines={3}
+							style={{
+								fontSize: FONTSIZES.medium,
+								color: hasBeenUsed ? COLORS.lightGrey : COLORS.black,
+							}}
 						>
-							<View style={{ flexDirection: 'row' }}>
-								<Text
-									style={{
-										paddingTop: 5,
-										fontSize: FONTSIZES.medium,
-										color: hasBeenUsed ? COLORS.lightGrey : COLORS.black,
-									}}
-								>
-									{address}
-								</Text>
-							</View>
-						</ListItem.Subtitle>
-					</View>
+							{address}
+						</Text>
+					</ListItem.Subtitle>
 				</ListItem.Content>
 
 				{hasBeenUsed ? null : (

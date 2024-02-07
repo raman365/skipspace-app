@@ -55,8 +55,16 @@ const useAuth = (): AuthState & AuthActions => {
         email: string,
         password: string
     ): Promise<UserCredential> => {
+
+        //try {
         const credentials = await signInWithEmailAndPassword(auth, email, password);
         return credentials;
+        // } catch (error: any) {
+        //     console.error("Sign in error: ", error);
+        //     throw error
+        //     // return undefined;
+        // }
+
     };
 
     const signUserOut = async (): Promise<void> => {
