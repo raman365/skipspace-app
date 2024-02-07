@@ -1,4 +1,4 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import React from 'react';
 import { COLORS } from '../../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -53,7 +53,8 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 		navigation.navigate('signedInDashboard');
 	};
 	return (
-		<SafeAreaProvider>
+		// <SafeAreaProvider>
+		<ScrollView>
 			<HeaderComponent
 				authorised={false}
 				icon={
@@ -65,7 +66,7 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 			/>
 
 			<View>
-				<View style={{ paddingVertical: 20 }}>
+				<View style={{ paddingVertical: 15 }}>
 					<ScreenTitle title={'Confirmed'} />
 				</View>
 
@@ -73,12 +74,14 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 					style={{
 						justifyContent: 'center',
 						alignItems: 'center',
+						paddingBottom: 10,
 					}}
 				>
 					<QRCoder data={encData} />
 				</View>
 
-				<View style={{ paddingVertical: 40, paddingHorizontal: 30 }}>
+				{/* <View style={{ paddingVertical: 40, paddingHorizontal: 30 }}> */}
+				<View>
 					<View
 						style={{
 							padding: 10,
@@ -86,6 +89,7 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 							borderWidth: 1,
 							marginTop: 10,
 							marginBottom: 20,
+							marginHorizontal: 30,
 						}}
 					>
 						<Text
@@ -120,18 +124,18 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 							</ListItem.Content>
 						</ListItem>
 					</View>
-				</View>
-
-				<View style={{ paddingHorizontal: 30 }}>
-					<StandardButton
-						bgGreen
-						fontBlue
-						buttonLabel={'Return Home'}
-						onPress={handleReturnHome}
-					/>
+					<View style={{ paddingHorizontal: 30 }}>
+						<StandardButton
+							bgGreen
+							fontBlue
+							buttonLabel={'Return Home'}
+							onPress={handleReturnHome}
+						/>
+					</View>
 				</View>
 			</View>
-		</SafeAreaProvider>
+		</ScrollView>
+		// {/* </SafeAreaProvider> */}
 	);
 };
 

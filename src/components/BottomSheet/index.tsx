@@ -72,10 +72,16 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 		}
 	};
 
-	const [skipLocation, setSkipLocation] = useState(skipCompanyAddress);
+	// const [skipLocation, setSkipLocation] = useState(skipCompanyAddress);
+	const [skipLocation, setSkipLocation] = useState(
+		voucherData.skip_company_address
+	);
+
+	console.log('Skip company add: ', skipCompanyAddress);
+	console.log('json: ', jsonString);
 
 	useEffect(() => {
-		setSkipLocation(skipCompanyAddress);
+		setSkipLocation(voucherData.skip_company_address);
 
 		const getCoordinates = async () => {
 			try {
@@ -111,7 +117,8 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 							padding: 20,
 						}}
 					>
-						<QRCoder data={encData} />
+						{/* <QRCoder data={encData} /> */}
+						<QRCoder data={jsonString} />
 					</View>
 
 					<View
@@ -141,7 +148,7 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 					>
 						<View
 							style={{
-								paddingTop: 20,
+								paddingTop: 10,
 								paddingHorizontal: 30,
 								flexDirection: 'column',
 								justifyContent: 'center',
@@ -149,22 +156,25 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 						></View>
 						<View
 							style={{
-								paddingTop: 20,
+								paddingTop: 10,
 								paddingHorizontal: 30,
 								flexDirection: 'column',
 								justifyContent: 'center',
 							}}
 						>
 							<Subtitle subtitle={'Address: '} />
-							<Text style={{ textAlign: 'center' }}>{skipCompanyAddress}</Text>
+							{/* <Text style={{ textAlign: 'center' }}>{skipCompanyAddress}</Text> */}
+							<Text style={{ textAlign: 'center' }}>{skipLocation}</Text>
 						</View>
 						<View style={{ paddingVertical: 20 }}>
 							<TouchableOpacity onPress={handleOpenMaps}>
 								<Text
 									style={{
+										paddingVertical: 5,
+										backgroundColor: COLORS.alpha.bgBlue,
+										borderRadius: 25,
+										marginHorizontal: 25,
 										textAlign: 'center',
-										paddingVertical: 10,
-										textDecorationLine: 'underline',
 										fontWeight: 'bold',
 									}}
 								>

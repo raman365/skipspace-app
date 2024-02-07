@@ -13,6 +13,7 @@ import { Icon, Text } from '@rneui/themed';
 
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../../../config/firebase';
+import ScreenTitle from '../../components/ScreenTitle';
 
 interface SubDoc {
 	id: string;
@@ -103,7 +104,7 @@ const SkipSpaceResults = ({ route, navigation }: any) => {
 				}}
 			/>
 			<View style={{ paddingTop: 30 }}>
-				<Text
+				{/* <Text
 					h4
 					h4Style={{
 						fontWeight: 'bold',
@@ -113,9 +114,10 @@ const SkipSpaceResults = ({ route, navigation }: any) => {
 						fontFamily: 'Tungsten_SemiBold',
 						paddingHorizontal: 30,
 					}}
-				>
+				> 
 					Your local SkipSpace sites in {council_name}
-				</Text>
+				</Text>*/}
+				<ScreenTitle title={`Your local SkipSpace sites in ${council_name}`} />
 				<Text
 					style={{
 						color: COLORS.bgBlue,

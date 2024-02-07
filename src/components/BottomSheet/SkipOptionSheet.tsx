@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
 	ActivityIndicator,
 	Platform,
@@ -13,6 +13,7 @@ import StandardButton from '../Button/StandardBtn';
 import * as Linking from 'expo-linking';
 
 import MapView, { Marker } from 'react-native-maps';
+import ScreenTitle from '../ScreenTitle';
 
 interface ISkipOptionsSheetProps {
 	isVisible: boolean;
@@ -78,16 +79,7 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 						<View
 							style={{ flex: 1, paddingRight: 0, justifyContent: 'center' }}
 						>
-							<Text
-								style={{
-									textAlign: 'center',
-									fontFamily: 'Tungsten_SemiBold',
-									color: COLORS.bgBlue,
-									fontSize: FONTSIZES['5xl'],
-								}}
-							>
-								Selected SkipSpace
-							</Text>
+							<ScreenTitle title={'Selected SkipSpace'} />
 						</View>
 						<View style={{ width: 100, alignSelf: 'stretch' }}></View>
 					</View>

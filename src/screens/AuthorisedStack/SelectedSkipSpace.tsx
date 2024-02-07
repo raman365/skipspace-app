@@ -14,6 +14,7 @@ import HeaderComponent from '../../components/Header';
 import { Button, Icon, Text } from '@rneui/themed';
 import * as Location from 'expo-location';
 import MapView, { Marker, Region } from 'react-native-maps';
+import ScreenTitle from '../../components/ScreenTitle';
 
 const SelectedSkipSpace = ({ route, navigation }: any) => {
 	const { councilName, skipCompanyAddress } = route.params;
@@ -100,19 +101,8 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 				}}
 			/>
 
-			<View style={{ paddingTop: 30, paddingBottom: 15 }}>
-				<Text
-					h4
-					h4Style={{
-						fontWeight: 'bold',
-						textAlign: 'center',
-						color: COLORS.bgBlue,
-						fontSize: 30,
-						fontFamily: 'Tungsten_SemiBold',
-					}}
-				>
-					Selected SkipSpace
-				</Text>
+			<View style={{ paddingTop: 15, paddingBottom: 15 }}>
+				<ScreenTitle title={'Selected SkipSpace'} />
 			</View>
 
 			<View style={{ paddingHorizontal: 30, flex: 1 }}>
@@ -129,12 +119,12 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 					>
 						Council:
 					</Text>
-					<Text style={{ fontSize: FONTSIZES.xl, textAlign: 'center' }}>
+					<Text style={{ fontSize: FONTSIZES.ml, textAlign: 'center' }}>
 						{councilName}
 					</Text>
 				</View>
 
-				<View style={{ paddingTop: 20, paddingBottom: 20 }}>
+				<View style={{ paddingTop: 10, paddingBottom: 10 }}>
 					<Text
 						h4
 						h4Style={{
@@ -148,26 +138,34 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 					>
 						Site Address:
 					</Text>
-					<Text style={{ fontSize: FONTSIZES.xl, textAlign: 'center' }}>
+					<Text style={{ fontSize: FONTSIZES.ml, textAlign: 'center' }}>
 						{skipCompanyAddress}
 					</Text>
 				</View>
 
-				<View style={{ height: 100, paddingTop: 10 }}>
+				<View
+					style={{
+						height: 152,
+						borderColor: COLORS.lightGrey,
+						borderWidth: 1,
+					}}
+				>
 					{coordinates ? (
-						<MapView
-							style={styles.map}
-							region={region}
-							minZoomLevel={15}
-							maxZoomLevel={20}
-						>
-							<Marker
-								coordinate={{
-									latitude: coordinates!.latitude,
-									longitude: coordinates!.longitude,
-								}}
-							/>
-						</MapView>
+						<>
+							<MapView
+								style={styles.map}
+								region={region}
+								minZoomLevel={15}
+								maxZoomLevel={20}
+							>
+								<Marker
+									coordinate={{
+										latitude: coordinates!.latitude,
+										longitude: coordinates!.longitude,
+									}}
+								/>
+							</MapView>
+						</>
 					) : (
 						<View
 							style={{ justifyContent: 'center', height: 100, width: '100%' }}
@@ -178,11 +176,19 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 				</View>
 			</View>
 
-			<View style={{ paddingBottom: 40, paddingHorizontal: 30 }}>
-				<Pressable style={{ paddingVertical: 5 }} onPress={handleOpenMaps}>
+			<View style={{ paddingBottom: 50, paddingHorizontal: 30 }}>
+				<Pressable
+					style={{
+						paddingVertical: 5,
+						backgroundColor: COLORS.alpha.bgBlue,
+						borderRadius: 25,
+						marginHorizontal: 25,
+					}}
+					onPress={handleOpenMaps}
+				>
 					<Text
 						style={{
-							fontSize: FONTSIZES.ml,
+							fontSize: FONTSIZES.medium,
 							textAlign: 'center',
 							fontWeight: 'bold',
 						}}
@@ -193,17 +199,22 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 
 				<View
 					style={{
-						paddingVertical: 10,
-						paddingHorizontal: 10,
+						padding: 10,
 						borderColor: COLORS.bgBlue,
 						borderWidth: 1,
-						marginTop: 10,
+						marginTop: 20,
 						marginBottom: 30,
 					}}
 				>
-					<Text style={{ textAlign: 'center', fontWeight: '400' }}>
-						After confirmation, you’ll receive a voucher to use at your selected
-						site
+					<Text
+						style={{
+							textAlign: 'center',
+							fontWeight: '400',
+							fontSize: FONTSIZES.small,
+						}}
+					>
+						After confirmation, you will receive a voucher to use at your
+						selected site.
 					</Text>
 				</View>
 				<Button
@@ -227,14 +238,11 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 
 const styles = StyleSheet.create({
 	map: {
-		borderColor: COLORS.lightGrey,
-		borderWidth: 1,
-		height: 200,
+		height: 150,
 		width: '100%',
 	},
 	centerContainer: {
 		paddingBottom: 40,
-
 		flex: 1,
 	},
 });
