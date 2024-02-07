@@ -45,41 +45,44 @@ const CustomDrawerContent = (props: any) => {
 	};
 
 	return (
-		<DrawerContentScrollView {...props} safeArea>
-			<View style={{ marginTop: 0 }}>
-				<Image
-					source={require('../../assets/images/menulogogreen.png')}
-					height={10}
-					resizeMode='center'
-					// resizeMethod='center'
-				/>
-			</View>
-			<View>
-				<View style={{ paddingVertical: 5 }}>
-					<DrawerItemList state={newState} {...rest} />
+		<View style={{ flex: 1 }}>
+			<DrawerContentScrollView {...props} safeArea>
+				<View style={{ marginTop: 0 }}>
+					<Image
+						source={require('../../assets/images/menulogogreen.png')}
+						height={10}
+						resizeMode='center'
+					/>
 				</View>
-			</View>
-			<View
-				style={{
-					paddingLeft: 5,
-					paddingTop: 10,
-					position: 'absolute',
-					height: 100,
-					left: 0,
-					width: windowWidth,
-					top: windowHeight - 100,
-					borderColor: COLORS.lightBlue,
-					borderTopWidth: 1,
-				}}
-			>
-				<View style={{ paddingLeft: 10 }}>
-					<Text style={{ fontSize: FONTSIZES.large, fontWeight: 'bold' }}>
-						{auth.currentUser?.displayName}
-					</Text>
+				<View style={{ flex: 1 }}>
+					<View style={{ paddingVertical: 5 }}>
+						<DrawerItemList state={newState} {...rest} />
+					</View>
 				</View>
-				<ClearBtn buttonLabel={'Sign out'} onPress={handleSignOut} />
-			</View>
-		</DrawerContentScrollView>
+				<View
+					style={{
+						height: 100,
+						justifyContent: 'flex-end',
+						alignItems: 'flex-start',
+						paddingLeft: 5,
+						paddingTop: 20,
+					}}
+				>
+					<View style={{ paddingLeft: 10 }}>
+						<Text
+							style={{
+								fontSize: FONTSIZES.large,
+								fontWeight: 'bold',
+								color: COLORS.bgBlue,
+							}}
+						>
+							{auth.currentUser?.displayName}
+						</Text>
+					</View>
+					<ClearBtn buttonLabel={'Sign out'} onPress={handleSignOut} />
+				</View>
+			</DrawerContentScrollView>
+		</View>
 	);
 };
 const CustomDrawer = () => {

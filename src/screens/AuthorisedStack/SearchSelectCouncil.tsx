@@ -13,6 +13,7 @@ import {
 
 import { db } from '../../../config/firebase';
 import { ScrollView } from 'react-native-gesture-handler';
+import ScreenTitle from '../../components/ScreenTitle';
 
 interface MainDoc {
 	id: string;
@@ -108,18 +109,9 @@ const SelectCouncil = ({ navigation }: any) => {
 					flex: 1,
 				}}
 			>
-				<Text
-					h4
-					h4Style={{
-						fontWeight: 'bold',
-						textAlign: 'center',
-						color: COLORS.bgBlue,
-						fontFamily: 'Tungsten_SemiBold',
-						fontSize: 30,
-					}}
-				>
-					Search for SkipSpace
-				</Text>
+				<View>
+					<ScreenTitle title={'Search for SkipSpace'} />
+				</View>
 				<Text
 					style={{
 						color: COLORS.bgBlue,
