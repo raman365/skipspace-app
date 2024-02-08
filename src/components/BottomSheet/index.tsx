@@ -72,16 +72,9 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 		}
 	};
 
-	// const [skipLocation, setSkipLocation] = useState(skipCompanyAddress);
-	const [skipLocation, setSkipLocation] = useState(
-		voucherData.skip_company_address
-	);
-
-	console.log('Skip company add: ', skipCompanyAddress);
-	console.log('json: ', jsonString);
-
+	const [skipLocation, setSkipLocation] = useState(skipCompanyAddress);
 	useEffect(() => {
-		setSkipLocation(voucherData.skip_company_address);
+		setSkipLocation(skipCompanyAddress);
 
 		const getCoordinates = async () => {
 			try {
@@ -117,8 +110,7 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 							padding: 20,
 						}}
 					>
-						{/* <QRCoder data={encData} /> */}
-						<QRCoder data={jsonString} />
+						<QRCoder data={encData} />
 					</View>
 
 					<View
@@ -163,8 +155,7 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 							}}
 						>
 							<Subtitle subtitle={'Address: '} />
-							{/* <Text style={{ textAlign: 'center' }}>{skipCompanyAddress}</Text> */}
-							<Text style={{ textAlign: 'center' }}>{skipLocation}</Text>
+							<Text style={{ textAlign: 'center' }}>{skipCompanyAddress}</Text>
 						</View>
 						<View style={{ paddingVertical: 20 }}>
 							<TouchableOpacity onPress={handleOpenMaps}>

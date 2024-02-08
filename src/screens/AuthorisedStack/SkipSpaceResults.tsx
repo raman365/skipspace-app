@@ -104,19 +104,6 @@ const SkipSpaceResults = ({ route, navigation }: any) => {
 				}}
 			/>
 			<View style={{ paddingTop: 30 }}>
-				{/* <Text
-					h4
-					h4Style={{
-						fontWeight: 'bold',
-						textAlign: 'center',
-						color: COLORS.bgBlue,
-						fontSize: 30,
-						fontFamily: 'Tungsten_SemiBold',
-						paddingHorizontal: 30,
-					}}
-				> 
-					Your local SkipSpace sites in {council_name}
-				</Text>*/}
 				<ScreenTitle title={`Your local SkipSpace sites in ${council_name}`} />
 				<Text
 					style={{

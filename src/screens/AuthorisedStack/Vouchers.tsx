@@ -1,28 +1,26 @@
-import { View, StyleSheet, ActivityIndicator, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { COLORS, FONTSIZES } from '../../../constants/theme';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/Header';
-
 import { Icon, Text } from '@rneui/themed';
 import ScreenTitle from '../../components/ScreenTitle';
 import VoucherItem from '../../components/VoucherItem';
 import VoucherSheet from '../../components/BottomSheet';
-
 import { auth } from '../../../config/firebase';
-
 import { query, where, collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../../../config/firebase';
 
 const Vouchers = ({ navigation }: any) => {
 	const [isVisible, setIsVisible] = useState(false);
 	const [voucherData, setVoucherData] = useState<any | null>([]);
-
 	const [usedVoucherData, setUsedVoucherData] = useState<any | null>([]);
 	const [isLoading, setIsLoading] = useState(false);
+	const [selectedVoucher, setSelectedVoucher] = useState<any | null>(null);
 	const userFullname = auth.currentUser?.displayName;
 
-	const handleVoucherItem = () => {
+	const handleVoucherItem = (voucher: any) => {
+		setSelectedVoucher(voucher);
 		setIsVisible(true);
 	};
 
@@ -58,16 +56,15 @@ const Vouchers = ({ navigation }: any) => {
 						id: doc.id,
 						...doc.data(),
 					}));
-
 					setVoucherData(updatedData);
 					setIsLoading(false);
 				});
+
 				const unsubscribeUsed = onSnapshot(usedVouchers, (snapshot) => {
 					const updatedData = snapshot.docs.map((doc) => ({
 						id: doc.id,
 						...doc.data(),
 					}));
-
 					setUsedVoucherData(updatedData);
 					setIsLoading(false);
 				});
@@ -82,92 +79,6 @@ const Vouchers = ({ navigation }: any) => {
 		};
 		fetchVoucherData();
 	}, []);
-
-	const renderVouchers = (isLoading: boolean) => {
-		return isLoading ? (
-			<ActivityIndicator
-				color={COLORS.bgGreen}
-				size={'small'}
-				style={{ marginVertical: 30 }}
-			/>
-		) : (
-			voucherData.map((voucher: any) => (
-				<View
-					key={voucher.id}
-					style={{
-						borderRadius: 25,
-					}}
-				>
-					<View
-						key={voucher.id}
-						style={{
-							borderRadius: 25,
-						}}
-					>
-						<VoucherItem
-							address={voucher.skip_company_address}
-							dateTimeIssued={voucher.date_time_issued}
-							onPress={handleVoucherItem}
-							hasBeenUsed={false}
-						/>
-
-						<VoucherSheet
-							isShown={isVisible}
-							onCancelPress={handleBackdropPress}
-							skipCompanyAddress={voucher.skip_company_address}
-							localAuthIssue={voucher.local_auth_issue}
-							userName={userFullname}
-							dateIssued={voucher.date_time_issued}
-							onHelpPress={handleHelp}
-						/>
-					</View>
-				</View>
-			))
-		);
-	};
-
-	const renderUsedVouchers = (isLoading: boolean) => {
-		return isLoading ? (
-			<ActivityIndicator
-				color={COLORS.bgGreen}
-				size={'small'}
-				style={{ marginVertical: 30 }}
-			/>
-		) : (
-			usedVoucherData.map((voucher: any) => (
-				<View
-					key={voucher.id}
-					style={{
-						borderRadius: 25,
-					}}
-				>
-					<View
-						key={voucher.id}
-						style={{
-							borderRadius: 25,
-						}}
-					>
-						<VoucherItem
-							address={voucher.skip_company_address}
-							dateTimeIssued={voucher.date_time_issued}
-							onPress={handleVoucherItem}
-							hasBeenUsed={true}
-						/>
-
-						<VoucherSheet
-							isShown={isVisible}
-							onCancelPress={handleBackdropPress}
-							skipCompanyAddress={voucher.skip_company_address}
-							localAuthIssue={voucher.local_auth_issue}
-							userName={userFullname}
-							dateIssued={voucher.date_time_issued}
-							onHelpPress={handleHelp}
-						/>
-					</View>
-				</View>
-			))
-		);
-	};
 
 	return (
 		<SafeAreaProvider>
@@ -186,7 +97,6 @@ const Vouchers = ({ navigation }: any) => {
 					navigation.toggleDrawer();
 				}}
 			/>
-
 			<View style={{ paddingVertical: 20 }}>
 				<ScreenTitle title={'Vouchers'} />
 			</View>
@@ -217,32 +127,33 @@ const Vouchers = ({ navigation }: any) => {
 					</View>
 
 					{voucherData.length > 0 ? (
-						<>
-							<View>
-								<View
-									style={{
-										borderRadius: 10,
-										backgroundColor: COLORS.white,
-										paddingHorizontal: 10,
-										margin: 10,
-									}}
-								>
-									{renderVouchers(isLoading)}
-								</View>
-							</View>
-						</>
+						<View
+							style={{
+								borderRadius: 10,
+								backgroundColor: COLORS.white,
+								paddingHorizontal: 10,
+								margin: 10,
+							}}
+						>
+							{voucherData.map((voucher: any) => (
+								<VoucherItem
+									key={voucher.id}
+									voucher={voucher} // Pass the voucher object
+									onPress={() => handleVoucherItem(voucher)}
+									hasBeenUsed={false}
+								/>
+							))}
+						</View>
 					) : (
-						<>
-							<Text
-								style={{
-									textAlign: 'center',
-									fontSize: FONTSIZES.ml,
-									paddingVertical: 15,
-								}}
-							>
-								You currently have no active vouchers
-							</Text>
-						</>
+						<Text
+							style={{
+								textAlign: 'center',
+								fontSize: FONTSIZES.ml,
+								paddingVertical: 15,
+							}}
+						>
+							You currently have no active vouchers
+						</Text>
 					)}
 				</View>
 
@@ -267,36 +178,52 @@ const Vouchers = ({ navigation }: any) => {
 						</Text>
 					</View>
 
-					<View style={{ marginBottom: 100 }}>
-						{usedVoucherData.length > 0 ? (
-							<ScrollView
-								style={{ paddingBottom: 50 }}
-								showsVerticalScrollIndicator={false}
-							>
-								<View
-									style={{
-										borderRadius: 10,
-										backgroundColor: COLORS.white,
-										paddingHorizontal: 10,
-										margin: 10,
-									}}
-								>
-									{renderUsedVouchers(isLoading)}
-								</View>
-							</ScrollView>
-						) : (
-							<Text
+					{usedVoucherData.length > 0 ? (
+						<ScrollView
+							style={{ paddingBottom: 50 }}
+							showsVerticalScrollIndicator={false}
+						>
+							<View
 								style={{
-									textAlign: 'center',
-									fontSize: FONTSIZES.ml,
-									paddingVertical: 15,
+									borderRadius: 10,
+									backgroundColor: COLORS.white,
+									paddingHorizontal: 10,
+									margin: 10,
 								}}
 							>
-								You currently have no used vouchers
-							</Text>
-						)}
-					</View>
+								{usedVoucherData.map((voucher: any) => (
+									<VoucherItem
+										key={voucher.id}
+										voucher={voucher}
+										onPress={() => handleVoucherItem(voucher)}
+										hasBeenUsed={true}
+									/>
+								))}
+							</View>
+						</ScrollView>
+					) : (
+						<Text
+							style={{
+								textAlign: 'center',
+								fontSize: FONTSIZES.ml,
+								paddingVertical: 15,
+							}}
+						>
+							You currently have no used vouchers
+						</Text>
+					)}
 				</View>
+				{selectedVoucher && (
+					<VoucherSheet
+						isShown={isVisible}
+						onCancelPress={handleBackdropPress}
+						skipCompanyAddress={selectedVoucher.skip_company_address}
+						localAuthIssue={selectedVoucher.local_auth_issue}
+						userName={userFullname}
+						dateIssued={selectedVoucher.date_time_issued}
+						onHelpPress={handleHelp}
+					/>
+				)}
 			</ScrollView>
 		</SafeAreaProvider>
 	);

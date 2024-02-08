@@ -3,64 +3,43 @@ import React from 'react';
 import { Icon, ListItem } from '@rneui/base';
 import { COLORS, FONTSIZES } from '../../../constants/theme';
 
-interface IProps {
-	hasBeenUsed?: boolean;
-	dateUsed?: Date | string;
-	nameOfCompany?: string;
-	address?: string;
-	dateTimeIssued: string;
-	dateExpires?: string;
-	onPress?: () => void;
+interface IVoucherItemProps {
+	voucher: any;
+
+	hasBeenUsed: boolean;
+	onPress: (voucher: any) => void;
 }
 
-const CardItems: React.FC<{
-	color: string;
-	name: string;
-	nameOfCompany: string;
-}> = ({ color, name, nameOfCompany }) => {
+const VoucherItem: React.FC<IVoucherItemProps> = ({ voucher, onPress }) => {
+	const { skip_company_address, date_time_issued, voucher_used } = voucher;
+
 	return (
-		<ListItem.Subtitle style={{ color: `${color}` }}>
-			<Text style={{ fontWeight: 'bold', fontSize: FONTSIZES.large }}>
-				{name}
-			</Text>
-			<Text style={{ fontSize: FONTSIZES.large }}>{nameOfCompany}</Text>
-		</ListItem.Subtitle>
-	);
-};
-const VoucherItem: React.FC<IProps> = ({
-	hasBeenUsed = false,
-	address,
-	onPress,
-}) => {
-	return (
-		<TouchableOpacity onPress={onPress} disabled={hasBeenUsed}>
+		<TouchableOpacity onPress={() => onPress(voucher)} disabled={voucher_used}>
 			<ListItem style={{ padding: 0 }} bottomDivider>
 				<Icon
 					name='qrcode'
 					type='material-community'
-					color={hasBeenUsed ? COLORS.lightGrey : COLORS.black}
+					color={voucher_used ? COLORS.lightGrey : COLORS.black}
 				/>
 				<ListItem.Content>
 					<ListItem.Subtitle
 						style={{
-							color: hasBeenUsed ? COLORS.lightGrey : COLORS.black,
+							color: voucher_used ? COLORS.lightGrey : COLORS.black,
 						}}
 					>
 						<Text
 							numberOfLines={3}
 							style={{
 								fontSize: FONTSIZES.medium,
-								color: hasBeenUsed ? COLORS.lightGrey : COLORS.black,
+								color: voucher_used ? COLORS.lightGrey : COLORS.black,
 							}}
 						>
-							{address}
+							{skip_company_address} - {date_time_issued}
 						</Text>
 					</ListItem.Subtitle>
 				</ListItem.Content>
 
-				{hasBeenUsed ? null : (
-					<ListItem.Chevron size={20} color={COLORS.black} />
-				)}
+				{!voucher_used && <ListItem.Chevron size={20} color={COLORS.black} />}
 			</ListItem>
 		</TouchableOpacity>
 	);
