@@ -11,7 +11,7 @@ interface IVoucherItemProps {
 }
 
 const VoucherItem: React.FC<IVoucherItemProps> = ({ voucher, onPress }) => {
-	const { skip_company_address, date_time_issued, voucher_used } = voucher;
+	const { skip_company_address, voucher_used } = voucher;
 
 	return (
 		<TouchableOpacity onPress={() => onPress(voucher)} disabled={voucher_used}>
@@ -34,7 +34,7 @@ const VoucherItem: React.FC<IVoucherItemProps> = ({ voucher, onPress }) => {
 								color: voucher_used ? COLORS.lightGrey : COLORS.black,
 							}}
 						>
-							{skip_company_address} - {date_time_issued}
+							{skip_company_address}
 						</Text>
 					</ListItem.Subtitle>
 				</ListItem.Content>
