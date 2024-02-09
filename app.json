@@ -21,7 +21,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.stmdeveloper.skipspaceapp",
-      "buildNumber": "7"
+      "buildNumber": "9"
     },
     "android": {
       "adaptiveIcon": {
@@ -44,6 +44,12 @@
         "expo-location",
         {
           "locationAlwaysAndWhenInUsePermission": "Allow SkipSpace to use your location."
+        }
+      ],
+      [
+        "expo-updates",
+        {
+          "username": "stmdeveloper"
         }
       ]
     ],
