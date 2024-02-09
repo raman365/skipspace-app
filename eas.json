@@ -3,6 +3,7 @@
     "version": ">= 7.1.0"
   },
   "build": {
+    
     "development": {
       "developmentClient": true,
       "distribution": "internal",
@@ -27,6 +28,7 @@
       "distribution": "internal"
     },
     "production": {
+      "channel": "main",
      "autoIncrement": true,
       "env": {
         "EXPO_PUBLIC_FIREBASE_API_KEY": "AIzaSyC8nxqcFTEXaOw8acvKyCxppwtdRJWUAYU",
