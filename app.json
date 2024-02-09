@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "SkipSpace",
-    "slug": "skipspace-users",
+    "slug": "skipspace-users-prod",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -20,7 +20,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.stmdeveloper.skipspaceapp",
-      "buildNumber": "6",
+      "buildNumber": "7",
       "config": {
         "googleMapsApiKey": "AIzaSyA2D17TfvkbQV7tcODZdoU1IS9OBEvBzB4"
       }
@@ -40,7 +40,8 @@
         "googleMaps": {
           "apiKey": "AIzaSyB__SuythajigL7TdN77odFR5KcRl0dqto"
         }
-      }
+      },
+      "versionCode": 2
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -55,7 +56,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "3434fd33-8e35-444d-a634-d06543d3fb8f"
+        "projectId": "1ffaeec4-3751-4f8b-af74-ed6c8a5e4a77"
       }
     },
     "owner": "shoot-the-moon-ltd"

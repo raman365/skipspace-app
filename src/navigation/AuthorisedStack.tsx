@@ -48,10 +48,15 @@ const CustomDrawerContent = (props: any) => {
 		<View style={{ flex: 1 }}>
 			<DrawerContentScrollView {...props} safeArea>
 				<View style={{ marginTop: 0 }}>
-					<Image
+					{/* <Image
 						source={require('../../assets/images/menulogogreen.png')}
 						height={10}
 						resizeMode='center'
+					/> */}
+					<Image
+						style={styles.logoImage}
+						source={require('../Header/image/menulogosml.png')}
+						resizeMode='contain'
 					/>
 				</View>
 				<View style={{ flex: 1 }}>
@@ -132,7 +137,7 @@ const CustomDrawer = () => {
 					component={SearchSelectCouncil}
 					options={{
 						headerShown: false,
-						title: 'Search for SkipSpace',
+						title: 'Search forjj SkipSpace',
 					}}
 				/>
 				<Drawer.Screen
