@@ -55,7 +55,7 @@ const CustomDrawerContent = (props: any) => {
 					/> */}
 					<Image
 						style={styles.logoImage}
-						source={require('../Header/image/menulogosml.png')}
+						source={require('../../assets/images/menulogogreen.png')}
 						resizeMode='contain'
 					/>
 				</View>
@@ -137,7 +137,7 @@ const CustomDrawer = () => {
 					component={SearchSelectCouncil}
 					options={{
 						headerShown: false,
-						title: 'Search forjj SkipSpace',
+						title: 'Search for SkipSpace',
 					}}
 				/>
 				<Drawer.Screen

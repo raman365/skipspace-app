@@ -12,7 +12,8 @@
       "backgroundColor": "#003b49"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/1ffaeec4-3751-4f8b-af74-ed6c8a5e4a77"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -20,10 +21,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.stmdeveloper.skipspaceapp",
-      "buildNumber": "7",
-      "config": {
-        "googleMapsApiKey": "AIzaSyA2D17TfvkbQV7tcODZdoU1IS9OBEvBzB4"
-      }
+      "buildNumber": "7"
     },
     "android": {
       "adaptiveIcon": {
@@ -36,11 +34,6 @@
         "android.permission.FOREGROUND_SERVICE"
       ],
       "package": "com.stmdeveloper.skipspaceapp",
-      "config": {
-        "googleMaps": {
-          "apiKey": "AIzaSyB__SuythajigL7TdN77odFR5KcRl0dqto"
-        }
-      },
       "versionCode": 2
     },
     "web": {
@@ -59,6 +52,9 @@
         "projectId": "1ffaeec4-3751-4f8b-af74-ed6c8a5e4a77"
       }
     },
-    "owner": "shoot-the-moon-ltd"
+    "owner": "shoot-the-moon-ltd",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    }
   }
 }
