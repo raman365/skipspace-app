@@ -22,7 +22,8 @@ const HeaderComponent: React.FC<IHeaderComponentProps> = ({
 						height: 100,
 						alignSelf: 'center',
 						justifyContent: 'center',
-						paddingTop: 20,
+						paddingTop: 35,
+						paddingLeft: 10,
 					}}
 				>
 					<Button onPress={onPress}>{icon}</Button>
