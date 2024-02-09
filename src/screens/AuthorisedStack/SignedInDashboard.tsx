@@ -110,7 +110,7 @@ const SignedInDashboard = ({ navigation }: any) => {
 					<View>
 						<View>
 							<MapView
-								// provider={PROVIDER_GOOGLE}
+								// provider={MapView.PROVIDER_GOOGLE}
 								provider={
 									Platform.OS === 'android' ? PROVIDER_GOOGLE : PROVIDER_DEFAULT
 								}
