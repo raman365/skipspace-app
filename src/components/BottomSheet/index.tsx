@@ -4,6 +4,7 @@ import {
 	Alert,
 	Linking,
 	Platform,
+	Pressable,
 	StyleSheet,
 	Text,
 	TouchableOpacity,
@@ -158,20 +159,24 @@ const VoucherSheet: React.FC<IVoucherSheetProps> = ({
 							<Text style={{ textAlign: 'center' }}>{skipCompanyAddress}</Text>
 						</View>
 						<View style={{ paddingVertical: 20 }}>
-							<TouchableOpacity onPress={handleOpenMaps}>
+							<Pressable
+								style={{
+									paddingVertical: 5,
+									backgroundColor: COLORS.alpha.bgBlue,
+									borderRadius: 25,
+									marginHorizontal: 25,
+								}}
+								onPress={handleOpenMaps}
+							>
 								<Text
 									style={{
-										paddingVertical: 5,
-										backgroundColor: COLORS.alpha.bgBlue,
-										borderRadius: 25,
-										marginHorizontal: 25,
 										textAlign: 'center',
 										fontWeight: 'bold',
 									}}
 								>
 									Open in maps
 								</Text>
-							</TouchableOpacity>
+							</Pressable>
 						</View>
 					</View>
 				</View>

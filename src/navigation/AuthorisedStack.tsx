@@ -81,7 +81,9 @@ const CustomDrawerContent = (props: any) => {
 								color: COLORS.bgBlue,
 							}}
 						>
-							{auth.currentUser?.displayName}
+							{auth.currentUser?.displayName
+								? auth.currentUser?.displayName
+								: null}
 						</Text>
 					</View>
 					<ClearBtn buttonLabel={'Sign out'} onPress={handleSignOut} />

@@ -106,7 +106,7 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 			</View>
 
 			<View style={{ paddingHorizontal: 30, flex: 1 }}>
-				<View style={{ alignContent: 'center', paddingBottom: 10 }}>
+				<View style={{ alignContent: 'center', paddingBottom: 30 }}>
 					<Text
 						h4
 						h4Style={{
@@ -124,7 +124,7 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 					</Text>
 				</View>
 
-				<View style={{ paddingTop: 10, paddingBottom: 10 }}>
+				<View style={{ paddingTop: 10, paddingBottom: 40 }}>
 					<Text
 						h4
 						h4Style={{
@@ -145,7 +145,7 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 
 				<View
 					style={{
-						height: 152,
+						height: 172,
 						borderColor: COLORS.lightGrey,
 						borderWidth: 1,
 					}}
@@ -210,7 +210,7 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 						style={{
 							textAlign: 'center',
 							fontWeight: '400',
-							fontSize: FONTSIZES.small,
+							fontSize: FONTSIZES.medium,
 						}}
 					>
 						After confirmation, you will receive a voucher to use at your
@@ -238,7 +238,7 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 
 const styles = StyleSheet.create({
 	map: {
-		height: 150,
+		height: 170,
 		width: '100%',
 	},
 	centerContainer: {
