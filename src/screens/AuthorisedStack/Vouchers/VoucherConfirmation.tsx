@@ -48,6 +48,8 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 	const jsonString = JSON.stringify(voucherData);
 	const encData = encryptDataFunc(jsonString, EXPO_PUBLIC_SECRET_KEY);
 
+	console.log('User app key: ', EXPO_PUBLIC_SECRET_KEY);
+
 	const handleReturnHome = () => {
 		addDataToCollection('vouchers', voucherData);
 		navigation.navigate('signedInDashboard');
