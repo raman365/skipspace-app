@@ -153,6 +153,7 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold',
 	},
 	centerContainer: {
+		paddingTop: 60,
 		paddingHorizontal: 25,
 		display: 'flex',
 		justifyContent: 'center',
