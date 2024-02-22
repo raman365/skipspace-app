@@ -48,10 +48,6 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 	const jsonString = JSON.stringify(voucherData);
 	const encData = encryptDataFunc(jsonString, EXPO_PUBLIC_SECRET_KEY);
 
-	// const handleReturnHome = () => {
-	// 	addDataToCollection('vouchers', voucherData);
-	// 	navigation.navigate('signedInDashboard');
-	// };
 	const handleVouchers = () => {
 		addDataToCollection('vouchers', voucherData);
 		navigation.navigate('vouchers');
@@ -61,10 +57,16 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 			<HeaderComponent
 				authorised={false}
 				icon={
-					<Icon name='menu' type='feather' color={COLORS.bgGreen} size={40} />
+					<Icon
+						style={{ marginRight: 30 }}
+						name='arrow-left'
+						type='feather'
+						color={COLORS.bgGreen}
+						size={40}
+					/>
 				}
 				onPress={() => {
-					navigation.toggleDrawer();
+					navigation.goBack();
 				}}
 			/>
 
