@@ -185,7 +185,7 @@ const SkipOptionsSheet: React.FC<ISkipOptionsSheetProps> = ({
 						<View style={styles.bottom}>
 							<View style={{ paddingTop: 20 }}>
 								<StandardButton
-									buttonLabel={'Confirm Voucher'}
+									buttonLabel={'Select SkipSpace'}
 									onPress={onVoucherPress}
 									bgGreen
 									fontBlue={false}

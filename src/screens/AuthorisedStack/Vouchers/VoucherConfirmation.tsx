@@ -48,14 +48,15 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 	const jsonString = JSON.stringify(voucherData);
 	const encData = encryptDataFunc(jsonString, EXPO_PUBLIC_SECRET_KEY);
 
-	console.log('User app key: ', EXPO_PUBLIC_SECRET_KEY);
-
-	const handleReturnHome = () => {
+	// const handleReturnHome = () => {
+	// 	addDataToCollection('vouchers', voucherData);
+	// 	navigation.navigate('signedInDashboard');
+	// };
+	const handleVouchers = () => {
 		addDataToCollection('vouchers', voucherData);
-		navigation.navigate('signedInDashboard');
+		navigation.navigate('vouchers');
 	};
 	return (
-		// <SafeAreaProvider>
 		<ScrollView>
 			<HeaderComponent
 				authorised={false}
@@ -69,7 +70,7 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 
 			<View>
 				<View style={{ paddingVertical: 15 }}>
-					<ScreenTitle title={'Confirmed'} />
+					<ScreenTitle title={'Voucher'} />
 				</View>
 
 				<View
@@ -82,8 +83,7 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 					<QRCoder data={encData} />
 				</View>
 
-				{/* <View style={{ paddingVertical: 40, paddingHorizontal: 30 }}> */}
-				<View>
+				<View style={{ paddingTop: 20 }}>
 					<View
 						style={{
 							padding: 10,
@@ -108,42 +108,35 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 						<ListItem style={{ backgroundColor: COLORS.white }}>
 							<ListItem.Content>
 								<ListItem.Title style={styles.listItemTitle}>
-									1. Arrive at your SkipSpace with your items to discard.
+									1. After confirming the voucher, go to your 'Active Vouchers'
+									to retrieve the QR code.
 								</ListItem.Title>
 								<ListItem.Title style={styles.listItemTitle}>
-									2. Show this QR code to the security staff when you arrive.
+									2. Arrive at your SkipSpace with your items to discard.
 								</ListItem.Title>
-								<ListItem.Title
-									style={{
-										paddingVertical: 5,
-										fontSize: 12,
-										fontWeight: 'bold',
-										textAlign: 'center',
-									}}
-								>
-									This voucher can also be found in the Vouchers section.
+								<ListItem.Title style={styles.listItemTitle}>
+									3. Show the QR code to the security staff when you arrive.
 								</ListItem.Title>
 							</ListItem.Content>
 						</ListItem>
 					</View>
-					<View style={{ paddingHorizontal: 30 }}>
+					<View style={{ paddingHorizontal: 30, paddingTop: 20 }}>
 						<StandardButton
 							bgGreen
 							fontBlue
-							buttonLabel={'Return Home'}
-							onPress={handleReturnHome}
+							buttonLabel={'Confirm voucher'}
+							onPress={handleVouchers}
 						/>
 					</View>
 				</View>
 			</View>
 		</ScrollView>
-		// {/* </SafeAreaProvider> */}
 	);
 };
 
 const styles = StyleSheet.create({
 	listItemTitle: {
-		paddingVertical: 5,
+		paddingVertical: 10,
 		fontSize: 12,
 		fontWeight: 'bold',
 	},

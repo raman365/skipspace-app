@@ -218,11 +218,11 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 					</Text>
 				</View>
 				<Button
-					title='Confirm Voucher'
+					title='Next'
 					buttonStyle={{
 						backgroundColor: COLORS.bgGreen,
 						borderRadius: 30,
-						paddingVertical: 15,
+						paddingVertical: 10,
 					}}
 					titleStyle={{
 						fontWeight: '700',
