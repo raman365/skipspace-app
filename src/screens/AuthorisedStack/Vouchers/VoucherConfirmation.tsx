@@ -124,7 +124,7 @@ const VoucherConfirmation = ({ route, navigation }: any) => {
 						<StandardButton
 							bgGreen
 							fontBlue
-							buttonLabel={'Confirm voucher'}
+							buttonLabel={'Confirm Voucher'}
 							onPress={handleVouchers}
 						/>
 					</View>
