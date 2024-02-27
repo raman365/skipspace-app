@@ -4,7 +4,15 @@ import {
 	DrawerContentScrollView,
 	DrawerItemList,
 } from '@react-navigation/drawer';
-import { View, Image, StyleSheet, Dimensions, Text } from 'react-native';
+import {
+	View,
+	Image,
+	StyleSheet,
+	Dimensions,
+	Text,
+	TouchableOpacity,
+	Linking,
+} from 'react-native';
 
 import {
 	CreateNewPassword,
@@ -45,7 +53,7 @@ const CustomDrawerContent = (props: any) => {
 	};
 
 	return (
-		<View style={{ flex: 1 }}>
+		<View style={{ flex: 1, marginBottom: 30 }}>
 			<DrawerContentScrollView {...props} safeArea>
 				<View style={{ justifyContent: 'center', alignItems: 'center' }}>
 					<Image
@@ -59,31 +67,51 @@ const CustomDrawerContent = (props: any) => {
 						<DrawerItemList state={newState} {...rest} />
 					</View>
 				</View>
+			</DrawerContentScrollView>
+
+			{/* Absolute positioned view */}
+			{/* <View style={{ borderTopWidth: 1, borderTopColor: COLORS.lightGrey }} /> */}
+			<View
+				style={{
+					position: 'absolute',
+					bottom: 0,
+					left: 0,
+					right: 0,
+					height: 65,
+					justifyContent: 'flex-end',
+					alignItems: 'flex-start',
+					// paddingLeft: 5,
+					borderTopWidth: 1,
+					borderTopColor: COLORS.lightGrey,
+					marginTop: 20,
+				}}
+			>
+				<ClearBtn
+					buttonLabel={'Privacy Policy'}
+					onPress={() =>
+						Linking.openURL('https://www.skipspace.co.uk/privacy-policy')
+					}
+				/>
 				<View
 					style={{
-						height: 100,
-						justifyContent: 'flex-end',
-						alignItems: 'flex-start',
-						paddingLeft: 5,
-						paddingTop: 20,
+						paddingLeft: 10,
+						paddingTop: 15,
 					}}
 				>
-					<View style={{ paddingLeft: 10 }}>
-						<Text
-							style={{
-								fontSize: FONTSIZES.large,
-								fontWeight: 'bold',
-								color: COLORS.bgBlue,
-							}}
-						>
-							{auth.currentUser?.displayName
-								? auth.currentUser?.displayName
-								: null}
-						</Text>
-					</View>
-					<ClearBtn buttonLabel={'Sign out'} onPress={handleSignOut} />
+					<Text
+						style={{
+							fontSize: FONTSIZES.large,
+							fontWeight: 'bold',
+							color: COLORS.bgBlue,
+						}}
+					>
+						{auth.currentUser?.displayName
+							? auth.currentUser?.displayName
+							: null}
+					</Text>
 				</View>
-			</DrawerContentScrollView>
+				<ClearBtn buttonLabel={'Sign out'} onPress={handleSignOut} />
+			</View>
 		</View>
 	);
 };
