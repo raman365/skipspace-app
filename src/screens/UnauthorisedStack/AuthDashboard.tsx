@@ -57,6 +57,7 @@ const AuthDashboard = ({ navigation }: any) => {
 						<View>
 							<Text style={styles.formTextStyle}>Email address </Text>
 							<Input
+								accessibilityLabel='Email address'
 								style={{ fontSize: FONTSIZES.large }}
 								keyboardType='email-address'
 								inputContainerStyle={styles.contStyle}
@@ -69,6 +70,7 @@ const AuthDashboard = ({ navigation }: any) => {
 						<View>
 							<Text style={styles.formTextStyle}>Password</Text>
 							<Input
+								accessibilityLabel='Password'
 								style={{ fontSize: FONTSIZES.large }}
 								keyboardType='default'
 								inputContainerStyle={styles.contStyle}

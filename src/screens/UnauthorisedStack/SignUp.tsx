@@ -109,6 +109,7 @@ const SignUp = () => {
 					<View style={styles.container}>
 						<Text style={styles.textStyle}>First name:</Text>
 						<Input
+							accessibilityLabel='First name'
 							style={{ fontSize: FONTSIZES.large }}
 							inputContainerStyle={styles.contStyle}
 							autoCapitalize='words'
@@ -118,6 +119,7 @@ const SignUp = () => {
 
 						<Text style={styles.textStyle}>Last name:</Text>
 						<Input
+							accessibilityLabel='Last name'
 							style={{ fontSize: FONTSIZES.large }}
 							inputContainerStyle={styles.contStyle}
 							autoCapitalize='words'
@@ -127,6 +129,7 @@ const SignUp = () => {
 
 						<Text style={styles.textStyle}>Email:</Text>
 						<Input
+							accessibilityLabel='Email address'
 							style={{ fontSize: FONTSIZES.large }}
 							inputContainerStyle={styles.contStyle}
 							autoCapitalize='none'
@@ -137,6 +140,7 @@ const SignUp = () => {
 
 						<Text style={styles.textStyle}>Password:</Text>
 						<Input
+							accessibilityLabel='Password'
 							style={{ fontSize: FONTSIZES.large }}
 							inputContainerStyle={styles.contStyle}
 							autoCapitalize='none'

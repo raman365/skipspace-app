@@ -63,7 +63,7 @@ const SkipSpaceResults = ({ route, navigation }: any) => {
 
 	const getSkipSitesData = async () => {
 		try {
-			const parentId = council_name.toLowerCase();
+			const parentId = council_name.toLowerCase().replace(/\s/g, '');
 			const subCollectionRef = collection(
 				db,
 				'councils',

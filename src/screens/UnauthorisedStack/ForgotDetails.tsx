@@ -73,11 +73,13 @@ const ForgotDetails = ({ navigation }: NavProps) => {
 			<View style={styles.centerContainer}>
 				<View style={{ marginHorizontal: 10, marginVertical: 20 }}>
 					<Text style={{ textAlign: 'center', fontSize: FONTSIZES.ml }}>
-						Enter your email address and we'll help you get back in!
+						Enter your email address and we'll help you get back in.
 					</Text>
 				</View>
 				<Text style={styles.textStyle}>Email:</Text>
 				<Input
+					accessibilityLabel='Email address'
+					accessibilityHint='Enter your email address to help regain access into the app'
 					style={{ fontSize: FONTSIZES.large }}
 					inputContainerStyle={styles.contStyle}
 					autoCapitalize='none'
