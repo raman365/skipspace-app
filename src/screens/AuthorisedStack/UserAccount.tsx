@@ -91,6 +91,7 @@ const UserAccount = ({ navigation }: any) => {
 						<View>
 							<Text style={styles.textStyle}>First name:</Text>
 							<Input
+								accessibilityLabel='First name'
 								disabled
 								style={{ fontSize: FONTSIZES.ml }}
 								inputContainerStyle={styles.contStyle}
@@ -99,6 +100,7 @@ const UserAccount = ({ navigation }: any) => {
 							/>
 							<Text style={styles.textStyle}>Last name:</Text>
 							<Input
+								accessibilityLabel='Last name'
 								disabled
 								style={{ fontSize: FONTSIZES.ml }}
 								inputContainerStyle={styles.contStyle}
@@ -107,6 +109,7 @@ const UserAccount = ({ navigation }: any) => {
 							/>
 							<Text style={styles.textStyle}>Email:</Text>
 							<Input
+								accessibilityLabel='Email'
 								disabled
 								style={{ fontSize: FONTSIZES.ml }}
 								inputContainerStyle={styles.contStyle}

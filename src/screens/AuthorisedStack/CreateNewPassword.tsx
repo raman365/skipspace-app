@@ -24,11 +24,19 @@ const CreateNewPassword = () => {
 				<View>
 					<View>
 						<Text style={styles.textStyle}>Password:</Text>
-						<Input placeholder='********' secureTextEntry={true} />
+						<Input
+							accessibilityLabel='Password'
+							placeholder='********'
+							secureTextEntry={true}
+						/>
 					</View>
 					<View>
 						<Text style={styles.textStyle}>Confirm password:</Text>
-						<Input placeholder='********' secureTextEntry={true} />
+						<Input
+							accessibilityLabel='Confirm Password'
+							placeholder='********'
+							secureTextEntry={true}
+						/>
 					</View>
 
 					<View style={{ paddingVertical: 30 }}>

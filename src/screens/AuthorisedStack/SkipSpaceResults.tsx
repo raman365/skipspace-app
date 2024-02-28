@@ -103,7 +103,7 @@ const SkipSpaceResults = ({ route, navigation }: any) => {
 					navigation.goBack();
 				}}
 			/>
-			<View style={{ paddingTop: 30 }}>
+			<View style={{ paddingTop: 30, paddingHorizontal: 10 }}>
 				<ScreenTitle title={`Your local SkipSpace sites in ${council_name}`} />
 				<Text
 					style={{
