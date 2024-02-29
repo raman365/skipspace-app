@@ -16,6 +16,7 @@ export const ClearBtn: React.FC<IStandardButtonProps> = ({
 }) => {
 	return (
 		<Button
+			accessibilityLabel={buttonLabel}
 			title={buttonLabel}
 			type='clear'
 			titleStyle={{

@@ -16,6 +16,7 @@ const ScreenTitle: React.FC<IScreenTitleProps> = ({ title }) => {
 					color: COLORS.bgBlue,
 					fontSize: FONTSIZES['5xl'],
 				}}
+				accessibilityLabel={title}
 			>
 				{title}
 			</Text>

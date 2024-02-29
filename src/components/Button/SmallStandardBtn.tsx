@@ -18,6 +18,7 @@ export const SmlStandardBtn: React.FC<ISmlStandardBtnProps> = ({
 	return (
 		<View style={{ padding: 20, marginHorizontal: 50 }}>
 			<Button
+				accessibilityLabel={buttonLabel}
 				title={buttonLabel}
 				buttonStyle={{
 					backgroundColor: bgGreen ? COLORS.bgGreen : COLORS.bgBlue,

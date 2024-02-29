@@ -16,6 +16,7 @@ export const StandardButton: React.FC<IStandardButtonProps> = ({
 }) => {
 	return (
 		<Button
+			accessibilityLabel={buttonLabel}
 			title={buttonLabel}
 			buttonStyle={{
 				backgroundColor: bgGreen ? COLORS.bgGreen : COLORS.bgBlue,
