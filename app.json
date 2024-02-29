@@ -21,7 +21,11 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.stmdeveloper.skipspaceapp",
-      "buildNumber": "18"
+      "buildNumber": "19",
+      "infoPlist": {
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Allow SkipSpace to use your location to find SkipSpaces nearby"
+
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -34,7 +38,7 @@
         "android.permission.FOREGROUND_SERVICE"
       ],
       "package": "com.stmdeveloper.skipspaceapp",
-      "versionCode": 11
+      "versionCode": 12
     },
     "web": {
       "favicon": "./assets/favicon.png"
