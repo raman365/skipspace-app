@@ -21,13 +21,12 @@
     "ios": {
       "infoPlist": {
         "NSLocationAlwaysAndWhenInUseUsageDescription": "Allow SkipSpace to use your location to find SkipSpaces nearby",
-        "NSLocationWhenInUseUsageDescription":"Allow SkipSpace to use your location to find SkipSpaces nearby",
-        "NSLocationAlwaysUsageDescription":"Allow SkipSpace to use your location to find SkipSpaces nearby"
+        "NSLocationWhenInUseUsageDescription": "We need to use your location to find SkipSpaces nearby",
+        "NSLocationAlwaysUsageDescription": "Allow SkipSpace to use your location to find SkipSpaces nearby"
       },
       "supportsTablet": true,
       "bundleIdentifier": "com.stmdeveloper.skipspaceapp",
-      "buildNumber": "20"
-      
+      "buildNumber": "21"
     },
     "android": {
       "adaptiveIcon": {
@@ -40,17 +39,14 @@
         "android.permission.FOREGROUND_SERVICE"
       ],
       "package": "com.stmdeveloper.skipspaceapp",
-      "versionCode": 14
+      "versionCode": 15
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       [
-        "expo-location",
-        // {
-        //   "locationAlwaysAndWhenInUsePermission": "Allow SkipSpace to use your location"
-        // }
+        "expo-location"
       ],
       [
         "expo-updates",
