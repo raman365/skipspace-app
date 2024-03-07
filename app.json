@@ -29,6 +29,11 @@
       "buildNumber": "21"
     },
     "android": {
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyB__SuythajigL7TdN77odFR5KcRl0dqto"
+        }
+      },
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#003b49"
@@ -39,7 +44,7 @@
         "android.permission.FOREGROUND_SERVICE"
       ],
       "package": "com.stmdeveloper.skipspaceapp",
-      "versionCode": 15
+      "versionCode": 18
     },
     "web": {
       "favicon": "./assets/favicon.png"
