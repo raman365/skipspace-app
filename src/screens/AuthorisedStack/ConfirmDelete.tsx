@@ -1,5 +1,5 @@
 import { View, StyleSheet } from 'react-native';
-import React from 'react';
+import React, { useId } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { COLORS, FONTSIZES } from '../../../constants/theme';
 import HeaderComponent from '../../components/Header';
@@ -18,7 +18,7 @@ const ConfirmDelete = ({ navigation }: any) => {
 
 	const deleteUserDoc = async (uid: string) => {
 		try {
-			const userDocRef = doc(db, 'registeredUsers', uid);
+			const userDocRef = doc(db, 'users', uid);
 
 			await deleteDoc(userDocRef);
 			console.log('User doc has been been deleted ');
@@ -28,8 +28,17 @@ const ConfirmDelete = ({ navigation }: any) => {
 	};
 
 	const handleDeleteAccount = async () => {
-		userDelete();
-	};
+		try {
+		  if (currentUser) {
+			await deleteUserDoc(currentUser.uid);
+			await userDelete();
+		  } else {
+			console.error("Current user not found");
+		  }
+		} catch (error) {
+		  console.error('Error deleting account', error);
+		}
+	  };
 
 	const handleCancelDeletion = () => {
 		navigation.navigate('signedInDashboard');

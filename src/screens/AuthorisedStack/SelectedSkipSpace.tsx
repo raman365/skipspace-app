@@ -106,7 +106,7 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 			</View>
 
 			<View style={{ paddingHorizontal: 30, flex: 1 }}>
-				<View style={{ alignContent: 'center', paddingBottom: 30 }}>
+				<View style={{ alignContent: 'center', paddingBottom: 10 }}>
 					<Text
 						h4
 						h4Style={{
@@ -124,7 +124,7 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 					</Text>
 				</View>
 
-				<View style={{ paddingTop: 10, paddingBottom: 40 }}>
+				<View style={{ paddingTop: 10, paddingBottom: 20 }}>
 					<Text
 						h4
 						h4Style={{
@@ -174,9 +174,8 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 						</View>
 					)}
 				</View>
-			</View>
 
-			<View style={{ paddingBottom: 50, paddingHorizontal: 30 }}>
+				<View style={{ paddingTop: 20, paddingHorizontal: 30 }}>
 				<Pressable
 					style={{
 						paddingVertical: 5,
@@ -231,6 +230,8 @@ const SelectedSkipSpace = ({ route, navigation }: any) => {
 					}}
 					onPress={handleConfirmVoucher}
 				/>
+			</View>
+
 			</View>
 		</SafeAreaProvider>
 	);

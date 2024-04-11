@@ -55,7 +55,7 @@ const CustomDrawerContent = (props: any) => {
 	return (
 		<View style={{ flex: 1, marginBottom: 30 }}>
 			<DrawerContentScrollView {...props} safeArea>
-				<View style={{ justifyContent: 'center', alignItems: 'center' }}>
+				<View style={{ justifyContent: 'center', alignItems: 'center', paddingVertical: 30 }}>
 					<Image
 						style={styles.logoImage}
 						source={require('../../assets/images/menulogosml.png')}

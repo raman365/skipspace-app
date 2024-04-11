@@ -6,7 +6,7 @@ import {
 	StyleSheet,
 	View,
 } from 'react-native';
-import { Text, Input } from '@rneui/themed';
+import { Text, Input, Icon } from '@rneui/themed';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { COLORS, FONTSIZES } from '../../../constants/theme';
 import HeaderComponent from '../../components/Header';
@@ -21,6 +21,7 @@ const AuthDashboard = ({ navigation }: any) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
+	const [isPasswordSecure, setIsPasswordSecure] = useState(true);
 
 	const handleSignIn = async () => {
 		setError('');
@@ -40,6 +41,10 @@ const AuthDashboard = ({ navigation }: any) => {
 	};
 	const handleSignUp = () => {
 		navigation.navigate('SignUp');
+	};
+
+	const handleViewPassword = () => {
+		isPasswordSecure ? setIsPasswordSecure(false) : setIsPasswordSecure(true);
 	};
 	return (
 		<SafeAreaProvider>
@@ -74,10 +79,19 @@ const AuthDashboard = ({ navigation }: any) => {
 								style={{ fontSize: FONTSIZES.large }}
 								keyboardType='default'
 								inputContainerStyle={styles.contStyle}
-								secureTextEntry={true}
 								onChangeText={(password) => setPassword(password)}
 								value={password}
 								autoCapitalize='none'
+								secureTextEntry={isPasswordSecure}
+							    rightIcon={
+								<Icon
+									size={20}
+									type='entypo'
+									color={COLORS.black}
+									name={isPasswordSecure ? 'eye-with-line' : 'eye'}
+									onPress={handleViewPassword}
+								/>
+							}
 							/>
 						</View>
 

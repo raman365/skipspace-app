@@ -2,7 +2,7 @@
   "expo": {
     "name": "SkipSpace",
     "slug": "skipspace-users-prod",
-    "version": "1.0.18",
+    "version": "1.0.22",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "scheme": "skipspace-app",
@@ -26,7 +26,7 @@
       },
       "supportsTablet": true,
       "bundleIdentifier": "com.stmdeveloper.skipspaceapp",
-      "buildNumber": "21"
+      "buildNumber": "3"
     },
     "android": {
       "config": {
@@ -44,7 +44,7 @@
         "android.permission.FOREGROUND_SERVICE"
       ],
       "package": "com.stmdeveloper.skipspaceapp",
-      "versionCode": 18
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
