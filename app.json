@@ -2,7 +2,7 @@
   "expo": {
     "name": "SkipSpace",
     "slug": "skipspace-users-prod",
-    "version": "1.0.22",
+    "version": "1.0.23",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "scheme": "skipspace-app",
@@ -44,7 +44,7 @@
         "android.permission.FOREGROUND_SERVICE"
       ],
       "package": "com.stmdeveloper.skipspaceapp",
-      "versionCode": 1
+      "versionCode": 22
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -57,6 +57,16 @@
         "expo-updates",
         {
           "username": "stmdeveloper"
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 34,
+            "targetSdkVersion": 34,
+            "buildToolsVersion": "34.0.0"
+          }
         }
       ]
     ],
