@@ -27,6 +27,7 @@ import StandardBtn from "../../components/Button/StandardBtn";
 const SignedInDashboard = ({ navigation }: any) => {
   const [isEmailVerified, setIsEmailVerified] = useState<boolean | null>(null);
   const { user, sendVerifyEmail, checkEmailVerificationStatus } = useAuth();
+  const [isButtonVisible, setIsButtonVisible] = useState(false);
 
   const handleToggle = () => {
     navigation.dispatch(DrawerActions.toggleDrawer());
@@ -45,8 +46,12 @@ const SignedInDashboard = ({ navigation }: any) => {
 
   const handleSendAgain = () => {
     console.log("sent sent");
-
     sendVerifyEmail();
+
+    setIsButtonVisible(false);
+    setTimeout(() => {
+      setIsButtonVisible(true);
+    }, 65000);
   };
 
   const [location, setLocation] = useState<Object>("");
@@ -104,6 +109,14 @@ const SignedInDashboard = ({ navigation }: any) => {
       { iterations: -1 }
     ).start();
   }, [bounceAnim]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsButtonVisible(true);
+    }, 65000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <SafeAreaProvider>
@@ -218,23 +231,17 @@ const SignedInDashboard = ({ navigation }: any) => {
               />
             </View>
 
-            <View style={{ alignItems: "center" }}>
-              <Text
-                style={{
-                  paddingHorizontal: 40,
-                  textAlign: "center",
-                  color: COLORS.bgBlue,
-                  paddingBottom: 10,
-                }}
-              >
-                Please wait 30 seconds before requesting another verification
-                email
-              </Text>
-              <ClearBtn
-                buttonLabel={"Send email again"}
-                onPress={handleSendAgain}
-              />
-            </View>
+            {isButtonVisible && (
+              <View style={{ alignItems: "center" }}>
+                <Text>
+                  Taking too long?...
+                </Text>
+                <ClearBtn
+                  buttonLabel={"Send Email Again"}
+                  onPress={handleSendAgain}
+                />
+              </View>
+            )}
           </View>
         </View>
       )}
